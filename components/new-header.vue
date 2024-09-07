@@ -9,20 +9,20 @@
 				<div class="header-right">
 					<el-dropdown trigger="click">
 						<span class="el-dropdown-link" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">
-							Objectives<i class="el-icon-arrow-down el-icon--right"></i>
+							יעדים<i class="el-icon-arrow-down el-icon--right"></i>
 						</span>
 						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item>Objectives</el-dropdown-item>
-							<el-dropdown-item>Objectives</el-dropdown-item>
-							<el-dropdown-item>Objectives</el-dropdown-item>
+							<el-dropdown-item>יעדים</el-dropdown-item>
+							<el-dropdown-item>יעדים</el-dropdown-item>
+							<el-dropdown-item>יעדים</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
 		
-					<span class="btn-text" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">Enrollment goals</span>
-					<span class="btn-text" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">Connection</span>
+					<span class="btn-text" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">הרשמה</span>
+					<span class="btn-text" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">התחברות</span>
 				</div>
 			</div>
-			<div class="header-right" v-if="isLogin">
+			<!-- <div class="header-right" v-if="isLogin">
 				<span class="el-dropdown-link" @click="goToMessage">
 					<i class="icon-message el-icon--left"><img src="~assets/images/icon-message.png" /></i>Messages
 				</span>
@@ -42,7 +42,7 @@
 						<el-dropdown-item command="logout">Log Out</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-			</div>
+			</div> -->
 			<div class="nav-bar" :class="drawer ? 'open' : ''" @click="handleOpen">
 				<i class="icon-bar" v-if="!drawer"><img src="~assets/images/nav-icon.svg" alt='menu' /></i>
 				<i class="icon-bar icon-close" v-else><img src="~assets/images/icon-close.png" alt='menu' /></i>
@@ -246,6 +246,7 @@
 </script>
 <style lang="scss" scoped>
 	.header {
+		direction: rtl;
 		height: 0.64rem;
 		display: flex;
 		align-items: center;
@@ -253,13 +254,14 @@
 		top: 0;
 		z-index: 9999;
 		justify-content: space-between;
-		padding-right: 1.12rem;
+		padding-right: 0.32rem;
 		color: rgba(26, 26, 26, 0.6);
 		font-weight: 500;
 		width: 100%;
 		box-sizing: border-box;
-
+	
 		.header-right {
+			padding-left: 0.88rem;
 			display: flex;
 			align-items: center;
 
@@ -322,11 +324,12 @@
 			width: 0.88rem;
 			height: 0.64rem;
 			display: flex;
-			right: 0;
+			left: 0;
 			top: 0;
 			align-items: center;
 			justify-content: center;
 			position: absolute;
+			border-right: 1px solid rgba(218, 218, 218, 1);
 
 			.icon-bar {
 				width: 0.24rem;
@@ -567,4 +570,10 @@
 			}
 		}
 	}
+</style>
+<style lang="css">
+.el-icon--right{
+	margin-right:5px;
+	color:black;
+}
 </style>

@@ -5,31 +5,32 @@
 			<div class="content">
 				<div class="left">
 					<div class="Change-t">
+						<i class="el-icon-right"></i>
 						<p>
-							Change order<i class="el-icon-right"></i>
+							שנוי הזמנה
 						</p>
 					</div>
 					<div class="ready">
-						We have saved your personal details
+						שמרנו את הפרטים האישיים שלך
 					</div>
 					<div class="How">
-						How would you like to pay?
+						איך תרצו לשלם?
 					</div>
 					<div class="form">
 						<div class="zan-li">
 							<img src="~assets/images/icon/icon16.png" />
-							Secure Payment - Your safety is our top priority.
+							תשלום מאובטח - הבטיחות שלך היא בראש סדר העדיפויות שלנו.
 						</div>
 						<div class="zan-li">
 							<img src="~assets/images/icon/icon16.png" />
-							No hidden costs - what you see is what you pay.
+							ללא עלויות נסתרות - מה שאתם רואים זה מה שאתם משלמים.
 						</div>
 						<div class="method">
-							Payment method
+							אמצעי תשלום
 						</div>
 						<div class="tips">
-							<p> clicking the payment button, I place an order with a commitment to pay, </p>
-							<p> thereby agreeing to the <span>terms of use and the site's policy.</span></p>
+							<p> בלחיצה על כפתור התשלום אני מבצע/ת הזמנה עם התחייבות לתשלום, </p>
+							<p> ובכך אני מסכימ/ה עם <span>תנאי השימוש ומדיניות האתר.</span></p>
 						</div>
 						<div class="card">
 							<div class="top">
@@ -38,16 +39,15 @@
 								</div>
 								<div class="tickets">
 									<span><img src="~assets/images/icon/icon17.png" /></span>
-									Payment by credit
-									card
+									תשלום באמצעות כרטיס אשראי
 								</div>
 							</div>
 							<div class="correctly">
-								Please fill in all required fields correctly
+								נא למלא נכון את כל השדות הנדרשים
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Card number</p>
+									<p>מספר כרטיס</p>
 									<el-input v-model="input" placeholder="1234 5678 9012 3456"></el-input>
 								</div>
 								<div class="imgs">
@@ -64,17 +64,17 @@
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Validity</p>
-									<el-input v-model="input" placeholder="Choose your nationality"></el-input>
+									<p>תוקף</p>
+									<el-input v-model="input" placeholder="בחרו באזרחות שלכם"></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
 									<p>CVV</p>
-									<el-input v-model="input" placeholder="3 digits on the back of the card"></el-input>
+									<el-input v-model="input" placeholder="3 ספרות בגב הכרטיס"></el-input>
 								</div>
 							</div>
 							<div class="form-li">
-								<button class="button">Proceed to payment</button>
+								<button class="button">המשך לתשלום</button>
 							</div>
 						</div>
 						<div class="select">
@@ -83,7 +83,7 @@
 							</div>
 							<div class="tickets">
 								<span><img src="~assets/images/icon/icon18.png" /></span>
-								Payment via PayPal
+								תשלום באמצעות PayPal
 							</div>
 						</div>
 						<div class="select">
@@ -92,7 +92,7 @@
 							</div>
 							<div class="tickets">
 								<span><img src="~assets/images/icon/icon19.png" /></span>
-								Payment by credit card
+								תשלום באמצעות כרטיס אשראי
 							</div>
 						</div>
 					</div>
@@ -100,11 +100,11 @@
 				<div class="right">
 					<div class="Summary">
 						<div class="name">
-							Frequently asked question
+							סיכום ההזמנה שלך
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Event
+								אירוע
 							</div>
 							<p class="p">
 								Celta de Vigo vs Valencia CF
@@ -112,17 +112,17 @@
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Date
+								תאריך
 							</div>
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
-									The date is confirmed</span>
-								August 23, 2024
+									התאריך אושר</span>
+									אוגוסט 23, 2024
 							</p>
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Stadium
+								איצטדיון
 							</div>
 							<p class="p">
 								Estadio Municipal de Balaídos
@@ -130,7 +130,7 @@
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Seats
+								מושבים
 							</div>
 							<p class="p">
 								Long Side
@@ -138,24 +138,24 @@
 						</div>
 						<div class="Summary-li Summary-Number">
 							<div class="n">
-								Number of people
+								מספר אנשים
 							</div>
 							<p class="p">
-								2 adults
+								2 מבוגרים
 							</p>
 						</div>
 						<div class="Card">
-							<div>Card(s).</div>
+							<div>כרטיס/ים</div>
 							<p>2</p>
 						</div>
 						<div class="Card">
-							<div>Total price per person</div>
+							<div>סה״כ מחיר לאדם</div>
 							<p>€55</p>
 						</div>
 						<div class="Total">
 							<div class="n">
-								<h4>Total for 2 adults</h4>
-								<p>Without additional costs</p>
+								<h4>סה״כ עבור 2 מבוגרים</h4>
+								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
 								€110
@@ -164,7 +164,7 @@
 						<div class="order">
 							<div class="n">
 								<img src="~assets/images/icon/icon15.png" />
-								Order safely with Kenta
+								הזמינו בבטחה עם קנטה
 							</div>
 							<div class="img">
 								<img src="~assets/images/icon/imgs1.png" />
@@ -177,74 +177,73 @@
 					</div>
 					<div class="why padding">
 						<div class="name">
-							Why order at<span>Kenta</span>？
+							למה להזמין ב-<span>Kenta</span>？
 						</div>
 						<div class="why-li">
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Official Tickets
+								כרטיסים רישמיים
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Seats next to each other
+								מושבים אחד-ליד-השני
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Events Guaranteed
+								אירועים מובטחים
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Real time availability
+								זמינות בזמן אמת
 							</p>
 						</div>
 					</div>
 					<div class="padding">
 						<div class="Frequently">
 							<div class="name">
-								Frequently asked question
+								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<p>Are the ticket dates confirmed?</p>
+								<p>האם תאריכי הכרטיסים מאושרים?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 							<div class="checkbox">
-								<p>How and when will I receive my tickets?</p>
+								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 							<div class="checkbox">
-								<p>Where will I sit in the event?</p>
+								<p>איפה אני אשב באיצדטיון?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 						</div>
 						<div class="help">
-							<div class="help-name">How can we help?</div>
+							<div class="help-name">איך נוכל לעזור?</div>
 							<div class="user">
 								<div class="state"></div>
 								<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
 								<div class="text">
-									<p>Our customer service will be</p>
-									<p>happy to assist you on weekdays </p>
-									<p>between 09:00 and 17:00.</p>
+									<p>שירות הלקוחות שלנו ישמח לסייע לכם</p>
+									<p>בימי חול בין השעות 09:00-17:00. </p>
 								</div>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon11.png" />
 								</div>
-								<p>Write to us on WhatsApp</p>
+								<p>כתבו לנו בWhatsApp</p>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon12.png" />
 								</div>
-								<p>Write us an email</p>
+								<p>כתבו לנו אימייל</p>
 								<div class="text">support@kenta.co.il</div>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon10.png" />
 								</div>
-								<p>Give us a call</p>
+								<p>התקשרו</p>
 								<div class="text">03-555-8888</div>
 							</div>
 						</div>
@@ -365,7 +364,7 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				margin-right: 0.15rem;
+				margin-left: 0.15rem;
 			}
 
 			img {
@@ -384,6 +383,7 @@
 			border-radius: 50%;
 			border: 1px solid rgb(255, 50, 99);
 			background-color: rgb(255, 50, 99);
+			margin-left:0.15rem;
 
 			img {
 				width: 0.12rem;
@@ -427,7 +427,7 @@
 		img {
 			width: 0.16rem;
 			height: auto;
-			margin-right: 0.05rem;
+			margin-left: 0.05rem;
 		}
 	}
 
@@ -447,7 +447,7 @@
 				display: flex;
 				position: absolute;
 				top: 0.40rem;
-				right: 20px;
+				left: 10px;
 				z-index: 1;
 				width: 1rem;
 
@@ -519,6 +519,7 @@
 
 	.page {
 		background-color: #F5F5F5;
+		direction: rtl;
 	}
 
 	.warp {
@@ -561,7 +562,7 @@
 				img {
 					width: 0.16rem;
 					height: 0.16rem;
-					margin-right: 0.10rem;
+					margin-left: 0.10rem;
 				}
 			}
 		}
@@ -775,7 +776,7 @@
 				img {
 					width: 15%;
 					height: auto;
-					margin-right: 0.25rem;
+					margin-left: 0.25rem;
 				}
 			}
 
@@ -790,7 +791,7 @@
 				img {
 					width: 0.16rem;
 					height: auto;
-					margin-right: 0.05rem;
+					margin-left: 0.05rem;
 				}
 			}
 		}
@@ -855,11 +856,11 @@
 				font-size: 0.1rem;
 				font-weight: 500;
 				line-height: 0.12rem;
-				margin-right: 0.1rem;
+				margin-left: 0.1rem;
 
 				i {
 					font-weight: bold;
-					margin-right: 0.05rem;
+					margin-left: 0.05rem;
 					;
 				}
 			}
@@ -887,7 +888,7 @@
 
 	.content .right {
 		width: 4.48rem;
-		margin-left: 0.15rem;
+		margin-right: 0.15rem;
 		display: inline-block;
 
 		.r-img {
@@ -917,7 +918,7 @@
 
 	.content .right .name {
 		font-size: 20px;
-		font-weight: 400;
+		font-weight: 600;
 		padding-bottom: 10px;
 
 	}
@@ -967,7 +968,7 @@
 		width: 16px;
 		height: 16px;
 		position: absolute;
-		left: 40px;
+		right: 0px;
 		top: 0;
 		z-index: 9;
 		background-color: #00BC93;
@@ -983,7 +984,7 @@
 
 	.content .right .help .user .text {
 		font-size: 12px;
-		margin-left: 20px;
+		margin-right: 20px;
 		color: rgba(26, 26, 26, 0.6);
 		font-weight: 400;
 		line-height: 16px;
@@ -1011,7 +1012,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 32px;
-		margin-right: 20px;
+		margin-left: 20px;
 		border-radius: 4px;
 		background: linear-gradient(135deg, #FF3263 0%, #EE2344 100%);
 	}

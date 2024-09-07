@@ -1,13 +1,13 @@
 <template>
-	<div class="page">
+	<div class="page" style="direction: rtl;">
 		<NewHeader :ishome="false" />
 		<main>
 			<div class="banner">
 				<div class="info">
 					<div class="navigation">
-						<span>Home</span>
+						<span>בית</span>
 						<i class="el-icon-arrow-right"></i>
-						<span>Events</span>
+						<span>אירועים</span>
 						<i class="el-icon-arrow-right"></i>
 						<span>Dutch Grand Prix</span>
 					</div>
@@ -15,30 +15,58 @@
 						Manchester&nbsp;&nbsp;United&nbsp;&nbsp;vs&nbsp;&nbsp;Liverpool
 					</h1>
 					<div class="time">
-						<img style="padding-left: 0;" src="~assets/images/icon/icon1.png" />
-						<span>Aug 23, 2024 - Aug 25, 2024</span>
+						<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
+						<span>אוג’ 23, 2024 - אוג’ 25, 2024</span>
 						<img src="~assets/images/icon/icon2.png" />
-						<span>Old Trafford</span>
+						<span>Estadio Municipal de Balaídos Vigo (ESP)</span>
 						<img src="~assets/images/icon/icon3.png" />
-						<span>Champions League </span>
-						<span class="Promo">Exclusive Promo</span>
-						<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper Casino</span>
+						<span>לה ליגה 24/25 </span>
+						<!-- <span class="Promo">Exclusive Promo</span>
+						<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper Casino</span> -->
 					</div>
 				</div>
 			</div>
 			<div class="content">
 				<div class="left">
 					<div class="tips">
-						<p> Here you can find all our tickets for the Italian Grand Prix. Choose and buy the Formula 1
+						<p> כאן תוכלו למצוא את כל הכרטיסים שלנו לגראנד פרי האיטלקי. בחרו וקנו את כרטיסי הפורמולה 1
 						</p>
-						<p>tickets of your choice and secure your visit to the Autodromo Nazionale Monza. </p>
+						<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 					</div>
 					<div class="item-li">
 						<div class="text">
 							<img src="~assets/images/icon/icon7.png" />
 							<div class="info">
 								<h3>Inner Ingresso Parabolic GF tickets</h3>
-								<p>Friday - Sunday</p>
+								<p>שישי - ראשון</p>
+							</div>
+							<div class="icon-img">
+								<img src="~assets/images/icon/icon6.png" />
+								<img src="~assets/images/icon/icon5.png" />
+							</div>
+						</div>
+						<button class="button">Order - €340</button>
+					</div>
+					<div class="item-li">
+						<div class="text">
+							<img src="~assets/images/icon/icon7.png" />
+							<div class="info">
+								<h3>Inner Parabolic (23a)</h3>
+								<p>שישי - ראשון</p>
+							</div>
+							<div class="icon-img">
+								<img src="~assets/images/icon/icon6.png" />
+								<img src="~assets/images/icon/icon5.png" />
+							</div>
+						</div>
+						<button class="button">Order - €340</button>
+					</div>
+					<div class="item-li">
+						<div class="text">
+							<img src="~assets/images/icon/icon7.png" />
+							<div class="info">
+								<h3>Lateral Parabolic (21e)</h3>
+								<p>ראשון</p>
 							</div>
 							<div class="icon-img">
 								<img src="~assets/images/icon/icon6.png" />
@@ -52,35 +80,7 @@
 							<img src="~assets/images/icon/icon7.png" />
 							<div class="info">
 								<h3>Inner Ingresso Parabolic GF tickets</h3>
-								<p>Friday - Sunday</p>
-							</div>
-							<div class="icon-img">
-								<img src="~assets/images/icon/icon6.png" />
-								<img src="~assets/images/icon/icon5.png" />
-							</div>
-						</div>
-						<button class="button">Order - €340</button>
-					</div>
-					<div class="item-li">
-						<div class="text">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>Inner Ingresso Parabolic GF tickets</h3>
-								<p>Friday - Sunday</p>
-							</div>
-							<div class="icon-img">
-								<img src="~assets/images/icon/icon6.png" />
-								<img src="~assets/images/icon/icon5.png" />
-							</div>
-						</div>
-						<button class="button">Order - €340</button>
-					</div>
-					<div class="item-li">
-						<div class="text">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>Inner Ingresso Parabolic GF tickets</h3>
-								<p>Friday - Sunday</p>
+								<p>שישי - ראשון</p>
 							</div>
 							<div class="icon-img">
 								<img src="~assets/images/icon/icon6.png" />
@@ -97,7 +97,7 @@
 			<div class="footer">
 				<div class="logo">
 					<img src="~assets/images/logo-white.png" alt='logo' />
-					<p>Kenta Tech Ltd. 2021-2024</p>
+					<p>קנטה טק בע״מ 2021-2024</p>
 					<div class="icon">
 						<div class="icon-li">
 							<img src="~assets/images/icon/icon9.png" />
@@ -109,7 +109,7 @@
 				</div>
 				<div class="footer-item">
 					<div class="name">
-						Secure payment
+						תשלום מאובטח
 					</div>
 					<div class="img">
 						<img src="~assets/images/icon/img4.png" />
@@ -121,7 +121,7 @@
 				</div>
 				<div class="footer-item">
 					<div class="name">
-						Making Contact
+						יצירת קשר
 					</div>
 					<div class="text">
 						<p>
@@ -137,19 +137,19 @@
 				</div>
 				<div class="footer-item">
 					<div class="name">
-						Links
+						קישורים
 					</div>
 					<div class="Links-li">
-						<p>About</p>
-						<p>Terms of Use</p>
+						<p>אודות</p>
+						<p>תנאי שימוש</p>
 					</div>
 					<div class="Links-li">
-						<p>Tickets</p>
-						<p>Privacy Policy</p>
+						<p>כרטיסים</p>
+						<p>מדיניות פרטיות</p>
 					</div>
 					<div class="Links-li">
-						<p>Making contact</p>
-						<p>Accessibility statement</p>
+						<p>הצהרת נגישות</p>
+						<p>יצירת קשר</p>
 					</div>
 				</div>
 			</div>
@@ -299,7 +299,7 @@
 
 			.info {
 				margin-left: 0.05rem;
-				margin-right: 0.40rem;
+				margin-right: 0.20rem;
 
 				h3 {
 					font-size: 0.20rem;
@@ -327,7 +327,7 @@
 
 				img {
 					width: 0.24rem;
-					margin-right: 0.15rem;
+					// margin-right: 0.15rem;
 				}
 
 			}
@@ -346,7 +346,7 @@
 		}
 
 		.right {
-			margin-left: 180px;
+			margin-right:  180px;
 			width: 566px;
 
 			img {
@@ -413,7 +413,7 @@
 				padding: 0.10rem 0;
 				font-size: 0.56rem;
 				font-weight: 600;
-				text-align: left;
+				text-align: right;
 			}
 
 			.navigation {

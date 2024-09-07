@@ -7,7 +7,7 @@
 		<div class="celta">
 			<h3>Manchester United vs Liverpool</h3>
 			<div class="text">
-				<span>August 23, 2024</span>
+				<span>אוגוסט 23, 2024</span>
 				<span>19:00-20:45</span>
 				<p class="date">
 					<i class="el-icon-check"></i>
@@ -19,19 +19,19 @@
 				</span>
 				<div class="line"></div>
 				<span>
-					La Liga 24/25
+					לה ליגה 24/25
 				</span>
 			</div>
 		</div>
 		<div class="trip">
 			<div class="index" :class="[index == 1 ? '' : 'no-index']">1</div>
-			<span :class="[index == 1 ? '' : 'no-select']">Your trip</span>
-			<i class="el-icon-arrow-right"></i>
+			<span :class="[index == 1 ? '' : 'no-select']">הטיול שלך </span>
+			<i class="el-icon-arrow-left"></i>
 			<div class="index" :class="[index == 2 ? '' : 'no-index']">2</div>
-			<span :class="[index == 2 ? '' : 'no-select']">Personal details</span>
-			<i class="el-icon-arrow-right"></i>
+			<span :class="[index == 2 ? '' : 'no-select']">אוגוסט   </span>
+			<i class="el-icon-arrow-left"></i>
 			<div class="index" :class="[index == 3 ? '' : 'no-index']">3</div>
-			<span :class="[index == 3 ? '' : 'no-select']">Payment</span>
+			<span :class="[index == 3 ? '' : 'no-select']">תשלום </span>
 		</div>
 	</div>
 </template>
@@ -61,6 +61,7 @@ export default {
 
 
 	.logo {
+		margin-left: 0.32rem;
 		img {
 			width: 0.76rem
 		}
@@ -74,12 +75,13 @@ export default {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		border-left: 1px solid #DADADA;
+		border-right: 1px solid #DADADA;
 
 		h3 {
 			font-size: 0.16rem;
 			font-weight: 600;
-			text-align: left;
+			text-align: right;
+			padding-right: 0.15rem;
 
 		}
 

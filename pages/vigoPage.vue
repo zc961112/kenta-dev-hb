@@ -5,32 +5,34 @@
 			<div class="content">
 				<div class="left">
 					<div class="Change-t">
+						<i class="el-icon-right"></i>
 						<p>
-							Change order<i class="el-icon-right"></i>
+							שנוי הזמנה
 						</p>
 					</div>
 					<div class="ready">
-						The order is almost ready!
+						ההזמנה כמעט מוכנה!
 					</div>
 					<div class="form">
 						<div class="form-info">
-							<p class="t">Details of the person ordering/traveling</p>
-							<p class="f">Please fill in all the details</p>
-							<div class="form-li">
+							<p class="t">פרטי המזמין/מטייל</p>
+							<p class="f">נא למלא את כל הפרטים</p>
+							<div class="form-li" >
 								<div class="form-li-f">
-									<p>First name*</p>
+									<p>שם פרטי*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
-									<p>Last name*</p>
+									<p>שם משפחה*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Citizenship*</p>
-									<el-select v-model="value" placeholder="Choose your nationality">
+									<p>אזרחות*</p>
+									<span style="left: 16px; top: 42px;" class="i">i</span>
+									<el-select  prefix-icon="el-icon-search" v-model="value" placeholder="בחרו באזרחות שלכם">
 										<el-option v-for="item in options" :key="item.value" :label="item.label"
 											:value="item.value">
 										</el-option>
@@ -38,41 +40,43 @@
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
-									<p>Date of birth*</p>
+									<p>תאריך לידה*</p>
 									<div class="form-li-input">
 										<div class="input">
-											<el-input v-model="input" placeholder="Day"></el-input>
+											<el-input v-model="input" placeholder="יום"></el-input>
 										</div>
 										<div class="input Month">
-											<el-input v-model="input" placeholder="Month"></el-input>
+											<el-input v-model="input" placeholder="חודש"></el-input>
 										</div>
 										<div class="input">
-											<el-input v-model="input" placeholder="Year"></el-input>
+											<el-input v-model="input" placeholder="שנה"></el-input>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Address*</p>
+									<p>כתובת*</p>
+									<span style="left: 16px; top: 42px;" class="i">i</span>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Zip code</p>
+									<p>מיקוד</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
-									<p>City ​​of residence*</p>
+									<p>עיר מגורים*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>State*</p>
-									<el-select v-model="value" placeholder="Choose your country">
+									<p>מדינה*</p>
+									<span style="left: 16px; top: 42px;" class="i">i</span>
+									<el-select v-model="value" placeholder="בחר/י את המדינה שלך">
 										<el-option v-for="item in options" :key="item.value" :label="item.label"
 											:value="item.value">
 										</el-option>
@@ -84,16 +88,16 @@
 							</div>
 						</div>
 						<div class="Contact">
-							<p class="t">Contact details</p>
-							<p class="f">How can we contact you?</p>
+							<p class="t">פרטי התקשרות</p>
+							<p class="f">איך נוכל ליצור איתך קשר?</p>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Email address*</p>
+									<p>כתובת אימייל*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
-									<p>Phone number*</p>
+									<p>מספר טלפון*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 							</div>
@@ -104,110 +108,104 @@
 
 										</div>
 										<div class="flex">
-											<p class="text">I would like to receive special offers and</p>
-											<p class="text">recommendations by email.</p>
+											<p class="text">ברצוני לקבל הצעות והמלצות מיוחדות למייל.</p>
+
 										</div>
 									</div>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
-									<p class="text">Only in case of problems with the order.</p>
+									<p class="text">רק למקרים של בעיות בהזמנה.</p>
 								</div>
 							</div>
 						</div>
 						<div class="voucher">
 							<p>
-								Do you have a coupon code or voucher?
+								האם יש לך קוד קופון או שובר?
 							</p>
 						</div>
 					</div>
 					<div class="ready">
-						Passenger 2
+						נוסע 2
 					</div>
 					<div class="form">
 						<div class="form-info">
-							<p class="t">Details of the person ordering/traveling</p>
-							<p class="f">Please fill in all the details</p>
-							<div class="form-li">
+
+							<div class="form-li" style="margin-top:0px;">
 								<div class="form-li-f">
-									<p>First name*</p>
+									<p>שם פרטי*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
-									<p>Last name*</p>
+									<p>שם משפחה*</p>
 									<el-input v-model="input" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
-									<p>Date of birth*</p>
-									<div class="form-li-input">
-										<div class="input">
-											<el-input v-model="input" placeholder="Day"></el-input>
-										</div>
-										<div class="input Month">
-											<el-input v-model="input" placeholder="Month"></el-input>
-										</div>
-										<div class="input">
-											<el-input v-model="input" placeholder="Year"></el-input>
-										</div>
-									</div>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>Citizenship*</p>
+									<p>אזרחות*</p>
+									<span style="left: 16px; top: 42px;" class="i">i</span>
 									<el-select v-model="value" placeholder="Choose your nationality">
 										<el-option v-for="item in options" :key="item.value" :label="item.label"
 											:value="item.value">
 										</el-option>
 									</el-select>
 								</div>
+								<div class="w"></div>
+								<div class="form-li-f">
+									<p>תאריך לידה*</p>
+									<div class="form-li-input">
+										<div class="input">
+											<el-input v-model="input" placeholder="שנה"></el-input>
+										</div>
+										<div class="input Month">
+											<el-input v-model="input" placeholder="חודש"></el-input>
+										</div>
+										<div class="input">
+											<el-input v-model="input" placeholder="יום"></el-input>
+										</div>
+									</div>
+									
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="organizer">
 						<div class="form-info">
-							<div class="name">Restrictions and rules of the event organizer</div>
+							<div class="name">הגבלות וכללים של מארגן האירוע</div>
 							<div class="text">
-								<p>To avoid disappointment on the day of the event, we would like to inform you of
+								<p>כדי למנוע אכזבה ביום האירוע, ברצוננו להביא לידיעתכם את ההגבלות הבאות:
 								</p>
-								<p>the following restrictions:</p>
 							</div>
 							<div class="above">
 								<p>
 									<span>・</span>
-									Aston Villa fans are not allowed to visit the event In some cases, an
-									identification
-									copy
+									אוהדים מאסטון וילה אינם מורשים לבקר באירוע
 								</p>
-								<p>will be required to avoid any doubt in the above.</p>
 								<p>
 									<span>・</span>
-									In addition, some event organizers may request a signed Code of Conduct
-									Statement
+									במקרים מסוימים יידרש העתק זיהוי כדי למנוע כל ספק באמור לעיל. בנוסף, מארגני אירועים 
 								</p>
 								<p>
-									form. We will contact you if necessary.
+									מסוימים עשויים לבקש טופס הצהרת קוד התנהגות חתום. ניצור איתך קשר במידת הצורך.
 								</p>
 							</div>
 						</div>
 						<div class="agree">
 							<div class="icon"></div>
-							I agree to the terms of the event organizer.
+							אני מסכים לתנאיו של מארגן האירוע.
 						</div>
 						<div class="payment">
-							<button>Proceed to payment</button>
+							<button>המשך לתשלום</button>
 							<div class="p">
 								<p>
-									Ready for an unforgettable experience? Click Proceed to Payment
+									מוכנים לחוויה בלתי נשכחת? לחץ על המשך לתשלום כדי לנעול את 
 								</p>
 								<p>
-									to lock in your order! Your order will be completed and cannot be
+									ההזמנה שלך! ההזמנה שלך תושלם ולא ניתן לשנות אותה בשלב זה.
 								</p>
-								<p>
-									changed at this point.
-								</p>
+
 							</div>
 						</div>
 					</div>
@@ -215,11 +213,11 @@
 				<div class="right">
 					<div class="Summary">
 						<div class="name">
-							Frequently asked question
+							סיכום ההזמנה שלך
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Event
+								אירוע
 							</div>
 							<p class="p">
 								Celta de Vigo vs Valencia CF
@@ -227,17 +225,17 @@
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Date
+								תאריך
 							</div>
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
-									The date is confirmed</span>
-								August 23, 2024
+									התאריך אושר</span>
+									אוגוסט 23, 2024
 							</p>
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Stadium
+								איצטדיון
 							</div>
 							<p class="p">
 								Estadio Municipal de Balaídos
@@ -245,7 +243,7 @@
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Seats
+								מושבים
 							</div>
 							<p class="p">
 								Long Side
@@ -253,24 +251,24 @@
 						</div>
 						<div class="Summary-li Summary-Number">
 							<div class="n">
-								Number of people
+								מספר אנשים
 							</div>
 							<p class="p">
-								2 adults
+								2 מבוגרים
 							</p>
 						</div>
 						<div class="Card">
-							<div>Card(s).</div>
+							<div>כרטיס/ים</div>
 							<p>2</p>
 						</div>
 						<div class="Card">
-							<div>Total price per person</div>
+							<div>סה״כ מחיר לאדם</div>
 							<p>€55</p>
 						</div>
 						<div class="Total">
 							<div class="n">
-								<h4>Total for 2 adults</h4>
-								<p>Without additional costs</p>
+								<h4>סה״כ עבור 2 מבוגרים</h4>
+								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
 								€110
@@ -279,7 +277,7 @@
 						<div class="order">
 							<div class="n">
 								<img src="~assets/images/icon/icon15.png" />
-								Order safely with Kenta
+								הזמינו בבטחה עם קנטה
 							</div>
 							<div class="img">
 								<img src="~assets/images/icon/imgs1.png" />
@@ -292,74 +290,73 @@
 					</div>
 					<div class="why padding">
 						<div class="name">
-							Why order at<span>Kenta</span>？
+							למה להזמין ב-<span>Kenta</span>？
 						</div>
 						<div class="why-li">
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Official Tickets
+								כרטיסים רישמיים
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Seats next to each other
+								מושבים אחד-ליד-השני
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Events Guaranteed
+								אירועים מובטחים
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Real time availability
+								זמינות בזמן אמת
 							</p>
 						</div>
 					</div>
 					<div class="padding">
 						<div class="Frequently">
 							<div class="name">
-								Frequently asked question
+								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<p>Are the ticket dates confirmed?</p>
+								<p>האם תאריכי הכרטיסים מאושרים?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 							<div class="checkbox">
-								<p>How and when will I receive my tickets?</p>
+								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 							<div class="checkbox">
-								<p>Where will I sit in the event?</p>
+								<p>איפה אני אשב באיצדטיון?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 						</div>
 						<div class="help">
-							<div class="help-name">How can we help?</div>
+							<div class="help-name">איך נוכל לעזור?</div>
 							<div class="user">
 								<div class="state"></div>
 								<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
 								<div class="text">
-									<p>Our customer service will be</p>
-									<p>happy to assist you on weekdays </p>
-									<p>between 09:00 and 17:00.</p>
+									<p>שירות הלקוחות שלנו ישמח לסייע לכם </p>
+									<p>בימי חול בין השעות 09:00-17:00.</p>
 								</div>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon11.png" />
 								</div>
-								<p>Write to us on WhatsApp</p>
+								<p>כתבו לנו בWhatsApp</p>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon12.png" />
 								</div>
-								<p>Write us an email</p>
+								<p>כתבו לנו אימייל</p>
 								<div class="text">support@kenta.co.il</div>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon10.png" />
 								</div>
-								<p>Give us a call</p>
+								<p>התקשרו</p>
 								<div class="text">03-555-8888</div>
 							</div>
 						</div>
@@ -422,6 +419,7 @@
 			border-radius: 8px;
 			font-size: 0.14rem;
 			border: none;
+			margin-left: 0.19rem;
 		}
 	}
 
@@ -438,7 +436,7 @@
 			width: 0.16rem;
 			height: 0.16rem;
 			background-color: rgba(245, 245, 245, 1);
-			margin-right: 0.1rem;
+			margin-left: 0.1rem;
 			border-radius: 4px;
 			border: 1px solid rgba(0, 188, 147, 1);
 		}
@@ -452,7 +450,7 @@
 		margin-top: 0.2rem;
 		font-family: Noto Sans Hebrew;
 		font-size: 0.14rem;
-		line-height: 25px;
+		line-height: 19px;
 		font-weight: 400;
 		color: rgba(26, 26, 26, 0.6);
 	}
@@ -466,13 +464,13 @@
 
 		.name {
 			font-size: 0.32rem;
-			font-weight: 400;
+			font-weight: 500;
 		}
 
 		.text {
 			margin-top: 0.25rem;
 			font-size: 0.16rem;
-			font-weight: 400;
+			font-weight: 500;
 
 		}
 	}
@@ -501,7 +499,7 @@
 			border-radius: 4px;
 			width: 0.16rem;
 			height: 0.16rem;
-			margin-right: 0.1rem;
+			margin-left: 0.1rem;
 		}
 
 		.flex {
@@ -525,7 +523,7 @@
 
 	.t {
 		font-size: 0.16rem;
-		font-weight: 500;
+		font-weight: 600;
 	}
 
 	.f {
@@ -568,7 +566,19 @@
 
 		.form-li-f {
 			flex: 1;
-
+			position: relative;
+            .i{
+				width: 0.16rem;
+				height: 0.16rem;
+				text-align: center;
+				line-height: 0.16rem;
+				background: rgba(245, 245, 245, 1);
+				display: inline-block;
+				border-radius: 0.03rem;
+				font-size: 0.12rem;
+				position: absolute;
+				z-index: 2;
+			}
 			p {
 				margin-bottom: 0.10rem;
 				font-size: 0.14rem;
@@ -582,7 +592,7 @@
 	.ready {
 		margin: 0.3rem 0;
 		font-size: 0.32rem;
-		font-weight: 400;
+		font-weight: 500;
 	}
 
 	.Change-t {
@@ -599,6 +609,7 @@
 
 	.page {
 		background-color: #F5F5F5;
+		direction: rtl;
 	}
 
 	.warp {
@@ -641,7 +652,7 @@
 				img {
 					width: 0.16rem;
 					height: 0.16rem;
-					margin-right: 0.10rem;
+					margin-left: 0.10rem;
 				}
 			}
 		}
@@ -855,7 +866,7 @@
 				img {
 					width: 15%;
 					height: auto;
-					margin-right: 0.25rem;
+					margin-left: 0.25rem;
 				}
 			}
 
@@ -870,7 +881,7 @@
 				img {
 					width: 0.16rem;
 					height: auto;
-					margin-right: 0.05rem;
+					margin-left: 0.05rem;
 				}
 			}
 		}
@@ -967,7 +978,7 @@
 
 	.content .right {
 		width: 4.48rem;
-		margin-left: 0.15rem;
+		margin-right: 0.15rem;
 		display: inline-block;
 
 		.r-img {
@@ -1047,7 +1058,7 @@
 		width: 16px;
 		height: 16px;
 		position: absolute;
-		left: 40px;
+		// left: 40px;
 		top: 0;
 		z-index: 9;
 		background-color: #00BC93;
@@ -1063,7 +1074,7 @@
 
 	.content .right .help .user .text {
 		font-size: 12px;
-		margin-left: 20px;
+		margin-right: 20px;
 		color: rgba(26, 26, 26, 0.6);
 		font-weight: 400;
 		line-height: 16px;
@@ -1091,7 +1102,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 32px;
-		margin-right: 20px;
+		margin-left: 20px;
 		border-radius: 4px;
 		background: linear-gradient(135deg, #FF3263 0%, #EE2344 100%);
 	}
@@ -1111,4 +1122,13 @@
 		line-height: 16px;
 		color: rgba(26, 26, 26, 0.6);
 	}
+</style>
+<style lang="scss">
+   .page{
+	  .el-input__suffix{
+	      right: auto !important; 
+		  left:40px !important;
+     }
+   }
+  
 </style>

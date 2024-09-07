@@ -6,44 +6,42 @@
 				<div class="left">
 					<div class="choose">
 						<div class="choose-bg">
-							<h1>1. &nbsp;&nbsp;Choose a ticket or package</h1>
-							<div class="text" style="margin-left: 0;">
+							<h1>1. &nbsp;&nbsp;בחרו כרטיס או חבילה</h1>
+							<div class="text" style="margin-right: 0;">
 								<img src="~assets/images/icon/icon13.png" />
-								Official tickets directly from the event organizer. Real-time availability and
-								guaranteed
-								seating!
+								כרטיסים רשמיים ישירות ממארגן האירוע. זמינות בזמן אמת ומקומות ישיבה מובטחים!
 							</div>
-							<div class="type-name">Package Type:</div>
+							<div class="type-name">סוג החבילה:</div>
 							<div class="type">
 								<div class="type-li">
 									<div class="radio"></div>
 									<div class="ticket">
-										Ticket/s + hotel
+										כרטיס/ים
 									</div>
 									<div class="tips">
-										<p>Choose your seats and</p>
-										<p>hotel in step 2 and 3.</p>
+										<p>בחר/י את מקומות הישיבה </p>
+										<p>שלך בשלב 2.</p>
 									</div>
 								</div>
 								<div class="type-li current">
-									<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by
-										Asper Casino</span>
+									<!-- <span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by
+										Asper Casino</span> -->
 
 									<div class="radio">
 										<img src="~assets/images/icon/select.png" />
 									</div>
 									<div class="ticket">
-										Ticket/s
+										כרטיס/ים + מלון
 									</div>
 									<div class="tips">
-										<p>Choose your seats</p>
-										<p>in step 2.</p>
+										<p>בחר/י את מקומות הישיבה  </p>
+										<p>והמלון שלך בשלב 2 ו- 3.</p>
 									</div>
 								</div>
 							</div>
 							<div class="people">
-								<div class="type-name">Number of people:</div>
-								<el-select v-model="value" placeholder="请选择">
+								<div class="type-name">מספר אנשים:</div>
+								<el-select v-model="value" placeholder="2 אנשים">
 									<el-option v-for="item in options" :key="item.value" :label="item.value"
 										:value="item.value">
 									</el-option>
@@ -51,40 +49,47 @@
 							</div>
 						</div>
 						<div class="confirm">
-							<button>Confirm</button>
+							<button>אישור והמשך</button>
 							<div class="confirm-text">
-								<p>Confirm to see the final price. You can change the</p>
-								<p>card/package details until the final order is made.</p>
+								<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות </p>
+								<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
 							</div>
 						</div>
 					</div>
 					<div class="would">
 						<div class="would-left">
-							<h3>2.Where would you like to sit</h3>
+							<h3>2.איפה תרצו לשבת?</h3>
 							<div class="info">
 								<div class="top">
-									<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by
-										Asper Casino</span>
+									<!-- <span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by
+										Asper Casino</span> -->
 									<div class="checkbox">
 										<img src="~assets/images/icon/select.png" />
 									</div>
 									<div class="tickets">Category 3 (corners) tickets</div>
 									<div class="price">
-										<p>+ <span>€0</span></p>
-										<div>p.p</div>
+										<p style="text-align: left;"><span>€0</span> +</p>
+										<div>תוספת לאדם</div>
 									</div>
 								</div>
 								<div class="imgText">
-									Great view (price/quality) on the field in the corners of the stadium. Maximum
-									50 guaranteed seats located together
+									<p>
+										נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון. מקסימום 50
+									</p>
+									<p style="margin-bottom: 0.2rem;">מושבים מובטחים הממוקמים יחד.</p>
+									<p style="margin-bottom: 0.2rem;">מקום: Estadi Olímpic Lluís Companys</p>
+									<p style="margin-bottom: 0.2rem;">סוג קטגוריה: יציע</p>
+									<p>סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
+									<p>									משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
+</p>
+									<p>									מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
+</p>
+									
 
-									Venue: Estadi Olímpic Lluís Companys
+									
 
-									Category type: proposal
 
-									Card type: electronic card, home part
-									Delivery: Your tickets will be delivered at least 24 hours before the event
-									Seating: Up to 10 seats are guaranteed together for this event.
+									
 								</div>
 							</div>
 
@@ -94,8 +99,8 @@
 								</div>
 								<div class="tickets">Category 2 (Lateral) tickets</div>
 								<div class="price">
-									<p>+ <span>€20</span></p>
-									<div>p.p</div>
+									<p style="text-align: left;"> <span>€20</span> +</p>
+									<div>תוספת לאדם</div>
 								</div>
 							</div>
 
@@ -105,8 +110,8 @@
 								</div>
 								<div class="tickets">Category 2 (Lateral) tickets</div>
 								<div class="price">
-									<p>+ <span>€101</span></p>
-									<div>p.p</div>
+									<p style="text-align: left;"><span>€101</span> +</p>
+									<div>תוספת לאדם</div>
 								</div>
 							</div>
 
@@ -116,17 +121,17 @@
 						</div>
 					</div>
 					<div class="item-li">
-						3.Personal details
+						3.פרטים אישיים
 					</div>
 				</div>
 				<div class="right">
 					<div class="Summary">
 						<div class="name">
-							Summary of your order
+							סיכום ההזמנה שלך
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Event
+								אירוע
 							</div>
 							<p class="p">
 								Celta de Vigo vs Valencia CF
@@ -134,17 +139,17 @@
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Date
+								תאריך
 							</div>
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
-									The date is confirmed</span>
-								August 23, 2024
+									התאריך אושר</span>
+									אוגוסט 23, 2024
 							</p>
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Stadium
+								איצטדיון
 							</div>
 							<p class="p">
 								Estadio Municipal de Balaídos
@@ -152,7 +157,7 @@
 						</div>
 						<div class="Summary-li">
 							<div class="n">
-								Seats
+								מושבים
 							</div>
 							<p class="p">
 								Long Side
@@ -160,24 +165,24 @@
 						</div>
 						<div class="Summary-li Summary-Number">
 							<div class="n">
-								Number of people
+								מספר אנשים
 							</div>
 							<p class="p">
-								2 adults
+								2 מבוגרים
 							</p>
 						</div>
 						<div class="Card">
-							<div>Card(s).</div>
+							<div>כרטיס/ים</div>
 							<p>2</p>
 						</div>
 						<div class="Card">
-							<div>Total price per person</div>
+							<div>סה״כ מחיר לאדם</div>
 							<p>€55</p>
 						</div>
 						<div class="Total">
 							<div class="n">
-								<h4>Total for 2 adults</h4>
-								<p>Without additional costs</p>
+								<h4>סה״כ עבור 2 מבוגרים</h4>
+								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
 								€110
@@ -186,7 +191,7 @@
 						<div class="order">
 							<div class="n">
 								<img src="~assets/images/icon/icon15.png" />
-								Order safely with Kenta
+								הזמינו בבטחה עם קנטה
 							</div>
 							<div class="img">
 								<img style="height: 0.24rem;" src="~assets/images/icon/imgs1.png" />
@@ -199,74 +204,73 @@
 					</div>
 					<div class="why padding">
 						<div class="name">
-							Why order at <span> Kenta</span>？
+							למה להזמין ב- <span> Kenta</span>？
 						</div>
 						<div class="why-li">
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Official Tickets
+								כרטיסים רישמיים
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Seats next to each other
+								מושבים אחד-ליד-השני
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Events Guaranteed
+								אירועים מובטחים
 							</p>
 							<p>
 								<img src="~assets/images/icon/icon14.png" />
-								Real time availability
+								זמינות בזמן אמת
 							</p>
 						</div>
 					</div>
 					<div class="padding">
 						<div class="Frequently">
 							<div class="name">
-								Frequently asked question
+								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<p>Are the ticket dates confirmed?</p>
+								<p>האם תאריכי הכרטיסים מאושרים?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 							<div class="checkbox">
-								<p>How and when will I receive my tickets?</p>
+								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 							<div class="checkbox">
-								<p>Where will I sit in the event?</p>
+								<p>איפה אני אשב באיצדטיון?</p>
 								<img src="~assets/images/icon/xl.png" />
 							</div>
 						</div>
 						<div class="help">
-							<div class="help-name">How can we help?</div>
+							<div class="help-name">איך נוכל לעזור?</div>
 							<div class="user">
 								<div class="state"></div>
 								<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
 								<div class="text">
-									<p>Our customer service will be</p>
-									<p>happy to assist you on weekdays </p>
-									<p>between 09:00 and 17:00.</p>
+									<p>שירות הלקוחות שלנו ישמח לסייע לכם</p>
+									<p>בימי חול בין השעות 09:00-17:00.</p>
 								</div>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon11.png" />
 								</div>
-								<p>Write to us on WhatsApp</p>
+								<p>כתבו לנו בWhatsApp</p>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon12.png" />
 								</div>
-								<p>Write us an email</p>
+								<p>כתבו לנו אימייל</p>
 								<div class="text">support@kenta.co.il</div>
 							</div>
 							<div class="contact-li">
 								<div class="icon">
 									<img src="~assets/images/icon/icon10.png" />
 								</div>
-								<p>Give us a call</p>
+								<p>התקשרו</p>
 								<div class="text">03-555-8888</div>
 							</div>
 						</div>
@@ -284,10 +288,10 @@
 		data() {
 			return {
 				options: [{
-					value: '2 people',
+					value: '2 אנשים',
 					label: '1'
 				}],
-				value: '2 people'
+				value: '2 אנשים'
 			}
 
 		},
@@ -327,7 +331,7 @@
 
 		.would-right {
 			width: 3.99rem;
-			margin-left: 0.3rem;
+			margin-right: 0.3rem;
 			padding-top: 0.81rem;
 
 			img {
@@ -338,9 +342,9 @@
 
 		.would-left {
 			flex: 1;
-			padding-right: 0.3rem;
+			padding-left: 0.17rem;
 			padding-bottom: 0.3rem;
-			border-right: 1px solid rgba(218, 218, 218, 1);
+			border-left: 1px solid rgba(218, 218, 218, 1);
 
 			h3 {
 				padding-top: 0.25rem;
@@ -432,6 +436,7 @@
 	}
 
 	.page {
+		direction: rtl;
 		background-color: #F5F5F5;
 	}
 
@@ -475,7 +480,7 @@
 				img {
 					width: 0.16rem;
 					height: 0.16rem;
-					margin-right: 0.10rem;
+					margin-left: 0.10rem;
 				}
 			}
 		}
@@ -526,7 +531,7 @@
 	.content .left .choose h1 {
 		font-size: 0.32rem;
 		font-weight: 400;
-		text-align: left;
+		text-align: right;
 	}
 
 	.content .left .choose .text {
@@ -535,7 +540,6 @@
 		font-size: 0.16rem;
 		font-weight: 400;
 		height: 0.4rem;
-		;
 		display: flex;
 		align-items: center;
 		border-radius: 8px;
@@ -546,7 +550,7 @@
 	.content .left .choose .text img {
 		width: 0.24rem;
 		height: 0.24rem;
-		margin-right: 0.10rem;
+		margin-left: 0.10rem;
 	}
 
 
@@ -563,7 +567,7 @@
 	.content .type-li {
 		position: relative;
 		width: 308px;
-		margin-right: 20px;
+		margin-left: 20px;
 		padding: 20px;
 		border: 1px solid #DADADA;
 		border-radius: 6px;
@@ -652,12 +656,13 @@
 	.content .choose .confirm button {
 		background-color: rgba(255, 50, 99, 1);
 		border-radius: 8px;
-		width: 100px;
+		width: 123px;
 		height: 40px;
 		cursor: pointer;
 		font-weight: 400;
 		border: none;
 		color: rgba(254, 254, 254, 1);
+		margin-left: 0.24rem;
 	}
 
 	.content .choose .confirm .confirm-text {
@@ -673,7 +678,7 @@
 		border: 1px solid #DADADA;
 		border-radius: 8px;
 		height: 1rem;
-		padding-left: 20px;
+		padding-right: 20px;
 		display: flex;
 		align-items: center;
 		font-size: 0.32rem;
@@ -701,7 +706,7 @@
 					height: auto;
 					// margin-right: 0.25rem;
 				img {
-					 margin-right: 0.3rem;
+					 margin-left: 0.3rem;
 				}
 			}
 
@@ -716,7 +721,7 @@
 				img {
 					width: 0.16rem;
 					height: auto;
-					margin-right: 0.05rem;
+					margin-left: 0.05rem;
 				}
 			}
 		}
@@ -774,7 +779,7 @@
 
 			.dec {
 				padding: 0.05rem 0.10rem;
-				margin-right: 0.15rem;
+				margin-left: 0.15rem;
 				border-radius: 200px;
 				background-color: rgba(0, 188, 147, 0.12);
 				color: rgba(0, 188, 147, 1);
@@ -785,7 +790,7 @@
 
 				i {
 					font-weight: bold;
-					margin-right: 0.05rem;
+					margin-left: 0.05rem;
 					;
 				}
 			}
@@ -813,7 +818,7 @@
 
 	.content .right {
 		width: 4.48rem;
-		margin-left: 0.15rem;
+		margin-right: 0.15rem;
 		display: inline-block;
 
 		.r-img {
@@ -893,7 +898,7 @@
 		width: 16px;
 		height: 16px;
 		position: absolute;
-		left: 40px;
+
 		top: 0;
 		z-index: 9;
 		background-color: #00BC93;
@@ -909,7 +914,7 @@
 
 	.content .right .help .user .text {
 		font-size: 12px;
-		margin-left: 20px;
+		margin-right: 20px;
 		color: rgba(26, 26, 26, 0.6);
 		font-weight: 400;
 		line-height: 16px;
@@ -937,7 +942,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 32px;
-		margin-right: 20px;
+		margin-left: 20px;
 		border-radius: 4px;
 		background: linear-gradient(135deg, #FF3263 0%, #EE2344 100%);
 	}
@@ -957,4 +962,13 @@
 		line-height: 16px;
 		color: rgba(26, 26, 26, 0.6);
 	}
+</style>
+<style lang="scss">
+   .page{
+	  .el-input__suffix{
+		  right: auto !important; 
+		  left:5px !important;
+     }
+   }
+  
 </style>
