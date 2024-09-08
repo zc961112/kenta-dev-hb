@@ -313,9 +313,41 @@ export default {
         slug: this.id,
       };
       articleDetailSlug(params).then((res) => {
-        this.form = res.data;
+        this.form = this.translateData(res.data);
         this.form.ccategoryName = res.data.ccategoryName.toUpperCase()
       })
+    },
+    translateData (data) {
+      if (data.articleBody) {
+        const catalogs = []
+        const el = document.createElement('div')
+        el.innerHTML = data.articleBody
+        let baseId = Date.now()
+        el.childNodes.forEach(node => {
+          const tagName = node.nodeName.toLowerCase()
+          if (tagName === 'h2') {
+            baseId++
+            catalogs.push({ label: node.textContent, id: baseId, children: [] })
+            node.setAttribute('id', baseId)
+          } else if (tagName === 'h3') {
+            baseId++
+            catalogs[catalogs.length - 1].children.push({ label: node.textContent, id: baseId })
+            node.setAttribute('id', baseId)
+          }
+        })
+        const catalogTpl = ['<div class="ql-editor-catalog-title">Table of Contents</div><ol class="article-content-catalog">']
+        catalogs.forEach(c => {
+          const leafs =c.children.map(cnode => {
+            return `<li><a href="#${cnode.id}" data-id="${cnode.id}">${cnode.label}</a></li>`
+          })
+          catalogTpl.push(`<li><a href="#${c.id}" data-id="${c.id}">${c.label}</a><ol class="article-content-catalog-inner">${leafs.join('')}</ol></li>`)
+        })
+        catalogTpl.push('</ol>')
+        const newArticleBody = el.innerHTML
+        const index = newArticleBody.indexOf('<h2')
+        data.articleBody = newArticleBody.substring(0, index) + catalogTpl.join('') + newArticleBody.substring(index)
+      }
+      return data
     },
     toBlog () {
       this.$router.push({ path: '/blog' })
@@ -360,10 +392,27 @@ h2 {
 
 .article-content {
   flex: 1;
-  margin-left: 0.8rem;
+  margin-left: 1.2rem;
   font-size:20px;
+  :deep(.article-content-catalog) {
+    margin: 24px 0;
+  }
+  :deep(.article-content-catalog li) {
+    padding-left: 0;
+    line-height: 28px;
+    list-style-type: decimal!important;
+  }
+  :deep(.article-content-catalog a) {
+    font-size: 0.24rem;
+    color: #3451ff;
+  }
+  :deep(.article-content-catalog li:before) {
+    display: none;
+  }
+  :deep(.article-content-catalog-inner li) {
+    list-style-type: lower-alpha!important;
+  }
 }
-
 
 .bg-white {
   background: #fefefe;
@@ -494,6 +543,7 @@ h2 {
 
   .banner-pic {
     width: 4.48rem;
+    height: 3.96rem;
     flex-shrink: 0;
     margin-left: 0.2rem;
     border-radius: 0.16rem;
@@ -829,6 +879,7 @@ h2 {
       padding: 0;
       margin: 0;
       width: 100%;
+      height: auto;
       border-radius: 0;
 
       img {
@@ -847,7 +898,7 @@ h2 {
       }
 
       .banner-text {
-        font-size: 0.26rem;
+        font-size: 0.32rem;
       }
 
       .share-white-pc,
@@ -1101,7 +1152,9 @@ h2 {
   }
 
   .box-hd {
-    font-size: 0.24rem;
+    font-size: 0.22rem;
+    text-align: left;
+    letter-spacing: -0.04em;
   }
 
   .box-desc {
@@ -1138,14 +1191,18 @@ h2 {
   }
 
   .box-container {
-    padding: 0.8rem 0.2rem;
+    padding: 0.56rem 0.2rem;
 
     .item-list {
       display: flex;
       flex-direction: column;
+      margin-top: 0.16rem;
 
       .item {
         width: 100%;
+        &:first-child {
+          margin-top: 0;
+        }
       }
     }
   }

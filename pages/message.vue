@@ -503,6 +503,7 @@ export default {
             this.messageList = res.data.messageContents
           this.order = res.data.tripBookOrder
         }
+        this.scrollToBottom()
       })
     },
     loadMsg () {
@@ -518,6 +519,7 @@ export default {
         if (flag == 0) {
           this.messageList.push(res.data);
         }
+        this.scrollToBottom()
       })
     },
     sendMsg () {
@@ -571,7 +573,7 @@ export default {
 <style lang="scss" scoped>
 .body {
   padding: 0.32rem;
-  max-width:1440px;
+  // max-width:1440px;
   margin-left:auto;
   margin-right:auto;
 }
@@ -773,7 +775,9 @@ export default {
 }
 
 .box-1 {
-  width: 10.45rem;
+  // width: 10.45rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .box-2 {

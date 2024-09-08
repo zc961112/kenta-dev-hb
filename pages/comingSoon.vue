@@ -33,12 +33,12 @@ export default {
   box-sizing: border-box;
   .main {
     width: 100%;
+    padding-top: 160px;
     height: calc(100vh - 57px);
     box-sizing: border-box;
     background: url('~assets/images/Rectangle 594.webp') no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    padding-top: 20%;
 
     .top{
       color: #fff;
@@ -52,21 +52,22 @@ export default {
       font-size: 12px;
     }
     .title {
-      width: 380px;
+      width: 480px;
       box-sizing: border-box;
       margin: 0px auto auto auto;
       text-align: center;
-      font-size: 34px;
+      font-size: 56px;
       color: #fff;
       word-break: keep-all;
-      letter-spacing: 0.2px;
+      letter-spacing: -0.04em;
     }
     .desc {
-      width: 380px;
-      margin: 10px auto;
-      font-size: 16px;
+      width: 448px;
+      margin: 16px auto;
+      font-size: 20px;
+      line-height: 24px;
       text-align: center;
-      font-weight: 100;
+      font-weight: 300;
       color: #fefefe;
       //word-break: break-all;
     }
@@ -74,7 +75,7 @@ export default {
     ::v-deep .subscribe-box {
       background: transparent !important;
       height: auto !important;
-      margin-top: 0.2rem;
+      margin-top: 0.24rem;
       padding: 0px !important;
       .subscribe-tips,
       .subscribe-desc {
@@ -90,6 +91,7 @@ export default {
         .inp-box {
           width: 100% !important;
           margin: 0px !important;
+          padding-right: 32px;
         }
 
         .el-button {
@@ -114,16 +116,22 @@ export default {
 .mobile {
   .coming-soon {
     .main {
-      padding-top: 50%;
+      padding-top: 1.2rem;
       .title {
-        padding: 0rem 0.6rem !important;
-        font-size:22px;
-        letter-spacing: 0.2px;
+        margin-top: 0.08rem;
+        width: 2.4rem;
+        font-size: 0.24rem;
+        line-height: 0.29rem;
+        letter-spacing: -0.04em;
+        text-align: center;
       }
 
       .desc {
-        padding: 0rem 0.2rem !important;
-        font-size:16px;
+        width: 3.36rem;
+        margin-top: 0.08rem;
+        line-height: 0.29rem;
+        font-size: 0.16rem;
+        text-align: center;
       }
       .foo{
         font-size:12px;

@@ -136,7 +136,7 @@ img {
             color: rgba(26, 26, 26, 0.40);
             font-size: .16rem;
             font-weight: 400;
-            width: 4.48rem;
+            width: 3.36rem;
             height: .48rem;
         }
     }

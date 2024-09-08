@@ -222,11 +222,11 @@
               <div class="text">
                 Enter your approx. budget per person
               </div>
-              <div class="box">
+              <div class="box" :style="budgetTips ? 'border-color: #ff3263' : ''">
                 <span class="symbol">
                   USD
                 </span>
-                <el-input class="number" v-model="budget" clearable oninput="value=value.replace(/[^\d.]/g,'')" @blur="handleBlurBudget($event)" placeholder="2500"></el-input>
+                <el-input class="number" v-model="budget" clearable placeholder="2500" oninput="value=value.replace(/[^\d.]/g,'')" @blur="handleBlurBudget" />
               </div>
               <div v-if="budgetTips" class="tip-warning">{{ budgetTipsText }}</div>
             </div>
@@ -234,7 +234,7 @@
               <div class="text">
                 Is your budget flexible?
               </div>
-              <div class="box">
+              <div class="box" :style="budgetFlexibleTips ? 'border-color: #ff3263' : ''">
                 <el-select style="width:100%" clearable v-model="form.budgetFlexible" @change="handleChangeFlexible" placeholder="Select one of the options">
                   <el-option :value="0" label="No, this is my maximum budget"></el-option>
                   <el-option :value="1" label="Flexible, I can increase up to 20%, if needed"></el-option>
@@ -414,6 +414,7 @@ import { orderCreate } from '@/api/destination'
 import { destinationDetail } from '@/api/destination'
 import countryCode from '@/utils/countryCode'
 import { sendMsgByBuka, checkMsg } from '@/api/index'
+import { getUserId } from '@/utils/auth'
 
 export default {
   name: 'Concierge',
@@ -465,8 +466,8 @@ export default {
       countryCode: '',
       budgetTips: false,
       budgetTipsText: 'Please enter your approx. budget per person',
-      budgetFlexibleTips: false,
-      budgetFlexibleText: 'Please select budget flexible',
+      budgetFlexibleTips: true,
+      budgetFlexibleText: 'Please choose an option', // 'Please select budget flexible',
       sending: false,
       seconds: 60,
       code: '',
@@ -535,20 +536,26 @@ export default {
       this.dialogVisible = true;
 
     },
-    handleBlurBudget ($event) {
-      this.budget = $event.target.value;
+    handleBlurBudget () {
       if (this.budget * 1 === 0) {
+        this.budgetTipsText = 'Please enter your approx. budget per person';
         this.budgetTips = true;
-      } else {
-        this.budgetTips = false;
+        return false;
+      } else if (this.budget * 1 < 100) {
+        this.budgetTipsText = 'No less than 100 budget per person per day';
+        this.budgetTips = true;
+        return false;
       }
+      this.budgetTips = false;
+      return true;
     },
     handleChangeFlexible () {
       if (this.form.budgetFlexible === '') {
         this.budgetFlexibleTips = true;
-      } else {
-        this.budgetFlexibleTips = false;
+        return false;
       }
+      this.budgetFlexibleTips = false;
+      return true;
     },
     getDestination () {
       let params = {
@@ -619,14 +626,19 @@ export default {
       var cookie_end = document.cookie.indexOf(";", cookie_start);
       return cookie_start == -1 ? '' : unescape(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)));
     },
-    async handleOpen () {// handleSubmit() {
+    handleSubmit() {},
+    async handleOpen () {
+      if (!this.handleBlurBudget() || !this.handleChangeFlexible()) {
+        return false
+      }
       /*if (this.code.length == 0) {
         this.$message.warning("Please enter code");
         return;
       }
       let check = await this.checkMobile();
       if (!check) return;*/
-      let memberId = this.getCookie("userId");
+      // this.getCookie("userId");
+
       let params = this.form;
       params.accommodationType = this.hotelTypeIndex;
       params.adultsPrimaryAge = this.ageTypeIndex;
@@ -636,7 +648,7 @@ export default {
       params.experiencesType = this.exTypeIndex;
       params.memberEmail = '';
       params.tripPlanningStage = this.stageIndex;
-      params.memberId = memberId;
+      params.memberId = getUserId();
       orderCreate(params).then((res) => {
         this.dialogVisible = false;
         this.$router.replace('/message')
@@ -844,6 +856,10 @@ export default {
 
 .step-box {
   background: #fefefe;
+  :deep(.el-step__line-inner) {
+    width: 100% !important;
+    border-width: 1px !important;
+  }
 }
 
 ::v-deep .el-steps {
@@ -1522,11 +1538,12 @@ export default {
         font-style: normal;
         font-weight: 500;
         line-height: 0.16rem;
-        padding-top: 0.08rem;
+        padding: 0.08rem 0 0.12rem;
       }
     }
 
     .form-box {
+      background-color: #fff;
       width: 3.36rem;
       min-height: auto;
       margin-bottom: 0;
@@ -1536,6 +1553,23 @@ export default {
       .form-tips {
         padding: 0.24rem 0;
       }
+
+      .form-content {
+        .age-stage-selection {
+          padding: 0.16rem 0.4rem 0.24rem 0.4rem;
+          display: flex;
+          flex-direction: column;
+
+          .age-stage {
+            width: 3.04rem;
+            height: 0.48rem;
+            margin-bottom: 0.08rem;
+          }
+        }
+        .form-line {
+          width: 100%;
+        }
+      }
     }
 
     .form-result {
@@ -1543,21 +1577,10 @@ export default {
     }
 
     .form-age {
+      padding-left: 0!important;
     }
 
     .form-content {
-      .age-stage-selection {
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-
-        .age-stage {
-          width: 3.04rem;
-          height: 0.48rem;
-          margin-bottom: 0.08rem;
-        }
-      }
-
       .accommodation-option-selection {
         display: flex;
         flex-wrap: wrap;
@@ -1592,7 +1615,7 @@ export default {
 
     .form-content {
       .experience-stage-selection {
-        padding: 0;
+        padding: 0 0 0.24rem;
         display: flex;
         flex-direction: column;
 

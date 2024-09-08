@@ -537,8 +537,9 @@ export default {
   height: 40px;
 }
 
-::v-deep.step-box .el-steps .el-step__head.is-finish {
+::v-deep.step-box .el-steps .el-step__head.is-finish .el-step__line-inner {
   //width: 136px;
+  width: 0!important;
 }
 
 ::v-deep .el-input-number {
@@ -1005,6 +1006,8 @@ body {
 
     .logo {
       height: 0.24rem;
+      min-width: 0.78rem;
+      text-align: center;
     }
   }
 

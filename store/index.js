@@ -86,6 +86,7 @@ export default () => new Vuex.Store({
           commit('SET_AVATAR', avatar)
           sessionStorage.setItem("user_id", user.id)
           sessionStorage.setItem("user_name", user.memberName)
+          sessionStorage.setItem('user_ip', user.ipaddr)
           resolve(res)
         }).catch(error => {
           reject(error)

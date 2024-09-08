@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="mobile-page">
-    <div @click="back()" class="back-mark"><</div>
+    <div @click="back()" class="back-mark">&lt;</div>
     <div class="mobile-destination-title">Find your destination</div>
     <div class="inp-box">
       <el-popover placement="bottom-start" style="width:100%" trigger="manual" :visible-arrow="false"

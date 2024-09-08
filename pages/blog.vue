@@ -19,9 +19,9 @@
           <div class="box-container">
             <div class="box-hd">
               <h2 class="box-hd-text">Spotlight Destinations</h2>
-              <div class="box-hd-more">
+              <!-- <div class="box-hd-more">
                 View More
-              </div>
+              </div> -->
             </div>
             <div class="item-list clearfix">
               <div class="item" v-for="(item,index) in SpotlightDestinations.slice(0,8)" @click="toDetail(item.id)" :key="index">
@@ -57,9 +57,9 @@
           <div class="box-container box-2">
             <div class="box-hd">
               <h2 class="box-hd-text">A Foodies Guide - Where to eat?</h2>
-              <div class="box-hd-more">
+              <!-- <div class="box-hd-more">
                 View More
-              </div>
+              </div> -->
             </div>
             <div class="item-list clearfix">
               <div class="item" v-for="(item,index) in EventHighlights.slice(0,6)" @click="toDetail(item.id)" :key="index">
@@ -90,7 +90,7 @@
         </div>
       </section>
 
-      <section class="bg-white">
+      <section class="bg-pink">
         <subscribe></subscribe>
       </section>
 
@@ -99,9 +99,9 @@
           <div class="box-container box-3">
             <div class="box-hd">
               <h2 class="box-hd-text">Practical advices - From packing to etiquette</h2>
-              <div class="box-hd-more">
+              <!-- <div class="box-hd-more">
                 View More
-              </div>
+              </div> -->
             </div>
             <div class="item-list clearfix">
               <div class="item" v-for="(item,index) in PracticalAdvices.slice(0,8)" @click="toDetail(item.id)" :key="index">
@@ -206,9 +206,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.bg-white {
+.bg-pink {
+  padding: 0 0.32rem;
   .subscribe-box {
-    background: #fefefe !important;
+    color: #fff;
+    background: linear-gradient(110deg, #ff3263 36.89%, #ee2344 73.36%);
+    border-radius: 16px;
+    :deep(.subscribe-form) {
+      background-color: #fff;
+    }
   }
 }
 h1 {
@@ -220,7 +226,6 @@ h2 {
 .banner {
   height: 3.4rem;
   width: 100%;
-  border-top: solid 0.01rem #dadada;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -270,10 +275,6 @@ h2 {
 
 .bg-gray {
   background-color: #f5f5f5;
-}
-
-.subscribe-box {
-  background: linear-gradient(110deg, #ff3263 36.89%, #ee2344 73.36%) !important;
 }
 
 .box-container {
@@ -497,15 +498,38 @@ h2 {
     overflow: hidden;
   }
 
+  .bg-pink {
+    padding: 0;
+    .subscribe-box {
+      border-radius: 0;
+    }
+  }
+
   .box-container {
     width: 100%;
     padding: 56px 20px;
     .item-list {
       width: 100%;
       margin-top: 16px;
-    }
-    .item {
-      width: 100%;
+      .item {
+        width: 100%;
+        .item-title {
+          font-size: 0.16rem;
+          font-weight: 500;
+          line-height: 0.19rem;
+          color: rgba(26, 26, 26, 0.87);
+        }
+        .item-con {
+          .item-tags .read-time {
+            font-weight: 300;
+          }
+          .item-by {
+            .item-date {
+              font-weight: 300;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -581,15 +605,11 @@ h2 {
   }
 
   .box-2 {
-    .box-container .item-list .item {
+    &.box-container .item-list .item {
       height: 320px;
       .item-con {
         .item-title {
-          font-family: Rubik;
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 19px;
-          letter-spacing: 0em;
+          color: #fff;
         }
         .item-by {
           margin-top: 16px;

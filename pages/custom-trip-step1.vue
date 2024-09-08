@@ -11,7 +11,7 @@
         <h1>Customize your next casino trip</h1>
         <p class="banner-tip">The whole trip - tailored for you by travel expert.</p>
         <div class="search-box animate__animated" :class="searchValited?'':'animate__shakeX'">
-          <destination-search v-model="form.location"></destination-search>
+          <destination-search v-model="form.location" placeholder="Where are you going?" />
           <el-button type="primary" class="search-btn" @click="toCustom">Search</el-button>
         </div>
       </div>

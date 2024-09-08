@@ -6,7 +6,7 @@
       <span class="update-time">Latest update on April 28, 2023</span>
     </div>
     <div class="box">
-			<div class="text" style="margin-top: 0;" v-if="homePage[1]" >
+			<div class="text" v-if="homePage[1]" >
 				<span class="text-content" v-html="homePage[1].dictValue"></span>
 			</div>
       <!-- <div class="text" style="margin-top: 0;">
@@ -148,9 +148,6 @@
   }
   .box {
     padding: .96rem 2rem;
-    max-width:1440px;
-    margin-left:auto;
-    margin-right:auto;
     .text {
       .first-word {
         width: 6.8rem;
@@ -161,9 +158,6 @@
         font-size: .20rem;
         font-weight: 700;
       }
-      .text-content {
-        font-size: .20rem;
-      }
       .text-footer {
         color: #FF3263;
         font-size: .20rem;
@@ -171,10 +165,11 @@
       }
     }
     .text {
-      margin-top: .24rem;
-      .text-content {
-        font-size: .20rem;
-      }
+      line-height: 140%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0.24rem;
+      width: 6.8rem;
     }
     .instructions {
       margin-top: .40rem;
@@ -239,24 +234,13 @@
        }
      }
      .box {
-       padding: .34rem .2rem;
-       .text {
-         .first-word {
-           font-size: .16rem;
-         }
-         .text-content {
-           font-size: .16rem;
-         }
-         .text-footer {
-           font-size: .16rem;
-         }
-       }
-       .text {
-         margin-top: .24rem;
-         .text-content {
-           font-size: .20rem;
-         }
-       }
+        padding: .2rem;
+        .text {
+          margin-top: .24rem;
+          width: 100% !important;
+          word-break: break-all;
+          margin: 0px !important;
+        }
        .instructions {
          .text-content {
            font-size: .20rem;

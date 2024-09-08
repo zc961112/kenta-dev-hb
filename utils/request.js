@@ -35,7 +35,15 @@ service.interceptors.request.use(config => {
 
   }
   if (getToken() && !isToken) {
-    config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers['Authorization'] = 'Bearer ' + getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
+  }
+  if (config.isPaypal) {
+    config.headers['Authorization'] = 'Bearer ' + config.accessToken;
+    config.headers['Content-Type'] = 'application/json;charset=UTF-8';
+  }
+  if (config.isWorldota || config.isPayota) {
+    delete config.headers['Authorization']
+    config.headers['Content-Type'] = 'text/plain;charset=UTF-8'
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
@@ -54,17 +62,17 @@ service.interceptors.request.use(config => {
     if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
       cache.session.setJSON('sessionObj', requestObj)
     } else {
-      const s_url = sessionObj.url;                  // 请求地址
-      const s_data = sessionObj.data;                // 请求数据
-      const s_time = sessionObj.time;                // 请求时间
-      const interval = 1000;                         // 间隔时间(ms)，小于此时间视为重复提交
-      if (s_data === requestObj.data && requestObj.time - s_time < interval && s_url === requestObj.url) {
-        const message = 'Data is being processed, please do not resubmit';
-        console.warn(`[${s_url}]: ` + message)
-        return Promise.reject(new Error(message))
-      } else {
-        cache.session.setJSON('sessionObj', requestObj)
-      }
+      // const s_url = sessionObj.url;                  // 请求地址
+      // const s_data = sessionObj.data;                // 请求数据
+      // const s_time = sessionObj.time;                // 请求时间
+      // const interval = 1000;                         // 间隔时间(ms)，小于此时间视为重复提交
+      // if (s_data === requestObj.data && requestObj.time - s_time < interval && s_url === requestObj.url) {
+      //   const message = 'Data is being processed, please do not resubmit';
+      //   console.warn(`[${s_url}]: ` + message)
+      //   return Promise.reject(new Error(message))
+      // } else {
+      cache.session.setJSON('sessionObj', requestObj)
+      // }
     }
   }
   return config
@@ -82,6 +90,18 @@ service.interceptors.response.use(res => {
   // 二进制数据则直接返回
   if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
     return res.data
+  }
+  if (res.config.isPaypal) {
+    return res.data
+  }
+  if (res.config.isWorldota || res.config.isPayota) {
+    if (res.data.status !== 'error') {
+      return res.data
+    }
+    Notification.error({
+      title: res.data.error
+    })
+    return Promise.reject('error')
   }
   if (code === 401) {
     if (!isRelogin.show) {

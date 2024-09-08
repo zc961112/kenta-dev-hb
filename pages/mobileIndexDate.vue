@@ -1,72 +1,71 @@
 <template>
   <div class="mobile-page">
-    <div @click="back()" class="back-mark"> </div>
+    <div @click="back()" class="back-mark">
+      <i class="el-icon-back" />
+    </div>
 
-    <div class="mobile-page-select-date-con">
-      <div class="mobile-page-tabs">
-        <div class="mobile-page-tab" :class="dateType == 0 ? 'active' : ''" @click="handleDateType(0)">
-          Select your
-          dates
-        </div>
-        <div class="mobile-page-tab" :class="dateType == 1 ? 'active' : ''" @click="handleDateType(1)">
-          <span>New:&nbsp;</span> I’m flexible
-        </div>
+    <div class="mobile-page-tabs">
+      <div class="mobile-page-tab" :class="dateType == 0 ? 'active' : ''" @click="handleDateType(0)">
+        Select your dates
       </div>
-      <div class="mobile-page-select-date-con" v-if="dateType == 0">
-        <date-picker ref="myDatePicker" v-model="date" type="daterange" @pick="confirmDateRange" popperClass="date-content" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="" end-placeholder="">
-        </date-picker>
+      <div class="mobile-page-tab" :class="dateType == 1 ? 'active' : ''" @click="handleDateType(1)">
+        <span>New:&nbsp;</span> I’m flexible
       </div>
-      <div class="mobile-page-select-date-con" v-if="dateType == 1">
-        <div class="travel-type">
-          <div class="type-hd">Travel for...</div>
-          <div class="item-list">
-            <div class="item" :class="travelTypeIndex==0?'active':''" @click="handleTravelType(0,'A short weekend')">
-              <div class="item-icon">
-                <img src="~assets/images/date-type-1.png" alt="">
-              </div>
-              <div class="item-text">A short weekend</div>
-              <div class="item-desc">Fri-Sun</div>
-              <div class="item-radio"></div>
+    </div>
+    <div v-if="dateType == 0" class="mobile-page-select-date-con">
+      <date-picker ref="myDatePicker" v-model="date" type="daterange" @pick="confirmDateRange" popperClass="date-content" value-format="yyyy-MM-dd" range-separator="至" start-placeholder="" end-placeholder="">
+      </date-picker>
+    </div>
+    <div v-if="dateType == 1">
+      <div class="travel-type">
+        <div class="type-hd">Travel for...</div>
+        <div class="item-list">
+          <div class="item" :class="travelTypeIndex==0?'active':''" @click="handleTravelType(0,'A short weekend')">
+            <div class="item-icon">
+              <img src="~assets/images/date-type-1.png" alt="">
             </div>
-            <div class="item" :class="travelTypeIndex==1?'active':''" @click="handleTravelType(1,'A long weekend')">
-              <div class="item-icon">
-                <img src="~assets/images/date-type-2.png" alt="">
-              </div>
-              <div class="item-text">a long weekend</div>
-              <div class="item-desc">Thu-Mon</div>
-              <div class="item-radio"></div>
+            <div class="item-text">A short weekend</div>
+            <div class="item-desc">Fri-Sun</div>
+            <div class="item-radio"></div>
+          </div>
+          <div class="item" :class="travelTypeIndex==1?'active':''" @click="handleTravelType(1,'A long weekend')">
+            <div class="item-icon">
+              <img src="~assets/images/date-type-2.png" alt="">
             </div>
-            <div class="item" :class="travelTypeIndex==2?'active':''" @click="handleTravelType(2,'A week')">
-              <div class="item-icon">
-                <img src="~assets/images/date-type-3.png" alt="">
-              </div>
-              <div class="item-text">A week</div>
-              <div class="item-desc">7 days</div>
-              <div class="item-radio"></div>
+            <div class="item-text">a long weekend</div>
+            <div class="item-desc">Thu-Mon</div>
+            <div class="item-radio"></div>
+          </div>
+          <div class="item" :class="travelTypeIndex==2?'active':''" @click="handleTravelType(2,'A week')">
+            <div class="item-icon">
+              <img src="~assets/images/date-type-3.png" alt="">
             </div>
-            <div class="item" :class="travelTypeIndex==3?'active':''" @click="handleTravelType(3,'Two weeks')">
-              <div class="item-icon">
-                <img src="~assets/images/date-type-4.png" alt="">
-              </div>
-              <div class="item-text">Two weeks</div>
-              <div class="item-desc">14 days</div>
-              <div class="item-radio"></div>
+            <div class="item-text">A week</div>
+            <div class="item-desc">7 days</div>
+            <div class="item-radio"></div>
+          </div>
+          <div class="item" :class="travelTypeIndex==3?'active':''" @click="handleTravelType(3,'Two weeks')">
+            <div class="item-icon">
+              <img src="~assets/images/date-type-4.png" alt="">
             </div>
+            <div class="item-text">Two weeks</div>
+            <div class="item-desc">14 days</div>
+            <div class="item-radio"></div>
           </div>
         </div>
-        <div class="travel-month">
-          <div class="type-hd">Travel in...</div>
-          <swiper :options="swiperOption">
-            <swiper-slide v-for="(item, index) in monthList" :key="index">
-              <div class="item" :class="item.checked?'checked':''" @click="handleMonth(index)">
-                <div class="item-month">{{ item.month }}</div>
-                <div class="item-year">{{ item.year }}</div>
-              </div>
-            </swiper-slide>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
-          </swiper>
-        </div>
+      </div>
+      <div class="travel-month">
+        <div class="type-hd">Travel in...</div>
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="(item, index) in monthList" :key="index">
+            <div class="item" :class="item.checked?'checked':''" @click="handleMonth(index)">
+              <div class="item-month">{{ item.month }}</div>
+              <div class="item-year">{{ item.year }}</div>
+            </div>
+          </swiper-slide>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
       </div>
     </div>
 
@@ -103,6 +102,7 @@ export default {
       month0: 'December',
     },
     travelTypeIndex: 2,
+    traveTypeText: 'A week',
     monthList: [],
     swiperOption: {
       slidesPerView: 3,
@@ -123,7 +123,6 @@ export default {
       loop: false
     },
     selectedMonth: [],
-    traveTypeText: 'A week',
     date: ''
   }),
   mounted () {
@@ -142,8 +141,8 @@ export default {
         this.$refs.myDatePicker.maxDate = '';
       } else if (this.dateType == 1) {
         this.selectedMonth = [];
-        this.travelTypeIndex = 2;
-        this.traveTypeText = 'A week';
+        this.travelTypeIndex = -1;
+        this.traveTypeText = '';
 
         for (let i = 0; i < this.monthList.length; i++) {
           if (this.monthList[i].checked) {
@@ -269,48 +268,49 @@ export default {
 
 ::v-deep .swiper-slide {
   // height: 72px;
-  width: 106px;
+  width: 115px!important;
+  padding: 0 4.5px;
 }
+.mobile-page-tabs {
+  width: 313px;
+  height: 40px;
+  margin: 10px auto 0;
+  border-radius: 48px;
+  border: 1px solid rgba(218, 218, 218, 0.6);
+  background: #f5f5f5;
+  color: rgba(26, 26, 26, 0.6);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
 
-.mobile-page-select-date-con {
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 336px;
-  .mobile-page-tabs {
-    width: 313px;
-    height: 40px;
-    margin: 10px auto 24px;
-    border-radius: 48px;
-    border: 1px solid rgba(218, 218, 218, 0.6);
-    background: #f5f5f5;
-    color: rgba(26, 26, 26, 0.6);
-    font-weight: 400;
+  .mobile-page-tab {
+    flex: 1;
     display: flex;
+    height: 100%;
+    border-radius: 48px;
     align-items: center;
-
-    .mobile-page-tab {
-      flex: 1;
-      display: flex;
-      height: 100%;
-      border-radius: 48px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      span {
-        color: #3451ff;
-      }
-
-      font-family: Rubik;
-      font-size: 16px;
-      line-height: 16px;
-      letter-spacing: 0em;
+    justify-content: center;
+    cursor: pointer;
+    span {
+      color: #3451ff;
     }
-    .mobile-page-tab.active {
-      border: 1px solid #1a1a1a;
-      background: #fefefe;
-      color: #1a1a1a;
-    }
+
+    font-family: Rubik;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0em;
+  }
+  .mobile-page-tab.active {
+    border: 1px solid #1a1a1a;
+    background: #fefefe;
+    color: #1a1a1a;
+  }
+}
+.mobile-page-select-date-con {
+  margin: 24px auto 0;
+  width: 336px;
+  :deep(.el-picker-panel__icon-btn) {
+    display: none;
   }
 }
 
@@ -347,8 +347,9 @@ export default {
 }
 
 .travel-type {
+  margin: 0.24rem auto 0;
   font-family: Rubik;
-  width: 100%;
+  width: 336px;
   .type-hd {
     color: #1a1a1a;
     font-size: 20px;
@@ -363,7 +364,7 @@ export default {
     text-align: center;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.16rem;
+    margin-top: 0.24rem;
 
     .item.active {
       border: 1px solid #ff3263;
@@ -391,15 +392,6 @@ export default {
       }
     }
 
-    .item:hover {
-      border: 1px solid #ff3263;
-      background: rgba(255, 50, 99, 0.08);
-
-      .item-text {
-        color: #ff3263;
-      }
-    }
-
     .item {
       height: 160px;
       width: 160px;
@@ -410,8 +402,10 @@ export default {
       border: 1px solid #dadada;
       cursor: pointer;
       float: left;
-      margin-left: 8px;
-      margin-top: 16px;
+      margin-bottom: 16px;
+      &:nth-child(2n-1) {
+        margin-right: 16px;
+      }
 
       .item-icon {
         height: 56px;
@@ -419,6 +413,10 @@ export default {
         margin-left: auto;
         margin-right: auto;
         margin-top: 20px;
+
+        img {
+          object-fit: contain;
+        }
       }
 
       .item-text {
@@ -456,13 +454,22 @@ export default {
 }
 
 .travel-month {
-  margin-top: 0.24rem;
+  margin: 0.4rem auto 0;
   font-family: Rubik;
   .type-hd {
+    width: 336px;
+    margin: 0 auto;
     color: #1a1a1a;
     font-size: 0.2rem;
     font-weight: 400;
-    margin-bottom: 0.16rem;
+  }
+  .swiper-container {
+    margin: 0.16rem auto 0;
+    width: 364px;
+    :deep(.swiper-wrapper) {
+      width: 336px;
+      margin: 0 auto;
+    }
   }
 
   .item {
@@ -472,9 +479,9 @@ export default {
     align-items: center;
     border-radius: 8px;
     border: 1px solid #dadada;
-    flex: 1;
-    height: 1.2rem;
-    margin: 0 0.12rem;
+    // flex: 1;
+    width: 106px;
+    height: 0.72rem;
     cursor: pointer;
 
     .item-month {
@@ -534,8 +541,8 @@ export default {
     opacity: 0.3;
   }
   .swiper-button-prev {
-    width: 0.32rem;
-    height: 0.32rem;
+    width: 32px;
+    height: 32px;
     // background: url(~assets/images/icon-swiper-prev.png) no-repeat;
     background-size: 100%;
     &::after {
@@ -543,8 +550,8 @@ export default {
     }
   }
   .swiper-button-next {
-    width: 0.32rem;
-    height: 0.32rem;
+    width: 32px;
+    height: 32px;
     // background: url(~assets/images/icon-swiper-next.png) no-repeat;
     background-size: 100%;
     &::after {
@@ -564,7 +571,7 @@ export default {
 }
 
 .mobile-page-footer-clear {
-  width: 98px;
+  // width: 98px;
   height: 17px;
   text-decoration: underline dotted;
   border-bottom: 1px solid rgba(26, 26, 26, 1);

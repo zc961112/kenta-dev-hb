@@ -1,12 +1,9 @@
 const axios = require('axios')
 const config = require('./config/index.js')
 export default {
+  ssr: false,
   distDir: 'dist/',
-  target: 'static',
-  server: {
-    host: '127.0.0.1', // 将主机设置为 127.0.0.1
-    port: 3000         // 端口号保持为 3000
-  },
+  target: 'server',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'kenta',
@@ -19,9 +16,9 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    script: [{
-      src: 'https://accounts.google.com/gsi/client', mode: 'client'
-    }
+    script: [
+      { src: 'https://accounts.google.com/gsi/client', mode: 'client' },
+      // { src: 'https://www.paypal.com/sdk/js?components=buttons,card-fields&client-id=AXaD42mzwwR7djesJiy14wOEz6cAQDPPFJZVrMHfjewuDPNHDly6esM0LqFWdJjuMQLmSa1hrRxkmOXR&currency=EUR', mode: 'client' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

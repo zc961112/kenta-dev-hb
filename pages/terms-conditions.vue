@@ -145,9 +145,6 @@
   }
   .box {
     padding: .96rem 2rem;
-    max-width:1440px;
-    margin-left:auto;
-    margin-right:auto;
     .text {
       .first-word {
         font-size: .20rem;
@@ -159,10 +156,11 @@
 
     }
     .text {
-      margin-top: .24rem;
-      .text-content {
-        font-size: .20rem;
-      }
+      line-height: 140%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 0.24rem;
+      width: 6.8rem;
     }
     .instructions {
       margin-top: .40rem;
@@ -227,7 +225,7 @@
        }
      }
      .box {
-       padding: .34rem .2rem;
+       padding: .2rem;
        .text {
          .first-word {
            font-size: .16rem;
@@ -235,13 +233,15 @@
          .text-content {
            font-size: .16rem;
          }
-
        }
        .text {
-         margin-top: .24rem;
-         .text-content {
-           font-size: .20rem;
-         }
+        width: 100% !important;
+        word-break: break-all;
+        margin: 0px !important;
+        //  margin-top: .24rem;
+        //  .text-content {
+        //    font-size: .20rem;
+        //  }
        }
        .instructions {
          .text-content {

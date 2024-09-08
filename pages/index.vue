@@ -14,10 +14,38 @@
           <h1 v-if="homePage[0]">{{ homePage[0].dictValue }}</h1>
           <p class="banner-tip" v-if="homePage[1]">{{ homePage[1].dictValue }}</p>
           <div class="search-box animate__animated" ref="animatedBox" :class="searchValited?'':'animate__shakeX'">
-            <destination-search ref="destinationSearch" v-bind:tabIndex="tabIndex" v-model="form.location" :style="colorAddressChange()"></destination-search>
+            <el-select v-model="form.citizenship" class="search-box-select" :class="colorCountryChange()" placeholder="Your citizenship" @visible-change="closeOtherPopper">
+              <template slot="prefix">
+                <svg style="margin:16px 0 0 14px" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_1055_604)">
+                    <path d="M13.9211 3.2627L12.7631 4.13112C12.4898 4.3361 12.1574 4.44691 11.8158 4.44691H9.16447C8.69276 4.44691 8.26147 4.71344 8.05052 5.13537C7.79016 5.65607 7.92523 6.28765 8.37579 6.65633L9.95473 7.94814C11.1973 8.96483 11.8403 10.5416 11.6631 12.1373L11.6473 12.279C11.5844 12.8445 11.4455 13.3989 11.2342 13.9271L10.7632 15.1048" stroke="#222222" stroke-width="0.789474"/>
+                    <path d="M0.5 6.81532L3.05639 6.38926C4.12506 6.21115 5.05154 7.13766 4.87343 8.2063L4.76724 8.84348C4.57711 9.98427 5.15324 11.1157 6.18766 11.6328C7.01592 12.047 7.44547 12.9809 7.22087 13.8792L6.81579 15.4995" stroke="#222222" stroke-width="0.789474"/>
+                    <path d="M8 15.5C12.1421 15.5 15.5 12.1421 15.5 8C15.5 3.85786 12.1421 0.5 8 0.5C3.85786 0.5 0.5 3.85786 0.5 8C0.5 12.1421 3.85786 15.5 8 15.5Z" stroke="#222222" stroke-width="0.789474"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_1055_604">
+                      <rect width="16" height="16" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </template>
+              <el-option
+                v-for="opt in countryList"
+                :key="opt.value"
+                :value="opt.value"
+                :label="opt.label"
+              />
+            </el-select>
+            <destination-search
+              ref="destinationSearch"
+              v-bind:tabIndex="tabIndex"
+              v-model="form.location"
+              :style="colorAddressChange()"
+              @close-other="closeOtherPopper"
+            />
             <div class="inp-box" :style="dateColorChange()">
               <i class="icon icon-date">
-                <img src="~assets/images/icon-date.png" alt="">
+                <img src="~assets/images/icon-date-bak.png" alt="">
               </i>
               <el-popover placement="bottom-start" style="width:100%" trigger="manual" :visible-arrow="false" popper-class="select-date-wrap" v-model="visible3">
                 <div class="select-date-con">
@@ -46,7 +74,7 @@
                     <div class="travel-type">
                       <div class="type-hd">Travel for...</div>
                       <div class="item-list">
-                        <div class="item" :class="travelTypeIndex==0?'active':''" @click="handleTravelType(0,'A short weekend')">
+                        <div class="item" :class="travelTypeIndex===0?'active':''" @click="handleTravelType(0,'A short weekend')">
                           <div class="item-icon">
                             <img src="~assets/images/date-type-1.png" alt="">
                           </div>
@@ -54,7 +82,7 @@
                           <div class="item-desc">Fri-Sun</div>
                           <div class="item-radio"></div>
                         </div>
-                        <div class="item" :class="travelTypeIndex==1?'active':''" @click="handleTravelType(1,'A long weekend')">
+                        <div class="item" :class="travelTypeIndex===1?'active':''" @click="handleTravelType(1,'A long weekend')">
                           <div class="item-icon">
                             <img src="~assets/images/date-type-2.png" alt="">
                           </div>
@@ -62,7 +90,7 @@
                           <div class="item-desc">Thu-Mon</div>
                           <div class="item-radio"></div>
                         </div>
-                        <div class="item" :class="travelTypeIndex==2?'active':''" @click="handleTravelType(2,'A week')">
+                        <div class="item" :class="travelTypeIndex===2?'active':''" @click="handleTravelType(2,'A week')">
                           <div class="item-icon">
                             <img src="~assets/images/date-type-3.png" alt="">
                           </div>
@@ -70,7 +98,7 @@
                           <div class="item-desc">7 days</div>
                           <div class="item-radio"></div>
                         </div>
-                        <div class="item" :class="travelTypeIndex==3?'active':''" @click="handleTravelType(3,'Two weeks')">
+                        <div class="item" :class="travelTypeIndex===3?'active':''" @click="handleTravelType(3,'Two weeks')">
                           <div class="item-icon">
                             <img src="~assets/images/date-type-4.png" alt="">
                           </div>
@@ -103,8 +131,8 @@
                 </div>
                 <div slot="reference">
                   <div v-if="dateType===0" class="date-show-inp">
-                    <el-input placeholder="Add dates" v-model="form.date" v-on:change="dateColorChange()" clearable @click.stop.native="handleVisible3" @clear="handleDateClear"></el-input>
-                    <div class="show-date-range" v-if="form.date&&dayRageIndex>0">±{{ dayRageIndex }}</div>
+                    <el-input placeholder="Add dates" v-model="formDate1" v-on:change="dateColorChange()" clearable @click.stop.native="handleVisible3" @clear="handleDateClear"></el-input>
+                    <div class="show-date-range" v-if="formDate1&&dayRageIndex>0">±{{ dayRageIndex }}</div>
                   </div>
                   <div v-if="dateType===1" class="date-show-inp">
                     <el-input placeholder="Add dates" v-model="formDate2" v-on:change="dateColorChange()" clearable @click.stop.native="handleVisible3" @clear="handleDateClear2"></el-input>
@@ -114,7 +142,7 @@
             </div>
             <div class="inp-box" :style="guestColorChange()">
               <i class="icon icon-guest">
-                <img src="~assets/images/icon-guest.png" alt="">
+                <img src="~assets/images/icon-guest-bak.png" alt="">
               </i>
               <el-popover placement="bottom-start" style="width:100%" trigger="manual" :visible-arrow="false" popper-class="select-guest-wrap" v-model="visible4">
                 <div class="select-guest-con">
@@ -138,7 +166,12 @@
           <h1 v-if="homePage[2]">{{ homePage[2].dictValue }}</h1>
           <p class="banner-tip" v-if="homePage[3]">{{ homePage[3].dictValue }}</p>
           <div class="search-box animate__animated" :class="searchValited2?'':'animate__shakeX'">
-            <destination-search ref="destinationSearch2" v-bind:tabIndex="tabIndex" v-model="form.location"></destination-search>
+            <destination-search
+              ref="destinationSearch2"
+              v-bind:tabIndex="tabIndex"
+              v-model="form.location"
+              :style="colorAddressChange()"
+            />
             <el-button type="primary" class="search-btn" @click="toCustom">Search</el-button>
           </div>
         </div>
@@ -223,11 +256,11 @@
           <div class="item" v-for="(item,index) in casinoList" :key="index">
             <div class="item-pic" v-if="item.isSave == 1">
               <img @click="toCasino(item)" v-if="item.casinoImages&&item.casinoImages[0]" :src="item.casinoImages[0].url" alt="">
-              <i class="icon-mark-saved" @click="collection(item)"></i>
+              <i class="icon-mark-saved" @click.stop="collection(item)"></i>
             </div>
             <div class="item-pic" v-else>
               <img @click="toCasino(item)" v-if="item.casinoImages&&item.casinoImages[0]" :src="item.casinoImages[0].url" alt="">
-              <i class="icon-mark" @click="collection(item)"></i>
+              <i class="icon-mark" @click.stop="collection(item)"></i>
             </div>
             <h3 class="item-title line-1">
               {{ item.name }}
@@ -352,6 +385,9 @@
 import dayjs from 'dayjs'
 import { getClientArticleList, getIndexData, dictList, saveCasino, cancelSaveCasino } from '@/api/index';
 import { getDestinationList, destinationPopular } from '@/api/destination'
+import { formatDateRange, getDefaultDateRange } from '@/utils/index'
+import { getUserId } from '@/utils/auth'
+import CountryList from '@/config/citizenship'
 
 export default {
   name: 'IndexPage',
@@ -375,17 +411,20 @@ export default {
   },
   data () {
     return {
+      isCountryError: false,
+      countryList: CountryList,
       tabIndex: 0,
       visible3: false,
       visible4: false,
       dateType: 0,
       form: {
+        citizenship: '',
         location: {
           label: '',
           value: '',
           slug: ''
         },
-        date: '',
+        date: getDefaultDateRange(),
       },
       searchValited: true,
       searchValited2: true,
@@ -416,7 +455,7 @@ export default {
       guestList: [{
         label: 'Adults',
         tips: 'Age 13+',
-        value: 0,
+        value: 1,
       }, {
         label: 'Children',
         tips: 'Age 1 to 12',
@@ -444,7 +483,7 @@ export default {
         month11: 'November',
         month0: 'December',
       },
-      travelTypeIndex: 2,
+      travelTypeIndex: '',
       monthList: [],
       swiperOption: {
         slidesPerView: 6,
@@ -517,6 +556,12 @@ export default {
     }
   },
   computed: {
+    formDate1: {
+      get () {
+        return formatDateRange(this.form.date)
+      },
+      set () {}
+    },
     formDate2: {
       get () {
         if (this.selectedMonth.length > 0) {
@@ -585,11 +630,6 @@ export default {
     }
   },
   methods: {
-    getCookie (name) {
-      var cookie_start = document.cookie.indexOf(name);
-      var cookie_end = document.cookie.indexOf(";", cookie_start);
-      return cookie_start == -1 ? '' : unescape(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)));
-    },
     init () {
       getIndexData().then((res) => {
         this.destinationList = res.data.zsDestinations.slice(0, 4)
@@ -677,8 +717,6 @@ export default {
       this.monthList = list;
     },
     handleMonth (index) {
-      console.log(index);
-      console.log(this.monthList.length);
       if (this.monthList[index].checked) {
         this.monthList[index].checked = false;
       } else {
@@ -705,6 +743,7 @@ export default {
     handleTab (index) {
       this.tabIndex = index;
       sessionStorage.setItem("tabIndex", this.tabIndex);
+      this.isShowAddressColor = false;
     },
     handleVisible3 () {
       if (window.isMobile) {
@@ -714,6 +753,7 @@ export default {
       this.dateColorChange();
       this.visible3 = !this.visible3;
       this.visible4 = false;
+      this.$refs.destinationSearch.close()
     },
     handleVisible4 () {
       if (window.isMobile) {
@@ -723,6 +763,14 @@ export default {
       this.guestColorChange();
       this.visible4 = !this.visible4;
       this.visible3 = false;
+      this.$refs.destinationSearch.close()
+    },
+    closeOtherPopper (v) {
+      this.visible3 = false;
+      this.visible4 = false;
+      if (v) {
+        this.$refs.destinationSearch.close()
+      }
     },
     selectFn3 (val) {
       this.form.date = val;
@@ -732,12 +780,18 @@ export default {
       this.dateType = type;
     },
     confirmDateRange (e) {
-      this.form.date = `${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
+      const start = typeof e[0] === 'object' ? e[0].getTime() : new Date(e[0]).getTime()
+      const end = typeof e[1] === 'object' ? e[1].getTime() : new Date(e[1]).getTime()
+      this.form.date = [start, end].join(',')
+      // this.form.date = `${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
       // this.visible3 = false;
     },
     closePop () {
       this.visible3 = false;
       this.visible4 = false;
+    },
+    colorCountryChange () {
+      return this.isCountryError ? 'form-error' : ''
     },
     colorAddressChange () {
       if (this.isShowAddressColor) {
@@ -745,18 +799,14 @@ export default {
       } else {
         return '';
       }
-
     },
     goToDestination (row, type) {
-       if (!row.slug) {
-        return;
-      }
-
-      if (!window.whiteList.includes(`/destination/${row.slug}`)) {
+      this.isShowAddressColor = false;
+      this.isCountryError = false;
+      if (row.slug && !window.whiteList.includes(`/destination/${row.slug}`)) {
         window.whiteList.push(`/destination/${row.slug}`)
       }
 
-      this.isShowAddressColor = true;
       let destinationId = '';
       let destinationName = '';
 
@@ -766,7 +816,16 @@ export default {
         destinationName = row.label;
 
         // 设置搜索框闪动效果
+        if (!this.form.citizenship) {
+          this.searchValited = false
+          this.isCountryError = true
+          setTimeout(() => {
+            this.searchValited = true
+          }, 1000);
+          return;
+        }
         if (destinationId == '' || destinationId == null || destinationId == undefined) {
+          this.isShowAddressColor = true;
           this.searchValited = false;
           setTimeout(() => {
             this.searchValited = true;
@@ -786,17 +845,31 @@ export default {
         destinationName: destinationName,
         dateType: this.dateType,
         date: this.form.date,
+        gj: this.form.citizenship,
         selectedMonth: this.selectedMonth,
         guestList: JSON.stringify(this.guestList)
       }))
 
       const path = row ? `/destination/${row.slug}` : '/destination'
-
-      this.$router.push(path)
+      // this.$router.push(path)
+      this.$router.push({
+        path,
+        query: {
+          // destinationId: destinationId,
+          destinationName: destinationName,
+          dateType: this.dateType,
+          date: this.form.date,
+          gj: this.form.citizenship,
+          selectedMonth: JSON.stringify(this.selectedMonth),
+          guestList: JSON.stringify(this.guestList)
+        }
+      })
     },
     toCustom () {
+      this.isShowAddressColor = false;
       if (!this.form.location.value) {
         this.searchValited2 = false;
+        this.isShowAddressColor = true;
         setTimeout(() => {
           this.searchValited2 = true;
         }, 1000);
@@ -809,28 +882,18 @@ export default {
       })
     },
     collection (item) {
-      let memberId = this.getCookie("userId");
+      let memberId = getUserId();
       if (memberId == '') {
         this.$router.push({ path: '/login' })
         return;
       }
       if (item.isSave == 0) {
         saveCasino({ casinoId: item.id }).then(res => {
-          //   this.$message({
-          //       message: 'Collection successful',
-          //       type: 'success',
-          // customClass:'messageIndex'
-          //   });
           item.isSave = 1
           console.log("success")
         })
       } else {
         cancelSaveCasino({ casinoId: item.id }).then(res => {
-          //   this.$message({
-          //       message: 'cancelSaveCasino success',
-          //       type: 'success',
-          // customClass:'messageIndex'
-          //   });
           item.isSave = 0
           console.log("success")
         })
@@ -855,13 +918,19 @@ export default {
       this.$router.push(`/detail/${row.slug}`)
     },
     toCasino (row) {
-      if (!window.whiteList.includes(`/casino-profile/${row.slug}`)) {
-        window.whiteList.push(`/casino-profile/${row.slug}`)
-      }
+      // if (!window.whiteList.includes(`/casino-profile/${row.slug}`)) {
+      //   window.whiteList.push(`/casino-profile/${row.slug}`)
+      // }
+      // sessionStorage.setItem('cpid', row.id)
+      // this.$router.push(`/casino-profile/${row.slug}`)
 
-      sessionStorage.setItem('cpid', row.id)
-
-      this.$router.push(`/casino-profile/${row.slug}`)
+      sessionStorage.setItem('hid', row.slug)
+      this.$router.push({
+        path: `/destination/${row.destinationSlug}`,
+        query: {
+          destinationName: row.cityName
+        }
+      })
     },
     dateColorChange () {
       return 'border : 1px solid rgba(218, 218, 218, 0.60)';
@@ -923,8 +992,8 @@ h3 {
 .banner {
   // font-family: Rubik;
   // height: 4.80rem;
-  background: url('https://kenta-vip-text.b-cdn.net/Bellagio%20Hotel%20%26%20Casino%20shutterstock_1445665004-min_20231213131454A009_20240103163143A009.webp') no-repeat;
-  background-size: 100% 100%;
+  background: url('https://kenta-vip-text.b-cdn.net/Bellagio%20Hotel%20%26%20Casino%20shutterstock_1445665004-min_20231213131454A009_20240103163143A009.webp') center center no-repeat;
+  background-size: cover;
   display: flex;
   padding-top: 8.6em; //1.20rem;
   padding-bottom: 4em; //.56rem;
@@ -965,10 +1034,25 @@ h3 {
     margin: 0.24rem auto 0;
     display: flex;
     background: #fefefe;
-    width: 9.12rem;
+    width: 11.44rem;
     height: 0.64rem;
     padding: 0.08rem;
     border-radius: 0.12rem;
+    .search-box-select {
+      margin-right: 0.08rem;
+      flex: 1;
+      &.form-error :deep(.el-input__inner) {
+        border-color: rgba(218, 0, 0, 0.6);
+      }
+      :deep(.el-input__inner) {
+        padding-left: 50px;
+        height: 48px;
+        border: 1px solid rgba(218, 218, 218, 0.6);
+        border-radius: 0.08rem;
+        color: #1a1a1a;
+        font-size: 16px;
+      }
+    }
 
     .inp-box {
       margin-right: 0.08rem;
@@ -1070,7 +1154,8 @@ h3 {
   background: #fefefe;
 
   .item-list {
-    margin-top: 0.4rem;
+    margin: 0.4rem auto 0;
+    max-width: 1440px;
     display: flex;
     justify-content: center;
 
@@ -1187,7 +1272,7 @@ h3 {
     font-weight: 400;
     line-height: 124%; /* 39.68px */
     letter-spacing: -1.28px;
-    max-width: 1480px;
+    max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -1469,7 +1554,8 @@ h3 {
     background-size: 100% 3.93rem;
 
     .banner-tip {
-      display: none;
+      color: #1A1A1A;
+      font-size: 0.14rem;
     }
 
     .tab {
@@ -1502,11 +1588,12 @@ h3 {
         position: absolute;
         box-sizing: content-box;
         padding: 0 1px;
-        top: -1px;
+        top: -2px;
         left: -1px;
         width: 100%;
         height: 2px;
         background: #ff3263;
+        z-index: 9999;
       }
     }
 
@@ -1553,6 +1640,10 @@ h3 {
     height: auto;
     width: 100%;
     margin-top: 0.1rem;
+
+    .search-box-select {
+      width: calc(100% - 0.08rem);
+    }
 
     .inp-box {
       margin-top: 0.08rem;
@@ -1640,6 +1731,10 @@ h3 {
       }
     }
 
+    .box-hd2 {
+      font-size: 0.24rem;
+    }
+
     .item-list {
       width: 100%;
 
@@ -1654,6 +1749,10 @@ h3 {
 
         .item-pic {
           height: 2rem;
+        }
+
+        .item-title {
+          font-size: 0.18rem;
         }
       }
     }
@@ -1707,6 +1806,7 @@ h3 {
         }
 
         .art-desc {
+          line-height: 19.6px;
           overflow: visible;
           -webkit-line-clamp: unset;
         }

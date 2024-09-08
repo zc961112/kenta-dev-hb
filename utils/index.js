@@ -1,16 +1,18 @@
 import { parseTime } from './ruoyi'
+import dayjs from 'dayjs'
+import Decimal from '@/utils/decimal'
 
 /**
  * 表格时间格式化
  */
 export function formatDate(cellValue) {
   if (cellValue == null || cellValue == "") return "";
-  var date = new Date(cellValue) 
+  var date = new Date(cellValue)
   var year = date.getFullYear()
   var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
-  var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate() 
-  var hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours() 
-  var minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes() 
+  var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+  var hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+  var minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
   var seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
   return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds
 }
@@ -330,7 +332,7 @@ export function makeMap(str, expectsLowerCase) {
     ? val => map[val.toLowerCase()]
     : val => map[val]
 }
- 
+
 export const exportDefault = 'export default '
 
 export const beautifierConf = {
@@ -387,4 +389,47 @@ export function camelCase(str) {
 export function isNumberStr(str) {
   return /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g.test(str)
 }
- 
+
+export function formatDateRange(e) {
+  if (!e) {
+    return ''
+  }
+  const [start, end] = e.split(',').map(t => parseInt(t, 10))
+  return `${dayjs(start).format('DD')} ${dayjs(start).format('MMM')} - ${dayjs(end).format('DD')} ${dayjs(end).format('MMM')}`
+}
+
+export function getDefaultDateRange() {
+  let start = dayjs()
+  if (start.hour() > 21) {
+    start = start.add(1, 'day')
+  }
+  let end = start.add(1, 'day')
+  return `${start.valueOf()},${end.valueOf()}`
+}
+
+export function generateUUid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    let r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+export async function imageToBase64(url) {
+  try {
+    const res = await fetch(decodeURIComponent(url));
+    const blob = res.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    })
+  } catch (e) {
+    return ''
+  }
+}
+
+export function getLastestPrice(price) {
+  return price ? Decimal.mul(price, 1.2).toNumber() : 0
+}
