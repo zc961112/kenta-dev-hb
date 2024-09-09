@@ -39,7 +39,7 @@
 								<img src="~assets/images/Group1.png" />
 								<div class="info">
 									<h4>כרטיסים לפורמולה 1 זמינים כעת</h4>
-									<button>לצפייה בכרטיסים</button>
+									<router-link :to="'/engpage'" tag="button">לצפייה בכרטיסים</router-link>
 								</div>
 							</div>
 						</div>
@@ -704,7 +704,7 @@
 		background-color: rgba(245, 245, 245, 1);
 		padding: 0.14rem 0;
 		padding-bottom: 0.6rem;
-		
+
 		.experience-info{
 			display: flex;
 			width: 1440px;
