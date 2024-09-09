@@ -1,9 +1,10 @@
-@import 'https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&cache=clear';
+// @import 'https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&cache=clear';
 
 @font-face {
     font-family: 'Rubik';
-    src: url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&cache=clear');
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;700&display=swap');
 }
+
 
 html {
     font-family: Rubik;
@@ -17,7 +18,13 @@ body {
     // font-family: 'rubikregular';
     // font-family: 'Rubik';
 }
-
+.flex{
+	flex:1
+}
+.warps{
+	width: 1440px;
+	margin: 0 auto;
+}
 /*
 .page{
     max-width:1440px;
