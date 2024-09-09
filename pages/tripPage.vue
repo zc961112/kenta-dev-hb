@@ -53,7 +53,8 @@
 							</div>
 						</div>
 						<div class="confirm">
-							<button>אישור והמשך</button>
+							<router-link :to="'/celtaPage'" tag="button">אישור והמשך</router-link>
+							<!-- <button>אישור והמשך</button> -->
 							<div class="confirm-text">
 								<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות</p>
 								<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
