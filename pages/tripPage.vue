@@ -1,159 +1,151 @@
 <template>
 	<div class="page">
-		<TripHeader :ishome="false" />
-		<main>
-			<div class="content">
-				<div class="left">
-					<div class="choose">
-						<div class="choose-bg">
-							<h1>1. &nbsp;&nbsp;בחרו כרטיס או חבילה</h1>
-							<div class="text" style="margin-right: 0;">
-								<img src="~assets/images/icon/icon13.png" />
-								כרטיסים רשמיים ישירות ממארגן האירוע. זמינות בזמן אמת ומקומות ישיבה מובטחים!
-							</div>
-							<div class="type-name">סוג החבילה:</div>
-							<div class="type">
-								<div class="type-li">
-									<div class="radio"></div>
-									<div class="ticket">
-										כרטיס/ים
-									</div>
-									<div class="tips">
-										<p>בחר/י את מקומות הישיבה </p>
-										<p>שלך בשלב 2.</p>
-									</div>
+		<TripHeader />
+		<div class="content">
+			<div class="left">
+				<div class="choose">
+					<div class="choose-bg">
+						<h1>1. &nbsp;&nbsp;בחרו כרטיס או חבילה</h1>
+						<div class="text" style="margin-right: 0;">
+							<img src="~assets/images/icon/icon13.png" />
+							כרטיסים רשמיים ישירות ממארגן האירוע. זמינות בזמן אמת ומקומות ישיבה מובטחים!
+						</div>
+						<div class="type-name">סוג החבילה:</div>
+						<div class="type">
+							<div class="type-li" @click="select(index)" :class="[active==index?'current':'']"
+								v-for="(item,index) in list" :key="index">
+								<span class="Casino" v-if="index==0"><img
+										src="~assets/images/icon/icon4.png" />Sponsored by Asper
+									Casino</span>
+								<div class="radio">
+									<img v-if="active==index" src="~assets/images/icon/select.png" />
 								</div>
-								<div class="type-li current">
-									<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper
-										Casino</span>
-									<div class="radio">
-										<img src="~assets/images/icon/select.png" />
-									</div>
-									<div class="ticket">
-										כרטיס/ים + מלון
-									</div>
-									<div class="tips">
-										<p>בחר/י את מקומות הישיבה </p>
-										<p>והמלון שלך בשלב 2 ו- 3.</p>
-									</div>
+								<div class="ticket">
+									{{item.name}}
+								</div>
+								<div class="tips">
+									<p>{{item.p}}</p>
+									<p>{{item.t}}</p>
 								</div>
 							</div>
-							<div class="people">
-								<div class="type-name">מספר אנשים:</div>
-								<el-select v-model="value" placeholder="2 אנשים">
-									<el-option v-for="item in options" :key="item.value" :label="item.value"
-										:value="item.value">
-									</el-option>
-								</el-select>
-
-								<!-- 	<div class="select">
-										<p>2 people</p>
-										<img src="img/xl.png" />
-									</div> -->
-							</div>
 						</div>
-						<div class="confirm">
-							<router-link :to="'/celtaPage'" tag="button">אישור והמשך</router-link>
-							<!-- <button>אישור והמשך</button> -->
-							<div class="confirm-text">
-								<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות</p>
-								<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
-							</div>
+						<div class="people">
+							<div class="type-name">מספר אנשים:</div>
+							<el-select v-model="value" placeholder="2 אנשים">
+								<el-option v-for="item in options" :key="item.value" :label="item.value"
+									:value="item.value">
+								</el-option>
+							</el-select>
 						</div>
 					</div>
-					<div class="item-li">
-						2.איפה תרצו לשבת?
-					</div>
-					<div class="item-li">
-						3.פרטים אישיים
+					<div class="confirm">
+						<router-link :to="'/celtaPage'" tag="button">אישור והמשך</router-link>
+						<!-- <button>אישור והמשך</button> -->
+						<div class="confirm-text">
+							<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות</p>
+							<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
+						</div>
 					</div>
 				</div>
-				<div class="right">
-					<div class="r-img">
-						<div>
-							<p>פרטי ההזמנה והמחיר יופיעו </p>
+				<div class="item-li">
+					2.איפה תרצו לשבת?
+				</div>
+				<div class="item-li">
+					3.פרטים אישיים
+				</div>
+			</div>
+			<div class="right">
+				<div class="r-img">
+					<div>
+						<p>פרטי ההזמנה והמחיר יופיעו </p>
 						<p>לאחר אישור השלב הראשון.</p>
-						</div>
-				
-						<!-- <img src="~assets/images/icon/imgs.png" /> -->
 					</div>
-					<div class="why padding">
+				</div>
+				<div class="why padding">
+					<div class="name">
+						למה להזמין ב-<span> Kenta</span>？
+					</div>
+					<div class="why-li">
+						<p>
+							<img src="~assets/images/icon/icon14.png" />
+							כרטיסים רישמיים
+						</p>
+						<p>
+							<img src="~assets/images/icon/icon14.png" />
+							מושבים אחד-ליד-השני
+						</p>
+						<p>
+							<img src="~assets/images/icon/icon14.png" />
+							אירועים מובטחים
+						</p>
+						<p>
+							<img src="~assets/images/icon/icon14.png" />
+							זמינות בזמן אמת
+						</p>
+					</div>
+				</div>
+				<div class="padding">
+					<div class="Frequently">
 						<div class="name">
-							למה להזמין ב-<span> Kenta</span>？
+							שאלות נפוצות
 						</div>
-						<div class="why-li">
-							<p>
-								<img src="~assets/images/icon/icon14.png" />
-								כרטיסים רישמיים
-							</p>
-							<p>
-								<img src="~assets/images/icon/icon14.png" />
-								מושבים אחד-ליד-השני
-							</p>
-							<p>
-								<img src="~assets/images/icon/icon14.png" />
-								אירועים מובטחים
-							</p>
-							<p>
-								<img src="~assets/images/icon/icon14.png" />
-								זמינות בזמן אמת
-							</p>
+						<div class="checkbox">
+							<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+								<el-option v-for="item in options" :key="item.value" :label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+						</div>
+						<div class="checkbox">
+							<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+								<el-option v-for="item in options" :key="item.value" :label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
+						</div>
+						<div class="checkbox">
+							<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+								<el-option v-for="item in options" :key="item.value" :label="item.label"
+									:value="item.value">
+								</el-option>
+							</el-select>
 						</div>
 					</div>
-					<div class="padding">
-						<div class="Frequently">
-							<div class="name">
-								שאלות נפוצות
-							</div>
-							<div class="checkbox">
-								<p>האם תאריכי הכרטיסים מאושרים?</p>
-								<img src="~assets/images/icon/xl.png" />
-							</div>
-							<div class="checkbox">
-								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
-								<img src="~assets/images/icon/xl.png" />
-							</div>
-							<div class="checkbox">
-								<p>איפה אני אשב באיצדטיון?</p>
-								<img src="~assets/images/icon/xl.png" />
+					<div class="help">
+						<div class="help-name">איך נוכל לעזור?</div>
+						<div class="user">
+							<div class="state"></div>
+							<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
+							<div class="text">
+								<p>שירות הלקוחות שלנו ישמח לסייע לכם</p>
+								<p>בימי חול בין השעות 09:00-17:00.</p>
 							</div>
 						</div>
-						<div class="help">
-							<div class="help-name">איך נוכל לעזור?</div>
-							<div class="user">
-								<div class="state"></div>
-								<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
-								<div class="text">
-									<p>שירות הלקוחות שלנו ישמח לסייע לכם</p>
-									<p>בימי חול בין השעות 09:00-17:00.</p>
-								</div>
+						<div class="contact-li">
+							<div class="icon">
+								<img src="~assets/images/icon/icon11.png" />
 							</div>
-							<div class="contact-li">
-								<div class="icon">
-									<img src="~assets/images/icon/icon11.png" />
-								</div>
-								<p>כתבו לנו בWhatsApp</p>
+							<p>כתבו לנו בWhatsApp</p>
+						</div>
+						<div class="contact-li">
+							<div class="icon">
+								<img src="~assets/images/icon/icon12.png" />
 							</div>
-							<div class="contact-li">
-								<div class="icon">
-									<img src="~assets/images/icon/icon12.png" />
-								</div>
-								<p>כתבו לנו אימייל</p>
-								<div class="text">support@kenta.co.il</div>
+							<p>כתבו לנו אימייל</p>
+							<div class="text">support@kenta.co.il</div>
+						</div>
+						<div class="contact-li">
+							<div class="icon">
+								<img src="~assets/images/icon/icon10.png" />
 							</div>
-							<div class="contact-li">
-								<div class="icon">
-									<img src="~assets/images/icon/icon10.png" />
-								</div>
-								<p>התקשרו</p>
-								<div class="text">03-555-8888</div>
-							</div>
+							<p>התקשרו</p>
+							<div class="text">03-555-8888</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div style="height: 50px;"></div>
-		</main>
+		</div>
+		<div class="foo-h"></div>
 	</div>
 </template>
 
@@ -166,20 +158,45 @@
 					value: '2 אנשים',
 					label: '1'
 				}],
-				value: '2 אנשים'
+				value: '',
+				list: [{
+						name: 'כרטיס/ים',
+						p: 'בחר/י את מקומות הישיבה',
+						t: 'שלך בשלב 2.'
+					},
+					{
+						name: 'כרטיס/ים + מלון',
+						p: 'בחר/י את מקומות הישיבה',
+						t: 'והמלון שלך בשלב 2 ו- 3.'
+					}
+				],
+				active: 0
 			}
 
 		},
 		methods: {
-
+			select(index) {
+				this.active = index
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.page::v-deep .el-input__suffix {
+		left: 0;
+		right: auto;
+	}
+
+	.people::v-deep .el-input__suffix {
+		left: 15px !important;
+		right: auto;
+	}
+
 	.page {
 		direction: rtl;
 		background-color: #F5F5F5;
+
 	}
 
 	.warp {
@@ -191,11 +208,13 @@
 		padding: 0.25rem !important;
 		border: 1px solid rgba(0, 188, 147, 1) !important;
 		border-radius: 8px;
-        background-color: rgba(0, 188, 147, 0.05)!important;
+		background-color: rgba(0, 188, 147, 0.05) !important;
+
 		.name {
 			font-size: 0.2rem;
-			font-weight: 600!important;
+			font-weight: 600 !important;
 			color: rgba(0, 188, 147, 1);
+
 			span {
 				font-family: Oleo Script;
 				font-size: 0.24rem;
@@ -308,6 +327,7 @@
 
 	.content .type-li {
 		width: 308px;
+		cursor: pointer;
 		margin-left: 20px;
 		padding: 20px;
 		border: 1px solid #DADADA;
@@ -451,7 +471,7 @@
 		display: inline-block;
 
 		.r-img {
-            width: 4.48rem;
+			width: 4.48rem;
 			height: 3.04rem;
 			background: url("~assets/images/icon/imgs.png");
 			display: flex;
@@ -488,11 +508,23 @@
 
 	}
 
+	.checkbox::v-deep .el-input__inner {
+		height: 48px;
+		border: none;
+		padding: 0;
+		background-color: rgba(26, 26, 26, 0);
+	}
+
+	.checkbox::v-deep .el-select {
+		width: 100%;
+	}
+
 	.content .right .checkbox {
 		margin-top: 15px;
 		border: 1px solid #DADADA;
 		border-radius: 6px;
 		display: flex;
+		position: relative;
 		align-items: center;
 		height: 48px;
 		background-color: #F5F5F5;
@@ -597,12 +629,4 @@
 		line-height: 16px;
 		color: rgba(26, 26, 26, 0.6);
 	}
-</style>
-<style lang="scss">
-   .page{
-	  .el-input__suffix{
-	  left: 5px !important;
-     }
-   }
-  
 </style>

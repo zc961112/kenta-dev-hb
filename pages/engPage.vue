@@ -1,160 +1,100 @@
 <template>
-	<div class="page" style="direction: rtl;">
-		<NewHeader :ishome="false" />
-		<main>
-			<div class="banner">
-				<div class="info">
-					<div class="navigation">
-						<span>בית</span>
-						<i class="el-icon-arrow-right"></i>
-						<span>אירועים</span>
-						<i class="el-icon-arrow-right"></i>
-						<span>Dutch Grand Prix</span>
-					</div>
-					<h1 class="name">
-						Manchester&nbsp;&nbsp;United&nbsp;&nbsp;vs&nbsp;&nbsp;Liverpool
-					</h1>
-					<div class="time">
-						<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
-						<span>אוג’ 23, 2024 - אוג’ 25, 2024</span>
-						<img src="~assets/images/icon/icon2.png" />
-						<span>Estadio Municipal de Balaídos Vigo (ESP)</span>
-						<img src="~assets/images/icon/icon3.png" />
-						<span>לה ליגה 24/25 </span>
-						<!-- <span class="Promo">Exclusive Promo</span>
+	<div class="page">
+		<new-header />
+		<div class="banner">
+			<div class="info">
+				<div class="navigation">
+					<span>בית</span>
+					<i class="el-icon-arrow-right"></i>
+					<span>אירועים</span>
+					<i class="el-icon-arrow-right"></i>
+					<span>Dutch Grand Prix</span>
+				</div>
+				<h1 class="name">
+					Celta de Vigo vs Valencia CF
+				</h1>
+				<div class="time">
+					<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
+					<span>אוג’ 23, 2024 - אוג’ 25, 2024</span>
+					<img src="~assets/images/icon/icon2.png" />
+					<span>Estadio Municipal de Balaídos Vigo (ESP)</span>
+					<img src="~assets/images/icon/icon3.png" />
+					<span>לה ליגה 24/25 </span>
+					<!-- <span class="Promo">Exclusive Promo</span>
 						<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper Casino</span> -->
-					</div>
 				</div>
 			</div>
-			<div class="content">
-				<div class="left">
-					<div class="tips">
-						<p> כאן תוכלו למצוא את כל הכרטיסים שלנו לגראנד פרי האיטלקי. בחרו וקנו את כרטיסי הפורמולה 1
-						</p>
-						<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
-					</div>
-					<div class="item-li">
-						<div class="text">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>Inner Ingresso Parabolic GF tickets</h3>
-								<p>שישי - ראשון</p>
-							</div>
-							<div class="icon-img">
-								<img src="~assets/images/icon/icon6.png" />
-								<img src="~assets/images/icon/icon5.png" />
-							</div>
-						</div>
-						<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
-						<!-- <button class="button">Order - €340</button> -->
-					</div>
-					<div class="item-li">
-						<div class="text">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>Inner Parabolic (23a)</h3>
-								<p>שישי - ראשון</p>
-							</div>
-							<div class="icon-img">
-								<img src="~assets/images/icon/icon6.png" />
-								<img src="~assets/images/icon/icon5.png" />
-							</div>
-						</div>
-						<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
-					</div>
-					<div class="item-li">
-						<div class="text">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>Lateral Parabolic (21e)</h3>
-								<p>ראשון</p>
-							</div>
-							<div class="icon-img">
-								<img src="~assets/images/icon/icon6.png" />
-								<img src="~assets/images/icon/icon5.png" />
-							</div>
-						</div>
-						<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
-					</div>
-					<div class="item-li">
-						<div class="text">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>Inner Ingresso Parabolic GF tickets</h3>
-								<p>שישי - ראשון</p>
-							</div>
-							<div class="icon-img">
-								<img src="~assets/images/icon/icon6.png" />
-								<img src="~assets/images/icon/icon5.png" />
-							</div>
-						</div>
-						<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
-					</div>
+		</div>
+		<div class="content">
+			<div class="left">
+				<div class="tips">
+					<p> כאן תוכלו למצוא את כל הכרטיסים שלנו לגראנד פרי האיטלקי. בחרו וקנו את כרטיסי הפורמולה 1
+					</p>
+					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 				</div>
-				<div class="right">
-					<img src="~assets/images/pm.png" />
-				</div>
-			</div>
-			<div class="footer">
-				<div class="logo">
-					<img src="~assets/images/logo-white.png" alt='logo' />
-					<p>קנטה טק בע״מ 2021-2024</p>
-					<div class="icon">
-						<div class="icon-li">
-							<img src="~assets/images/icon/icon9.png" />
-						</div>
-						<div class="icon-li">
-							<img src="~assets/images/icon/icon8.png" />
-						</div>
-					</div>
-				</div>
-				<div class="footer-item">
-					<div class="name">
-						תשלום מאובטח
-					</div>
-					<div class="img">
-						<img src="~assets/images/icon/img4.png" />
-						<img src="~assets/images/icon/img1.png" />
-						<img src="~assets/images/icon/img5.png" />
-						<img src="~assets/images/icon/img2.png" />
-						<img src="~assets/images/icon/img3.png" />
-					</div>
-				</div>
-				<div class="footer-item">
-					<div class="name">
-						יצירת קשר
-					</div>
+				<div class="item-li">
 					<div class="text">
-						<p>
-							<img src="~assets/images/icon/icon10.png" />03-888-5555
-						</p>
-						<p>
-							<img src="~assets/images/icon/icon11.png" />support@kenta.co.il
-						</p>
-						<p>
-							<img src="~assets/images/icon/icon12.png" /> 054-5455-888
-						</p>
+						<img src="~assets/images/icon/icon7.png" />
+						<div class="info">
+							<h3>Inner Ingresso Parabolic GF tickets</h3>
+							<p>שישי - ראשון</p>
+						</div>
+						<div class="icon-img">
+							<img src="~assets/images/icon/icon6.png" />
+							<img src="~assets/images/icon/icon5.png" />
+						</div>
 					</div>
+					<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
+					<!-- <button class="button">Order - €340</button> -->
 				</div>
-				<div class="footer-item">
-					<div class="name">
-						קישורים
+				<div class="item-li">
+					<div class="text">
+						<img src="~assets/images/icon/icon7.png" />
+						<div class="info">
+							<h3>Inner Parabolic (23a)</h3>
+							<p>שישי - ראשון</p>
+						</div>
+						<div class="icon-img">
+							<img src="~assets/images/icon/icon6.png" />
+							<img src="~assets/images/icon/icon5.png" />
+						</div>
 					</div>
-					<div class="Links-li">
-						<p>אודות</p>
-						<p>תנאי שימוש</p>
+					<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
+				</div>
+				<div class="item-li">
+					<div class="text">
+						<img src="~assets/images/icon/icon7.png" />
+						<div class="info">
+							<h3>Lateral Parabolic (21e)</h3>
+							<p>ראשון</p>
+						</div>
+						<div class="icon-img">
+							<img src="~assets/images/icon/icon6.png" />
+							<img src="~assets/images/icon/icon5.png" />
+						</div>
 					</div>
-					<div class="Links-li">
-						<p>כרטיסים</p>
-						<p>מדיניות פרטיות</p>
+					<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
+				</div>
+				<div class="item-li">
+					<div class="text">
+						<img src="~assets/images/icon/icon7.png" />
+						<div class="info">
+							<h3>Inner Ingresso Parabolic GF tickets</h3>
+							<p>שישי - ראשון</p>
+						</div>
+						<div class="icon-img">
+							<img src="~assets/images/icon/icon6.png" />
+							<img src="~assets/images/icon/icon5.png" />
+						</div>
 					</div>
-					<div class="Links-li">
-						<p>הצהרת נגישות</p>
-						<p>יצירת קשר</p>
-					</div>
+					<button class="button">Order - €340</button>
 				</div>
 			</div>
-		</main>
+			<div class="right">
+				<img src="~assets/images/pm.png" />
+			</div>
+		</div>
+		<new-footer />
 	</div>
 </template>
 
@@ -173,109 +113,13 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.footer {
-		background-color: rgba(26, 26, 26, 1);
-		padding: 0.6rem 0.32rem;
-		display: flex;
-
-		.footer-item {
-			flex: 1;
-
-			.Links-li {
-				display: flex;
-				align-items: center;
-				margin-bottom: 0.2rem;
-
-				p {
-					flex: 1;
-					font-size: 0.14rem;
-					font-weight: 400;
-					color: #fff;
-				}
-			}
-
-			.text {
-				color: #fff;
-
-				p {
-					display: flex;
-					align-items: center;
-					margin-bottom: 0.2rem;
-				}
-
-				img {
-					width: 0.16rem;
-					height: 0.16rem;
-					margin-right: 0.1rem;
-				}
-			}
-
-			.name {
-				font-size: 0.2rem;
-				font-weight: 400;
-				color: #fff;
-				margin-bottom: 0.2rem;
-			}
-
-			.img {
-				display: flex;
-				align-items: center;
-				flex-wrap: wrap;
-				width: 2rem;
-
-				img {
-					width: 0.5rem;
-					height: auto;
-					margin-right: 0.10rem;
-					margin-bottom: 0.10rem;
-				}
-			}
-		}
-
-		.logo {
-			flex: 1;
-
-			img {
-				width: 0.77rem;
-				height: 0.24rem;
-			}
-
-			.icon {
-				display: flex;
-				align-items: center;
-
-				.icon-li {
-					border: 1px solid rgba(254, 254, 254, 0.16);
-					width: 0.4rem;
-					height: 0.4rem;
-					border-radius: 8px;
-					margin-right: 0.10rem;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-
-					img {
-						width: 0.16rem;
-						height: 0.16rem;
-					}
-				}
-			}
-
-			p {
-				font-size: 0.14rem;
-				font-weight: 400;
-				color: rgba(254, 254, 254, 0.6);
-				margin: 0.20rem 0;
-			}
-		}
-	}
-
 	.content {
 		padding: 0.5rem 0 0.35rem 0;
 		display: flex;
 		flex-direction: row;
 		width: 1440px;
-		margin: 0 auto;
+		margin: 0 auto 0.8rem auto;
+		direction: rtl;
 
 		.item-li {
 			margin-top: 0.15rem;
@@ -347,7 +191,7 @@
 		}
 
 		.right {
-			margin-right:  180px;
+			margin-right: 180px;
 			width: 566px;
 
 			img {
@@ -371,6 +215,7 @@
 		box-sizing: border-box;
 		align-items: flex-end;
 		color: rgba(254, 254, 254, 1);
+		direction: rtl;
 
 		.info {
 			flex: 1;
@@ -399,6 +244,7 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+
 					img {
 						width: 0.12rem;
 					}

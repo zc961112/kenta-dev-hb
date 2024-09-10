@@ -13,29 +13,20 @@
 							</div>
 							<div class="type-name">סוג החבילה:</div>
 							<div class="type">
-								<div class="type-li">
-									<div class="radio"></div>
-									<div class="ticket">
-										כרטיס/ים
-									</div>
-									<div class="tips">
-										<p>בחר/י את מקומות הישיבה </p>
-										<p>שלך בשלב 2.</p>
-									</div>
-								</div>
-								<div class="type-li current">
-									<!-- <span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by
-										Asper Casino</span> -->
-
+								<div class="type-li" @click="select(index)" :class="[active==index?'current':'']"
+									v-for="(item,index) in list" :key="index">
+									<span class="Casino" v-if="index==0"><img
+											src="~assets/images/icon/icon4.png" />Sponsored by Asper
+										Casino</span>
 									<div class="radio">
-										<img src="~assets/images/icon/select.png" />
+										<img v-if="active==index" src="~assets/images/icon/select.png" />
 									</div>
 									<div class="ticket">
-										כרטיס/ים + מלון
+										{{item.name}}
 									</div>
 									<div class="tips">
-										<p>בחר/י את מקומות הישיבה  </p>
-										<p>והמלון שלך בשלב 2 ו- 3.</p>
+										<p>{{item.p}}</p>
+										<p>{{item.t}}</p>
 									</div>
 								</div>
 							</div>
@@ -61,8 +52,6 @@
 							<h3>2.איפה תרצו לשבת?</h3>
 							<div class="info">
 								<div class="top">
-									<!-- <span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by
-										Asper Casino</span> -->
 									<div class="checkbox">
 										<img src="~assets/images/icon/select.png" />
 									</div>
@@ -80,16 +69,10 @@
 									<p style="margin-bottom: 0.2rem;">מקום: Estadi Olímpic Lluís Companys</p>
 									<p style="margin-bottom: 0.2rem;">סוג קטגוריה: יציע</p>
 									<p>סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
-									<p>									משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
-</p>
-									<p>									מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
-</p>
-									
-
-									
-
-
-									
+									<p> משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
+									</p>
+									<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
+									</p>
 								</div>
 							</div>
 
@@ -144,7 +127,7 @@
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
 									התאריך אושר</span>
-									אוגוסט 23, 2024
+								אוגוסט 23, 2024
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -195,7 +178,7 @@
 							</div>
 							<div class="img">
 								<img style="height: 0.24rem;" src="~assets/images/icon/imgs1.png" />
-								<img style="height: 0.24rem;"  src="~assets/images/icon/imgs5.png" />
+								<img style="height: 0.24rem;" src="~assets/images/icon/imgs5.png" />
 								<img style="height: 0.4rem;" src="~assets/images/icon/imgs3.png" />
 								<img style="height: 0.16rem;" src="~assets/images/icon/imgs2.png" />
 								<img style="height: 0.4rem;" src="~assets/images/icon/imgs4.png" />
@@ -231,16 +214,25 @@
 								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<p>האם תאריכי הכרטיסים מאושרים?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 							<div class="checkbox">
-								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 							<div class="checkbox">
-								<p>איפה אני אשב באיצדטיון?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 						</div>
 						<div class="help">
@@ -277,7 +269,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="height: 50px;"></div>
+			<div class="foo-h"></div>
 		</main>
 	</div>
 </template>
@@ -291,17 +283,41 @@
 					value: '2 אנשים',
 					label: '1'
 				}],
-				value: '2 אנשים'
+				value: '',
+				list: [{
+						name: 'כרטיס/ים',
+						p: 'בחר/י את מקומות הישיבה',
+						t: 'שלך בשלב 2.'
+					},
+					{
+						name: 'כרטיס/ים + מלון',
+						p: 'בחר/י את מקומות הישיבה',
+						t: 'והמלון שלך בשלב 2 ו- 3.'
+					}
+				],
+				active: 0
 			}
 
 		},
 		methods: {
-
+			select(index) {
+				this.active = index
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.page::v-deep .el-input__suffix {
+		left: 0;
+		right: auto;
+	}
+
+	.people::v-deep .el-input__suffix {
+		left: 15px !important;
+		right: auto;
+	}
+
 	.Casino {
 		position: absolute;
 		top: -0.15rem;
@@ -328,11 +344,11 @@
 		border: 1px solid rgba(218, 218, 218, 1);
 		border-radius: 8px;
 		display: flex;
+		align-items: center;
 
 		.would-right {
 			width: 3.99rem;
 			margin-right: 0.3rem;
-			padding-top: 0.81rem;
 
 			img {
 				width: 100%;
@@ -345,6 +361,9 @@
 			padding-left: 0.17rem;
 			padding-bottom: 0.3rem;
 			border-left: 1px solid rgba(218, 218, 218, 1);
+			.info{
+				cursor: pointer;
+			}
 
 			h3 {
 				padding-top: 0.25rem;
@@ -353,6 +372,7 @@
 			}
 
 			.select {
+				cursor: pointer;
 				margin-top: 0.1rem;
 				height: 0.64rem;
 				padding: 0 0.25rem !important;
@@ -399,6 +419,7 @@
 					flex: 1;
 					padding: 0 0.20rem;
 				}
+
 
 				.checkbox {
 					width: 0.24rem;
@@ -449,7 +470,8 @@
 		padding: 0.25rem !important;
 		border: 1px solid rgba(0, 188, 147, 1) !important;
 		border-radius: 8px;
-        background-color: rgba(0, 188, 147, 0.05)!important;
+		background-color: rgba(0, 188, 147, 0.05) !important;
+
 		.name {
 			font-size: 0.2rem;
 			font-weight: 600 !important;
@@ -565,6 +587,7 @@
 	}
 
 	.content .type-li {
+		cursor: pointer;
 		position: relative;
 		width: 308px;
 		margin-left: 20px;
@@ -703,10 +726,11 @@
 				display: flex;
 				align-items: center;
 				// width: 15%;
-					height: auto;
-					// margin-right: 0.25rem;
+				height: auto;
+
+				// margin-right: 0.25rem;
 				img {
-					 margin-left: 0.3rem;
+					margin-left: 0.3rem;
 				}
 			}
 
@@ -853,6 +877,17 @@
 
 	}
 
+	.checkbox::v-deep .el-input__inner {
+		height: 48px;
+		border: none;
+		padding: 0;
+		background-color: rgba(26, 26, 26, 0);
+	}
+
+	.checkbox::v-deep .el-select {
+		width: 100%;
+	}
+
 	.content .right .checkbox {
 		margin-top: 15px;
 		border: 1px solid #DADADA;
@@ -962,13 +997,4 @@
 		line-height: 16px;
 		color: rgba(26, 26, 26, 0.6);
 	}
-</style>
-<style lang="scss">
-   .page{
-	  .el-input__suffix{
-		  right: auto !important; 
-		  left:5px !important;
-     }
-   }
-  
 </style>

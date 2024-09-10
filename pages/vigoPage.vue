@@ -17,7 +17,7 @@
 						<div class="form-info">
 							<p class="t">פרטי המזמין/מטייל</p>
 							<p class="f">נא למלא את כל הפרטים</p>
-							<div class="form-li" >
+							<div class="form-li">
 								<div class="form-li-f">
 									<p>שם פרטי*</p>
 									<el-input v-model="input" placeholder=""></el-input>
@@ -32,7 +32,8 @@
 								<div class="form-li-f">
 									<p>אזרחות*</p>
 									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select  prefix-icon="el-icon-search" v-model="value" placeholder="בחרו באזרחות שלכם">
+									<el-select prefix-icon="el-icon-search" v-model="value"
+										placeholder="בחרו באזרחות שלכם">
 										<el-option v-for="item in options" :key="item.value" :label="item.label"
 											:value="item.value">
 										</el-option>
@@ -166,7 +167,7 @@
 											<el-input v-model="input" placeholder="יום"></el-input>
 										</div>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
@@ -185,22 +186,25 @@
 								</p>
 								<p>
 									<span>・</span>
-									במקרים מסוימים יידרש העתק זיהוי כדי למנוע כל ספק באמור לעיל. בנוסף, מארגני אירועים 
+									במקרים מסוימים יידרש העתק זיהוי כדי למנוע כל ספק באמור לעיל. בנוסף, מארגני אירועים
 								</p>
 								<p>
 									מסוימים עשויים לבקש טופס הצהרת קוד התנהגות חתום. ניצור איתך קשר במידת הצורך.
 								</p>
 							</div>
 						</div>
-						<div class="agree">
-							<div class="icon"></div>
+						<div class="agree" @click="agree=!agree">
+							<div class="icon">
+								<img v-if="agree" src="~assets/images/icon/x.png" />
+							</div>
 							אני מסכים לתנאיו של מארגן האירוע.
 						</div>
 						<div class="payment">
-							<button>המשך לתשלום</button>
+							<router-link :to="'/ValenciaPage'" tag="button" >המשך לתשלום</router-link>
+							<!-- <button>המשך לתשלום</button> -->
 							<div class="p">
 								<p>
-									מוכנים לחוויה בלתי נשכחת? לחץ על המשך לתשלום כדי לנעול את 
+									מוכנים לחוויה בלתי נשכחת? לחץ על המשך לתשלום כדי לנעול את
 								</p>
 								<p>
 									ההזמנה שלך! ההזמנה שלך תושלם ולא ניתן לשנות אותה בשלב זה.
@@ -230,7 +234,7 @@
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
 									התאריך אושר</span>
-									אוגוסט 23, 2024
+								אוגוסט 23, 2024
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -317,16 +321,25 @@
 								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<p>האם תאריכי הכרטיסים מאושרים?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 							<div class="checkbox">
-								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 							<div class="checkbox">
-								<p>איפה אני אשב באיצדטיון?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 						</div>
 						<div class="help">
@@ -363,7 +376,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="height: 50px;"></div>
+			<div class="foo-h"></div>
 		</main>
 	</div>
 </template>
@@ -378,7 +391,8 @@
 					value: 'Choose your nationality',
 					label: 'Choose your nationality'
 				}],
-				value: ''
+				value: '',
+				agree: true
 			}
 
 		},
@@ -389,6 +403,11 @@
 </script>
 
 <style lang="scss" scoped>
+	.form-info::v-deep .el-input__suffix {
+		left: 40px;
+		right: auto;
+	}
+
 	.form-li::v-deep .el-input__inner,
 	.form-li::v-deep .el-select {
 		height: 0.48rem;
@@ -431,14 +450,24 @@
 		padding: 0.3rem 0.25rem 0 0.25rem;
 		font-size: 0.14rem;
 		font-weight: 400;
+		cursor: pointer;
 
 		.icon {
 			width: 0.16rem;
 			height: 0.16rem;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			background-color: rgba(245, 245, 245, 1);
 			margin-left: 0.1rem;
 			border-radius: 4px;
 			border: 1px solid rgba(0, 188, 147, 1);
+
+			img {
+				width: 0.08rem;
+				height: auto;
+			}
 		}
 	}
 
@@ -567,7 +596,8 @@
 		.form-li-f {
 			flex: 1;
 			position: relative;
-            .i{
+
+			.i {
 				width: 0.16rem;
 				height: 0.16rem;
 				text-align: center;
@@ -579,6 +609,7 @@
 				position: absolute;
 				z-index: 2;
 			}
+
 			p {
 				margin-bottom: 0.10rem;
 				font-size: 0.14rem;
@@ -1013,6 +1044,22 @@
 
 	}
 
+	.checkbox::v-deep .el-input__suffix {
+		left: 0;
+		right: auto;
+	}
+
+	.checkbox::v-deep .el-input__inner {
+		height: 48px;
+		border: none;
+		padding: 0;
+		background-color: rgba(26, 26, 26, 0);
+	}
+
+	.checkbox::v-deep .el-select {
+		width: 100%;
+	}
+
 	.content .right .checkbox {
 		margin-top: 15px;
 		border: 1px solid #DADADA;
@@ -1122,13 +1169,4 @@
 		line-height: 16px;
 		color: rgba(26, 26, 26, 0.6);
 	}
-</style>
-<style lang="scss">
-   .page{
-	  .el-input__suffix{
-	      right: auto !important; 
-		  left:40px !important;
-     }
-   }
-  
 </style>

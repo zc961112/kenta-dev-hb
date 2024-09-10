@@ -33,17 +33,19 @@
 							<p> ובכך אני מסכימ/ה עם <span>תנאי השימוש ומדיניות האתר.</span></p>
 						</div>
 						<div class="card">
-							<div class="top">
-								<div class="checkbox">
-									<img src="~assets/images/icon/select.png" />
+							<div class="card-info" @click="select(0)">
+								<div class="top">
+									<div class="checkbox" :class="[type==0?'checkboxCurrent':'']">
+										<img v-if="type==0" src="~assets/images/icon/select.png" />
+									</div>
+									<div class="tickets">
+										<span><img src="~assets/images/icon/icon17.png" /></span>
+										תשלום באמצעות כרטיס אשראי
+									</div>
 								</div>
-								<div class="tickets">
-									<span><img src="~assets/images/icon/icon17.png" /></span>
-									תשלום באמצעות כרטיס אשראי
+								<div class="correctly">
+									נא למלא נכון את כל השדות הנדרשים
 								</div>
-							</div>
-							<div class="correctly">
-								נא למלא נכון את כל השדות הנדרשים
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
@@ -77,18 +79,18 @@
 								<button class="button">המשך לתשלום</button>
 							</div>
 						</div>
-						<div class="select">
-							<div class="checkbox">
-								<img src="~assets/images/icon/select.png" />
+						<div class="select" @click="select(1)">
+							<div class="checkbox" :class="[type==1?'checkboxCurrent':'']">
+								<img v-if="type==1" src="~assets/images/icon/select.png" />
 							</div>
 							<div class="tickets">
 								<span><img src="~assets/images/icon/icon18.png" /></span>
 								תשלום באמצעות PayPal
 							</div>
 						</div>
-						<div class="select">
-							<div class="checkbox">
-								<img src="~assets/images/icon/select.png" />
+						<div class="select" @click="select(2)">
+							<div class="checkbox" :class="[type==2?'checkboxCurrent':'']">
+								<img v-if="type==2" src="~assets/images/icon/select.png" />
 							</div>
 							<div class="tickets">
 								<span><img src="~assets/images/icon/icon19.png" /></span>
@@ -117,7 +119,7 @@
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
 									התאריך אושר</span>
-									אוגוסט 23, 2024
+								אוגוסט 23, 2024
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -204,16 +206,25 @@
 								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<p>האם תאריכי הכרטיסים מאושרים?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 							<div class="checkbox">
-								<p>איך ומתי אקבל את הכרטיסים שלי?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 							<div class="checkbox">
-								<p>איפה אני אשב באיצדטיון?</p>
-								<img src="~assets/images/icon/xl.png" />
+								<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+									<el-option v-for="item in options" :key="item.value" :label="item.label"
+										:value="item.value">
+									</el-option>
+								</el-select>
 							</div>
 						</div>
 						<div class="help">
@@ -250,7 +261,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="height: 50px;"></div>
+			<div class="foo-h"></div>
 		</main>
 	</div>
 </template>
@@ -265,12 +276,15 @@
 					value: 'Choose your nationality',
 					label: 'Choose your nationality'
 				}],
-				value: ''
+				value: '',
+				type: 0
 			}
 
 		},
 		methods: {
-
+			select(val) {
+				this.type = val
+			}
 		}
 	}
 </script>
@@ -373,6 +387,11 @@
 			}
 		}
 
+		.checkboxCurrent {
+			border-color: rgb(255, 50, 99);
+			background-color: rgb(255, 50, 99);
+		}
+
 		.checkbox {
 			width: 0.24rem;
 			height: 0.24rem;
@@ -381,9 +400,9 @@
 			align-items: center;
 			justify-content: center;
 			border-radius: 50%;
-			border: 1px solid rgb(255, 50, 99);
-			background-color: rgb(255, 50, 99);
-			margin-left:0.15rem;
+			border: 1px solid #DADADA;
+
+			margin-left: 0.15rem;
 
 			img {
 				width: 0.12rem;
@@ -401,6 +420,9 @@
 		background-color: rgba(245, 245, 245, 1);
 		margin-bottom: 0.1rem;
 
+		.card-info {
+			cursor: pointer;
+		}
 
 	}
 
@@ -921,6 +943,22 @@
 		font-weight: 600;
 		padding-bottom: 10px;
 
+	}
+
+	.checkbox::v-deep .el-input__suffix {
+		left: 0;
+		right: auto;
+	}
+
+	.checkbox::v-deep .el-input__inner {
+		height: 48px;
+		border: none;
+		padding: 0;
+		background-color: rgba(26, 26, 26, 0);
+	}
+
+	.checkbox::v-deep .el-select {
+		width: 100%;
 	}
 
 	.content .right .checkbox {

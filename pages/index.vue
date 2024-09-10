@@ -1,6 +1,6 @@
 <template>
 	<div class="page">
-		<HomeHeade />
+		<new-header ishome />
 		<div class="banner">
 			<div class="title">
 				<h1>,הנופש הבא שלך</h1>
@@ -9,7 +9,14 @@
 				</h1>
 			</div>
 			<div class="search">
-				<input type="text" placeholder="חפשו חבילות, כרטיסים או יעדים" />
+				<div class="search-input">
+					<el-autocomplete class="inline-input" v-model="state1" :fetch-suggestions="querySearch"
+						placeholder="חפשו חבילות, כרטיסים או יעדים" @select="handleSelect">
+						<template slot-scope="{ item }">
+							<div>{{ item.city }}</div>
+						</template>
+					</el-autocomplete>
+				</div>
 				<img src="~assets/images/icon/icon21.png" />
 			</div>
 			<div class="searches">
@@ -309,11 +316,14 @@
 				</div>
 			</div>
 		</div>
-		<NewFooter />
+		<new-footer />
 	</div>
 </template>
 
 <script>
+	import {
+		destinationPopular
+	} from '@/api/destination'
 	export default {
 		name: 'home',
 		data() {
@@ -322,11 +332,45 @@
 					chid: [{}, {}, {}]
 				}],
 				input: '',
-				over: true
+				over: true,
+				state1: '',
+				restaurants: [],
+				hotList: []
 			}
 
 		},
+		mounted() {
+			this.loadAll();
+		},
 		methods: {
+			handleSelect(item) {
+				this.$router.push({
+					path: ("/destination/" + item.slug)
+				})
+			},
+			querySearch(queryString, cb) {
+				var restaurants = this.restaurants;
+				var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+				// 调用 callback 返回建议列表的数据
+				cb(results);
+			},
+			createFilter(queryString) {
+				return (restaurant) => {
+					return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+				};
+			},
+			loadAll() {
+				destinationPopular().then((res) => {
+					this.restaurants = []
+					for (let i = 0; i < res.data.length; i++) {
+						this.restaurants.push({
+							value: res.data[i].city,
+							city: res.data[i].city,
+							slug: res.data[i].slug
+						})
+					}
+				})
+			},
 			onTouchStart(event) {
 				console.log(1)
 				// 触摸开始时的处理
@@ -574,7 +618,8 @@
 	.language {
 		padding: 0.64rem 0;
 		background-color: rgba(245, 245, 245, 1);
-		.language-info{
+
+		.language-info {
 			width: 1440px;
 			margin: 0 auto;
 			display: flex;
@@ -705,7 +750,7 @@
 		padding: 0.14rem 0;
 		padding-bottom: 0.6rem;
 
-		.experience-info{
+		.experience-info {
 			display: flex;
 			width: 1440px;
 			margin: 0.4rem auto 0 auto;
@@ -911,6 +956,24 @@
 			color: rgba(254, 254, 254, 1);
 		}
 
+		.search::v-deep .el-input__inner {
+			height: 0.48rem;
+			border: none;
+		}
+
+		.search::v-deep .el-input__inner::placeholder {
+			color: rgba(26, 26, 26, 1);
+		}
+
+		.search::v-deep .el-autocomplete {
+			width: 100%;
+		}
+
+		.search-input {
+			cursor: pointer;
+			flex: 1;
+		}
+
 		.search {
 			margin: 0.2rem 0;
 			width: 4.48rem;
@@ -925,26 +988,27 @@
 			img {
 				width: 0.16rem;
 				height: auto;
+				// cursor: pointer;
 			}
 
-			input::placeholder {
-				color: rgba(26, 26, 26, 1);
-			}
+			// input::placeholder {
+			// 	color: rgba(26, 26, 26, 1);
+			// }
 
-			input:focus {
-				outline: none;
-				border: none;
-			}
+			// input:focus {
+			// 	outline: none;
+			// 	border: none;
+			// }
 
-			input {
-				padding-right: 0.15rem;
-				flex: 1;
-				border: none;
-				text-align: right;
-				height: 0.48rem;
-				font-size: 0.16rem;
+			// input {
+			// 	padding-right: 0.15rem;
+			// 	flex: 1;
+			// 	border: none;
+			// 	text-align: right;
+			// 	height: 0.48rem;
+			// 	font-size: 0.16rem;
 
-			}
+			// }
 		}
 
 		.title {

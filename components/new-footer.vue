@@ -101,7 +101,7 @@
 				img {
 					width: 0.16rem;
 					height: 0.16rem;
-					margin-right: 0.1rem;
+					margin-left: 0.1rem;
 				}
 			}
 
