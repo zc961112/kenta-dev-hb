@@ -14,8 +14,9 @@ const whiteList = [
 	'/celtapage',
 	'/vigopage',
 	'/Valenciapage',
-	// -----新增------ 
-	
+	'/hotelPage',
+	// -----新增------
+
 	'/', '/index', '/login', '/loginbypass', '/password', '/privacy-policy', '/recover-password',
 	'/terms-conditions', '/auth', '/custom-trip', '/custom-trip-step1', '/about', '/blog', '/blog-article',
 	'/casino-profile', '/contact', '/cookie-policy', '/destination', '/create', '/twitter', '/ticket', '/menu-app',
@@ -23,7 +24,8 @@ const whiteList = [
 	'/destination/new-york','/engpage','/trippage',
 	'/celtaPage',
 	'/vigoPage',
-	'/ValenciaPage'
+	'/ValenciaPage',
+	'/hotelpage'
 ]
 
 export default ({
@@ -188,9 +190,9 @@ export default ({
 	});
 
 	app.router.afterEach((transition) => {
-		if (!localStorage.getItem('_cstm_hash') && transition.name && transition.name !== 'loginbypass') {
-			window.location.href = '/loginbypass'
-		}
+		// if (!localStorage.getItem('_cstm_hash') && transition.name && transition.name !== 'loginbypass') {
+		// 	window.location.href = '/loginbypass'
+		// }
 		if (transition.name === 'detail-id') {
 			const params = transition.params
 

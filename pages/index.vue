@@ -387,6 +387,7 @@
 	}
 </script>
 <style lang="scss" scoped>
+
 	.Recommended {
 		padding: 0.80rem 1.48rem;
 
