@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="c-page-hotel">
     <div class="phcl-fixed">
       <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -570,4 +570,4 @@ export default {
     height: 4rem;
   }
 }
-</style>
+</style> -->
