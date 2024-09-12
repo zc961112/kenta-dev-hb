@@ -10,14 +10,14 @@
 			</div>
 			<div class="search">
 				<div class="search-input">
-					<el-autocomplete class="inline-input" v-model="state1" :fetch-suggestions="querySearch"
+					<el-autocomplete @keyup.enter.native="search" class="inline-input" v-model="cityval" :fetch-suggestions="querySearch"
 						placeholder="חפשו חבילות, כרטיסים או יעדים" @select="handleSelect">
 						<template slot-scope="{ item }">
 							<div>{{ item.city }}</div>
 						</template>
 					</el-autocomplete>
 				</div>
-				<img src="~assets/images/icon/icon21.png" />
+				<img @click="search" src="~assets/images/icon/icon21.png" />
 			</div>
 			<div class="searches">
 				:חיפושים פופולריים
@@ -39,7 +39,7 @@
 				<div class="title">כרטיסים לאירועי ספורט</div>
 			</div>
 			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
-				<el-carousel indicator-position="none" arrow="always">
+				<el-carousel ref="carousel" indicator-position="none" arrow="always">
 					<el-carousel-item v-for="item in list">
 						<div class="carousel">
 							<div class="carousel-li" v-for="i in item.chid">
@@ -52,37 +52,62 @@
 						</div>
 					</el-carousel-item>
 				</el-carousel>
+				<div class="arrow left" @click="prev">
+					<i class="el-icon-arrow-left"></i>
+				</div>
+				<div class="arrow right" @click="next">
+					<i class="el-icon-arrow-right"></i>
+				</div>
 			</div>
 		</div>
 		<div class="experience">
 			<div class="experience-info">
 				<div class="left flex">
 					<div class="experience-list">
-						<div class="experience-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>סופ״ש ספונטני</h3>
-							<p>חבילות לרגע האחרון</p>
-						</div>
-						<div class="experience-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>סופ״ש ספונטני</h3>
-							<p>חבילות לרגע האחרון</p>
-						</div>
-						<div class="experience-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>סופ״ש ספונטני</h3>
-							<p>חבילות לרגע האחרון</p>
-						</div>
-						<div class="experience-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>סופ״ש ספונטני</h3>
-							<p>חבילות לרגע האחרון</p>
-						</div>
-						<div class="experience-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>סופ״ש ספונטני</h3>
-							<p>חבילות לרגע האחרון</p>
-						</div>
+						<swiper :options="swiperOption">
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+						</swiper>
 					</div>
 				</div>
 				<div class="right">
@@ -250,11 +275,11 @@
 		</div>
 		<div class="warps">
 			<div class="Recommended">
-				<div class="dow" v-if="!over" @click="over=!over">
+				<div class="dow" @click="over=!over">
 					<i class="el-icon-arrow-down"></i>
 					<h3>יעדים מומלצים</h3>
 				</div>
-				<div class="up" v-else @click="over=!over">
+				<div class="up" @click="over=!over">
 					<i class="el-icon-arrow-up"></i>
 					<h3>כל היעדים</h3>
 				</div>
@@ -324,18 +349,30 @@
 	import {
 		destinationPopular
 	} from '@/api/destination'
+	import axios from 'axios';
 	export default {
 		name: 'home',
 		data() {
 			return {
 				list: [{
-					chid: [{}, {}, {}]
-				}],
+						chid: [{}, {}, {}]
+					},
+					{
+						chid: [{}, {}, {}]
+					}
+				],
 				input: '',
 				over: true,
 				state1: '',
 				restaurants: [],
-				hotList: []
+				hotList: [],
+				swiperOption: {
+					slidesPerView: 4.5,
+					centeredSlides: false,
+					spaceBetween: 16,
+					grabCursor: true
+				},
+				cityval: ''
 			}
 
 		},
@@ -343,9 +380,34 @@
 			this.loadAll();
 		},
 		methods: {
+			// 搜索
+			search() {
+				let data = {
+					city: this.cityval
+				}
+				axios.post('https://zhouchen.love:8000/get_id_by_name', data, {
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}).then(res => {
+					this.$router.push({
+						path: ("/destination/" + res.data[0].id)
+					})
+				})
+
+			},
+			// 上一页
+			prev() {
+				this.$refs.carousel.prev();
+			},
+			// 下一页
+			next() {
+				this.$refs.carousel.next();
+			},
+
 			handleSelect(item) {
 				this.$router.push({
-					path: ("/destination/" + item.slug)
+					path: ("/destination/" + item.id)
 				})
 			},
 			querySearch(queryString, cb) {
@@ -360,16 +422,28 @@
 				};
 			},
 			loadAll() {
-				destinationPopular().then((res) => {
-					this.restaurants = []
+				this.restaurants = []
+				axios.get('https://zhouchen.love:8000/get_index_data').then(res => {
+					console.log(res)
 					for (let i = 0; i < res.data.length; i++) {
 						this.restaurants.push({
 							value: res.data[i].city,
 							city: res.data[i].city,
-							slug: res.data[i].slug
+							id: res.data[i].id
 						})
 					}
 				})
+
+				// destinationPopular().then((res) => {
+				// 	this.restaurants = []
+				// 	for (let i = 0; i < res.data.length; i++) {
+				// 		this.restaurants.push({
+				// 			value: res.data[i].city,
+				// 			city: res.data[i].city,
+				// 			slug: res.data[i].slug
+				// 		})
+				// 	}
+				// })
 			},
 			onTouchStart(event) {
 				console.log(1)
@@ -387,7 +461,6 @@
 	}
 </script>
 <style lang="scss" scoped>
-
 	.Recommended {
 		padding: 0.80rem 1.48rem;
 
@@ -411,7 +484,6 @@
 			color: rgba(52, 81, 255, 1);
 			display: flex;
 			cursor: pointer;
-			border-top: 1px solid rgba(218, 218, 218, 1);
 			align-items: center;
 			padding-top: 0.16rem;
 
@@ -758,20 +830,15 @@
 		}
 
 		.left {
-			margin-right: 0.40rem;
+			margin-right: 0.80rem;
 			overflow: hidden;
 
 			.experience-list {
-				display: flex;
-				justify-content: flex-start;
-				width: 11.6rem;
-
 				.experience-li {
-					width: 2.16rem;
+					width: 100%;
 					cursor: pointer;
 					overflow: hidden;
 					text-align: right;
-					margin-right: 0.16rem;
 
 					h3 {
 						margin-top: 0.16rem;
@@ -787,7 +854,7 @@
 					}
 
 					img {
-						width: 2.16rem;
+						width: 100%;
 						height: 2.40rem;
 						border-radius: 8px;
 					}
@@ -817,36 +884,44 @@
 		}
 	}
 
-	.carousel-box::v-deep .el-carousel--horizontal {
-		overflow-x: inherit
-	}
-
-	.carousel-box::v-deep .el-carousel__arrow--right {
-		right: -16px
-	}
-
-	.carousel-box::v-deep .el-carousel__arrow--left {
-		left: -16px;
-		display: none;
-	}
-
-	.carousel-l::v-deep .el-carousel__arrow--right {
-		display: none;
-	}
-
-	.carousel-box::v-deep .el-carousel__arrow i {
-		font-weight: bold;
-	}
-
 	.carousel-box::v-deep .el-carousel__arrow {
-		background-color: #fff;
-		color: rgba(26, 26, 26, 1);
-		font-weight: bold;
-		border: 1px solid rgba(218, 218, 218, 1);
-		width: 40px;
-		height: 40px;
-		font-size: 18px;
+		display: none;
 	}
+
+
+
+	.carousel-box {
+		position: relative;
+
+		.left {
+			left: -0.2rem;
+		}
+
+		.right {
+			right: -0.2rem;
+		}
+
+		.arrow {
+			cursor: pointer;
+			background-color: #fff;
+			color: rgba(26, 26, 26, 1);
+			border: 1px solid rgba(218, 218, 218, 1);
+			width: 0.4rem;
+			height: 0.4rem;
+			line-height: 0.4rem;
+			top: 1.075rem;
+			border-radius: 50%;
+			text-align: center;
+			z-index: 9;
+			position: absolute;
+
+			i {
+				font-size: 18px;
+				font-weight: bold;
+			}
+		}
+	}
+
 
 	.carousel {
 		margin-top: 0.15rem;
@@ -989,7 +1064,7 @@
 			img {
 				width: 0.16rem;
 				height: auto;
-				// cursor: pointer;
+				cursor: pointer;
 			}
 
 			// input::placeholder {
