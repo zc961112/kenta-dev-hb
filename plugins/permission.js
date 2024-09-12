@@ -191,7 +191,6 @@ export default ({
 			}
 		})
 
-
 	});
 
 	app.router.afterEach((transition) => {
