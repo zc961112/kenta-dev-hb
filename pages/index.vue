@@ -10,8 +10,9 @@
 			</div>
 			<div class="search">
 				<div class="search-input">
-					<el-autocomplete @keyup.enter.native="search" class="inline-input" v-model="cityval" :fetch-suggestions="querySearch"
-						placeholder="חפשו חבילות, כרטיסים או יעדים" @select="handleSelect">
+					<el-autocomplete @keyup.enter.native="search" class="inline-input" v-model="cityval"
+						:fetch-suggestions="querySearch" placeholder="חפשו חבילות, כרטיסים או יעדים"
+						@select="handleSelect">
 						<template slot-scope="{ item }">
 							<div>{{ item.city }}</div>
 						</template>
@@ -558,6 +559,12 @@
 			text-align: right;
 		}
 	}
+
+	.inline-input::v-deep .el-input__inner {
+		text-align: right;
+	}
+
+
 
 	.system {
 		display: flex;

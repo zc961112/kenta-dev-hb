@@ -29,7 +29,6 @@ const whiteList = [
 	'/ValenciaPage',
 	'/hotelpage'
 
-
 ]
 export default ({
 	app,
@@ -190,6 +189,7 @@ export default ({
 				// }
 			}
 		})
+
 
 	});
 
