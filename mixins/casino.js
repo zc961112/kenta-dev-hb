@@ -257,9 +257,9 @@ export default {
 								.setHTML(`<div class="map-popper">
                   <img src="${item.first_image}" class="map-pp-img">
                   <h3 class="map-pp-title">${item.name}</h3>
-                  <div class="map-pp-text">${item.region_name}, ${item.country_code}</div>
+                  <div class="map-pp-text">${item.country_code} ,${item.region_name}</div>
                   <div class="map-pp-line"></div>
-                  <div class="map-pp-price">From <span class="map-pp-price-no">€${(item.daily_prices!=null?item.daily_prices[0]:0)}</span> night</div>
+                  <div class="map-pp-price"><span class="map-pp-price-no">₪ ${(item.daily_prices!=null?item.daily_prices[0]:0)}</span> -החל מ</div>
                 </div>`)
 
 							const el = document.createElement('div')

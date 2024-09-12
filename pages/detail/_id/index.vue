@@ -85,7 +85,6 @@
           </div>
         </div>
       </header>
-
       <div class="article-container">
         <aside>
           <div class="article-msg">
@@ -115,7 +114,6 @@
                 <img src="@/assets/images/Group 1091.svg" />
               </div>
             </div>
-
             <div class="subscribe-box">
               <div class="subscribe-tips">
                 Get exclusive travel deals & promotions
@@ -142,9 +140,7 @@
           <div class="article-content ql-editor" v-html="form.articleBody"></div>
         </article>
       </div>
-
       <travel-expert></travel-expert>
-
       <section>
         <div class="bg-gray">
           <div class="box-container">

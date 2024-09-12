@@ -27,9 +27,11 @@
 					</el-dropdown>
 				</div>
 			</div>
-			<div class="flex"></div>
+			<div class="flex" @click="toHome" ></div>
+			<div @click="toHome">
 			<img v-if="ishome" class="logo" src="~assets/images/logo-white.png" />
 			<img v-else class="logo" src="~assets/images/logo.png" />
+		</div>
 		</div>
 		<div class="header-h" v-if="!ishome"></div>
 	</div>
@@ -59,7 +61,10 @@
 					document.body.scrollTop
 				this.top = value
 				console.log(value, "88888")
-			}
+			},
+			toHome() {
+      this.$router.push({ path: '/' })
+    }
 		}
 	}
 </script>
