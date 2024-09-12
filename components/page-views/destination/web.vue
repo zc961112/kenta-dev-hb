@@ -12,18 +12,10 @@
 			<div class="pac-right">
 				<div class="pac-right-top">
 					<div class="pac-search">
-						<div class="search-btn" @click="citysearch"></div>
-						<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input" v-model="searchQuery.destinationName"
-							:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''" placeholder="לאס וגאס, ארה״ב" @select="handleSelect">
-							<template slot-scope="{ item }">
-								<div>{{ item.city }}</div>
-							</template>
-						</el-autocomplete>
-
-						<!-- <el-autocomplete class="pac-input" v-model="searchQuery.destinationName"
+						<el-autocomplete class="pac-input" v-model="searchQuery.destinationName"
 							placeholder="לאס וגאס, ארה״ב" suffix-icon="el-icon-search"
 							:fetch-suggestions="queryFetch" @focus="searchQuery.destinationName=''"
-							@blur="handleQueryBlur" @select="handleQuerySelect" /> -->
+							@blur="handleQueryBlur" @select="handleQuerySelect" />
 					</div>
 					<div class="pac-filters">
 						<filter-datepicker class="pacf-dp" :start-and-end-time="searchQuery.date"
@@ -39,7 +31,6 @@
 						<p class="a">למדו על הסטנדרטים שלנו</p>
 					</div>
 				</div>
-
 				<div class="pac-list">
 					<template v-if="selectedRoom">
 						<casino-box class="pac-item" :casino="selectedHotel" is-active :parent="form" />
@@ -49,7 +40,7 @@
 						<module-price-total :room="selectedRoom" :search-query="searchQuery" class="pac-button"
 							@next="openBookingModal" />
 					</template>
-					<casino-box v-else v-for="item in cityList" :key="item.id" class="pac-item" :casino="item"
+					<casino-box v-else v-for="item in form.casinoList" :key="item.id" class="pac-item" :casino="item"
 						:parent="form" @enter="showMapPopper(item)" @leave="hideMapPopper(item)"
 						@click="showDetail(item)" />
 				</div>
@@ -85,7 +76,7 @@
 				handler(val) {
 					Object.assign(this.searchQuery, val)
 					if (this.searchQuery.destinationId) {
-						this.handleSearch(this.searchQuery.destinationId)
+						this.handleSearch()
 					}
 				},
 				deep: true,
@@ -113,24 +104,21 @@
 
 <style lang="scss" scoped>
 	.page-area {
-		.map-title {
+		.map-title{
 			padding: 0.24rem 0;
 			text-align: right;
-
-			h2 {
+			h2{
 				font-size: 0.16rem;
 				font-weight: 500;
 				text-align: right;
 			}
-
-			.p {
+			.p{
 				margin-top: 0.08rem;
 				font-size: 0.14rem;
 				font-weight: 400;
 				color: rgba(26, 26, 26, 0.6);
 			}
-
-			.a {
+			.a{
 				margin-top: 0.16rem;
 				font-size: 0.14rem;
 				font-weight: 400;
@@ -140,19 +128,6 @@
 
 			}
 		}
-		.pac-search{
-			position: relative;
-		}
-		.search-btn{
-			cursor: pointer;
-			width: 60px;
-			height: 40px;
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: 10;
-		}
-
 		.pac-search ::v-deep .el-input__inner {
 			text-align: right;
 			padding-right: 15px;

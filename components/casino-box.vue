@@ -7,7 +7,7 @@
 				<div class="index">9</div>
 				<div class="name">
 					<h3>{{casino.name}}</h3>
-					<p>{{casino.address}}</p>
+					<p>3655 Las Vegas Blvd S, Paradise</p>
 				</div>
 			</div>
 			<div class="see">
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 			<div class="price">
-				<div class="num">₪ {{casino.daily_prices?casino.daily_prices[0]:0}}</div>
+				<div class="num">₪ 2,770</div>
 				<div class="text">
 					<p>עבור 2 לילות, 2 אורחים</p>
 					<div class="laber">
@@ -62,7 +62,7 @@
 		</div>
 
 		<div class="ccb-left">
-			<img :src="casino.first_image" class="ccb-img">
+			<img :src="casino.imagesList[0]?.url" class="ccb-img">
 			<svg class="ccb-img-eye" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"
 				fill="none">
 				<path d="M36.6665 20C34.9999 15 27.4999 8.33331 19.9999 8.33331C12.4999 8.33331 4.99992 15 3.33325 20"
@@ -208,8 +208,7 @@
 				.xx {
 					text-align: right;
 					position: relative;
-
-					.disabled {
+					.disabled{
 						width: 102px;
 						height: 20px;
 						position: absolute;
@@ -283,7 +282,6 @@
 					padding-left: 0.16rem;
 
 					h3 {
-						width: 261px;
 						font-size: 0.16rem;
 						font-weight: 600;
 						text-align: right;
