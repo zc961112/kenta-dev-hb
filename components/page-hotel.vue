@@ -150,7 +150,7 @@
       <div class="phcl-il-content">
         <p>{{ hotelInfo.metapolicy_extra_info }}</p>
       </div>
-      <!-- <div class="phcl-p-sub-title">Casino Stats</div> -->
+
       <div class="phcl-line mt24"></div>
       <div class="phcl-date-box">
         <div class="phcl-db-header">
