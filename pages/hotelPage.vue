@@ -1,133 +1,217 @@
 <template>
 	<div class="page">
 		<new-header />
-		<div class="warps">
-			<div class="hotel">
-				<div class="left flex">
-					<div class="events">
-						<div class="day">
-							25 אירועים מתוך 895 אירועים
-						</div>
-						<div class="about">למדו על הסטנדרטים שלנו</div>
-						<div class="item">
-							<div class="item-li">
-								<p>זמינות בזמן אמת</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-							<div class="item-li">
-								<p>מושבים אחד-ליד-השני</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-							<div class="item-li">
-								<p>אירועים מובטחים</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-							<div class="item-li">
-								<p>כרטיסים רישמיים</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-						</div>
-						<div class="select-list">
-							<div class="select-li">
-								<div class="flex">
-									<i class="el-icon-back"></i>
-								</div>
-								<div class="flex price">
-									<span class="num">€99</span>
-								</div>
-								<div class="text">
-									<p>פורמולה 1 2024</p>
-									<p>Circuit Park Zandvoort</p>
-									<p>Zandvoort (NLD)</p>
-								</div>
-								<div class="info">
-									<div class="xx">
-										<p class="xx-bg">
-											<span>אירוע פופולרי</span>
-											<img src="~assets/images/icon/icon4.png" />
-										</p>
-									</div>
-									<h3>Dutch Grand Prix</h3>
-									<p class="time">אוגוסט 23, 2024 - אוגוסט 25, 2024</p>
-								</div>
-							</div>
-							<div class="select-li">
-								<div class="flex">
-									<i class="el-icon-back"></i>
-								</div>
-								<div class="flex price">
-									<span class="no-stock">אזל המלאי</span>
-								</div>
-								<div class="text">
-									<p>פורמולה 1 2024</p>
-									<p>Circuit Park Zandvoort</p>
-									<p>Zandvoort (NLD)</p>
-								</div>
-								<div class="info">
-									<div class="xx">
-										<p class="xx-bg">
-											<span>אירוע פופולרי</span>
-											<img src="~assets/images/icon/icon4.png" />
-										</p>
-									</div>
-									<h3>Dutch Grand Prix</h3>
-									<p class="time">אוגוסט 23, 2024 - אוגוסט 25, 2024</p>
-								</div>
-							</div>
+		<div class="search-border">
+			<div class="warps">
+				<div class="search-box">
+					<div class="search-li">
+						<p class="a"> עדכון</p>
+					</div>
+					<div class="search-li filter">
+						<filter-member :list="searchQuery.guestList" class="pacf-mb" @change="changeGuests" />
+					</div>
+					<div class="search-li filter">
+						<filter-datepicker class="pacf-dp" :start-and-end-time="searchQuery.date"
+							:date-type="searchQuery.dateType" :day-rage-index="dayRageIndex"
+							@update:datetype="updateDateType" @update:time="updateStartEndTime"
+							@update:daterange="updateDateRange" />
+					</div>
+					<div class="search-li">
+						<div class="pac-search">
+							<div class="search-btn" @click="citysearch"></div>
+							<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input"
+								v-model="searchQuery.destinationName" :fetch-suggestions="querySearch"
+								@focus="searchQuery.destinationName=''" placeholder="Caesar’s Palace Hotel & Casino"
+								@select="handleSelect">
+								<template slot-scope="{ item }">
+									<div>{{ item.city }}</div>
+								</template>
+							</el-autocomplete>
 						</div>
 					</div>
 				</div>
-				<div class="right">
+			</div>
+		</div>
+		<div class="warps">
+			<div class="content">
+				<div class="Hotel">
 					<div class="nav">
-						<span>אירועים</span>
-						<i class="el-icon-arrow-left"></i>
-						<span>בית</span>
-					</div>
-					<div class="Dates">
-						<div class="name">תאריכים</div>
-						<date-picker itemtypes="1" ref="myDatePicker" v-model="date" type="daterange"
-							@pick="confirmDateRange" popperClass="date-content" value-format="yyyy-MM-dd"
-							range-separator="至" start-placeholder="" end-placeholder="">
-						</date-picker>
-					</div>
-					<div class="Sports">
-						<div class="check">
-							<div class="name">ענפי ספורט</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
+						<div class="left flex">
+							<div class="yuan">
+								<span></span>
+								<span class="current"></span>
+								<span class="current"></span>
+								<span class="current"></span>
+								<span class="current"></span>
+								<img src="~assets/images/icon/image 1.png" />
 							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
-							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
-							</div>
-							<div class="total">צפייה בהכל (10)</div>
+							<p class="time">14,256 חוות דעת</p>
 						</div>
-						<div class="check">
-							<div class="name">ענפי ספורט</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<img class="icon-img" src="~assets/images/icon/icon22.png" />
+						<div class="right">
+							<div class="xx">
+								<span class="p">3655 Las Vegas Blvd S, Paradise</span>
+								<span class="line"></span>
+								<span class="p">0.0 ק״מ ממרכז העיר</span>
+								<span class="line"></span>
+								<div class="rate">
+									<el-rate void-color="#FFB800" :value="5" />
+									<div class="disabled"></div>
+								</div>
 							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
+							<h1>Caesar’s Palace Hotel & Casino</h1>
+						</div>
+					</div>
+					<div class="ban">
+						<div class="ban-li flex">
+							<img src="~assets/images/Rectangle 615.png" />
+						</div>
+						<div class="ban-li flex">
+							<img src="~assets/images/Rectangle 615.png" />
+						</div>
+					</div>
+				</div>
+				<div class="price">
+					<button>לצפיה בדילים</button>
+					<p class="num">₪ 2,770 -מ</p>
+					<div class="flex"></div>
+					<span>מדיניות</span>
+					<span>מיקום</span>
+					<span>חוות דעת</span>
+					<span>שירותים</span>
+					<span>חדרים פנויים</span>
+				</div>
+				<h1 class="h-title">חדרים זמינים ב- Caesar’s Palace Hotel & Casino</h1>
+				<div class="Palace">
+					<div class="Palace-left">
+						<div class="top">
+							<div class="index">9</div>
+							<div class="name">
+								<h3>מעולה</h3>
+								<div class="yuan">
+									<span></span>
+									<span class="current"></span>
+									<span class="current"></span>
+									<span class="current"></span>
+									<span class="current"></span>
+								</div>
+								<p>14,256 חוות דעת</p>
 							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
+							<div class="speed">
+								<div class="tit">ביקורות האורחים:</div>
+								<div class="speed-li">
+									<div class="num">
+										<p class="flex">9</p>
+										תמורה על הכסף
+									</div>
+									<div class="progress">
+										<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+											color="rgba(0, 188, 147, 0.8)"></el-progress>
+									</div>
+								</div>
+								<div class="speed-li">
+									<div class="num">
+										<p class="flex">8</p>
+										מיקום המלון
+									</div>
+									<div class="progress">
+										<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+											color="rgba(0, 188, 147, 0.8)"></el-progress>
+									</div>
+								</div>
+								<div class="speed-li">
+									<div class="num">
+										<p class="flex">10</p>
+										איכות ה-WiFi
+									</div>
+									<div class="progress">
+										<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+											color="rgba(0, 188, 147, 0.8)"></el-progress>
+									</div>
+								</div>
+								<div style="height: 8px;"></div>
+								<button class="btn">
+									לצפיה בכל הביקורות
+									<img src="~assets/images/icon/Group.png" />
+								</button>
 							</div>
-							<div class="total">צפייה בהכל (10)</div>
+						</div>
+						<div class="customer">
+							<p>לא אוהבים לסגור לבד?</p>
+							<p>חסכו לכם את כאב הראש</p>
+							<div class="chat-btn">
+								דברו עם נציג<img src="~assets/images/icon/Page-1.png" />
+							</div>
+						</div>
+					</div>
+					<div class="Palace-right">
+						<div class="Hotel-li" v-for="(item,index) in hotelslist" :key="index">
+							<div class="room">
+								<div class="left flex">
+									<h2>{{item.room_name}}</h2>
+									<p>{{item.room_data_trans.bedding_type}}</p>
+									<div class="laber">
+										<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+										<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+										<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+									</div>
+								</div>
+								<div class="img">
+									<img :src="item.images?item.images[0]:''" />
+									<p v-if="item.images.length>0">{{item.images.length}} תמונות <i class="el-icon-view"></i></p>
+								</div>
+							</div>
+							<div class="item-li">
+								<div class="item-li-info">
+									<div class="info item-l">
+										<div class="btn">
+											<p>המחיר הכי טוב</p>
+											<div class="button">
+												>הזמינו עכשיו
+											</div>
+										</div>
+										<div class="item-price flex">
+											<div>₪ 4,833</div>
+											<p>מיסים ואגרות 170 $</p>
+											<p>עבור 3 לילות עבור 2 אורחים</p>
+										</div>
+									</div>
+									<div class="info wallet">
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											ניתן לבטל בחינם עד ל-27 באוגוסט*
+											<img class="r" src="~assets/images/icon/icon.png" />
+										</div>
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											שלם עכשיו
+											<img class="r" src="~assets/images/icon/qb.png" />
+										</div>
+									</div>
+									<div class="info wallet no-boder">
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											מיטה כפולה
+											<img class="r" src="~assets/images/icon/icon27.png" />
+										</div>
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											לא כולל ארוחות
+											<img class="r" src="~assets/images/icon/icon26.png" />
+										</div>
+										<div class="p" style="color: rgba(255, 50, 99, 1);">
+											סוג המיטה לא מובטח
+											<img class="r" src="~assets/images/icon/icon25.png" />
+										</div>
+										<div class="p">
+											חדר ללא עישון
+											<img class="r" src="~assets/images/icon/icon24.png" />
+										</div>
+									</div>
+								</div>
+								<div class="more">
+									5 אפשרויות נוספות<i class="el-icon-arrow-down"></i>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -137,329 +221,612 @@
 </template>
 
 <script>
-	import dayjs from 'dayjs'
+	import casino from '@/mixins/casino'
+	import axios from 'axios';
 	export default {
-		data: () => ({
-			dateType: 0,
-			dayRageIndex: 0,
-			monthIndex: 0,
-			monthEN: {
-				month1: 'January',
-				month2: 'February',
-				month3: 'March',
-				month4: 'April',
-				month5: 'May',
-				month6: 'June',
-				month7: 'July',
-				month8: 'August',
-				month9: 'September',
-				month10: 'October',
-				month11: 'November',
-				month0: 'December',
-			},
-			travelTypeIndex: 2,
-			traveTypeText: 'A week',
-			monthList: [],
-			selectedMonth: [],
-			date: ''
-		}),
+		mixins: [casino],
+		data() {
+			return {
+				hotelslist: []
+			}
+		},
 		mounted() {
-			this.makMonthList();
+			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
+			this.getHotel()
 		},
 		methods: {
-			confirmDateRange(e) {
-				this.date =
-					`${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
-				this.visible3 = false;
-				console.log(this.date);
-				console.log(this.dateType);
-			},
-			handleDateRange(index) {
-				this.dayRageIndex = index;
-			},
-			handleTravelType(index, text) {
-				this.travelTypeIndex = index;
-				this.traveTypeText = text;
-			},
-			makMonthList() {
-				let list = [];
-				let currentYear = dayjs().year();
-				let currentMonth = dayjs().month() + 1;
-				for (let i = currentMonth; i <= currentMonth + 20; i++) {
-					let item = new Object();
-					item = {
-						year: i > 12 ? currentYear + 1 : currentYear,
-						month: this.monthEN['month' + i % 12]
-					};
-					list.push(item);
+			getHotel() {
+				let data = {
+					hid: this.$route.query.id,
+					// checkin: "",
+					// checkout: "",
+					// adults: "",
+					// children: ""
 				}
-				this.monthList = list;
-			},
-			handleMonth(index) {
-				this.monthIndex = index;
-				if (this.monthList[index].checked) {
-					this.monthList[index].checked = false;
-				} else {
-					for (let i = 0; i < this.monthList.length; i++) {
-						if (this.monthList[i].checked) {
-							this.monthList[i].checked = false;
-							break;
-						}
+				axios.post('https://zhouchen.love:8000/get_hotel_info', data, {
+					headers: {
+						'Content-Type': 'application/json'
 					}
-					this.$set(this.monthList[index], 'checked', true);
-				}
-				this.calcSelectMonth();
-			},
-			calcSelectMonth() {
-				let selectedMonth = this.monthList.filter((item) => {
-					return item.checked
-				});
-				let monthTextArr = [];
-				for (let i = 0; i < selectedMonth.length; i++) {
-					monthTextArr.push(selectedMonth[i].month.slice(0, 3))
-				}
-				this.selectedMonth = monthTextArr;
-			},
+				}).then(res => {
+					console.log(res.data.data.hotels[0].rates,"好好")
+					this.hotelslist = res.data.data.hotels[0].rates
+				})
+			}
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
-	.hotel::v-deep .el-date-range-picker__content.is-left {
-		margin-right: 0
-	}
+<style scoped lang="scss">
+	.Palace {
+		display: flex;
 
-	.hotel::v-deep .el-date-range-picker .el-picker-panel__body {
-		min-width: 100%;
-	}
+		.Palace-right {
+			flex: 1;
+			padding-left: 0.16rem;
 
-	.hotel::v-deep .el-date-range-picker__content {
-		width: 100%;
-	}
+			.Hotel-li {
+				background-color: #fff;
+				border-radius: 8px;
+				overflow: hidden;
+				margin-bottom: 16px;
+				border: 1px solid rgba(218, 218, 218, 1);
 
-	.page {
-
-		.hotel {
-			display: flex;
-
-			.left {
-				.select-list {
-					.select-li {
+				.item-li {
+					.more {
+						border-top: 1px solid rgba(218, 218, 218, 1);
+						text-align: center;
 						display: flex;
 						align-items: center;
-						padding: 0.32rem 0;
-						border-bottom: 1px solid rgba(218, 218, 218, 1);
-						.el-icon-back{
-							font-size: 24px;
-							color: rgba(26, 26, 26, 0.6);
-						}
-						.price{
-							span{
-								display: inline-block;
-								padding: 0.08rem 0.16rem;
-								font-size: 0.16rem;
-								font-weight: 600;
-								border-radius: 6px
-							}
-							.no-stock{
-								background-color: rgba(238, 35, 68, 0.16);
-								color: rgba(238, 35, 68, 1);
-							}
-							.num{
-								background-color: rgba(0, 188, 147, 0.16);
-								color: rgba(0, 188, 147, 1);
-							}
-						}
-
-						.text {
-							width: 1.60rem;
-							text-align: right;
-
-							p {
-								margin-top: 4px;
-								font-size: 0.12rem;
-								font-weight: 400;
-								color: rgba(26, 26, 26, 0.6);
-							}
-						}
-
-						.info {
-							width: 3.16rem;
-							text-align: right;
-							padding-left: 0.2rem;
-
-							.time {
-								font-size: 0.12rem;
-								font-weight: 400;
-								color: rgba(26, 26, 26, 0.6);
-							}
-
-							h3 {
-								font-size: 0.16rem;
-								font-weight: 600;
-								margin: 0.12rem 0;
-							}
-
-							.xx {
-								display: flex;
-								justify-content: flex-end;
-
-								.xx-bg {
-									padding: 0.04rem 0.08rem;
-									background-color: rgba(255, 184, 0, 0.16);
-									border-radius: 6px;
-									font-size: 0.12rem;
-									font-weight: 400;
-								}
-
-							}
-
-							img {
-								width: 0.12rem;
-								height: auto;
-							}
-						}
-					}
-				}
-
-				.events {
-					padding: 0.4rem 1rem 0 1rem;
-
-					.item {
-						margin-top: 0.24rem;
-						display: flex;
-						align-items: center;
-						padding: 0.12rem 0.16rem;
-						background-color: rgba(0, 188, 147, 0.12);
-						border-radius: 8px;
-
-						.item-li {
-							flex: 1;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-
-							p {
-								font-size: 0.16rem;
-								font-weight: 400;
-							}
-
-							img {
-								width: 0.16rem;
-								height: auto;
-								margin-left: 8px;
-							}
-						}
-					}
-
-					.about {
-						margin-top: 0.16rem;
+						justify-content: center;
+						padding: 0.16rem 0;
+						background-color: #fff;
 						font-size: 0.14rem;
 						font-weight: 400;
-						text-align: right;
-						color: rgba(52, 81, 255, 1);
-						text-decoration: underline;
-					}
+						color: rgba(255, 50, 99, 1);
+						cursor: pointer;
 
-					.day {
-						text-align: right;
-						font-size: 0.16rem;
-						font-weight: 400;
-						direction: rtl;
-					}
-				}
-			}
-
-			.right {
-				width: 3.64rem;
-				padding: 0.24rem 0 0.24rem 0.32rem;
-				border-left: 1px solid #DADADA;
-
-				.Sports {
-					.name {
-						font-size: 0.16rem;
-						font-weight: 500;
-						text-align: right;
-						margin-bottom: 0.16rem;
-					}
-
-					.check {
-						margin-top: 0.4rem;
-
-						.total {
-							font-size: 0.12rem;
-							font-weight: 400;
-							text-align: right;
-							color: rgba(26, 26, 26, 0.6);
-							text-decoration: underline;
+						i {
+							color: rgba(255, 50, 99, 1);
+							margin-left: 0.1rem;
+							font-weight: bold;
 						}
+					}
 
-						.check-li {
+					.item-li-info {
+						display: flex;
+					}
+
+					border-top: 1px solid rgba(218, 218, 218, 1);
+
+					.no-boder {
+						border: none !important;
+					}
+
+					.wallet {
+						border-left: 1px solid rgba(218, 218, 218, 1);
+						border-right: 1px solid rgba(218, 218, 218, 1);
+
+						.p {
+							margin-bottom: 8px;
 							display: flex;
 							align-items: center;
 							justify-content: flex-end;
-							margin-bottom: 0.12rem;
-							cursor: pointer;
 
-							.icon-img {
-								width: 0.2rem;
+							.r {
+								width: 0.16rem;
 								height: auto;
+								margin-left: 5px;
+							}
+
+							.l {
+								width: 0.12rem;
+								height: auto;
+								margin-right: 5px;
+							}
+						}
+
+					}
+
+					.item-l {
+						display: flex;
+
+						.item-price {
+							text-align: right;
+
+							div {
+								font-size: 0.20rem;
+								font-weight: 600;
+								letter-spacing: -0.02em;
+								margin-bottom: 8px;
 							}
 
 							p {
-								font-size: 0.16rem;
+								font-size: 0.12rem;
 								font-weight: 400;
-								margin: 0 8px;
+								color: rgba(26, 26, 26, 0.6);
 							}
 
-							span {
-								font-size: 0.16rem;
-								font-weight: 400;
-								color: rgba(26, 26, 26, 0.4);
+						}
 
+						.btn {
+							.button {
+								margin-top: 8px;
+								width: 1.19rem;
+								height: 0.40rem;
+								background-color: rgba(255, 50, 99, 1);
+								border-radius: 8px;
+								font-size: 0.14rem;
+								font-weight: 400;
+								text-align: center;
+								line-height: 0.40rem;
+								color: #fff;
 							}
 
-							.check-img {
-								width: 0.16rem;
-								height: 0.16rem;
-								border: 1px solid rgba(218, 218, 218, 1);
-								box-sizing: border-box;
-								border-radius: 2px;
+							p {
+								font-size: 0.14rem;
+								font-weight: 400;
+								color: rgba(0, 188, 147, 1);
 							}
 						}
 					}
+
+					.info {
+						width: 33.333333333%;
+						padding: 16px 15px;
+					}
 				}
 
-				.Dates {
-					margin-top: 0.4rem;
+				.room {
+					display: flex;
 
-					.name {
-						font-size: 0.16rem;
-						font-weight: 500;
+					.left {
+						text-align: right;
+						padding: 0.16rem 0.16rem 0 0;
+
+						.laber {
+							margin-top: 0.40rem;
+							display: flex;
+							align-items: center;
+							justify-content: flex-end;
+
+							div {
+								background-color: rgba(245, 245, 245, 1);
+								border-radius: 4px;
+								display: flex;
+								align-items: center;
+								justify-content: flex-end;
+								padding: 4px;
+								margin-left: 12px;
+
+								img {
+									width: 0.16rem;
+									margin-left: 5px;
+									height: auto;
+								}
+							}
+						}
+
+						h2 {
+							font-size: 0.20rem;
+							font-weight: 600;
+							text-align: right;
+							margin: 8px 0;
+						}
+					}
+
+					.img {
+						width: 1.99rem;
+						height: 1.43rem;
+						position: relative;
+
+						p {
+							font-size: 0.12rem;
+							font-weight: 400;
+							position: absolute;
+							background-color: rgba(254, 254, 254, 1);
+							padding: 4px 6px;
+							border-radius: 4px;
+							right: 12px;
+							bottom: 8px;
+
+							i {}
+						}
+
+						img {
+							width: 100%;
+							height: 100%;
+						}
+					}
+				}
+			}
+		}
+
+		.Palace-left {
+			width: 3.32rem;
+
+			.customer {
+				margin-top: .16rem;
+				padding: .24rem;
+				background-color: #fff;
+				border-radius: 8px;
+				border: 1px solid rgba(218, 218, 218, 1);
+
+				p {
+					font-size: 0.20rem;
+					font-weight: 600;
+					text-align: center;
+
+				}
+
+				.chat-btn {
+					margin-top: .24rem;
+					border: 1px solid rgba(52, 81, 255, 1);
+					height: 0.48rem;
+					width: 100%;
+					font-size: 0.16rem;
+					display: flex;
+					cursor: pointer;
+					align-items: center;
+					justify-content: center;
+					font-weight: 600;
+					border-radius: 6px;
+					background-color: #fff;
+					color: rgba(52, 81, 255, 1);
+
+					img {
+						width: .24rem;
+						height: auto;
+						margin-left: 10px;
+					}
+				}
+			}
+
+			.btn {
+				border: 1px solid rgba(0, 188, 147, 1);
+				height: 0.48rem;
+				width: 100%;
+				font-size: 0.16rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-weight: 600;
+				border-radius: 6px;
+				background-color: #fff;
+				color: rgba(0, 188, 147, 1);
+
+				img {
+					width: .24rem;
+					height: auto;
+					margin-left: 10px;
+				}
+			}
+
+			.top {
+				position: relative;
+				background-color: #fff;
+				border-radius: 8px;
+				border: 1px solid rgba(218, 218, 218, 1);
+
+				.speed {
+					padding: 0.24rem;
+
+					.speed-li {
+						margin-bottom: 16px;
+
+						.progress {
+							margin-top: 8px;
+							transform: rotate(-180deg)
+						}
+
+						.num {
+							display: flex;
+							align-items: center;
+							font-size: 0.14rem;
+							font-weight: 400;
+						}
+					}
+
+					.tit {
+						font-size: 0.20rem;
+						font-weight: 600;
+						margin-bottom: 0.24rem;
 						text-align: right;
 					}
 				}
 
-				.nav {
+				.index {
+					position: absolute;
+					top: 0;
+					left: 24px;
+					z-index: 1;
+					width: 0.66rem;
+					height: 0.88rem;
+					background: url("~assets/images/icon/Vector.png");
+					background-size: 100% 100%;
+					font-size: 0.56rem;
+					font-weight: 600;
+					color: #fff;
+					padding-top: 8px;
+					letter-spacing: -0.04em;
+					text-align: center;
+				}
+
+				h3 {
+					font-size: 0.32rem;
+					font-weight: 500;
+					letter-spacing: -0.04em;
+				}
+
+				.name {
+					display: flex;
+					flex-direction: column;
+					justify-content: flex-end;
+					align-items: flex-end;
+					padding: 0.24rem;
+					border-bottom: 1px solid rgba(218, 218, 218, 1);
+
+
+
+					p {
+						font-size: .14rem;
+						font-weight: 400;
+						color: rgba(26, 26, 26, 0.6);
+					}
+				}
+
+				.yuan {
 					display: flex;
 					align-items: center;
-					justify-content: flex-end;
+					margin-top: 16px;
+					margin-bottom: 8px;
 
-					span {
-						font-size: 0.12rem;
-						font-weight: 400;
-						color: rgba(26, 26, 26, 0.6)
+					.current {
+						background-color: rgba(0, 188, 147, 1);
+
 					}
 
-					i {
-						margin: 0 4px;
+					span {
+						width: 16px;
+						height: 16px;
+						box-sizing: border-box;
+						border: 1px solid rgba(0, 188, 147, 1);
+						border-radius: 50%;
 						display: inline-block;
-						font-size: 0.12rem;
-						font-weight: 600;
-						color: rgba(26, 26, 26, 0.6)
+						margin-right: 4px;
 					}
 				}
 			}
+		}
+	}
+
+	.h-title {
+		margin-top: .4rem;
+		margin-bottom: .24rem;
+		text-align: right;
+		font-size: 0.32rem;
+		font-weight: 500;
+		letter-spacing: -0.04em;
+		text-align: right;
+	}
+
+	.price {
+		margin-top: 16px;
+		background-color: #fff;
+		border-radius: 8px;
+		border: 1px solid rgba(218, 218, 218, 1);
+		padding: 8px;
+		display: flex;
+		align-items: center;
+
+		span {
+			font-size: 0.14rem;
+			font-weight: 500;
+			margin-right: 24px;
+			display: inline-block;
+		}
+
+		.num {
+			margin-left: .16rem;
+			font-size: 0.20rem;
+			font-weight: 600;
+		}
+
+		button {
+			width: 1.32rem;
+			height: 0.4rem;
+			background-color: rgba(255, 50, 99, 1);
+			border-radius: 6px;
+			border: none;
+			font-size: 0.14rem;
+			font-weight: 600;
+			color: #fff;
+		}
+	}
+
+	.content {
+		margin-top: 0.49rem;
+
+		.Hotel {
+			background-color: #fff;
+			border-radius: 8px;
+			overflow: hidden;
+			border: 1px solid rgba(218, 218, 218, 1);
+		}
+
+		.ban {
+			display: flex;
+
+			.ban-li {
+				width: 50%;
+				height: 4rem;
+			}
+
+			.ban-li:nth-child(1) {
+				padding-right: 8px;
+			}
+
+			.ban-li:nth-child(2) {
+				padding-left: 8px;
+			}
+
+			img {
+				width: 100%;
+				height: 4rem;
+			}
+		}
+
+		.nav {
+			display: flex;
+			padding: 0.24rem;
+
+
+			.right {
+				.xx {
+					display: flex;
+					justify-content: flex-end;
+					align-items: center;
+					margin-bottom: 16px;
+
+					.rate {
+						position: relative;
+
+						.disabled {
+							width: 1.15rem;
+							height: 20px;
+							position: absolute;
+							top: 0;
+							left: 0;
+							z-index: 1;
+						}
+					}
+
+					.p {
+						font-size: 0.14rem;
+						font-weight: 400;
+						color: rgba(26, 26, 26, 0.6);
+					}
+
+					.line {
+						width: 12px;
+						height: 1px;
+						background-color: rgba(218, 218, 218, 1);
+						margin: 0 8px;
+						display: inline-block;
+					}
+				}
+
+				h1 {
+					font-size: 0.56rem;
+					font-weight: 600;
+					text-align: right;
+				}
+			}
+
+			.time {
+				margin-top: 0.12rem;
+				font-size: 0.14rem;
+				font-weight: 400;
+				color: rgba(26, 26, 26, 0.6);
+			}
+
+			.yuan {
+				display: flex;
+				align-items: center;
+
+				img {
+					width: 0.24rem;
+					height: auto;
+					margin-left: 4px;
+				}
+
+				.current {
+					background-color: rgba(0, 188, 147, 1);
+
+				}
+
+				span {
+					width: 16px;
+					height: 16px;
+					box-sizing: border-box;
+					border: 1px solid rgba(0, 188, 147, 1);
+					border-radius: 50%;
+					display: inline-block;
+					margin-right: 4px;
+				}
+			}
+		}
+	}
+
+
+
+	.pac-search {
+		position: relative;
+	}
+
+	.search-btn {
+		cursor: pointer;
+		width: 60px;
+		height: 40px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 10;
+	}
+
+	.filter::v-deep .el-input__inner {
+		background-color: #fff !important;
+		border-radius: 6px;
+		color: rgba(26, 26, 26, 0.6);
+	}
+
+	.pac-search ::v-deep .el-input__inner {
+		text-align: right;
+		padding-right: 35px;
+		width: 3.46rem;
+	}
+
+	.pac-search ::v-deep .el-input__inner::placeholder,
+	.filter::v-deep .el-input__inner::placeholder {
+		color: rgba(26, 26, 26, 0.6);
+	}
+
+	.filter::v-deep .el-input__icon {
+		color: rgba(118, 118, 118, 1);
+		font-weight: bold;
+	}
+
+	.pac-search ::v-deep .el-input__suffix {
+		font-size: 18px;
+		color: rgba(118, 118, 118, 1);
+	}
+
+	.search-border {
+		border-bottom: 1px solid rgba(218, 218, 218, 1);
+	}
+
+
+	.search-box {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 0.12rem 0;
+
+		.search-li {
+			margin: 0 4px;
+		}
+
+		.a {
+			height: 0.40rem;
+			line-height: 0.4rem;
+			background-color: rgba(255, 50, 99, 0.08);
+			border-radius: 6px;
+			padding: 0 0.24rem;
+			font-size: 0.16rem;
+			font-weight: 600;
+			color: rgba(255, 50, 99, 1);
+			border: 1px solid rgba(255, 50, 99, 1);
+
 		}
 	}
 </style>

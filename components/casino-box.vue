@@ -1,6 +1,7 @@
 <template>
-	<div class="c-casino-box" :class="{ 'active': isActive, 'mobile': isMobile }" @click="$emit('click')"
-		@mouseenter="$emit('enter')" @mouseleave="$emit('leave')">
+	<!-- <div class="c-casino-box" :class="{ 'active': isActive, 'mobile': isMobile }" @click="$emit('click')"
+		@mouseenter="$emit('enter')" @mouseleave="$emit('leave')"> -->
+	<div @click="toHotel(casino.hid)" class="c-casino-box" :class="{ 'active': isActive, 'mobile': isMobile }">
 
 		<div class="ccb-right">
 			<div class="title">
@@ -26,7 +27,7 @@
 				</div>
 				<div class="xx">
 					<div class="top">
-						<el-rate void-color="#FFB800" :value="casino.star" />
+						<el-rate void-color="#FFB800" :value="casino.star_rating" />
 						<div class="disabled"></div>
 					</div>
 					<div class="text">0.0 ק״מ ממרכז העיר</div>
@@ -90,6 +91,16 @@
 			return {
 				isMobile: window.isMobile
 			}
+		},
+		methods: {
+			toHotel(id) {
+				this.$router.push({
+					name: 'hotelPage',
+					query: {
+						id: id
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -106,13 +117,13 @@
 			// border: 1px solid #FF3263;
 			// background: linear-gradient(0deg, rgba(255, 50, 99, 0.04) 0%, rgba(255, 50, 99, 0.04) 100%), #FEFEFE;
 
-			.ccb-title {
-				color: #FF3263;
-			}
+			// .ccb-title {
+			// 	color: #FF3263;
+			// }
 
-			.ccb-img-eye {
-				display: block;
-			}
+			// .ccb-img-eye {
+			// 	display: block;
+			// }
 		}
 
 		&.mobile {

@@ -16,6 +16,7 @@ const whiteList = [
 	'/celtapage',
 	'/vigopage',
 	'/Valenciapage',
+	'/eventlPage',
 	'/hotelPage',
 	// -----新增------
 
