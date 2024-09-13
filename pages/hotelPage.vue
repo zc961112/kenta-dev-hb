@@ -157,11 +157,11 @@
 								</div>
 								<div class="img">
 									<img :src="item.images?item.images[0]:''" />
-									<p v-if="item.images.length>0">{{item.images.length}} תמונות <i class="el-icon-view"></i></p>
+									<p v-if="item.images.length>0">תמונות {{item.images.length}}<i class="el-icon-view"></i></p>
 								</div>
 							</div>
-							<div class="item-li">
-								<div class="item-li-info">
+							<div class="item-li" >
+								<div class="item-li-info" v-for="(item2,index2) in item.children" :key="index2">
 									<div class="info item-l">
 										<div class="btn">
 											<p>המחיר הכי טוב</p>
@@ -170,7 +170,7 @@
 											</div>
 										</div>
 										<div class="item-price flex">
-											<div>₪ 4,833</div>
+											<div>₪ {{item2.daily_prices}}</div>
 											<p>מיסים ואגרות 170 $</p>
 											<p>עבור 3 לילות עבור 2 אורחים</p>
 										</div>
@@ -238,8 +238,8 @@
 			getHotel() {
 				let data = {
 					hid: this.$route.query.id,
-					// checkin: "",
-					// checkout: "",
+					checkin: "2024-09-19",
+					checkout: "2024-09-20",
 					// adults: "",
 					// children: ""
 				}
@@ -249,7 +249,33 @@
 					}
 				}).then(res => {
 					console.log(res.data.data.hotels[0].rates,"好好")
-					this.hotelslist = res.data.data.hotels[0].rates
+					let arr = res.data.data.hotels[0].rates
+					this.hotelslist = []
+					arr.forEach(element => {
+						let index = this.hotelslist.findIndex(t=>{
+							return t.room_name === element.room_name
+						})
+						if(index===-1){
+							this.hotelslist.push(
+								{
+									room_name:element.room_name,
+									children:[],
+									room_data_trans:element.room_data_trans,
+									images:element.images
+								}
+							)
+							index = this.hotelslist.length-1
+						}
+						
+						this.hotelslist[index].children.push(
+							{
+								allotment:element.allotment,
+								daily_prices:element.daily_prices[0]
+							}
+						)
+					});
+					console.log(arr)
+
 				})
 			}
 		}
@@ -273,7 +299,7 @@
 
 				.item-li {
 					.more {
-						border-top: 1px solid rgba(218, 218, 218, 1);
+						//border-top: 1px solid rgba(218, 218, 218, 1);
 						text-align: center;
 						display: flex;
 						align-items: center;
@@ -293,6 +319,7 @@
 					}
 
 					.item-li-info {
+						border-bottom: 1px solid rgba(218, 218, 218, 1);
 						display: flex;
 					}
 
