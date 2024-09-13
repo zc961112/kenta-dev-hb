@@ -27,11 +27,11 @@
 					</el-dropdown>
 				</div>
 			</div>
-			<div class="flex" @click="toHome" ></div>
+			<div class="flex" @click="toHome"></div>
 			<div @click="toHome">
-			<img v-if="ishome" class="logo" src="~assets/images/logo-white.png" />
-			<img v-else class="logo" src="~assets/images/logo.png" />
-		</div>
+				<img v-if="ishome" class="logo" src="~assets/images/logo-white.png" />
+				<img v-else class="logo" src="~assets/images/logo.png" />
+			</div>
 		</div>
 		<div class="header-h" v-if="!ishome"></div>
 	</div>
@@ -46,25 +46,16 @@
 			}
 		},
 		data() {
-			return {
-				top: 0
-			}
+			return {}
 
 		},
-		mounted() {
-			window.addEventListener('scroll', this.listenerScroll, true)
-		},
+
 		methods: {
-			//滚动条改变触发该函数
-			listenerScroll() {
-				let value = window.pageYOffset || document.documentElement.scrollTop ||
-					document.body.scrollTop
-				this.top = value
-				console.log(value, "88888")
-			},
 			toHome() {
-      this.$router.push({ path: '/' })
-    }
+				this.$router.push({
+					path: '/'
+				})
+			}
 		}
 	}
 </script>
@@ -87,7 +78,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 9999;
+		z-index: 89;
 		display: flex;
 		width: 100%;
 		align-items: center;

@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
 		<new-header />
-		<div class="search-border">
+		<div class="search-border" :class="{ searchsticky: issearchSticky }" ref="searchElement">
 			<div class="warps">
 				<div class="search-box">
 					<div class="search-li">
@@ -49,16 +49,16 @@
 						</div>
 						<div class="right">
 							<div class="xx">
-								<span class="p">3655 Las Vegas Blvd S, Paradise</span>
+								<span class="p">{{other.address}}</span>
 								<span class="line"></span>
 								<span class="p">0.0 ק״מ ממרכז העיר</span>
 								<span class="line"></span>
 								<div class="rate">
-									<el-rate void-color="#FFB800" :value="5" />
+									<el-rate void-color="#FFB800" :value="other.star_rating" />
 									<div class="disabled"></div>
 								</div>
 							</div>
-							<h1>Caesar’s Palace Hotel & Casino</h1>
+							<h1>{{other.name}}</h1>
 						</div>
 					</div>
 					<div class="ban">
@@ -70,19 +70,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="price">
-					<button>לצפיה בדילים</button>
-					<p class="num">₪ 2,770 -מ</p>
-					<div class="flex"></div>
-					<span>מדיניות</span>
-					<span>מיקום</span>
-					<span>חוות דעת</span>
-					<span>שירותים</span>
-					<span>חדרים פנויים</span>
+				<div class="price" :class="{ pricesticky: pricechSticky }" ref="priceElement">
+					<div class="price-info flex">
+						<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
+						<button>לצפיה בדילים</button>
+						<p class="num">₪ 2,770 -מ</p>
+						<div class="flex"></div>
+						<span>מדיניות</span>
+						<span>מיקום</span>
+						<span>חוות דעת</span>
+						<span>שירותים</span>
+						<span>חדרים פנויים</span>
+					</div>
 				</div>
 				<h1 class="h-title">חדרים זמינים ב- Caesar’s Palace Hotel & Casino</h1>
 				<div class="Palace">
-					<div class="Palace-left">
+					<div class="Palace-left" :class="{ sticky: isSticky }" ref="stickyElement">
 						<div class="top">
 							<div class="index">9</div>
 							<div class="name">
@@ -143,7 +146,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="Palace-right">
+					<div class="Palace-right" :style="{marginLeft:isSticky?'3.32rem':''}">
 						<div class="Hotel-li" v-for="(item,index) in hotelslist" :key="index">
 							<div class="room">
 								<div class="left flex">
@@ -157,10 +160,11 @@
 								</div>
 								<div class="img">
 									<img :src="item.images?item.images[0]:''" />
-									<p v-if="item.images.length>0">תמונות {{item.images.length}}<i class="el-icon-view"></i></p>
+									<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
+											class="el-icon-view"></i></p>
 								</div>
 							</div>
-							<div class="item-li" >
+							<div class="item-li">
 								<div class="item-li-info" v-for="(item2,index2) in item.children" :key="index2">
 									<div class="info item-l">
 										<div class="btn">
@@ -208,7 +212,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="more">
+								<div class="more" v-if="item.children.length>5">
 									5 אפשרויות נוספות<i class="el-icon-arrow-down"></i>
 								</div>
 							</div>
@@ -227,19 +231,44 @@
 		mixins: [casino],
 		data() {
 			return {
-				hotelslist: []
+				hotelslist: [],
+				other: {},
+				isSticky: false,
+				stickyOffset: 0,
+				issearchSticky: false,
+				pricechSticky: false
 			}
 		},
 		mounted() {
+			this.stickyOffset = this.$refs.stickyElement.offsetTop;
+			this.searchOffset = this.$refs.searchElement.offsetTop;
+			this.priceOffset = this.$refs.priceElement.offsetTop;
+			window.addEventListener('scroll', this.handleScroll);
+
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 			this.getHotel()
 		},
+		beforeDestroy() {
+			window.removeEventListener('scroll', this.handleScroll);
+		},
 		methods: {
+			scrollToTop() {
+				window.scrollTo({
+					top: 0,
+					behavior: 'smooth'
+				})
+			},
+			handleScroll() {
+				this.isSticky = (window.scrollY + 130) >= this.stickyOffset;
+				this.issearchSticky = window.scrollY >= this.searchOffset;
+				this.pricechSticky = window.scrollY >= this.priceOffset;
+			},
 			getHotel() {
 				let data = {
 					hid: this.$route.query.id,
 					checkin: "2024-09-19",
 					checkout: "2024-09-20",
+					other: {}
 					// adults: "",
 					// children: ""
 				}
@@ -248,31 +277,28 @@
 						'Content-Type': 'application/json'
 					}
 				}).then(res => {
-					console.log(res.data.data.hotels[0].rates,"好好")
+					console.log(res.data.data.other, "好好")
 					let arr = res.data.data.hotels[0].rates
 					this.hotelslist = []
+					this.other = res.data.data.other
 					arr.forEach(element => {
-						let index = this.hotelslist.findIndex(t=>{
+						let index = this.hotelslist.findIndex(t => {
 							return t.room_name === element.room_name
 						})
-						if(index===-1){
-							this.hotelslist.push(
-								{
-									room_name:element.room_name,
-									children:[],
-									room_data_trans:element.room_data_trans,
-									images:element.images
-								}
-							)
-							index = this.hotelslist.length-1
+						if (index === -1) {
+							this.hotelslist.push({
+								room_name: element.room_name,
+								children: [],
+								room_data_trans: element.room_data_trans,
+								images: element.images
+							})
+							index = this.hotelslist.length - 1
 						}
-						
-						this.hotelslist[index].children.push(
-							{
-								allotment:element.allotment,
-								daily_prices:element.daily_prices[0]
-							}
-						)
+
+						this.hotelslist[index].children.push({
+							allotment: element.allotment,
+							daily_prices: element.daily_prices[0]
+						})
 					});
 					console.log(arr)
 
@@ -283,6 +309,52 @@
 </script>
 
 <style scoped lang="scss">
+	.sticky {
+		position: fixed;
+		top: 1.4rem;
+	}
+
+	.pricesticky {
+		position: fixed;
+		top: 0.64rem;
+		width: 100%;
+		z-index: 9;
+		left: 0;
+		margin-top: 0 !important;
+		border: none !important;
+		border-radius: 0 !important;
+		border-bottom: 1px solid rgba(218, 218, 218, 1) !important;
+		justify-content: center;
+
+		.price-info {
+			width: 9.10rem;
+			margin: 0 auto;
+			flex: inherit !important;
+
+			span {
+				margin-left: 24px;
+				margin-right: 0 !important;
+			}
+
+			.fh {
+				display: block !important;
+			}
+
+			button,
+			.num {
+				display: none;
+			}
+		}
+	}
+
+	.searchsticky {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		background-color: #fff !important;
+		z-index: 99;
+	}
+
 	.Palace {
 		display: flex;
 
@@ -316,6 +388,10 @@
 							margin-left: 0.1rem;
 							font-weight: bold;
 						}
+					}
+
+					.item-li-info:nth-last-child(1) {
+						border-bottom: none;
 					}
 
 					.item-li-info {
@@ -640,10 +716,32 @@
 		margin-top: 16px;
 		background-color: #fff;
 		border-radius: 8px;
+		height: 0.57rem;
 		border: 1px solid rgba(218, 218, 218, 1);
 		padding: 8px;
 		display: flex;
 		align-items: center;
+
+		.price-info {
+			display: flex;
+			align-items: center;
+
+			.fh {
+				font-size: 0.14rem;
+				font-weight: 500;
+				cursor: pointer;
+				color: rgba(26, 26, 26, 0.6);
+				display: none;
+
+				i {
+					transform: rotate(-180deg);
+					display: inline-block;
+					font-weight: bold;
+					font-size: 18px;
+					margin-right: 0.05rem;
+				}
+			}
+		}
 
 		span {
 			font-size: 0.14rem;
