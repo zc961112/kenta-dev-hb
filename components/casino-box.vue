@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="price">
-				<div class="num">₪ {{casino.daily_prices?casino.daily_prices[0]:0}}</div>
+				<div class="num">₪ {{casino.daily_prices?casino.daily_prices[0]:'לא זמין'}}</div>
 				<div class="text">
 					<p>עבור 2 לילות, 2 אורחים</p>
 					<div class="laber">
@@ -85,7 +85,9 @@
 		props: {
 			parent: Object,
 			casino: Object,
-			isActive: Boolean
+			isActive: Boolean,
+			dayTime:String,
+			adults:String
 		},
 		data() {
 			return {
@@ -97,7 +99,9 @@
 				this.$router.push({
 					name: 'hotelPage',
 					query: {
-						id: id
+						id: id,
+						time:this.dayTime,
+						adults:this.adults
 					}
 				})
 			}

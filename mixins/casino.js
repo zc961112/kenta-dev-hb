@@ -48,7 +48,8 @@ export default {
 				dateType: 0,
 				gj: '',
 				selectedMonth: [],
-				guestList: []
+				guestList: [],
+				adults:''
 			},
 			filterQuery: {
 				fields: [],
@@ -259,13 +260,12 @@ export default {
                   <h3 class="map-pp-title">${item.name}</h3>
                   <div class="map-pp-text">${item.country_code} ,${item.region_name}</div>
                   <div class="map-pp-line"></div>
-                  <div class="map-pp-price"><span class="map-pp-price-no">₪ ${(item.daily_prices!=null?item.daily_prices[0]:0)}</span> -החל מ</div>
+                  <div class="map-pp-price"><span class="map-pp-price-no">₪ ${(item.daily_prices!=null?item.daily_prices[0]:'לא זמין')}</span> -החל מ</div>
                 </div>`)
 
 							const el = document.createElement('div')
 							el.id = 'marker_' + (this.id || '-')
-							el.innerHTML = '€' + (item.daily_prices != null ? item.daily_prices[0] : 0 ||
-								'-')
+							el.innerHTML = '€' + (item.daily_prices != null ? item.daily_prices[0] : 'לא זמין')
 							el.className = 'map-area-marker'
 							const marker = new mapboxgl.Marker(el)
 								.setLngLat([item.longitude, item.latitude])
@@ -406,11 +406,13 @@ export default {
 			this.dayRageIndex = value
 		},
 		changeGuests(data) {
-			data.forEach(item => {
-				const index = this.searchQuery.guestList.findIndex(g => g.label === item.label)
-				this.searchQuery.guestList[index].value = item.value
-			})
-			updateSessionQuery(this.searchQuery)
+			// data.forEach(item => {
+			// 	const index = this.searchQuery.guestList.findIndex(g => g.label === item.label)
+			// 	this.searchQuery.guestList[index].value = item.value
+			// })
+			// updateSessionQuery(this.searchQuery)
+			
+			this.adults = JSON.stringify(data)
 		}
 	},
 	beforeDestroy() {

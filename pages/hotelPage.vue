@@ -8,13 +8,13 @@
 						<p class="a"> עדכון</p>
 					</div>
 					<div class="search-li filter">
-						<filter-member :list="searchQuery.guestList" class="pacf-mb" @change="changeGuests" />
+						<filter-member :list="list" class="pacf-mb" @change="changeGuests" />
 					</div>
 					<div class="search-li filter">
-						<filter-datepicker class="pacf-dp" :start-and-end-time="searchQuery.date"
-							:date-type="searchQuery.dateType" :day-rage-index="dayRageIndex"
-							@update:datetype="updateDateType" @update:time="updateStartEndTime"
-							@update:daterange="updateDateRange" />
+						<filter-datepicker :defaultTime="defaultTime" @RangeTime="RangeTime" class="pacf-dp"
+							:start-and-end-time="searchQuery.date" :date-type="searchQuery.dateType"
+							:day-rage-index="dayRageIndex" @update:datetype="updateDateType"
+							@update:time="updateStartEndTime" @update:daterange="updateDateRange" />
 					</div>
 					<div class="search-li">
 						<div class="pac-search">
@@ -62,11 +62,11 @@
 						</div>
 					</div>
 					<div class="ban">
-						<div class="ban-li flex">
-							<img src="~assets/images/Rectangle 615.png" />
-						</div>
-						<div class="ban-li flex">
-							<img src="~assets/images/Rectangle 615.png" />
+						<div class="ban-h" v-if="otherimg.length==0"></div>
+						<div class="ban-li flex" v-for="(item,index) in otherimg" :key="index">
+							<el-image style="width: 100%; height: 100%" :src="item" :preview-src-list="other.images">
+							</el-image>
+							<p v-if="index==1">תמונות{{other.images.length}}-צפה ב</p>
 						</div>
 					</div>
 				</div>
@@ -159,7 +159,9 @@
 									</div>
 								</div>
 								<div class="img">
-									<img :src="item.images?item.images[0]:''" />
+									<el-image style="width: 100%; height: 100%" :src="item.images[0]"
+										:preview-src-list="item.images">
+									</el-image>
 									<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
 											class="el-icon-view"></i></p>
 								</div>
@@ -170,7 +172,7 @@
 										<div class="btn">
 											<p>המחיר הכי טוב</p>
 											<div class="button">
-												>הזמינו עכשיו
+												הזמינו עכשיו
 											</div>
 										</div>
 										<div class="item-price flex">
@@ -236,22 +238,38 @@
 				isSticky: false,
 				stickyOffset: 0,
 				issearchSticky: false,
-				pricechSticky: false
+				pricechSticky: false,
+				otherimg: [],
+				dayTime: '',
+				defaultTime: '',
+				list: []
 			}
 		},
 		mounted() {
 			this.stickyOffset = this.$refs.stickyElement.offsetTop;
 			this.searchOffset = this.$refs.searchElement.offsetTop;
 			this.priceOffset = this.$refs.priceElement.offsetTop;
+			this.dayTime = this.$route.query.time
+			this.defaultTime = this.$route.query.time
 			window.addEventListener('scroll', this.handleScroll);
 
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
+			this.list = JSON.parse(this.$route.query.adults)
 			this.getHotel()
 		},
 		beforeDestroy() {
 			window.removeEventListener('scroll', this.handleScroll);
 		},
 		methods: {
+			changeGuests(e) {
+				this.list = e
+				this.getHotel()
+			},
+			// 筛选时间
+			RangeTime(e) {
+				this.dayTime = e
+				this.getHotel()
+			},
 			scrollToTop() {
 				window.scrollTo({
 					top: 0,
@@ -266,21 +284,32 @@
 			getHotel() {
 				let data = {
 					hid: this.$route.query.id,
-					checkin: "2024-09-19",
-					checkout: "2024-09-20",
-					other: {}
-					// adults: "",
+					checkin: "",
+					checkout: "",
+					other: {},
+					adults: "",
 					// children: ""
+				}
+				if (this.list.length > 0) {
+					this.list.forEach(item => {
+						if (item.label == 'Adults') {
+							data.adults = item.value
+						}
+					})
+				}
+				if (this.dayTime) {
+					data.checkin = (this.dayTime.split("/")[0])
+					data.checkout = (this.dayTime.split("/")[1])
 				}
 				axios.post('https://zhouchen.love:8000/get_hotel_info', data, {
 					headers: {
 						'Content-Type': 'application/json'
 					}
 				}).then(res => {
-					console.log(res.data.data.other, "好好")
 					let arr = res.data.data.hotels[0].rates
 					this.hotelslist = []
 					this.other = res.data.data.other
+					this.otherimg = this.other.images.length > 2 ? this.other.images.slice(0, 2) : []
 					arr.forEach(element => {
 						let index = this.hotelslist.findIndex(t => {
 							return t.room_name === element.room_name
@@ -518,6 +547,7 @@
 					}
 
 					.img {
+						cursor: pointer;
 						width: 1.99rem;
 						height: 1.43rem;
 						position: relative;
@@ -532,7 +562,9 @@
 							right: 12px;
 							bottom: 8px;
 
-							i {}
+							i {
+								margin-left: 5px;
+							}
 						}
 
 						img {
@@ -710,6 +742,7 @@
 		font-weight: 500;
 		letter-spacing: -0.04em;
 		text-align: right;
+		direction: rtl;
 	}
 
 	.price {
@@ -781,9 +814,28 @@
 		.ban {
 			display: flex;
 
+			.ban-h {
+				height: 4rem;
+				background-color: red;
+			}
+
 			.ban-li {
+				position: relative;
 				width: 50%;
 				height: 4rem;
+				cursor: pointer;
+
+				p {
+					position: absolute;
+					right: 23px;
+					bottom: 16px;
+					padding: 12px 16px;
+					background-color: #fff;
+					border-radius: 6px;
+					font-size: 14px;
+					font-weight: 400;
+					z-index: 1;
+				}
 			}
 
 			.ban-li:nth-child(1) {

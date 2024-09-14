@@ -13,8 +13,10 @@
 				<div class="pac-right-top">
 					<div class="pac-search">
 						<div class="search-btn" @click="citysearch"></div>
-						<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input" v-model="searchQuery.destinationName"
-							:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''" placeholder="לאס וגאס, ארה״ב" @select="handleSelect">
+						<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input"
+							v-model="searchQuery.destinationName" :fetch-suggestions="querySearch"
+							@focus="searchQuery.destinationName=''" placeholder="לאס וגאס, ארה״ב"
+							@select="handleSelect">
 							<template slot-scope="{ item }">
 								<div>{{ item.city }}</div>
 							</template>
@@ -26,7 +28,7 @@
 							@blur="handleQueryBlur" @select="handleQuerySelect" /> -->
 					</div>
 					<div class="pac-filters">
-						<filter-datepicker class="pacf-dp" :start-and-end-time="searchQuery.date"
+						<filter-datepicker @RangeTime="RangeTime" class="pacf-dp" :start-and-end-time="searchQuery.date"
 							:date-type="searchQuery.dateType" :day-rage-index="dayRageIndex"
 							@update:datetype="updateDateType" @update:time="updateStartEndTime"
 							@update:daterange="updateDateRange" />
@@ -34,24 +36,23 @@
 						<button-filter :disabled="!!selectedRoom" @click="handleFilterList" />
 					</div>
 					<div class="map-title">
-						<h2>148 מלונות אטרקטיבים זמינים</h2>
+						<h2>{{cityList.length}} מלונות אטרקטיבים זמינים</h2>
 						<p class="p">אנחנו מסירים אלפי תוצאות של מלונות, על מנת לחסוך לך זמן.</p>
 						<p class="a">למדו על הסטנדרטים שלנו</p>
 					</div>
 				</div>
 
 				<div class="pac-list">
-					<template v-if="selectedRoom">
+					<!-- <template v-if="selectedRoom">
 						<casino-box class="pac-item" :casino="selectedHotel" is-active :parent="form" />
 						<div class="pac-item-btn">
 							<el-button type="primary" plain @click="clearRoomSelected">Remove</el-button>
 						</div>
 						<module-price-total :room="selectedRoom" :search-query="searchQuery" class="pac-button"
 							@next="openBookingModal" />
-					</template>
-					<casino-box v-else v-for="item in cityList" :key="item.id" class="pac-item" :casino="item"
-						:parent="form" @enter="showMapPopper(item)" @leave="hideMapPopper(item)"
-						@click="showDetail(item)" />
+					</template> -->
+					<casino-box :adults="adults" :dayTime="dayTime" v-for="item in cityList" :key="item.id" class="pac-item" :casino="item" :parent="form"
+						@enter="showMapPopper(item)" @leave="hideMapPopper(item)" @click="showDetail(item)" />
 				</div>
 			</div>
 		</div>
@@ -66,7 +67,7 @@
 
 <script>
 	import casino from '@/mixins/casino'
-
+	import tday from '@/utils/time.js'
 	export default {
 		name: 'DestinationWebPage',
 		mixins: [casino],
@@ -77,7 +78,8 @@
 		data() {
 			return {
 				isMobile: window.isMobile,
-				showFilterPanel: false
+				showFilterPanel: false,
+				dayTime: tday.tdaytime(0) + '/' + tday.tdaytime(1)
 			}
 		},
 		watch: {
@@ -96,6 +98,9 @@
 			this.initDestinations()
 		},
 		methods: {
+			RangeTime(time) {
+				this.dayTime = time
+			},
 			showDetail(item) {
 				this.selectedHotel = item
 			},
@@ -140,10 +145,12 @@
 
 			}
 		}
-		.pac-search{
+
+		.pac-search {
 			position: relative;
 		}
-		.search-btn{
+
+		.search-btn {
 			cursor: pointer;
 			width: 60px;
 			height: 40px;

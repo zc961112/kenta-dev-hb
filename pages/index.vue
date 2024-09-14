@@ -841,6 +841,7 @@
 			overflow: hidden;
 
 			.experience-list {
+				direction: rtl;
 				.experience-li {
 					width: 100%;
 					cursor: pointer;

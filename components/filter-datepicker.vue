@@ -99,11 +99,13 @@
 	import {
 		formatDateRange
 	} from '@/utils/index'
+	import tday from '@/utils/time.js'
 
 	export default {
 		name: 'FilterDatepicker',
 		props: {
 			startAndEndTime: String,
+			defaultTime: String,
 			dateType: {
 				type: Number,
 				default: 0
@@ -152,7 +154,8 @@
 					loop: false
 				},
 				monthList: [],
-				selectedMonth: []
+				selectedMonth: [],
+				formDate1: ""
 			}
 		},
 		watch: {
@@ -166,15 +169,23 @@
 					}
 				},
 				immediate: true
+			},
+			defaultTime: {
+				handler(val) {
+					if (val) {
+						this.formDate1 = val
+					}
+				},
+				immediate: true
 			}
 		},
 		computed: {
-			formDate1: {
-				get() {
-					return formatDateRange(this.startAndEndTime)
-				},
-				set() {}
-			},
+			// formDate1: {
+			// 	get() {
+			// 		return formatDateRange(this.startAndEndTime)
+			// 	},
+			// 	set() {}
+			// },
 			formDate2() {
 				if (this.selectedMonth.length > 0) {
 					return `${this.traveTypeText} in ${this.selectedMonth.join(',')}`;
@@ -183,6 +194,10 @@
 			}
 		},
 		mounted() {
+			if (!this.defaultTime) {
+				this.formDate1 = tday.tdaytime(0) + '/' + tday.tdaytime(1)
+			}
+			// console.log(tday.tdaytime(1),"时间")
 			this.makMonthList()
 		},
 		methods: {
@@ -215,10 +230,17 @@
 			confirmDateRange(e) {
 				const start = typeof e[0] === 'object' ? e[0].getTime() : new Date(e[0]).getTime()
 				const end = typeof e[1] === 'object' ? e[1].getTime() : new Date(e[1]).getTime()
-				this.$emit('update:time', [start, end].join(','))
+
+				this.formDate1 = tday.getday(start) + '/' + tday.getday(end)
+				this.$emit("RangeTime", this.formDate1)
+
+				// console.log(tday.getday(start),tday.getday(end))
+				// this.$emit('update:time', [start, end].join(','))
 			},
 			handleDateRange(index) {
-				this.$emit('update:daterange', index)
+				this.formDate1 = tday.tdaytime(0) + '/' + tday.tdaytime(index)
+				this.$emit("RangeTime", this.formDate1)
+				// this.$emit('update:daterange', index)
 			},
 			handleDateClear() {
 				this.$emit('update:datetype', 0)
