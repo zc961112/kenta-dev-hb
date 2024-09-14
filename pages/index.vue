@@ -50,6 +50,7 @@
 									<router-link :to="'/engpage'" tag="button">לצפייה בכרטיסים</router-link>
 								</div>
 							</div>
+
 						</div>
 					</el-carousel-item>
 				</el-carousel>
