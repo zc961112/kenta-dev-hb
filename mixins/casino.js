@@ -49,7 +49,6 @@ export default {
 				gj: '',
 				selectedMonth: [],
 				guestList: [],
-				adults:''
 			},
 			filterQuery: {
 				fields: [],
@@ -61,7 +60,8 @@ export default {
 			},
 			timer: null,
 			id: '',
-			cityval: ''
+			cityval: '',
+			adults:''
 		}
 	},
 	mounted() {

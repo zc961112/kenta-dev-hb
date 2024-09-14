@@ -254,7 +254,11 @@
 			window.addEventListener('scroll', this.handleScroll);
 
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
-			this.list = JSON.parse(this.$route.query.adults)
+			
+			if(this.$route.query.adults) {
+				this.list = JSON.parse(this.$route.query.adults)
+			}
+			
 			this.getHotel()
 		},
 		beforeDestroy() {
@@ -287,7 +291,6 @@
 					checkin: "",
 					checkout: "",
 					other: {},
-					adults: "",
 					// children: ""
 				}
 				if (this.list.length > 0) {
