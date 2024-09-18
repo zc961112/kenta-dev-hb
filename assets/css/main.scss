@@ -838,3 +838,8 @@ text-align: center;
         scrollbar-width: 0;
     }
 }
+@media screen and (max-width: 1300px) {
+   .carousel-box .left{
+	  left: 0.2rem!important;
+   }
+}

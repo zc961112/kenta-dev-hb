@@ -233,6 +233,7 @@
 
 				this.formDate1 = tday.getday(start) + '/' + tday.getday(end)
 				this.$emit("RangeTime", this.formDate1)
+				this.show = false
 
 				// console.log(tday.getday(start),tday.getday(end))
 				// this.$emit('update:time', [start, end].join(','))

@@ -18,6 +18,7 @@ const whiteList = [
 	'/Valenciapage',
 	'/eventlPage',
 	'/hotelPage',
+	'/checkoutPage',
 	// -----新增------
 
 	'/', '/index', '/login', '/loginbypass', '/password', '/privacy-policy', '/recover-password',

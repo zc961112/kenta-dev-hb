@@ -61,13 +61,43 @@ export default {
 			timer: null,
 			id: '',
 			cityval: '',
-			adults:''
+			adults: '',
+			ids: []
 		}
 	},
 	mounted() {
 		this.loadAll();
 	},
 	methods: {
+		// 筛选价格
+		getprice(dayTime) {
+			let data = {
+				checkin: '',
+				checkout: '',
+				region_id: this.id,
+				ids: this.ids
+			}
+			if (dayTime) {
+				data.checkin = (dayTime.split("/")[0])
+				data.checkout = (dayTime.split("/")[1])
+			}
+			axios.post('https://zhouchen.love:8000/update_hotels_info', data, {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(res => {
+				let list = res.data
+				list.forEach(item => {
+					this.cityList.forEach(i => {
+						if (i.id === item.id) {
+							if (i.daily_prices) {
+								i.daily_prices[0] = item.daily_price
+							}
+						}
+					})
+				})
+			})
+		},
 		// 搜索
 		citysearch() {
 			let data = {
@@ -103,7 +133,6 @@ export default {
 		loadAll() {
 			this.restaurants = []
 			axios.get('https://zhouchen.love:8000/get_index_data').then(res => {
-				console.log(res)
 				for (let i = 0; i < res.data.length; i++) {
 					this.restaurants.push({
 						value: res.data[i].city,
@@ -121,7 +150,7 @@ export default {
 			})
 		},
 		showMapPopper(item) {
-			const marker = document.querySelector(`#marker_${item.slug}`)
+			const marker = document.querySelector(`#marker_${item.hid}`)
 			if (marker) {
 				marker.classList.add('map-area-marker-active')
 				marker.click()
@@ -132,7 +161,7 @@ export default {
 			let data = {
 				id: this.id
 			}
-			// this.markerList = []
+			this.ids = []
 			axios.post('https://zhouchen.love:8000/get_hotels_by_region', data, {
 				headers: {
 					'Content-Type': 'application/json'
@@ -141,8 +170,11 @@ export default {
 				this.cityList = res.data
 				if (res.data.length > 0) {
 					this.initMapMarkers();
+					this.cityList.forEach(item => {
+						this.ids.push(item.id)
+					})
 				}
-				// this.handleAllPrice()
+
 			})
 
 
@@ -264,8 +296,9 @@ export default {
                 </div>`)
 
 							const el = document.createElement('div')
-							el.id = 'marker_' + (this.id || '-')
-							el.innerHTML = '€' + (item.daily_prices != null ? item.daily_prices[0] : 'לא זמין')
+							el.id = 'marker_' + (item.hid || '-')
+							el.innerHTML = '€' + (item.daily_prices != null ? item.daily_prices[0] :
+								'לא זמין')
 							el.className = 'map-area-marker'
 							const marker = new mapboxgl.Marker(el)
 								.setLngLat([item.longitude, item.latitude])
@@ -346,7 +379,7 @@ export default {
 				this.map = new mapboxgl.Map({
 					container: 'map',
 					style: 'mapbox://styles/mapbox/streets-v11',
-					center: [this.form.lng, this.form.latt], // 设置初始地图中心点
+					center: [this.cityList[0].longitude, this.cityList[0].latitude], // 设置初始地图中心点
 					zoom: 13
 				})
 
@@ -411,7 +444,7 @@ export default {
 			// 	this.searchQuery.guestList[index].value = item.value
 			// })
 			// updateSessionQuery(this.searchQuery)
-			
+
 			this.adults = JSON.stringify(data)
 		}
 	},

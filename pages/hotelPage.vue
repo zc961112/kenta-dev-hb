@@ -83,7 +83,7 @@
 						<span>חדרים פנויים</span>
 					</div>
 				</div>
-				<h1 class="h-title">חדרים זמינים ב- Caesar’s Palace Hotel & Casino</h1>
+				<h1 class="h-title">{{other.name}}</h1>
 				<div class="Palace">
 					<div class="Palace-left" :class="{ sticky: isSticky }" ref="stickyElement">
 						<div class="top">

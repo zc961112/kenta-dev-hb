@@ -1,7 +1,8 @@
 <template>
 	<!-- <div class="c-casino-box" :class="{ 'active': isActive, 'mobile': isMobile }" @click="$emit('click')"
 		@mouseenter="$emit('enter')" @mouseleave="$emit('leave')"> -->
-	<div @click="toHotel(casino.hid)" class="c-casino-box" :class="{ 'active': isActive, 'mobile': isMobile }">
+	<div @click="toHotel(casino.hid)" @mouseenter="$emit('enter')" @mouseleave="$emit('leave')" class="c-casino-box"
+		:class="{ 'active': isActive, 'mobile': isMobile }">
 
 		<div class="ccb-right">
 			<div class="title">
@@ -42,24 +43,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="ccb-star">
-				<el-rate :value="casino.star" disabled />
-				<span class="ccb-star-label">· {{ casino.distance || 0 }} mile from city center</span>
-			</div>
-			<div class="ccb-title">{{ casino.name }}</div>
-			<div v-if="!isMobile" class="ccb-text">{{ parent.city }}, {{ parent.country }}</div>
-			<div v-if="isMobile" class="ccb-coast">
-				<span class="ccbc-label">From</span>
-				<span class="ccbc-num">€{{ casino.$price || 0 }}</span>
-				<span class="ccbc-label">+ Taxes and fees</span>
-			</div>
-			<div v-else class="ccb-coast">
-				<span class="ccbc-old">€{{ casino.$oldPrice }} USD</span>
-				<span class="ccbc-num">€{{ casino.$price }}</span>
-				<span class="ccbc-label">+ Taxes and fees</span>
-				<span class="ccbc-save">SAVE €{{ casino.$tax || 0 }}</span>
-			</div>
-			<div v-if="!isMobile" class="ccb-detail">{{ casino.roomView }}</div> -->
 		</div>
 
 		<div class="ccb-left">
@@ -86,8 +69,8 @@
 			parent: Object,
 			casino: Object,
 			isActive: Boolean,
-			dayTime:String,
-			adults:String
+			dayTime: String,
+			adults: String
 		},
 		data() {
 			return {
@@ -100,8 +83,8 @@
 					name: 'hotelPage',
 					query: {
 						id: id,
-						time:this.dayTime,
-						adults:this.adults
+						time: this.dayTime,
+						adults: this.adults
 					}
 				})
 			}
@@ -112,22 +95,24 @@
 <style lang="scss" scoped>
 	.c-casino-box {
 		display: flex;
-		border-top: 1px solid rgba(218, 218, 218, 1);
 		cursor: pointer;
 		padding: 0.16rem 0;
+		box-sizing: border-box;
+		border: 1px solid #fff;
+		border-top-color: rgba(218, 218, 218, 1) !important;
 
 		&.active,
 		&:hover {
-			// border: 1px solid #FF3263;
-			// background: linear-gradient(0deg, rgba(255, 50, 99, 0.04) 0%, rgba(255, 50, 99, 0.04) 100%), #FEFEFE;
+			border: 1px solid #FF3263 !important;
+			background: linear-gradient(0deg, rgba(255, 50, 99, 0.04) 0%, rgba(255, 50, 99, 0.04) 100%), #FEFEFE;
 
-			// .ccb-title {
-			// 	color: #FF3263;
-			// }
+			.ccb-title {
+				color: #FF3263;
+			}
 
-			// .ccb-img-eye {
-			// 	display: block;
-			// }
+			.ccb-img-eye {
+				display: block;
+			}
 		}
 
 		&.mobile {

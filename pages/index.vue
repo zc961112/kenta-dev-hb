@@ -50,16 +50,15 @@
 									<router-link :to="'/engpage'" tag="button">לצפייה בכרטיסים</router-link>
 								</div>
 							</div>
-
 						</div>
 					</el-carousel-item>
 				</el-carousel>
 				<div class="arrow left" @click="prev">
 					<i class="el-icon-arrow-left"></i>
 				</div>
-				<div class="arrow right" @click="next">
+				<!-- <div class="arrow right" @click="next">
 					<i class="el-icon-arrow-right"></i>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="experience">
@@ -701,7 +700,7 @@
 		background-color: rgba(245, 245, 245, 1);
 
 		.language-info {
-			width: 1440px;
+			width: 14.40rem;
 			margin: 0 auto;
 			display: flex;
 			padding: 0 1.48rem;
@@ -833,7 +832,7 @@
 
 		.experience-info {
 			display: flex;
-			width: 1440px;
+			width: 14.40rem;
 			margin: 0.4rem auto 0 auto;
 		}
 
@@ -918,7 +917,7 @@
 			width: 0.4rem;
 			height: 0.4rem;
 			line-height: 0.4rem;
-			top: 1.075rem;
+			top: 1.15rem;
 			border-radius: 50%;
 			text-align: center;
 			z-index: 9;

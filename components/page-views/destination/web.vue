@@ -100,6 +100,7 @@
 		methods: {
 			RangeTime(time) {
 				this.dayTime = time
+				this.getprice(this.dayTime)
 			},
 			showDetail(item) {
 				this.selectedHotel = item
