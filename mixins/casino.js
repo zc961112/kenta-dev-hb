@@ -62,7 +62,8 @@ export default {
 			id: '',
 			cityval: '',
 			adults: '',
-			ids: []
+			ids: [],
+			priceArr: []
 		}
 	},
 	mounted() {
@@ -81,6 +82,8 @@ export default {
 				data.checkin = (dayTime.split("/")[0])
 				data.checkout = (dayTime.split("/")[1])
 			}
+			this.map = null
+			this.markerList = []
 			axios.post('https://zhouchen.love:8000/update_hotels_info', data, {
 				headers: {
 					'Content-Type': 'application/json'
@@ -90,12 +93,15 @@ export default {
 				list.forEach(item => {
 					this.cityList.forEach(i => {
 						if (i.id === item.id) {
+							this.priceArr = []
 							if (i.daily_prices) {
-								i.daily_prices[0] = item.daily_price
+								this.priceArr.push(item.daily_price)
+								i.daily_prices = this.priceArr
 							}
 						}
 					})
 				})
+				this.initMapMarkers();
 			})
 		},
 		// 搜索
@@ -161,6 +167,7 @@ export default {
 			let data = {
 				id: this.id
 			}
+			this.markerList = []
 			this.ids = []
 			axios.post('https://zhouchen.love:8000/get_hotels_by_region', data, {
 				headers: {
