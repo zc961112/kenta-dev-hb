@@ -63,7 +63,7 @@ export default {
 			cityval: '',
 			adults: '',
 			ids: [],
-			priceArr: []
+			priceArr: [],
 		}
 	},
 	mounted() {
@@ -82,8 +82,14 @@ export default {
 				data.checkin = (dayTime.split("/")[0])
 				data.checkout = (dayTime.split("/")[1])
 			}
-			this.map = null
-			this.markerList = []
+			// 清空标记点
+			if (this.markerList.length > 0) {
+				for (var i = 0; i < this.markerList.length; i++) {
+					this.markerList[i].remove()
+				}
+				this.markerList = []
+			}
+
 			axios.post('https://zhouchen.love:8000/update_hotels_info', data, {
 				headers: {
 					'Content-Type': 'application/json'
@@ -94,8 +100,9 @@ export default {
 					this.cityList.forEach(i => {
 						if (i.id === item.id) {
 							this.priceArr = []
-							if (i.daily_prices) {
-								this.priceArr.push(item.daily_price)
+							if (i.daily_prices != null) {
+								this.priceArr.push(item.daily_price != null ? item.daily_price
+									.toFixed(2) : 'לא זמין')
 								i.daily_prices = this.priceArr
 							}
 						}
@@ -156,7 +163,7 @@ export default {
 			})
 		},
 		showMapPopper(item) {
-			const marker = document.querySelector(`#marker_${item.hid}`)
+			const marker = document.querySelector(`#marker_${item.id}`)
 			if (marker) {
 				marker.classList.add('map-area-marker-active')
 				marker.click()
@@ -291,6 +298,7 @@ export default {
 									center: [item.longitude, item.latitude]
 								})
 							}
+
 							const popup = new mapboxgl.Popup({
 									offset: 25
 								})
@@ -303,7 +311,7 @@ export default {
                 </div>`)
 
 							const el = document.createElement('div')
-							el.id = 'marker_' + (item.hid || '-')
+							el.id = 'marker_' + (item.id || '-')
 							el.innerHTML = '€' + (item.daily_prices != null ? item.daily_prices[0] :
 								'לא זמין')
 							el.className = 'map-area-marker'
@@ -311,7 +319,6 @@ export default {
 								.setLngLat([item.longitude, item.latitude])
 								.setPopup(popup)
 								.addTo(this.map)
-
 							this.markerList.push(marker)
 						}
 					})
