@@ -21,7 +21,7 @@
 							<div class="search-btn" @click="citysearch"></div>
 							<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input"
 								v-model="searchQuery.destinationName" :fetch-suggestions="querySearch"
-								@focus="searchQuery.destinationName=''" placeholder="Caesar’s Palace Hotel & Casino"
+								@focus="searchQuery.destinationName=''" placeholder="select city"
 								@select="handleSelect">
 								<template slot-scope="{ item }">
 									<div>{{ item.city }}</div>
