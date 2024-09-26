@@ -47,7 +47,7 @@
 								<img src="~assets/images/Group1.png" />
 								<div class="info">
 									<h4>כרטיסים לפורמולה 1 זמינים כעת</h4>
-									<router-link :to="'/engpage'" tag="button">לצפייה בכרטיסים</router-link>
+									<router-link :to="'/eventlPage'" tag="button">לצפייה בכרטיסים</router-link>
 								</div>
 							</div>
 						</div>
