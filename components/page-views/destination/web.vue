@@ -180,8 +180,9 @@
 		.page-area-content {
 			display: flex;
 			padding: 0 0.32rem;
-			max-width: 1440px;
-			margin: 0 auto 0.8rem auto;
+			height: 100%;
+			// max-width: 1440px;
+			// margin: 0 auto 0.8rem auto;
 		}
 
 		.pac-left {

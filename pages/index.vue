@@ -40,7 +40,7 @@
 				<div class="title">כרטיסים לאירועי ספורט</div>
 			</div>
 			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
-				<el-carousel ref="carousel" indicator-position="none" arrow="always">
+				<el-carousel ref="carousel" indicator-position="none" arrow="always":autoplay="false">
 					<el-carousel-item v-for="item in list">
 						<div class="carousel">
 							<div class="carousel-li" v-for="i in item.chid">
@@ -398,6 +398,7 @@
 
 			},
 			// 上一页
+			
 			prev() {
 				this.$refs.carousel.prev();
 			},
