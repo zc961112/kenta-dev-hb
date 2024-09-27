@@ -182,7 +182,7 @@
 			padding: 0 0.32rem;
 			height: 100%;
 			// max-width: 1440px;
-			// margin: 0 auto 0.8rem auto;
+			margin: 0 auto 0.8rem auto;
 		}
 
 		.pac-left {
@@ -260,6 +260,7 @@
 			background: #FEFEFE;
 			display: flex;
 			flex-direction: column;
+			flex: 3;
 		}
 
 		.pac-right-top {
