@@ -30,7 +30,7 @@
 						<div class="select-list">
 							<div class="select-li">
 								<div class="flex">
-									<i class="el-icon-back"></i>
+									<router-link :to="'/engPage'" class="el-icon-back"></router-link>
 								</div>
 								<div class="flex price">
 									<span class="num">€99</span>
