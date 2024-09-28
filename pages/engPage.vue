@@ -44,7 +44,7 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
+					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer">Order - €340</router-link>
 					<!-- <button class="button">Order - €340</button> -->
 				</div>
 				<div class="item-li">
@@ -59,7 +59,7 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
+					<router-link :to="'/tripPage'" tag="button" class="button"  style="cursor: pointer">Order - €340</router-link>
 				</div>
 				<div class="item-li">
 					<div class="text">
@@ -73,7 +73,7 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button">Order - €340</router-link>
+					<router-link :to="'/tripPage'" tag="button" class="button"  style="cursor: pointer">Order - €340</router-link>
 				</div>
 				<div class="item-li">
 					<div class="text">
@@ -87,7 +87,7 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<button class="button">Order - €340</button>
+					<button class="button"  style="cursor: pointer">Order - €340</button>
 				</div>
 			</div>
 			<div class="right">

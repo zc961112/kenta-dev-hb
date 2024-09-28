@@ -28,9 +28,10 @@
 							</div>
 						</div>
 						<div class="select-list">
-							<div class="select-li">
+							<div class="select-li" @click="toEngPage">
 								<div class="flex">
-									<router-link :to="'/engPage'" class="el-icon-back"></router-link>
+<!--                  :to="'/engPage'"-->
+                  <span class="el-icon-back"></span>
 								</div>
 								<div class="flex price">
 									<span class="num">€99</span>
@@ -51,7 +52,7 @@
 									<p class="time">אוגוסט 23, 2024 - אוגוסט 25, 2024</p>
 								</div>
 							</div>
-							<div class="select-li">
+							<div class="select-li" @click="toEngPage">
 								<div class="flex">
 									<i class="el-icon-back"></i>
 								</div>
@@ -167,6 +168,9 @@
 			this.makMonthList();
 		},
 		methods: {
+      toEngPage(){
+        this.$router.push('/engPage');
+      },
 			confirmDateRange(e) {
 				this.date =
 					`${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
@@ -249,6 +253,7 @@
 						align-items: center;
 						padding: 0.32rem 0;
 						border-bottom: 1px solid rgba(218, 218, 218, 1);
+            cursor: pointer;
 						.el-icon-back{
 							font-size: 24px;
 							color: rgba(26, 26, 26, 0.6);
