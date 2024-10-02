@@ -40,22 +40,20 @@
 				<div class="title">כרטיסים לאירועי ספורט</div>
 			</div>
 			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
-				<el-carousel ref="carousel" indicator-position="none" arrow="always" :autoplay="false">
-					<el-carousel-item v-for="item in list">
-						<div class="carousel">
-							<div class="carousel-li" v-for="i in item.chid">
-								<img src="~assets/images/Group1.png" />
-								<div class="info">
-									<h4>כרטיסים לפורמולה 1 זמינים כעת</h4>
-									<router-link :to="'/eventlPage'" tag="button">לצפייה בכרטיסים</router-link>
-								</div>
-							</div>
-						</div>
-					</el-carousel-item>
-				</el-carousel>
-				<div class="arrow left" @click="prev">
-					<i class="el-icon-arrow-left"></i>
-				</div>
+				<div class="carousel-wrapper">
+    <div class="carousel">
+      <div v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
+        <img :src="item.src" />
+        <div class="info">
+          <h4>{{ item.title }}</h4>
+          <router-link :to="'/eventlPage'" tag="button">לצפייה בכרטיסים</router-link>
+        </div>
+      </div>
+    </div>
+    <div class="arrow left" @click="prev">
+      <i class="el-icon-arrow-left"></i>
+    </div>
+  </div>
 				<!-- <div class="arrow right" @click="next">
 					<i class="el-icon-arrow-right"></i>
 				</div> -->
@@ -355,6 +353,13 @@
 		name: 'home',
 		data() {
 			return {
+        				images: [
+							{ src: require("assets/images/Group1.png"), title: "כרטיסים לפורמולה 1 זמינים כעת" },
+							{ src: require("assets/images/Group2.png"), title: "כרטיסים למירוץ זמינים כעת" },
+							{ src: require("assets/images/Group3.png"), title: "כרטיסים לספורט זמינים כעת" }
+						],
+						visibleImages: [],
+						currentIndex: 0,
 				list: [{
 						chid: [{}, {}, {}]
 					},
@@ -379,8 +384,26 @@
 		},
 		mounted() {
 			this.loadAll();
+      this.initializeVisibleImages();
 		},
 		methods: {
+      			initializeVisibleImages() {
+      this.visibleImages = this.images.slice(0, 3); // 初始化显示前三张图片
+    },
+    prev() {
+		this.currentIndex = (this.currentIndex + 1) % this.images.length;
+		this.updateVisibleImages();
+    },
+    next() {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+      this.updateVisibleImages();
+    },
+    updateVisibleImages() {
+      this.visibleImages = [];
+      for (let i = 0; i < 3; i++) {
+        const index = (this.currentIndex + i) % this.images.length;
+        this.visibleImages.push(this.images[index]);
+      } },
 			// 搜索
 			search() {
 				if (this.cityval) {
@@ -395,13 +418,11 @@
 			},
 			// 上一页
 
-			prev() {
-				this.$refs.carousel.prev();
-			},
+			// prev() {
+			// 	this.$refs.carousel.prev();
+			// },
 			// 下一页
-			next() {
-				this.$refs.carousel.next();
-			},
+
 
 			handleSelect(item) {
 				this.$router.push({
@@ -909,7 +930,7 @@
 		margin-top: 0.15rem;
 		display: flex;
 		overflow: hidden;
-		align-items: center;
+		height:300px;
 
 		.carousel-li:nth-child(even) {
 			margin: 0 0.16rem;

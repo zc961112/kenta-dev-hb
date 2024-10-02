@@ -179,10 +179,10 @@
 
 		.page-area-content {
 			display: flex;
-			padding: 0 0.32rem;
-			height: 100%;
+			//padding: 0 0.32rem;
+			height: calc(100vh - 64px);
 			// max-width: 1440px;
-			margin: 0 auto 0.8rem auto;
+			//margin: 0 auto 0.8rem auto;
 		}
 
 		.pac-left {
@@ -194,7 +194,7 @@
 		}
 
 		.map-container {
-			height: 8rem;
+			height:100%;
 
 			.map-box {
 				width: 100%;
@@ -256,7 +256,7 @@
 			top: 0.88rem;
 			flex: 5.5;
 			min-width: 0;
-			height: 8rem;
+			height: 100%;
 			background: #FEFEFE;
 			display: flex;
 			flex-direction: column;
