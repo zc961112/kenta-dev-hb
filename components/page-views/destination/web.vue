@@ -1,7 +1,7 @@
 <template>
 	<div class="page-area">
 		<new-header />
-		<div class="page-area-content">
+		<div class="page-area-content" v-loading="loading">
 			<div class="pac-left">
 				<page-hotel v-if="selectedHotel" :casino="selectedHotel" :search-query="searchQuery"
 					:selected-room="selectedRoom" @room-select="handleRoomSelect" />
@@ -179,10 +179,10 @@
 
 		.page-area-content {
 			display: flex;
-			//padding: 0 0.32rem;
-			height: calc(100vh - 64px);
+			padding: 0 0.32rem;
+			height: 100%;
 			// max-width: 1440px;
-			//margin: 0 auto 0.8rem auto;
+			margin: 0 auto 0.8rem auto;
 		}
 
 		.pac-left {
@@ -194,7 +194,8 @@
 		}
 
 		.map-container {
-      height:100%;
+			height: 8rem;
+
 			.map-box {
 				width: 100%;
 				height: 100%;
@@ -255,7 +256,7 @@
 			top: 0.88rem;
 			flex: 5.5;
 			min-width: 0;
-			height: 100%;
+			height: 8rem;
 			background: #FEFEFE;
 			display: flex;
 			flex-direction: column;

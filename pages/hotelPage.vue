@@ -1,221 +1,224 @@
 <template>
 	<div class="page">
 		<new-header />
-		<div class="search-border" :class="{ searchsticky: issearchSticky }" ref="searchElement">
-			<div class="warps">
-				<div class="search-box">
-					<div class="search-li">
-						<p class="a"> עדכון</p>
-					</div>
-					<div class="search-li filter">
-						<filter-member :list="list" class="pacf-mb" @change="changeGuests" />
-					</div>
-					<div class="search-li filter">
-						<filter-datepicker :defaultTime="defaultTime" @RangeTime="RangeTime" class="pacf-dp"
-							:start-and-end-time="searchQuery.date" :date-type="searchQuery.dateType"
-							:day-rage-index="dayRageIndex" @update:datetype="updateDateType"
-							@update:time="updateStartEndTime" @update:daterange="updateDateRange" />
-					</div>
-					<div class="search-li">
-						<div class="pac-search">
-							<div class="search-btn" @click="citysearch"></div>
-							<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input"
-								v-model="searchQuery.destinationName" :fetch-suggestions="querySearch"
-								@focus="searchQuery.destinationName=''" placeholder="select city"
-								@select="handleSelect">
-								<template slot-scope="{ item }">
-									<div>{{ item.city }}</div>
-								</template>
-							</el-autocomplete>
+		<div v-loading="loading">
+			<div class="search-border" :class="{ searchsticky: issearchSticky }" ref="searchElement">
+				<div class="warps">
+					<div class="search-box">
+						<div class="search-li">
+							<p class="a"> עדכון</p>
+						</div>
+						<div class="search-li filter">
+							<filter-member :list="list" class="pacf-mb" @change="changeGuests" />
+						</div>
+						<div class="search-li filter">
+							<filter-datepicker :defaultTime="defaultTime" @RangeTime="RangeTime" class="pacf-dp"
+								:start-and-end-time="searchQuery.date" :date-type="searchQuery.dateType"
+								:day-rage-index="dayRageIndex" @update:datetype="updateDateType"
+								@update:time="updateStartEndTime" @update:daterange="updateDateRange" />
+						</div>
+						<div class="search-li">
+							<div class="pac-search">
+								<div class="search-btn" @click="citysearch"></div>
+								<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search"
+									class="pac-input" v-model="searchQuery.destinationName"
+									:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''"
+									placeholder="select city" @select="handleSelect">
+									<template slot-scope="{ item }">
+										<div>{{ item.city }}</div>
+									</template>
+								</el-autocomplete>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="warps">
-			<div class="content">
-				<div class="Hotel">
-					<div class="nav">
-						<div class="left flex">
-							<div class="yuan">
-								<span></span>
-								<span class="current"></span>
-								<span class="current"></span>
-								<span class="current"></span>
-								<span class="current"></span>
-								<img src="~assets/images/icon/image 1.png" />
-							</div>
-							<p class="time">14,256 חוות דעת</p>
-						</div>
-						<div class="right">
-							<div class="xx">
-								<span class="p">{{other.address}}</span>
-								<span class="line"></span>
-								<span class="p">0.0 ק״מ ממרכז העיר</span>
-								<span class="line"></span>
-								<div class="rate">
-									<el-rate void-color="#FFB800" :value="other.star_rating" />
-									<div class="disabled"></div>
-								</div>
-							</div>
-							<h1>{{other.name}}</h1>
-						</div>
-					</div>
-					<div class="ban">
-						<div class="ban-h" v-if="otherimg.length==0"></div>
-						<div class="ban-li flex" v-for="(item,index) in otherimg" :key="index">
-							<el-image style="width: 100%; height: 100%" :src="item" :preview-src-list="other.images">
-							</el-image>
-							<p v-if="index==1">תמונות{{other.images.length}}-צפה ב</p>
-						</div>
-					</div>
-				</div>
-				<div class="price" :class="{ pricesticky: pricechSticky }" ref="priceElement">
-					<div class="price-info flex">
-						<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
-						<button>לצפיה בדילים</button>
-						<p class="num">₪ 2,770 -מ</p>
-						<div class="flex"></div>
-						<span>מדיניות</span>
-						<span>מיקום</span>
-						<span>חוות דעת</span>
-						<span>שירותים</span>
-						<span>חדרים פנויים</span>
-					</div>
-				</div>
-				<h1 class="h-title">{{other.name}}</h1>
-				<div class="Palace">
-					<div class="Palace-left" :class="{ sticky: isSticky }" ref="stickyElement">
-						<div class="top">
-							<div class="index">9</div>
-							<div class="name">
-								<h3>מעולה</h3>
+			<div class="warps">
+				<div class="content">
+					<div class="Hotel">
+						<div class="nav">
+							<div class="left flex">
 								<div class="yuan">
 									<span></span>
 									<span class="current"></span>
 									<span class="current"></span>
 									<span class="current"></span>
 									<span class="current"></span>
+									<img src="~assets/images/icon/image 1.png" />
 								</div>
-								<p>14,256 חוות דעת</p>
+								<p class="time">14,256 חוות דעת</p>
 							</div>
-							<div class="speed">
-								<div class="tit">ביקורות האורחים:</div>
-								<div class="speed-li">
-									<div class="num">
-										<p class="flex">9</p>
-										תמורה על הכסף
-									</div>
-									<div class="progress">
-										<el-progress :stroke-width="8" :show-text="false" :percentage="90"
-											color="rgba(0, 188, 147, 0.8)"></el-progress>
-									</div>
-								</div>
-								<div class="speed-li">
-									<div class="num">
-										<p class="flex">8</p>
-										מיקום המלון
-									</div>
-									<div class="progress">
-										<el-progress :stroke-width="8" :show-text="false" :percentage="90"
-											color="rgba(0, 188, 147, 0.8)"></el-progress>
+							<div class="right">
+								<div class="xx">
+									<span class="p">{{other.address}}</span>
+									<span class="line"></span>
+									<span class="p">0.0 ק״מ ממרכז העיר</span>
+									<span class="line"></span>
+									<div class="rate">
+										<el-rate void-color="#FFB800" :value="other.star_rating" />
+										<div class="disabled"></div>
 									</div>
 								</div>
-								<div class="speed-li">
-									<div class="num">
-										<p class="flex">10</p>
-										איכות ה-WiFi
-									</div>
-									<div class="progress">
-										<el-progress :stroke-width="8" :show-text="false" :percentage="90"
-											color="rgba(0, 188, 147, 0.8)"></el-progress>
-									</div>
-								</div>
-								<div style="height: 8px;"></div>
-								<button class="btn">
-									לצפיה בכל הביקורות
-									<img src="~assets/images/icon/Group.png" />
-								</button>
+								<h1>{{other.name}}</h1>
 							</div>
 						</div>
-						<div class="customer">
-							<p>לא אוהבים לסגור לבד?</p>
-							<p>חסכו לכם את כאב הראש</p>
-							<div class="chat-btn">
-								דברו עם נציג<img src="~assets/images/icon/Page-1.png" />
+						<div class="ban">
+							<div class="ban-h" v-if="otherimg.length==0"></div>
+							<div class="ban-li flex" v-for="(item,index) in otherimg" :key="index">
+								<el-image style="width: 100%; height: 100%" :src="item"
+									:preview-src-list="other.images">
+								</el-image>
+								<p v-if="index==1">תמונות{{other.images.length}}-צפה ב</p>
 							</div>
 						</div>
 					</div>
-					<div class="Palace-right" :style="{marginLeft:isSticky?'3.32rem':''}">
-						<div class="Hotel-li" v-for="(item,index) in hotelslist" :key="index">
-							<div class="room">
-								<div class="left flex">
-									<h2>{{item.room_name}}</h2>
-									<p>{{item.room_data_trans.bedding_type}}</p>
-									<div class="laber">
-										<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
-										<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
-										<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+					<div class="price" :class="{ pricesticky: pricechSticky }" ref="priceElement">
+						<div class="price-info flex">
+							<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
+							<button>לצפיה בדילים</button>
+							<p class="num">₪ 2,770 -מ</p>
+							<div class="flex"></div>
+							<span>מדיניות</span>
+							<span>מיקום</span>
+							<span>חוות דעת</span>
+							<span>שירותים</span>
+							<span>חדרים פנויים</span>
+						</div>
+					</div>
+					<h1 class="h-title">{{other.name}}</h1>
+					<div class="Palace">
+						<div class="Palace-left" :class="{ sticky: isSticky }" ref="stickyElement">
+							<div class="top">
+								<div class="index">9</div>
+								<div class="name">
+									<h3>מעולה</h3>
+									<div class="yuan">
+										<span></span>
+										<span class="current"></span>
+										<span class="current"></span>
+										<span class="current"></span>
+										<span class="current"></span>
 									</div>
+									<p>14,256 חוות דעת</p>
 								</div>
-								<div class="img">
-									<el-image style="width: 100%; height: 100%" :src="item.images[0]"
-										:preview-src-list="item.images">
-									</el-image>
-									<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
-											class="el-icon-view"></i></p>
+								<div class="speed">
+									<div class="tit">ביקורות האורחים:</div>
+									<div class="speed-li">
+										<div class="num">
+											<p class="flex">9</p>
+											תמורה על הכסף
+										</div>
+										<div class="progress">
+											<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+												color="rgba(0, 188, 147, 0.8)"></el-progress>
+										</div>
+									</div>
+									<div class="speed-li">
+										<div class="num">
+											<p class="flex">8</p>
+											מיקום המלון
+										</div>
+										<div class="progress">
+											<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+												color="rgba(0, 188, 147, 0.8)"></el-progress>
+										</div>
+									</div>
+									<div class="speed-li">
+										<div class="num">
+											<p class="flex">10</p>
+											איכות ה-WiFi
+										</div>
+										<div class="progress">
+											<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+												color="rgba(0, 188, 147, 0.8)"></el-progress>
+										</div>
+									</div>
+									<div style="height: 8px;"></div>
+									<button class="btn">
+										לצפיה בכל הביקורות
+										<img src="~assets/images/icon/Group.png" />
+									</button>
 								</div>
 							</div>
-							<div class="item-li">
-								<div class="item-li-info" v-for="(item2,index2) in item.children" :key="index2">
-									<div class="info item-l">
-										<div class="btn">
-											<p>המחיר הכי טוב</p>
-											<div class="button">
-												הזמינו עכשיו
-											</div>
-										</div>
-										<div class="item-price flex">
-											<div>₪ {{item2.daily_prices}}</div>
-											<p>מיסים ואגרות 170 $</p>
-											<p>עבור 3 לילות עבור 2 אורחים</p>
-										</div>
-									</div>
-									<div class="info wallet">
-										<div class="p">
-											<img class="l" src="~assets/images/icon/info-feature.png" />
-											ניתן לבטל בחינם עד ל-27 באוגוסט*
-											<img class="r" src="~assets/images/icon/icon.png" />
-										</div>
-										<div class="p">
-											<img class="l" src="~assets/images/icon/info-feature.png" />
-											שלם עכשיו
-											<img class="r" src="~assets/images/icon/qb.png" />
+							<div class="customer">
+								<p>לא אוהבים לסגור לבד?</p>
+								<p>חסכו לכם את כאב הראש</p>
+								<div class="chat-btn">
+									דברו עם נציג<img src="~assets/images/icon/Page-1.png" />
+								</div>
+							</div>
+						</div>
+						<div class="Palace-right" :style="{marginLeft:isSticky?'3.32rem':''}">
+							<div class="Hotel-li" v-for="(item,index) in hotelslist" :key="index">
+								<div class="room">
+									<div class="left flex">
+										<h2>{{item.room_name}}</h2>
+										<p>{{item.room_data_trans.bedding_type}}</p>
+										<div class="laber">
+											<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+											<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+											<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
 										</div>
 									</div>
-									<div class="info wallet no-boder">
-										<div class="p">
-											<img class="l" src="~assets/images/icon/info-feature.png" />
-											מיטה כפולה
-											<img class="r" src="~assets/images/icon/icon27.png" />
-										</div>
-										<div class="p">
-											<img class="l" src="~assets/images/icon/info-feature.png" />
-											לא כולל ארוחות
-											<img class="r" src="~assets/images/icon/icon26.png" />
-										</div>
-										<div class="p" style="color: rgba(255, 50, 99, 1);">
-											סוג המיטה לא מובטח
-											<img class="r" src="~assets/images/icon/icon25.png" />
-										</div>
-										<div class="p">
-											חדר ללא עישון
-											<img class="r" src="~assets/images/icon/icon24.png" />
-										</div>
+									<div class="img">
+										<el-image style="width: 100%; height: 100%" :src="item.images[0]"
+											:preview-src-list="item.images">
+										</el-image>
+										<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
+												class="el-icon-view"></i></p>
 									</div>
 								</div>
-								<div class="more" v-if="item.children.length>5">
-									5 אפשרויות נוספות<i class="el-icon-arrow-down"></i>
+								<div class="item-li">
+									<div class="item-li-info" v-for="(item2,index2) in item.children" :key="index2">
+										<div class="info item-l">
+											<div class="btn">
+												<p>המחיר הכי טוב</p>
+												<div class="button">
+													הזמינו עכשיו
+												</div>
+											</div>
+											<div class="item-price flex">
+												<div>₪ {{item2.daily_prices}}</div>
+												<p>מיסים ואגרות 170 $</p>
+												<p>עבור 3 לילות עבור 2 אורחים</p>
+											</div>
+										</div>
+										<div class="info wallet">
+											<div class="p">
+												<img class="l" src="~assets/images/icon/info-feature.png" />
+												ניתן לבטל בחינם עד ל-27 באוגוסט*
+												<img class="r" src="~assets/images/icon/icon.png" />
+											</div>
+											<div class="p">
+												<img class="l" src="~assets/images/icon/info-feature.png" />
+												שלם עכשיו
+												<img class="r" src="~assets/images/icon/qb.png" />
+											</div>
+										</div>
+										<div class="info wallet no-boder">
+											<div class="p">
+												<img class="l" src="~assets/images/icon/info-feature.png" />
+												מיטה כפולה
+												<img class="r" src="~assets/images/icon/icon27.png" />
+											</div>
+											<div class="p">
+												<img class="l" src="~assets/images/icon/info-feature.png" />
+												לא כולל ארוחות
+												<img class="r" src="~assets/images/icon/icon26.png" />
+											</div>
+											<div class="p" style="color: rgba(255, 50, 99, 1);">
+												סוג המיטה לא מובטח
+												<img class="r" src="~assets/images/icon/icon25.png" />
+											</div>
+											<div class="p">
+												חדר ללא עישון
+												<img class="r" src="~assets/images/icon/icon24.png" />
+											</div>
+										</div>
+									</div>
+									<div class="more" v-if="item.children.length>5">
+										5 אפשרויות נוספות<i class="el-icon-arrow-down"></i>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -228,7 +231,9 @@
 
 <script>
 	import casino from '@/mixins/casino'
-	import axios from 'axios';
+	import {
+		getHotelInfo
+	} from '@/api/kentaHb'
 	export default {
 		mixins: [casino],
 		data() {
@@ -242,7 +247,8 @@
 				otherimg: [],
 				dayTime: '',
 				defaultTime: '',
-				list: []
+				list: [],
+				loading: true
 			}
 		},
 		mounted() {
@@ -254,11 +260,11 @@
 			window.addEventListener('scroll', this.handleScroll);
 
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
-			
-			if(this.$route.query.adults) {
+
+			if (this.$route.query.adults) {
 				this.list = JSON.parse(this.$route.query.adults)
 			}
-			
+
 			this.getHotel()
 		},
 		beforeDestroy() {
@@ -271,6 +277,7 @@
 			},
 			// 筛选时间
 			RangeTime(e) {
+				this.loading = true
 				this.dayTime = e
 				this.getHotel()
 			},
@@ -304,14 +311,10 @@
 					data.checkin = (this.dayTime.split("/")[0])
 					data.checkout = (this.dayTime.split("/")[1])
 				}
-				axios.post('https://zhouchen.love:8000/get_hotel_info', data, {
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(res => {
-					let arr = res.data.data.hotels[0].rates
+				getHotelInfo(data).then(res => {
+					let arr = res.data.hotels[0].rates
 					this.hotelslist = []
-					this.other = res.data.data.other
+					this.other = res.data.other
 					this.otherimg = this.other.images.length > 2 ? this.other.images.slice(0, 2) : []
 					arr.forEach(element => {
 						let index = this.hotelslist.findIndex(t => {
@@ -331,9 +334,10 @@
 							allotment: element.allotment,
 							daily_prices: element.daily_prices[0]
 						})
-					});
-					console.log(arr)
-
+					})
+					this.loading = false
+				}).catch(err => {
+					this.loading = false
 				})
 			}
 		}

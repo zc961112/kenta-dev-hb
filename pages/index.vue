@@ -40,23 +40,22 @@
 				<div class="title">כרטיסים לאירועי ספורט</div>
 			</div>
 			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
-
-				<div class="carousel-wrapper">
-    <div class="carousel">
-      <div v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
-        <img :src="item.src" />
-        <div class="info">
-          <h4>{{ item.title }}</h4>
-          <router-link :to="'/eventlPage'" tag="button">לצפייה בכרטיסים</router-link>
-        </div>
-      </div>
-    </div>
-    <div class="arrow left" @click="prev">
-      <i class="el-icon-arrow-left"></i>
-    </div>
-
-  </div>
-
+				<el-carousel ref="carousel" indicator-position="none" arrow="always" :autoplay="false">
+					<el-carousel-item v-for="item in list">
+						<div class="carousel">
+							<div class="carousel-li" v-for="i in item.chid">
+								<img src="~assets/images/Group1.png" />
+								<div class="info">
+									<h4>כרטיסים לפורמולה 1 זמינים כעת</h4>
+									<router-link :to="'/eventlPage'" tag="button">לצפייה בכרטיסים</router-link>
+								</div>
+							</div>
+						</div>
+					</el-carousel-item>
+				</el-carousel>
+				<div class="arrow left" @click="prev">
+					<i class="el-icon-arrow-left"></i>
+				</div>
 				<!-- <div class="arrow right" @click="next">
 					<i class="el-icon-arrow-right"></i>
 				</div> -->
@@ -349,21 +348,13 @@
 
 <script>
 	import {
-		destinationPopular
-	} from '@/api/destination'
-	import axios from 'axios';
+		getIndexData,
+		getIdByName
+	} from '@/api/kentaHb'
 	export default {
 		name: 'home',
 		data() {
 			return {
-				images: [
-							{ src: require("assets/images/Group1.png"), title: "כרטיסים לפורמולה 1 זמינים כעת" },
-							{ src: require("assets/images/Group2.png"), title: "כרטיסים למירוץ זמינים כעת" },
-							{ src: require("assets/images/Group3.png"), title: "כרטיסים לספורט זמינים כעת" }
-
-						],
-						visibleImages: [],
-						currentIndex: 0,
 				list: [{
 						chid: [{}, {}, {}]
 					},
@@ -388,47 +379,25 @@
 		},
 		mounted() {
 			this.loadAll();
-			this.initializeVisibleImages();
 		},
 		methods: {
-			initializeVisibleImages() {
-      this.visibleImages = this.images.slice(0, 3); // 初始化显示前三张图片
-    },
-    prev() {
-		this.currentIndex = (this.currentIndex + 1) % this.images.length;
-		this.updateVisibleImages();
-    },
-    next() {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
-      this.updateVisibleImages();
-    },
-    updateVisibleImages() {
-      this.visibleImages = [];
-      for (let i = 0; i < 3; i++) {
-        const index = (this.currentIndex + i) % this.images.length;
-        this.visibleImages.push(this.images[index]);
-      } },
 			// 搜索
 			search() {
-				let data = {
-					city: this.cityval
-				}
-				axios.post('https://zhouchen.love:8000/get_id_by_name', data, {
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				}).then(res => {
-					this.$router.push({
-						path: ("/destination/" + res.data[0].id)
+				if (this.cityval) {
+					getIdByName({
+						city: this.cityval
+					}).then(res => {
+						this.$router.push({
+							path: ("/destination/" + res[0].id)
+						})
 					})
-				})
-
+				}
 			},
 			// 上一页
-			
-			// prev() {
-			// 	this.$refs.carousel.prev();
-			// },
+
+			prev() {
+				this.$refs.carousel.prev();
+			},
 			// 下一页
 			next() {
 				this.$refs.carousel.next();
@@ -452,39 +421,15 @@
 			},
 			loadAll() {
 				this.restaurants = []
-				axios.get('https://zhouchen.love:8000/get_index_data').then(res => {
-					console.log(res)
-					for (let i = 0; i < res.data.length; i++) {
+				getIndexData().then(res => {
+					for (let i = 0; i < res.length; i++) {
 						this.restaurants.push({
-							value: res.data[i].city,
-							city: res.data[i].city,
-							id: res.data[i].id
+							value: res[i].city,
+							city: res[i].city,
+							id: res[i].id
 						})
 					}
 				})
-
-				// destinationPopular().then((res) => {
-				// 	this.restaurants = []
-				// 	for (let i = 0; i < res.data.length; i++) {
-				// 		this.restaurants.push({
-				// 			value: res.data[i].city,
-				// 			city: res.data[i].city,
-				// 			slug: res.data[i].slug
-				// 		})
-				// 	}
-				// })
-			},
-			onTouchStart(event) {
-				console.log(1)
-				// 触摸开始时的处理
-			},
-			onTouchLeft(event) {
-				console.log(1)
-				// 向左滑动时的处理
-			},
-			onTouchRight(event) {
-				console.log(1)
-				// 向右滑动时的处理
 			}
 		}
 	}
@@ -870,6 +815,7 @@
 
 			.experience-list {
 				direction: rtl;
+
 				.experience-li {
 					width: 100%;
 					cursor: pointer;
@@ -963,7 +909,7 @@
 		margin-top: 0.15rem;
 		display: flex;
 		overflow: hidden;
-		height:300px;
+		align-items: center;
 
 		.carousel-li:nth-child(even) {
 			margin: 0 0.16rem;

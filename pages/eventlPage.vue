@@ -1,12 +1,13 @@
 <template>
 	<div class="page">
 		<new-header />
-		<div class="warps">
+		<div class="warps" v-loading="loading">
 			<div class="hotel">
 				<div class="left flex">
 					<div class="events">
 						<div class="day">
-							25 אירועים מתוך 895 אירועים
+							{{page_size}} אירועים
+							מתוך{{total_size}} אירועים
 						</div>
 						<div class="about">למדו על הסטנדרטים שלנו</div>
 						<div class="item">
@@ -28,31 +29,33 @@
 							</div>
 						</div>
 						<div class="select-list">
-							<div class="select-li" @click="toEngPage">
+							<div v-for="(item,index) in list" :key="index" class="select-li" @click="toEngPage">
 								<div class="flex">
-<!--                  :to="'/engPage'"-->
-                  <span class="el-icon-back"></span>
+									<span class="el-icon-back"></span>
 								</div>
 								<div class="flex price">
-									<span class="num">€99</span>
+									<span v-if="item.number_of_tickets==0" class="no-stock">אזל המלאי</span>
+									<span v-else class="num">€{{item.min_ticket_price_eur}}</span>
 								</div>
 								<div class="text">
-									<p>פורמולה 1 2024</p>
-									<p>Circuit Park Zandvoort</p>
-									<p>Zandvoort (NLD)</p>
+									<p>{{item.season}} {{item.tournament_name}}</p>
+									<p>{{item.venue_name}}</p>
+									<p>{{item.city}} ({{item.iso_country}})</p>
 								</div>
 								<div class="info">
-									<div class="xx">
+									<div class="xx" v-if="item.is_popular">
 										<p class="xx-bg">
 											<span>אירוע פופולרי</span>
 											<img src="~assets/images/icon/icon4.png" />
 										</p>
 									</div>
-									<h3>Dutch Grand Prix</h3>
-									<p class="time">אוגוסט 23, 2024 - אוגוסט 25, 2024</p>
+									<h3>{{item.event_name}}</h3>
+									<p class="time">
+										{{item.date_stop}} - {{item.date_start}}
+									</p>
 								</div>
 							</div>
-							<div class="select-li" @click="toEngPage">
+							<!-- <div class="select-li" @click="toEngPage">
 								<div class="flex">
 									<i class="el-icon-back"></i>
 								</div>
@@ -74,7 +77,11 @@
 									<h3>Dutch Grand Prix</h3>
 									<p class="time">אוגוסט 23, 2024 - אוגוסט 25, 2024</p>
 								</div>
-							</div>
+							</div> -->
+						</div>
+						<div class="pages">
+							<div v-if="hidePage" @click="next">显示25条更多</div>
+							<div v-if="hideAll" @click="showAll">显示所有{{total_size}}条结果</div>
 						</div>
 					</div>
 				</div>
@@ -113,22 +120,25 @@
 						</div>
 						<div class="check">
 							<div class="name">ענפי ספורט</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<img class="icon-img" src="~assets/images/icon/icon22.png" />
-							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
+							<div class="check-li" v-if="index<countryIndex" v-for="(item,index) in countryList"
+								:key="index">
+								<span>({{item.num}})</span>
+								<p>{{item.name}}</p>
+								<img class="icon-img" :src="item.flag" />
 								<div class="check-img"></div>
 							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
+							<div class="total" @click="countryIndex=countryList.length">({{countryList.length}}) צפייה
+								בהכל</div>
+						</div>
+
+						<div class="check">
+							<div class="name">ערים</div>
+							<div class="check-li" v-if="index<cityIndex" v-for="(item,index) in cityList" :key="index">
+								<span>({{item.num}})</span>
+								<p>{{item.name}}</p>
 								<div class="check-img"></div>
 							</div>
-							<div class="total">צפייה בהכל (10)</div>
+							<div class="total" @click="cityIndex=cityList.length">({{cityList.length}}) צפייה בהכל</div>
 						</div>
 					</div>
 				</div>
@@ -138,6 +148,9 @@
 </template>
 
 <script>
+	import {
+		events
+	} from '@/api/kentaHbEvent'
 	import dayjs from 'dayjs'
 	export default {
 		data: () => ({
@@ -162,15 +175,77 @@
 			traveTypeText: 'A week',
 			monthList: [],
 			selectedMonth: [],
-			date: ''
+			date: '',
+			list: [],
+			loading: true,
+			total_size: 0,
+			page_size: 0,
+			maxItems: 25,
+			hidePage: true,
+			page: 1,
+			hideAll: true,
+			allList: [],
+			cityList: [],
+			countryList: [],
+			cityIndex: 3,
+			countryIndex: 3
 		}),
 		mounted() {
 			this.makMonthList();
+			this.getEvents()
 		},
 		methods: {
-      toEngPage(){
-        this.$router.push('/engPage');
-      },
+			showAll() {
+				this.page = 1
+				this.hidePage = false
+				this.hideAll = false
+				this.list = this.allList
+			},
+			next() {
+				if (this.paginate(this.allList, 25, this.page).length < this.maxItems) {
+					this.hidePage = false
+				} else {
+					this.page++
+					this.hidePage = true
+					let list = this.paginate(this.allList, 25, this.page)
+					this.list = this.page > 1 ? [...this.list, ...list] : list
+					if (this.list.length == this.allList.length) {
+						this.hidePage = false
+					}
+				}
+			},
+			paginate(array, page_size, page_number) {
+				// 计算分页开始的索引
+				const start = (page_number - 1) * page_size;
+				// 计算分页结束的索引
+				const end = page_number * page_size;
+				// 返回分页后的数组
+				return array.slice(start, end);
+			},
+			// 获取数据
+			getEvents() {
+				events({
+					sport_type: 'soccer',
+					date_start: 'ge:2024-10-01',
+				}).then(res => {
+					this.list = res.events.slice(0, this.maxItems)
+					this.allList = res.events
+					this.total_size = res.pagination.total_size
+					this.page_size = res.pagination.page_size
+					this.cityList = res.pagination.city_counts
+					this.countryList = res.pagination.country_counts
+					this.loading = false
+					if (res.events.length < this.maxItems) {
+						this.hideAll = false
+						this.hidePage = false
+					}
+				}).catch(err => {
+					this.loading = false
+				})
+			},
+			toEngPage() {
+				this.$router.push('/engPage');
+			},
 			confirmDateRange(e) {
 				this.date =
 					`${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
@@ -229,6 +304,19 @@
 </script>
 
 <style lang="scss" scoped>
+	.pages {
+		display: flex;
+		text-align: center;
+		padding: 0.4rem 0;
+		justify-content: flex-end;
+
+		div {
+			cursor: pointer;
+			margin-left: 0.3rem;
+			font-size: 0.16rem;
+		}
+	}
+
 	.hotel::v-deep .el-date-range-picker__content.is-left {
 		margin-right: 0
 	}
@@ -253,24 +341,28 @@
 						align-items: center;
 						padding: 0.32rem 0;
 						border-bottom: 1px solid rgba(218, 218, 218, 1);
-            cursor: pointer;
-						.el-icon-back{
+						cursor: pointer;
+
+						.el-icon-back {
 							font-size: 24px;
 							color: rgba(26, 26, 26, 0.6);
 						}
-						.price{
-							span{
+
+						.price {
+							span {
 								display: inline-block;
 								padding: 0.08rem 0.16rem;
 								font-size: 0.16rem;
 								font-weight: 600;
 								border-radius: 6px
 							}
-							.no-stock{
+
+							.no-stock {
 								background-color: rgba(238, 35, 68, 0.16);
 								color: rgba(238, 35, 68, 1);
 							}
-							.num{
+
+							.num {
 								background-color: rgba(0, 188, 147, 0.16);
 								color: rgba(0, 188, 147, 1);
 							}
@@ -392,6 +484,7 @@
 						margin-top: 0.4rem;
 
 						.total {
+							cursor: pointer;
 							font-size: 0.12rem;
 							font-weight: 400;
 							text-align: right;
@@ -409,12 +502,13 @@
 							.icon-img {
 								width: 0.2rem;
 								height: auto;
+								margin-left: 8px;
 							}
 
 							p {
 								font-size: 0.16rem;
 								font-weight: 400;
-								margin: 0 8px;
+								margin-left: 8px;
 							}
 
 							span {
@@ -426,6 +520,7 @@
 
 							.check-img {
 								width: 0.16rem;
+								margin-left: 8px;
 								height: 0.16rem;
 								border: 1px solid rgba(218, 218, 218, 1);
 								box-sizing: border-box;

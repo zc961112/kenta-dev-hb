@@ -16,7 +16,12 @@ import {
 	getLastestPrice
 } from '@/utils/index'
 import Decimal from '@/utils/decimal'
-import axios from 'axios';
+import {
+	updateHotelsInfo,
+	getIdByName,
+	getIndexData,
+	getHotelsByRegion
+} from '@/api/kentaHb'
 export default {
 	data() {
 		return {
@@ -64,6 +69,7 @@ export default {
 			adults: '',
 			ids: [],
 			priceArr: [],
+			loading: true
 		}
 	},
 	mounted() {
@@ -72,6 +78,7 @@ export default {
 	methods: {
 		// 筛选价格
 		getprice(dayTime) {
+			this.loading =true
 			let data = {
 				checkin: '',
 				checkout: '',
@@ -89,13 +96,8 @@ export default {
 				}
 				this.markerList = []
 			}
-
-			axios.post('https://zhouchen.love:8000/update_hotels_info', data, {
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(res => {
-				let list = res.data
+			updateHotelsInfo(data).then(res => {
+				let list = res
 				list.forEach(item => {
 					this.cityList.forEach(i => {
 						if (i.id === item.id) {
@@ -109,6 +111,9 @@ export default {
 					})
 				})
 				this.initMapMarkers();
+				this.loading = false
+			}).catch(err=>{
+				this.loading = false
 			})
 		},
 		// 搜索
@@ -116,16 +121,11 @@ export default {
 			let data = {
 				city: this.searchQuery.destinationName
 			}
-			axios.post('https://zhouchen.love:8000/get_id_by_name', data, {
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(res => {
+			getIdByName(data).then(res => {
 				this.$router.push({
-					path: ("/destination/" + res.data[0].id)
+					path: ("/destination/" + res[0].id)
 				})
 			})
-
 		},
 		handleSelect(item) {
 			this.$router.push({
@@ -145,12 +145,12 @@ export default {
 		},
 		loadAll() {
 			this.restaurants = []
-			axios.get('https://zhouchen.love:8000/get_index_data').then(res => {
-				for (let i = 0; i < res.data.length; i++) {
+			getIndexData().then(res => {
+				for (let i = 0; i < res.length; i++) {
 					this.restaurants.push({
-						value: res.data[i].city,
-						city: res.data[i].city,
-						id: res.data[i].id
+						value: res[i].city,
+						city: res[i].city,
+						id: res[i].id
 					})
 				}
 			})
@@ -176,22 +176,18 @@ export default {
 			}
 			this.markerList = []
 			this.ids = []
-			axios.post('https://zhouchen.love:8000/get_hotels_by_region', data, {
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(res => {
-				this.cityList = res.data
-				if (res.data.length > 0) {
+			getHotelsByRegion(data).then(res => {
+				this.cityList = res
+				if (res.length > 0) {
 					this.initMapMarkers();
 					this.cityList.forEach(item => {
 						this.ids.push(item.id)
 					})
 				}
-
+				this.loading = false
+			}).catch(err => {
+				this.loading = false
 			})
-
-
 			// this.markerList = []
 			// try {
 			// 	const params = {
