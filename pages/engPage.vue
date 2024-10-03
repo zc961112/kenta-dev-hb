@@ -11,15 +11,15 @@
 					<span>Dutch Grand Prix</span>
 				</div>
 				<h1 class="name">
-					Celta de Vigo vs Valencia CF
+					{{$route.query.event_name}}
 				</h1>
 				<div class="time">
 					<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
 					<span>אוג’ 23, 2024 - אוג’ 25, 2024</span>
 					<img src="~assets/images/icon/icon2.png" />
-					<span>Estadio Municipal de Balaídos Vigo (ESP)</span>
+					<span>{{$route.query.event_name}}{{$route.query.city}}</span>
 					<img src="~assets/images/icon/icon3.png" />
-					<span>לה ליגה 24/25 </span>
+					<span style="direction: rtl;">{{$route.query.season}}{{$route.query.tournament_name}}  </span>
 					<!-- <span class="Promo">Exclusive Promo</span>
 						<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper Casino</span> -->
 				</div>
@@ -32,11 +32,11 @@
 					</p>
 					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 				</div>
-				<div class="item-li">
+				<div class="item-li" v-for="(item,index) in list" :key="index">
 					<div class="text">
 						<img src="~assets/images/icon/icon7.png" />
 						<div class="info">
-							<h3>Inner Ingresso Parabolic GF tickets</h3>
+							<h3>{{item.ticket_title}}</h3>
 							<p>שישי - ראשון</p>
 						</div>
 						<div class="icon-img">
@@ -44,50 +44,8 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer">Order - €340</router-link>
-					<!-- <button class="button">Order - €340</button> -->
-				</div>
-				<div class="item-li">
-					<div class="text">
-						<img src="~assets/images/icon/icon7.png" />
-						<div class="info">
-							<h3>Inner Parabolic (23a)</h3>
-							<p>שישי - ראשון</p>
-						</div>
-						<div class="icon-img">
-							<img src="~assets/images/icon/icon6.png" />
-							<img src="~assets/images/icon/icon5.png" />
-						</div>
-					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button"  style="cursor: pointer">Order - €340</router-link>
-				</div>
-				<div class="item-li">
-					<div class="text">
-						<img src="~assets/images/icon/icon7.png" />
-						<div class="info">
-							<h3>Lateral Parabolic (21e)</h3>
-							<p>ראשון</p>
-						</div>
-						<div class="icon-img">
-							<img src="~assets/images/icon/icon6.png" />
-							<img src="~assets/images/icon/icon5.png" />
-						</div>
-					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button"  style="cursor: pointer">Order - €340</router-link>
-				</div>
-				<div class="item-li">
-					<div class="text">
-						<img src="~assets/images/icon/icon7.png" />
-						<div class="info">
-							<h3>Inner Ingresso Parabolic GF tickets</h3>
-							<p>שישי - ראשון</p>
-						</div>
-						<div class="icon-img">
-							<img src="~assets/images/icon/icon6.png" />
-							<img src="~assets/images/icon/icon5.png" />
-						</div>
-					</div>
-					<button class="button"  style="cursor: pointer">Order - €340</button>
+					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer">Order -
+						€{{item.net_rate}}</router-link>
 				</div>
 			</div>
 			<div class="right">
@@ -99,16 +57,28 @@
 </template>
 
 <script>
+	import {
+		tickets
+	} from '@/api/kentaHb'
 	export default {
 		name: 'engPage',
 		data() {
 			return {
-
+				list: []
 			}
-
+		},
+		created() {
+			this.getInfo()
 		},
 		methods: {
-
+			getInfo() {
+				tickets({
+					event_id: this.$route.query.event_id
+				}).then(res => {
+					console.log(res,"数据")
+					this.list = res.tickets
+				})
+			}
 		}
 	}
 </script>

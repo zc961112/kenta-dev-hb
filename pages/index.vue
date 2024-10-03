@@ -41,19 +41,21 @@
 			</div>
 			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
 				<div class="carousel-wrapper">
-    <div class="carousel">
-      <div v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
-        <img :src="item.src" />
-        <div class="info">
-          <h4>{{ item.title }}</h4>
-          <router-link :to="'/eventlPage'" tag="button">לצפייה בכרטיסים</router-link>
-        </div>
-      </div>
-    </div>
-    <div class="arrow left" @click="prev">
-      <i class="el-icon-arrow-left"></i>
-    </div>
-  </div>
+					<div class="carousel">
+						<router-link :to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }" v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
+							<img :src="item.src" />
+							<div class="info">
+								<h4>{{ item.title }} {{item.tournament_name}}</h4>
+								<router-link
+									:to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
+									tag="button">לצפייה בכרטיסים</router-link>
+							</div>
+						</router-link>
+					</div>
+					<div class="arrow left" @click="prev">
+						<i class="el-icon-arrow-left"></i>
+					</div>
+				</div>
 				<!-- <div class="arrow right" @click="next">
 					<i class="el-icon-arrow-right"></i>
 				</div> -->
@@ -65,7 +67,7 @@
 					<div class="experience-list">
 						<swiper :options="swiperOption">
 							<swiper-slide>
-								<div class="experience-li">
+								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
 									<img src="~assets/images/banner-2.png" />
 									<h3>סופ״ש ספונטני</h3>
 									<p>חבילות לרגע האחרון</p>
@@ -353,13 +355,24 @@
 		name: 'home',
 		data() {
 			return {
-        				images: [
-							{ src: require("assets/images/Group1.png"), title: "כרטיסים לפורמולה 1 זמינים כעת" },
-							{ src: require("assets/images/Group2.png"), title: "כרטיסים למירוץ זמינים כעת" },
-							{ src: require("assets/images/Group3.png"), title: "כרטיסים לספורט זמינים כעת" }
-						],
-						visibleImages: [],
-						currentIndex: 0,
+				images: [{
+						src: require("assets/images/Group1.png"),
+						title: "כרטיסים לפורמולה 1 זמינים כעת",
+						tournament_name: ''
+					},
+					{
+						src: require("assets/images/Group2.png"),
+						title: "כרטיסים למירוץ זמינים כעת",
+						tournament_name: 'La Liga'
+					},
+					{
+						src: require("assets/images/Group3.png"),
+						title: "כרטיסים לספורט זמינים כעת",
+						tournament_name: 'Champions League'
+					}
+				],
+				visibleImages: [],
+				currentIndex: 0,
 				list: [{
 						chid: [{}, {}, {}]
 					},
@@ -384,26 +397,27 @@
 		},
 		mounted() {
 			this.loadAll();
-      this.initializeVisibleImages();
+			this.initializeVisibleImages();
 		},
 		methods: {
-      			initializeVisibleImages() {
-      this.visibleImages = this.images.slice(0, 3); // 初始化显示前三张图片
-    },
-    prev() {
-		this.currentIndex = (this.currentIndex + 1) % this.images.length;
-		this.updateVisibleImages();
-    },
-    next() {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
-      this.updateVisibleImages();
-    },
-    updateVisibleImages() {
-      this.visibleImages = [];
-      for (let i = 0; i < 3; i++) {
-        const index = (this.currentIndex + i) % this.images.length;
-        this.visibleImages.push(this.images[index]);
-      } },
+			initializeVisibleImages() {
+				this.visibleImages = this.images.slice(0, 3); // 初始化显示前三张图片
+			},
+			prev() {
+				this.currentIndex = (this.currentIndex + 1) % this.images.length;
+				this.updateVisibleImages();
+			},
+			next() {
+				this.currentIndex = (this.currentIndex + 1) % this.images.length;
+				this.updateVisibleImages();
+			},
+			updateVisibleImages() {
+				this.visibleImages = [];
+				for (let i = 0; i < 3; i++) {
+					const index = (this.currentIndex + i) % this.images.length;
+					this.visibleImages.push(this.images[index]);
+				}
+			},
 			// 搜索
 			search() {
 				if (this.cityval) {
@@ -930,7 +944,7 @@
 		margin-top: 0.15rem;
 		display: flex;
 		overflow: hidden;
-		height:300px;
+		height: 300px;
 
 		.carousel-li:nth-child(even) {
 			margin: 0 0.16rem;

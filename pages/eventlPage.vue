@@ -29,13 +29,15 @@
 							</div>
 						</div>
 						<div class="select-list">
-							<div v-for="(item,index) in list" :key="index" class="select-li" @click="toEngPage">
+							<div v-for="(item,index) in list" :key="index" class="select-li" @click="toEngPage(item)">
 								<div class="flex">
 									<span class="el-icon-back"></span>
 								</div>
 								<div class="flex price">
-									<span v-if="item.number_of_tickets==0" class="no-stock">אזל המלאי</span>
-									<span v-else class="num">€{{item.min_ticket_price_eur}}</span>
+									<span v-if="item.number_of_tickets==0||item.number_of_tickets==null"
+										class="no-stock">אזל המלאי</span>
+									<span v-else
+										class="num">€{{item.min_ticket_price_eur?(item.min_ticket_price_eur/100).toFixed(2):'0.00'}}</span>
 								</div>
 								<div class="text">
 									<p>{{item.season}} {{item.tournament_name}}</p>
@@ -55,29 +57,6 @@
 									</p>
 								</div>
 							</div>
-							<!-- <div class="select-li" @click="toEngPage">
-								<div class="flex">
-									<i class="el-icon-back"></i>
-								</div>
-								<div class="flex price">
-									<span class="no-stock">אזל המלאי</span>
-								</div>
-								<div class="text">
-									<p>פורמולה 1 2024</p>
-									<p>Circuit Park Zandvoort</p>
-									<p>Zandvoort (NLD)</p>
-								</div>
-								<div class="info">
-									<div class="xx">
-										<p class="xx-bg">
-											<span>אירוע פופולרי</span>
-											<img src="~assets/images/icon/icon4.png" />
-										</p>
-									</div>
-									<h3>Dutch Grand Prix</h3>
-									<p class="time">אוגוסט 23, 2024 - אוגוסט 25, 2024</p>
-								</div>
-							</div> -->
 						</div>
 						<div class="pages">
 							<div v-if="hidePage" @click="next">显示25条更多</div>
@@ -120,12 +99,14 @@
 						</div>
 						<div class="check">
 							<div class="name">ענפי ספורט</div>
-							<div class="check-li" v-if="index<countryIndex" v-for="(item,index) in countryList"
-								:key="index">
+							<div class="check-li" @click="selectCountry(item)" v-if="index<countryIndex"
+								v-for="(item,index) in countryList" :key="index">
 								<span>({{item.num}})</span>
 								<p>{{item.name}}</p>
 								<img class="icon-img" :src="item.flag" />
-								<div class="check-img"></div>
+								<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
+									<img src="~assets/images/icon/select.png" />
+								</div>
 							</div>
 							<div class="total" @click="countryIndex=countryList.length">({{countryList.length}}) צפייה
 								בהכל</div>
@@ -133,10 +114,13 @@
 
 						<div class="check">
 							<div class="name">ערים</div>
-							<div class="check-li" v-if="index<cityIndex" v-for="(item,index) in cityList" :key="index">
+							<div @click="selectCity(item)" class="check-li" v-if="index<cityIndex"
+								v-for="(item,index) in cityList" :key="index">
 								<span>({{item.num}})</span>
 								<p>{{item.name}}</p>
-								<div class="check-img"></div>
+								<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
+									<img src="~assets/images/icon/select.png" />
+								</div>
 							</div>
 							<div class="total" @click="cityIndex=cityList.length">({{cityList.length}}) צפייה בהכל</div>
 						</div>
@@ -188,48 +172,118 @@
 			cityList: [],
 			countryList: [],
 			cityIndex: 3,
-			countryIndex: 3
+			countryIndex: 3,
+			filtercountryList: [],
+			filtercityList: [],
+			filterAll: []
 		}),
 		mounted() {
 			this.makMonthList();
 			this.getEvents()
 		},
 		methods: {
+			selectCountry(item) {
+				item.select = !item.select
+				this.getselectCountry()
+			},
+			getselectCountry() {
+				this.filtercountryList = this.countryList.filter(item => item.select)
+				this.fnfilter()
+			},
+			selectCity(item) {
+				item.select = !item.select
+				this.getselectCity()
+			},
+			getselectCity() {
+				this.filtercityList = this.cityList.filter(item => item.select)
+				this.fnfilter()
+			},
+			fnfilter() {
+				this.page = 1
+				this.list = []
+				this.loading = true
+				this.filterAll = []
+				let that = this
+				let filteredItems = this.allList.filter(item => {
+					if (this.filtercountryList.length > 0 && this.filtercityList.length == 0) {
+						return this.filtercountryList.map(item1 => item1.name).includes(item.country_name)
+					} else if (this.filtercityList.length > 0 && this.filtercountryList.length == 0) {
+						return this
+							.filtercityList.map(item1 => item1.name).includes(item.city)
+					} else {
+						return this.filtercountryList.map(item1 => item1.name).includes(item.country_name) && this
+							.filtercityList.map(item1 => item1.name).includes(item.city)
+					}
+				})
+				if (filteredItems.length > 0) {
+					this.list = filteredItems.length < this.maxItems ? filteredItems : filteredItems.slice(0, this
+						.maxItems)
+
+					this.filterAll = filteredItems
+					this.total_size = filteredItems.length
+					if (filteredItems.length < this.maxItems) {
+						this.hideAll = false
+						this.hidePage = false
+					} else {
+						this.hideAll = true
+						this.hidePage = true
+					}
+					setTimeout(function() {
+						that.loading = false
+					}, 500)
+				} else {
+					this.page = 1
+					this.filtercityList = []
+					this.filtercountryList = []
+					this.getEvents()
+				}
+			},
 			showAll() {
 				this.page = 1
 				this.hidePage = false
 				this.hideAll = false
-				this.list = this.allList
+				this.list = (this.filterAll.length > 0 ? this.filterAll : this.allList)
 			},
 			next() {
-				if (this.paginate(this.allList, 25, this.page).length < this.maxItems) {
+				if (this.paginate((this.filterAll.length > 0 ? this.filterAll : this.allList), 25, this.page).length < this
+					.maxItems) {
 					this.hidePage = false
 				} else {
 					this.page++
-					this.hidePage = true
-					let list = this.paginate(this.allList, 25, this.page)
+					let list = this.paginate((this.filterAll.length > 0 ? this.filterAll : this.allList), 25, this.page)
 					this.list = this.page > 1 ? [...this.list, ...list] : list
-					if (this.list.length == this.allList.length) {
+					if (list.length < this.maxItems) {
 						this.hidePage = false
 					}
 				}
 			},
 			paginate(array, page_size, page_number) {
-				// 计算分页开始的索引
 				const start = (page_number - 1) * page_size;
-				// 计算分页结束的索引
 				const end = page_number * page_size;
-				// 返回分页后的数组
 				return array.slice(start, end);
+			},
+			//获取当前的年月日
+			getady() {
+				var currentDate = new Date();
+				var year = currentDate.getFullYear();
+				var month = currentDate.getMonth() + 1;
+				var day = currentDate.getDate();
+				month = (month < 10 ? '0' : '') + month;
+				day = (day < 10 ? '0' : '') + day;
+				var formattedDate = year + '-' + month + '-' + day;
+				return formattedDate
 			},
 			// 获取数据
 			getEvents() {
+				this.getady()
 				events({
 					sport_type: 'soccer',
-					date_start: 'ge:2024-10-01',
+					date_start: 'ge:' + this.getady(),
+					tournament_name: this.$route.query.tournament_name
 				}).then(res => {
 					this.list = res.events.slice(0, this.maxItems)
 					this.allList = res.events
+
 					this.total_size = res.pagination.total_size
 					this.page_size = res.pagination.page_size
 					this.cityList = res.pagination.city_counts
@@ -238,13 +292,25 @@
 					if (res.events.length < this.maxItems) {
 						this.hideAll = false
 						this.hidePage = false
+					} else {
+						this.hideAll = true
+						this.hidePage = true
 					}
 				}).catch(err => {
 					this.loading = false
 				})
 			},
-			toEngPage() {
-				this.$router.push('/engPage');
+			toEngPage(item) {
+				this.$router.push({
+					path: '/engPage',
+					query: {
+						event_id: item.event_id,
+						event_name: item.event_name,
+						tournament_name: item.tournament_name,
+						season: item.season,
+						city:item.city,
+					}
+				})
 			},
 			confirmDateRange(e) {
 				this.date =
@@ -522,9 +588,19 @@
 								width: 0.16rem;
 								margin-left: 8px;
 								height: 0.16rem;
+								text-align: center;
+								display: flex;
+								align-items: center;
+								justify-content: center;
 								border: 1px solid rgba(218, 218, 218, 1);
 								box-sizing: border-box;
 								border-radius: 2px;
+
+								img {
+									width: 10px;
+									height: 10px;
+									object-fit: contain
+								}
 							}
 						}
 					}
