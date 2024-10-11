@@ -255,12 +255,14 @@
 			position: sticky;
 			top: 0.88rem;
 			flex: 5.5;
-			min-width: 0;
+			// min-width: 0;
 			height: 100%;
 			background: #FEFEFE;
 			display: flex;
 			flex-direction: column;
-			flex: 3;
+			// flex: 3;
+			width: 6.28rem;
+			
 		}
 
 		.pac-right-top {

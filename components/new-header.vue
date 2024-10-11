@@ -1,39 +1,91 @@
 <template>
 	<div>
-		<div class="header"
-			:style="{backgroundColor:ishome?'rgba(255, 255, 255, 0)':'rgba(255, 255, 255, 1)',borderBottom:!ishome?'1px solid rgba(218, 218, 218, 1)':''}">
-			<div class="navs-icon" v-if="ishome">
-				<img src="~assets/images/icon/icon20.png" />
+		<div class="header" :class="[ishome?(top<456?'':'header-curr'):'']"
+			:style="{backgroundColor:ishome?(top<456?'rgba(255, 255, 255, 0)':'rgba(255, 255, 255, 1)'):'rgba(255, 255, 255, 1)',borderBottom:!ishome?'1px solid rgba(218, 218, 218, 1)':''}">
+			<div class="left-icon" :class="[!ishome?'icon-curr':'']" @click="showMenu">
+				<div v-if="ishome">
+					<div v-if="!hasToken">
+						<img v-if="top<456" class="user-icon"
+							src="~assets/images/icon/user-circle-svgrepo-com (1) 3.png" />
+						<img v-else class="user-icon" src="~assets/images/icon/user-circle-svgrepo-com (1) 3 (1).png" />
+					</div>
+
+					<div v-else>
+						<img v-if="top<456" class="D-icon" src="~assets/images/icon/D (1).png" />
+						<img v-else class="D-icon" src="~assets/images/icon/D.png" />
+					</div>
+				</div>
+				<div v-else>
+					<img v-if="!hasToken" class="user-icon"
+						src="~assets/images/icon/user-circle-svgrepo-com (1) 3 (1).png" />
+					<img v-else class="D-icon" src="~assets/images/icon/D.png" />
+				</div>
+
+				<div class="navs-icon" v-if="ishome">
+					<img v-if="top<456" src="~assets/images/icon/Group 1029.png" />
+					<img v-else src="~assets/images/icon/Group 1029 (1).png" />
+				</div>
+				<div class="navs-icon" v-else>
+					<img src="~assets/images/icon/Group 1029 (1).png" />
+				</div>
 			</div>
-			<div class="navs-icon icon" v-else>
-				<img src="~assets/images/icon/Nav-icon.png" />
-			</div>
+
 			<div class="navs">
 				<div class="navs-a" :class="[!ishome?'navcolor':'']">
-					התחברות
+					₪
 				</div>
+				<div class="new-line" :style="{backgroundColor:!ishome?'rgba(26, 26, 26, 0.6)':'#fff'}"></div>
 				<div class="navs-a" :class="[!ishome?'navcolor':'']">
-					הרשמה
-				</div>
-				<div class="navs-a">
-					<el-dropdown trigger="click">
-						<span class="el-dropdown-link" :class="[!ishome?'navcolor':'']">
-							<i class="el-icon-arrow-down el-icon--right"></i>יעדים
-						</span>
-						<el-dropdown-menu slot="dropdown">
-							<el-dropdown-item>יעדים</el-dropdown-item>
-							<el-dropdown-item>יעדים</el-dropdown-item>
-						</el-dropdown-menu>
-					</el-dropdown>
+					עברית
 				</div>
 			</div>
-			<div class="flex" @click="toHome"></div>
+			<div class="flex">
+				<div class="tab" v-if="tabshow">
+					<el-menu router :default-active="$route.path" mode="horizontal">
+						<el-menu-item index="/chatPage">
+							<span>הודעות</span>
+						</el-menu-item>
+						<el-menu-item index="/ticketsPage">
+							<span>כרטיסים</span>
+						</el-menu-item>
+						<el-menu-item index="/upcoming">
+							<span>חופשות</span>
+						</el-menu-item>
+					</el-menu>
+				</div>
+			</div>
 			<div @click="toHome">
-				<img v-if="ishome" class="logo" src="~assets/images/logo-white.png" />
+				<div v-if="ishome">
+					<img v-if="top<456" class="logo" src="~assets/images/logo-white.png" />
+					<img v-else class="logo" src="~assets/images/logo.png" />
+				</div>
 				<img v-else class="logo" src="~assets/images/logo.png" />
 			</div>
 		</div>
 		<div class="header-h" v-if="!ishome"></div>
+		<el-drawer title="David Gerbi" :visible.sync="drawer" direction="ltr">
+			<div class="menu">
+				<div class="tips">ניווט</div>
+				<el-menu router :default-active="$route.path" class="el-menu-vertical-demo">
+					<el-menu-item index="/upcoming">
+						<span>חופשות</span>
+					</el-menu-item>
+					<el-menu-item index="1">
+						<span>כרטיסים</span>
+					</el-menu-item>
+					<el-menu-item index="2">
+						<span>הודעות</span>
+					</el-menu-item>
+				</el-menu>
+				<div class="menu-line"></div>
+				<div class="menu-li">
+					איזור אישי
+				</div>
+				<div class="menu-li" @click="logOut">
+					התנתק
+				</div>
+			</div>
+		</el-drawer>
 	</div>
 </template>
 
@@ -43,25 +95,199 @@
 			ishome: {
 				type: Boolean,
 				default: false
+			},
+			tabshow: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
-			return {}
+			return {
+				top: 0,
+				drawer: false
+			}
 
 		},
-
+		computed: {
+			hasToken() {
+				return this.$store.state.token
+			}
+		},
+		mounted() {
+			window.addEventListener('scroll', this.listenerScroll, true)
+		},
 		methods: {
+			logOut() {
+				let that = this
+				this.$confirm('是否确定退出登录', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					showCancelButton: true,
+				}).then(res => {
+					that.$store.dispatch("FedLogOut").then(() => {
+						location.reload();
+					})
+				})
+			},
 			toHome() {
 				this.$router.push({
 					path: '/'
 				})
+			},
+			showMenu() {
+				if (!this.hasToken) {
+					this.$router.push({
+						path: '/login'
+					})
+				} else {
+					this.drawer = true
+				}
+
+			},
+			listenerScroll() {
+				let value = window.pageYOffset || document.documentElement.scrollTop ||
+					document.body.scrollTop
+				this.top = value
 			}
 		}
 	}
 </script>
 <style lang="scss" scoped>
+	.tab {
+		text-align: center;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.tab ::v-deep .el-menu--horizontal>.el-menu-item {
+		height: 0.64rem;
+		line-height: 0.64rem;
+	}
+
+	.tab ::v-deep .el-menu-item {
+		font-size: 0.14rem;
+	}
+
+	.tab ::v-deep .el-menu--horizontal>.el-menu-item.is-active {
+		border-bottom: 2px solid rgba(255, 50, 99, 1)
+	}
+
+	.menu-line {
+		width: 100%;
+		height: 1px;
+		margin-bottom: 8px;
+		display: inline-block;
+		background-color: rgba(218, 218, 218, 1);
+	}
+
+	.menu-li {
+		margin-top: 0.16rem;
+		text-align: right;
+		font-size: 0.16rem;
+		cursor: pointer;
+	}
+
+	.menu ::v-deep .el-submenu {
+		background-color: #fff !important;
+	}
+
+	.menu ::v-deep .el-menu-item.is-active {
+		color: rgba(255, 50, 99, 1);
+	}
+
+	.menu ::v-deep .el-menu-item {
+		padding: 0;
+		height: 0.36rem;
+		text-align: right;
+		line-height: 0.36rem;
+		font-size: 0.32rem;
+		cursor: pointer;
+		background-color: #fff !important;
+		margin-bottom: 0.24rem;
+	}
+
+	.menu ::v-deep .el-menu,
+	.tab ::v-deep .el-menu {
+		border: none;
+	}
+
+	.menu ::v-deep i {
+		display: none;
+	}
+
+	.menu ::v-deep .el-submenu:hover {
+		background-color: #fff !important;
+	}
+
+	.menu {
+		padding: 0.8rem 0.4rem 0 0.4rem;
+
+		.tips {
+			text-align: right;
+			font-size: 0.14rem;
+			color: rgba(26, 26, 26, 0.4);
+			margin-bottom: 0.16rem;
+		}
+	}
+
+	:deep(.el-drawer__header) {
+		text-align: center;
+		padding: 0.24rem 0.4rem;
+		border-bottom: 1px solid rgba(218, 218, 218, 1);
+		color: rgba(26, 26, 26, 1);
+		font-size: 0.14rem;
+
+		i {
+			font-weight: bold;
+		}
+	}
+
+	.left-icon {
+		display: flex;
+		align-items: center;
+		border-radius: 200px;
+		cursor: pointer;
+		height: 0.4rem;
+		padding-top: 3px;
+		justify-content: center;
+		width: 0.74rem;
+		text-align: center;
+		border: 1px solid none;
+		margin-right: 0.40rem;
+	}
+
+	.icon-curr:hover {
+		background-color: rgba(245, 245, 245, 1);
+		border: 1px solid rgba(218, 218, 218, 1)
+	}
+
+	.header-curr {
+		.navs-a {
+			color: rgba(26, 26, 26, 0.6);
+		}
+
+		.new-line {
+			background-color: rgba(26, 26, 26, 0.6) !important;
+		}
+	}
+
 	.header-h {
 		height: 0.64rem;
+	}
+
+	.user-icon {
+		width: 0.24rem;
+		height: auto;
+		margin-right: 0.1rem;
+	}
+
+	.D-icon {
+		width: 0.16rem;
+		height: auto;
+		margin-right: 0.1rem;
+		object-fit: fill
 	}
 
 	.navcolor {
@@ -78,10 +304,11 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 89;
+		z-index: 899;
 		display: flex;
 		width: 100%;
 		align-items: center;
+		overflow: hidden;
 
 		.icon {
 			margin-right: 0.24rem !important;
@@ -92,14 +319,8 @@
 		}
 
 		.navs-icon {
-			margin-right: 0.76rem;
-			height: 0.64rem;
-			display: flex;
-			align-items: center;
-
 			img {
-				cursor: pointer;
-				width: 0.24rem;
+				width: 0.16rem;
 				height: auto;
 			}
 		}
@@ -117,10 +338,14 @@
 			font-size: 0.14rem;
 			font-weight: 500;
 
-			.navs-a {
-				padding: 0 0.2rem;
-				cursor: pointer;
+			.new-line {
+				width: 1px;
+				height: 15px;
+				margin: 0 0.1rem;
+				background-color: #fff;
+			}
 
+			.navs-a {
 				i {
 					color: rgba(254, 254, 254, 1);
 					margin-right: 0.08rem;
@@ -129,6 +354,7 @@
 		}
 
 		.logo {
+			cursor: pointer;
 			width: 0.76rem;
 			height: auto;
 		}

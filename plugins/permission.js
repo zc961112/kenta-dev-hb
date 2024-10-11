@@ -19,6 +19,9 @@ const whiteList = [
 	'/eventlPage',
 	'/hotelPage',
 	'/checkoutPage',
+	'/upcoming',
+	'/ticketsPage',
+	'/chatPage',
 	// -----新增------
 
 	'/', '/index', '/login', '/loginbypass', '/password', '/privacy-policy', '/recover-password',
@@ -182,7 +185,7 @@ export default ({
 				}
 			} else {
 				next()
-				// // 没有token
+				// 没有token
 				// if (window.whiteList.includes(to.path)) {
 				// 	// 在免登录白名单，直接进入
 				// 	next()

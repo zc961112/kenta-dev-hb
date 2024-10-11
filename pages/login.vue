@@ -1,412 +1,256 @@
 <template>
-  <div class="page">
-    <div class="box">
-      <!-- <div class="logo-text">
-        kenta
-      </div> -->
-      <div class="logo" @click="toHome">
-        <img src="~assets/images/Logo.svg" alt="">
-      </div>
-      <div class="prompt">
-        Login or create an account
-      </div>
-      <div class="email">
-        Your email address
-      </div>
-      <div class="input">
-        <el-input v-model="email" @keyup.native.enter="toNext" placeholder="Enter your email" @blur="validateFun"></el-input>
-      </div>
-      <div class="tips" v-if="tips.length > 0">{{ tips }}</div>
-      <div class="tips success" v-if="isSuccess">{{ successTips }}</div>
-      <!-- <el-button type="primary">Next</el-button> -->
-      <div class="button" @click="toNext">
-        <span class="text">
-          Next
-        </span>
-      </div>
-      <div class="or">
-        <div class="line-1">
-
-        </div>
-        <div class="text">
-          OR
-        </div>
-        <div class="line-2">
-
-        </div>
-      </div>
-      <div class="sign">
-        <div class="frame">
-          <div class="content">
-            <google-login></google-login>
-            <div class="icon-logo">
-              <img src="~assets/images/icon-google.png" alt="">
-            </div>
-            <div class="text">
-              Sign up with Google
-            </div>
-          </div>
-
-        </div>
-        <div class="frame" style="width: 4.51rem;">
-          <div class="content">
-            <div class="icon-logo">
-              <a href="">
-                <img src="~assets/images/icon-facebook.png" alt="">
-              </a>
-            </div>
-            <div class="text">
-              Sign up with Facebook
-            </div>
-          </div>
-        </div>
-        <div class="frame">
-          <div class="content">
-            <div class="icon-logo">
-              <img src="~assets/images/icon-twitter.png" alt="">
-            </div>
-            <div class="text" @click="onTwiLog()">
-              Sign up with Twitter
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="warn">
-        <div class="warn-wrapper">
-          <span class="none-underline">
-            By creating an account, you agree to our
-          </span>
-          <router-link to="privacy-policy" class="underline">
-            Privacy policy
-          </router-link>
-          <span class="none-underline">
-            and
-          </span>
-          <router-link to="terms-conditions" class="underline">
-            Terms of use.
-          </router-link>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="page">
+		<div class="login">
+			<div class="login-bg">
+				<img src="~assets/images/login-bg.jpg" />
+			</div>
+			<div class="login-info">
+				<img class="logo" @click="toHome" src="~assets/images/logo.png" />
+				<div class="login-box">
+					<div class="title">התחברות</div>
+					<div class="item-li">
+						<img class="jiant" src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
+						<div class="flex"></div>
+						<div class="name">המשיכו עם גוגל</div>
+						<img class="icon" src="~assets/images/gg.png" />
+					</div>
+					<div class="item-li">
+						<img class="jiant" src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
+						<div class="flex"></div>
+						<div class="name">המשיכו עם פייסבוק</div>
+						<img class="icon" src="~assets/images/facebook-color-svgrepo-com 1.png" />
+					</div>
+					<div class="line">
+						<div></div>
+						<p>או</p>
+						<div></div>
+					</div>
+					<div class="text">כתובת אימייל*</div>
+					<div class="item-li">
+						<img class="jiant" src="~assets/images/icon/email-8-svgrepo-com 1.png" />
+						<el-input v-model="email" @keyup.native.enter="toNext" placeholder="דואר אלקטרוני"
+							@blur="validateFun"></el-input>
+					</div>
+					<div class="tips" v-if="tips.length > 0">{{ tips }}</div>
+					<div class="tologin" @click="toNext">המשך</div>
+				</div>
+				<div class="footer">
+					בלחיצה על כפתור המשך את/ה מסכימ/ה עם
+					<span>תנאי השימוש ומדיניות האתר.</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-// const { google } = require('googleapis');
-// import VueGoogleApi from 'vue-google-api'
-import { validEmail } from '@/utils/validate'
-import { getMail } from '@/api/login'
-export default {
+	// const { google } = require('googleapis');
+	// import VueGoogleApi from 'vue-google-api'
+	import {
+		validEmail
+	} from '@/utils/validate'
+	import {
+		getMail
+	} from '@/api/login'
+	export default {
 
-  data () {
-    return {
-      email: '',
-      tips: '',
-      successTips: 'Please open your email to complete registration',
-      isSuccess: false,
-    }
-  },
-  mounted () {
-    if (google) {
-      this.client = google.accounts.oauth2.initCodeClient({
-        client_id: '16800385999-8c2rie3crqe9npuou97ubripn199cr4a.apps.googleusercontent.com',
-        scope: 'https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-        ux_mode: 'redirect',
-        redirect_uri: "https://casino-blog.vercel.app/auth",
-        state: "YOUR_BINDING_VALUE"
-      });
-    }
-  },
-  methods: {
-    toHome () {
-      this.$router.push({ path: '/' })
-    },
-    validateFun () {
-      if (this.email.length == 0) {
-        this.tips = 'Please Enter Your Email'
-        return false;
-      } else if (!validEmail(this.email)) {
-        this.tips = 'Please enter the correct Email'
-        return false;
-      } else {
-        this.tips = '';
-        return true;
-      }
-    },
-    onTwiLog () {
-      const redirectUrl = 'https://www.kenta.travel/login';
-      window.location.href = redirectUrl;
-    },
-    toNext () {
-      if (this.validateFun()) {
-        let params = {
-          email: this.email,
-        };
-        getMail(params).then((res) => {
-          this.isSuccess = true;
-        }).catch(() => {
-          this.$router.push({ path: '/password', query: { email: this.email } })
-        })
+		data() {
+			return {
+				email: '',
+				tips: '',
+				successTips: 'Please open your email to complete registration',
+				isSuccess: false,
+			}
+		},
+		mounted() {
+			if (google) {
+				this.client = google.accounts.oauth2.initCodeClient({
+					client_id: '16800385999-8c2rie3crqe9npuou97ubripn199cr4a.apps.googleusercontent.com',
+					scope: 'https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+					ux_mode: 'redirect',
+					redirect_uri: "https://casino-blog.vercel.app/auth",
+					state: "YOUR_BINDING_VALUE"
+				});
+			}
+		},
+		methods: {
+			toHome() {
+				this.$router.push({
+					path: '/'
+				})
+			},
+			validateFun() {
+				if (this.email.length == 0) {
+					this.tips = 'Please Enter Your Email'
+					return false;
+				} else if (!validEmail(this.email)) {
+					this.tips = 'Please enter the correct Email'
+					return false;
+				} else {
+					this.tips = '';
+					return true;
+				}
+			},
+			onTwiLog() {
+				const redirectUrl = 'https://www.kenta.travel/login';
+				window.location.href = redirectUrl;
+			},
+			toNext() {
+				if (this.validateFun()) {
+					let params = {
+						email: this.email,
+					};
+					getMail(params).then((res) => {
+						this.isSuccess = true;
+					}).catch(() => {
+						this.$router.push({
+							path: '/password',
+							query: {
+								email: this.email
+							}
+						})
+					})
 
-      }
-    }
-  },
-}
+				}
+			}
+		},
+	}
 </script>
 
 <style lang="scss" scoped>
-img {
-  width: 100%;
-  height: 100%;
-}
+	.item-li ::v-deep .el-input__inner {
+		border: none;
+		text-align: right;
+		height: 0.48rem;
+	}
 
-.icon-logo {
-  img {
-    width: 0.16rem;
-    height: 0.16rem;
-  }
-}
+	.tips {
+		color: #ff3263;
+		font-size: 0.12rem;
+		padding: 0.1rem 0;
+	}
 
-.page {
-  min-height: 100vh;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+	.tips.success {
+		color: #67c23a;
+	}
 
-.tips {
-  color: #ff3263;
-  font-size: 0.12rem;
-  padding: 0.1rem 0;
-}
+	.login {
+		display: flex;
 
-.tips.success {
-  color: #67c23a;
-}
+		.tologin {
+			margin-top: 8px;
+			text-align: center;
+			line-height: 0.48rem;
+			height: 0.48rem;
+			background-color: rgba(255, 50, 99, 1);
+			color: #fff;
+			cursor: pointer;
+			border-radius: 8px;
+		}
 
-.box {
-  width: 4.8rem;
-  height: 5.42rem;
-  margin: 0 auto;
+		.login-box {
+			padding-top: 1.40rem;
 
-  .logo {
-    width: 0.76rem;
+			.text {
+				margin-bottom: 8px;
+			}
 
-    img {
-      width: 100%;
-    }
-  }
+			.line {
+				display: flex;
+				align-items: center;
+				margin: 0.32rem 0;
 
-  .prompt {
-    color: #1a1a1a;
-    font-weight: 400;
-    line-height: 124%;
-    /* 39.68px */
-    letter-spacing: -1.28px;
-    margin-top: 0.24rem;
-    font-size: 0.32rem;
-  }
+				p {
+					margin: 0 5px;
+				}
 
-  .email {
-    margin-top: 0.4rem;
-    font-size: 0.14rem;
-    font-weight: 500;
-    letter-spacing: -0.56px;
-  }
+				div {
+					flex: 1;
+					height: 1px;
+					background-color: rgba(26, 26, 26, 0.16);
+				}
+			}
 
-  .input {
-    margin-top: 0.08rem;
-    width: 4.48rem;
-    border-radius: 0.04rem;
-    letter-spacing: -0.56px;
-    background: #fefefe;
+			.item-li {
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				height: 0.48rem;
+				padding: 0 0.16rem;
+				border: 1px solid rgba(26, 26, 26, 0.5);
+				border-radius: 8px;
+				margin-bottom: 8px;
+				overflow: hidden;
 
-    ::v-deep .el-input__inner {
-      height: 0.48rem;
-      color: rgba(26, 26, 26, 0.4);
-      font-size: 0.16rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 100%;
-      /* 16px */
-      letter-spacing: -0.64px;
-    }
-  }
+				input {
+					height: 0.48rem;
+					background-color: none;
+					text-align: right;
+					flex: 1;
+					border: none;
+					outline: none;
+					outline: 0
+				}
 
-  .button {
-    margin-top: 0.24rem;
-    width: 4.48rem;
-    height: 0.48rem;
-    cursor: pointer;
-    border-radius: 0.08rem;
-    background: #ff3263;
+				.name {
+					color: rgba(26, 26, 26, 0.6);
+					margin-right: 5px;
+				}
 
-    .text {
-      padding: 0 2.09rem;
-      color: #fefefe;
-      font-size: 0.14rem;
-      line-height: 0.48rem;
-    }
-  }
+				.icon {
+					width: 0.16rem;
+					height: auto;
+				}
 
-  .or {
-    margin-top: 0.32rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4.48rem;
-    height: 0.2rem;
+				.jiant {
+					width: 0.16rem;
+					height: auto;
+				}
+			}
 
-    .line-1 {
-      flex: 1;
-      border: solid 0.01rem rgba(26, 26, 26, 0.16);
-      line-height: 0.2rem;
-    }
+			.title {
+				font-size: 0.32rem;
+				margin-bottom: 0.24rem;
+			}
+		}
 
-    .text {
-      margin: 0 0.08rem;
-      font-weight: 400;
-      // padding: 0 .03rem;
-      font-size: 0.12rem;
-      line-height: 16px;
-    }
+		.login-bg {
+			flex: 1;
+			height: 100vh;
+			overflow: hidden;
 
-    .line-2 {
-      flex: 1;
-      border: solid 0.01rem #1a1a1a29;
-      line-height: 0.2rem;
-    }
-  }
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
 
-  .sign {
-    margin-top: 0.32rem;
+		.login-info {
+			width: 5.12rem;
+			text-align: right;
+			padding: 0.2rem 0.32rem 0 0.32rem;
+			height: 100vh;
+			position: relative;
 
-    .frame {
-      cursor: pointer;
-      border-radius: 0.04rem;
-      border: 1px solid #dadada;
-      background: #fefefe;
-      width: 4.48rem;
-      height: 0.48rem;
-      margin-top: 0.08rem;
+			.footer {
+				direction: rtl;
+				position: absolute;
+				width: 100%;
+				text-align: center;
+				bottom: 0.32rem;
+				left: 0;
 
-      .content {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+				span {
+					cursor: pointer;
+					color: rgba(52, 81, 255, 1);
+				}
+			}
 
-        .logo {
-          img {
-            width: 0.16rem;
-            height: 0.16rem;
-          }
-        }
-
-        .text {
-          font-size: 0.16rem;
-          line-height: 0.48rem;
-          padding-left: 0.05rem;
-        }
-      }
-    }
-  }
-
-  .warn {
-    margin-top: 0.24rem;
-
-    .none-underline {
-      font-size: 0.14rem;
-      color: #1a1a1a;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 0.16rem;
-      /* 114.286% */
-      letter-spacing: -0.56px;
-    }
-
-    .underline {
-      font-size: 0.14rem;
-      color: #1a1a1a;
-      text-decoration-line: underline;
-    }
-  }
-}
-
-.mobile {
-  .page {
-    width: 100vw;
-    height: auto;
-    min-height: 100vh;
-    align-items: flex-start;
-  }
-
-  .box {
-    width: 3.36rem;
-    height: auto;
-    min-height: 100vh;
-    position: relative;
-    padding-bottom: 0.82rem;
-
-    .logo {
-      width: 57px;
-      padding-top: 0.64rem;
-    }
-
-    .prompt {
-      font-family: Rubik;
-      font-size: 24px;
-      font-weight: 400;
-      line-height: 27px;
-      letter-spacing: -0.04em;
-    }
-
-    .input {
-      width: 3.36rem;
-
-      ::v-deep .el-input__inner {
-        height: 0.48rem;
-      }
-    }
-
-    .button {
-      width: 3.36rem;
-      height: 0.48rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      span {
-        display: block;
-        width: 0.36rem;
-      }
-    }
-
-    .or {
-      width: 3.36rem;
-      height: 0.2rem;
-    }
-
-    .sign {
-      .frame {
-        width: 3.36rem !important;
-        height: 0.48rem;
-        margin-top: 0.08rem;
-      }
-    }
-
-    .warn {
-      width: 100%;
-      position: absolute;
-      bottom: 0.32rem;
-      display: flex;
-      justify-content: center;
-
-      .warn-wrapper {
-        width: 2.4rem;
-      }
-    }
-  }
-}
+			.logo {
+				cursor: pointer;
+				width: 0.76rem;
+				height: auto;
+			}
+		}
+	}
 </style>
