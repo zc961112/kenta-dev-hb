@@ -119,9 +119,9 @@
 		methods: {
 			logOut() {
 				let that = this
-				this.$confirm('是否确定退出登录', '提示', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
+				this.$confirm('האם אתה בטוח שאתה מתנתק?', 'רֶמֶז', {
+					confirmButtonText: 'בַּטוּחַ',
+					cancelButtonText: 'לְבַטֵל',
 					showCancelButton: true,
 				}).then(res => {
 					that.$store.dispatch("FedLogOut").then(() => {

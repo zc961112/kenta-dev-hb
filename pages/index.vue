@@ -286,58 +286,58 @@
 				</div>
 				<div class="menus" v-if="over">
 					<div class="menus-li flex">
-						<p>רומניה</p>
-						<p>שוויץ</p>
+						<p onclick="window.location.href='destination/6057278'">רומניה</p>
+						<p onclick="window.location.href='destination/684'">שוויץ</p>
 						<p>שוודיה</p>
-						<p>תאילנד</p>
+						<p onclick="window.location.href='destination/604'">תאילנד</p>
 					</div>
 					<div class="menus-li flex">
-						<p>פורטוגל</p>
-						<p>פיליפינים</p>
-						<p>פינלנד</p>
-						<p>צ’כיה</p>
-						<p>צרפת</p>
-						<p>קוריאה הדרומית</p>
-						<p>קפריסין</p>
-						<p>קטאר</p>
-						<p>קנדה</p>
-						<p>קרואטיה</p>
+						<p onclick="window.location.href='destination/2080'">פורטוגל</p>
+						<p onclick="window.location.href='destination/2375'">פיליפינים</p>
+						<p onclick="window.location.href='destination/1443'">פינלנד</p>
+						<p onclick="window.location.href='destination/2872'">צ’כיה</p>
+						<p onclick="window.location.href='destination/2734'">צרפת</p>
+						<p onclick="window.location.href='destination/3124'">קוריאה הדרומית</p>
+						<p onclick="window.location.href='destination/10837'">קפריסין</p>
+						<p onclick="window.location.href='destination/1048'">קטאר</p>
+						<p onclick="window.location.href='destination/4025'">קנדה</p>
+						<p onclick="window.location.href='destination/6292740'">קרואטיה</p>
 					</div>
 					<div class="menus-li flex">
-						<p>מונטנגרו</p>
-						<p>מלדיבים</p>
-						<p>מלטה</p>
-						<p>מקסיקו</p>
-						<p>מריציוס</p>
-						<p>נורבגיה</p>
-						<p>סרביה</p>
-						<p>סינגפור</p>
-						<p>ספרד</p>
-						<p>פולין</p>
+						<p onclick="window.location.href='destination/10048'">מונטנגרו</p>
+						<p onclick="window.location.href='destination/2343'">מלדיבים</p>
+						<p onclick="window.location.href='destination/2341'">מלטה</p>
+						<p onclick="window.location.href='destination/2265'">מקסיקו</p>
+						<p onclick="window.location.href='destination/2080'">מריציוס</p> <!--no place-->
+						<p onclick="window.location.href='destination/2702'">נורבגיה</p>
+						<p onclick="window.location.href='destination/6333'">סרביה</p>
+						<p onclick="window.location.href='destination/3168'">סינגפור</p>
+						<p onclick="window.location.href='destination/2198'">ספרד</p>
+						<p onclick="window.location.href='destination/3765'">פולין</p>
 					</div>
 					<div class="menus-li flex">
-						<p>גאורגיה</p>
-						<p>גרמניה</p>
-						<p>דנמרק</p>
-						<p>דרום קוריאה</p>
-						<p>הולנד</p>
-						<p>הונג קונג</p>
-						<p>הונגריה</p>
-						<p>יוון</p>
-						<p>יפן</p>
-						<p>מונאקו</p>
+						<p onclick="window.location.href='destination/441'">גאורגיה</p>
+						<p onclick="window.location.href='destination/536'">גרמניה</p>
+						<p onclick="window.location.href='destination/2080'">דנמרק</p><!--no place-->
+						<p onclick="window.location.href='destination/3124'">דרום קוריאה</p>
+						<p onclick="window.location.href='destination/378'">הולנד</p>
+						<p onclick="window.location.href='destination/178263'">הונג קונג</p>
+						<p onclick="window.location.href='destination/715'">הונגריה</p>
+						<p onclick="window.location.href='destination/2080'">יוון</p><!--no place-->
+						<p onclick="window.location.href='destination/3593'">יפן</p>
+						<p onclick="window.location.href='destination/2080'">מונאקו</p><!--no place-->
 					</div>
 					<div class="menus-li flex">
-						<p>אוסטריה</p>
-						<p>אוסטרליה</p>
-						<p>אזרבייג’ן</p>
-						<p>איחוד האמירויות</p>
-						<p>איטליה</p>
-						<p>אנגליה</p>
-						<p>ארצות הברית</p>
-						<p>בחריין</p>
-						<p>בלגיה</p>
-						<p>ברזיל</p>
+						<p onclick="window.location.href='destination/3704'">אוסטריה</p>
+						<p onclick="window.location.href='destination/786'">אוסטרליה</p>
+						<p onclick="window.location.href='destination/492'">אזרבייג’ן</p>
+						<p onclick="window.location.href='destination/453'">איחוד האמירויות</p>
+						<p onclick="window.location.href='destination/3023'">איטליה</p>
+						<p onclick="window.location.href='destination/2114'">אנגליה</p>
+						<p onclick="window.location.href='destination/3763'">ארצות הברית</p>
+						<p onclick="window.location.href='destination/490'">בחריין</p>
+						<p onclick="window.location.href='destination/690'">בלגיה</p>
+						<p onclick="window.location.href='destination/693'">ברזיל</p>
 					</div>
 				</div>
 			</div>
