@@ -1,199 +1,304 @@
 <template>
-    <div class="page">
-        <div class="box">
-            <div class="logo" @click="toHome">
-                <img src="~assets/images/Logo.svg" alt="">
-            </div>
-            <div class="newuser">
-                < {{ form.email }} </div>
-                    <div class="prompt">
-                        Enter your password
-                    </div>
-                    <div class="password">
-                        Password
-                    </div>
-                    <div class="input">
-                        <el-input @keyup.native.enter="handleLogin" v-model="form.password" placeholder="" show-password>
-						</el-input>
-                    </div>
-                    <!-- <div class="button">
-       <span class="text">
-         Next
-       </span>
-     </div> -->
-                    <el-button class="button" @click="handleLogin">Next</el-button>
-                    <router-link :to="`recover-password?email=${form.email}`" class="warn">
-                        Forgot your password?</router-link>
-                    </router-link>
-            </div>
-        </div>
+	<div class="page">
+		<div class="login-bg">
+			<img src="~assets/images/login-bg.jpg" />
+		</div>
+		<div class="box">
+			<div class="logo-r">
+				<div class="logo" @click="toHome">
+					<img src="~assets/images/Logo.svg" alt="">
+				</div>
+			</div>
+			<div class="newuser">
+				{{ form.email }} <i class="el-icon-arrow-right"></i>
+			</div>
+			<div class="prompt">
+				נא להזין סיסמא
+			</div>
+			<div class="tips" v-if="isforget">נא לאמת את כתובת המייל שלך והמערכת תשלח לך קישור לאיפוס הסיסמה.</div>
+
+			<div class="password">
+				<div class="flex">
+					<span @click="forget" v-if="!isforget">
+						שכחת סיסמא?
+					</span>
+				</div>
+				<p>{{!isforget? 'סיסמא*':'כתובת אימייל*'}}</p>
+				
+			</div>
+			<div class="input password" v-if="!isforget">
+				<el-input @keyup.native.enter="handleLogin" v-model="form.password" placeholder="" show-password>
+				</el-input>
+			</div>
+			<div class="input email" v-else>
+				<el-input @keyup.native.enter="handleLogin" @blur="validateFun" v-model="email"
+					placeholder="דואר אלקטרוני" />
+			</div>
+			<div class="ts" v-if="isSuccess&&isforget">{{successTips}}</div>
+			<el-button class="button" @click="handleLogin">
+				{{!isforget?'המשך':'שליחת קישור לאיפוס'}}
+			</el-button>
+		</div>
+	</div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            form: {
-                email: '',
-                password: ''
-            }
-        }
-    },
-    created() {
-        this.form.email = this.$route.query.email;
-    },
-    methods: {
-        toHome() {
-            this.$router.push({ path: '/' })
-        },
-        handleLogin() {
-            this.$store.dispatch('Login',this.form).then(async ()=>{
-                await this.$store.dispatch('GetInfo')
-                let redirect=this.$store.getters.redirect||'/';
-                this.$router.replace(redirect)
-                this.$store.commit('SET_REDIRECT','/')
-            }).catch((err)=>{
-                console.log(err);
-                this.$message.error(err)
-            })
-        },
-    },
-}
+	import {
+		findPwdSendMail
+	} from '@/api/login'
+	export default {
+		data() {
+			return {
+				form: {
+					email: '',
+					password: ''
+				},
+				email: '',
+				isforget: false,
+				isSuccess: false,
+				successTips: 'Please open your email to recover your password',
+			}
+		},
+		created() {
+			this.form.email = this.$route.query.email;
+			this.email = this.$route.query.email;
+		},
+		methods: {
+			validateFun() {
+				if (this.email.length == 0) {
+					this.isSuccess = true
+					this.successTips = 'Please Enter Your Email'
+					return false;
+				}
+			},
+			handleSendEmail() {
+				findPwdSendMail({
+					email: this.email
+				}).then((res) => {
+					this.$message({
+						message: '发送邮件成功,请注意查收',
+						type: 'success'
+					})
+				})
+			},
+			forget() {
+				this.isforget = !this.isforget
+			},
+			toHome() {
+				this.$router.push({
+					path: '/'
+				})
+			},
+			handleLogin() {
+				if (!this.isforget) {
+					this.$store.dispatch('Login', this.form).then(async () => {
+						await this.$store.dispatch('GetInfo')
+						let redirect = this.$store.getters.redirect || '/';
+						this.$router.replace(redirect)
+						this.$store.commit('SET_REDIRECT', '/')
+					}).catch((err) => {
+						console.log(err);
+						this.$message.error(err)
+					})
+				} else {
+					this.handleSendEmail()
+				}
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
-img {
-    width: 100%;
-    height: 100%;
-}
-::v-deep .el-input .el-input__clear {
-	margin-right: .16rem;
-    color: #1A1A1A;
-    font-size: .16rem;
-    cursor: pointer;
-    transition: color .2s cubic-bezier(.645,.045,.355,1);
-}
-.page {
-    min-height: 100vh;
-    background: #F5F5F5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+	.ts {
+		color: #FF3263;
+		font-size: .12rem;
+		padding: .1rem 0;
+	}
 
-.box {
-    width: 4.60rem;
-    height: 5.42rem;
-    margin: 0 auto;
+	.success {
+		color: #67C23A;
+	}
 
-    .logo {
-        width: .76rem;
+	.tips {
+		margin: 0.16rem 0;
+		color: rgba(26, 26, 26, 0.6);
+	}
 
-        img {
-            width: 100%;
-        }
-    }
+	.login-bg {
+		flex: 1;
+		height: 100vh;
+		overflow: hidden;
 
-    .newuser {
-		font-weight: 400;
-		line-height: 100%;
-		letter-spacing: -0.64px;
-        margin-top: .24rem;
-        font-size: .16rem;
-        color: rgba(26, 26, 26, 0.60);
-    }
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
 
-    .prompt {
+	img {
+		width: 100%;
+		height: 100%;
+	}
+
+	::v-deep .el-input .el-input__clear {
+		margin-right: .16rem;
 		color: #1A1A1A;
-		font-weight: 400;
-		letter-spacing: -1.28px;
-		margin-top: .24rem;
-		font-size: .32rem;
-    }
+		font-size: .16rem;
+		cursor: pointer;
+		transition: color .2s cubic-bezier(.645, .045, .355, 1);
+	}
 
-    .password {
-		letter-spacing: -0.56px;
-        margin-top: .24rem;
-        color: #1A1A1A;
-        font-size: .14rem;
-        font-weight: 500;
-    }
+	.password ::v-deep .el-input__inner {
+		direction: rtl;
+	}
 
-    .input {
-        margin-top: .08rem;
+	.email ::v-deep .el-input__inner {
+		text-align: right;
+	}
 
-        ::v-deep .el-input__inner {
-			color: rgba(26, 26, 26, 0.40);
-			font-size: .16rem;
+	::v-deep .el-input__suffix {
+		left: 15px;
+		right: auto;
+	}
+
+	.page {
+		display: flex;
+	}
+
+	.logo-r {
+		text-align: right;
+	}
+
+	.box {
+		width: 5.12rem;
+		text-align: right;
+		padding: 0.2rem 0.32rem 0 0.32rem;
+		height: 100vh;
+		position: relative;
+
+		.logo {
+			width: .76rem;
+			display: inline-block;
+
+			img {
+				width: 100%;
+			}
+		}
+
+		.newuser {
 			font-weight: 400;
+			line-height: 100%;
+			letter-spacing: -0.64px;
+			margin-top: 1.40rem;
+			font-size: .16rem;
+			color: rgba(26, 26, 26, 0.6);
+
+			.el-icon-arrow-right {
+				font-weight: bold;
+				font-size: 12px;
+				color: rgba(26, 26, 26, 0.6);
+			}
+		}
+
+		.prompt {
+			color: #1A1A1A;
+			font-weight: 400;
+			letter-spacing: -1.28px;
+			margin-top: .24rem;
+			font-size: .32rem;
+		}
+
+		.password {
+			margin-top: .24rem;
+			color: #1A1A1A;
+			font-size: .14rem;
+			display: flex;
+			align-items: center;
+
+			div {
+				flex: 1;
+				cursor: pointer;
+				text-decoration: underline;
+				text-align: left;
+				color: rgba(52, 81, 255, 1);
+			}
+
+		}
+
+		.input {
+			margin-top: .08rem;
+
+			::v-deep .el-input__inner {
+				color: rgba(26, 26, 26, 0.40);
+				font-size: .16rem;
+				font-weight: 400;
+				width: 4.48rem;
+				height: .48rem;
+			}
+
+			// .el-icon-eye {
+			//   background: url('~assets/images/icon-eye.png') center center no-repeat;
+			//   background-size: 16px;
+			// }
+		}
+
+
+		.button {
+			border-radius: 8px;
+			height: .48rem;
+			margin-bottom: .16rem;
+			background: #FF3263;
+			margin-top: .24rem;
 			width: 4.48rem;
-            height: .48rem;
-        }
+			color: #FEFEFE;
+			// .text {
+			//   color: #FEFEFE;
+			//   font-size: .14rem;
+			//   line-height: .48rem;
+			// }
+		}
 
-        // .el-icon-eye {
-        //   background: url('~assets/images/icon-eye.png') center center no-repeat;
-        //   background-size: 16px;
-        // }
-    }
+		.warn {
+			margin-top: .24rem;
+			color: #FF3263;
+			font-size: .14rem;
+			text-decoration: underline;
+		}
 
+		//   .warn:hover{
+		//     color: #FF3263;
+		//   }
+	}
 
-    .button {
-        border-radius: 8px;
-        height: .48rem;
-        margin-bottom: .16rem;
-        background: #FF3263;
-        margin-top: .24rem;
-        width: 4.48rem;
-        color: #FEFEFE;
-        // .text {
-        //   color: #FEFEFE;
-        //   font-size: .14rem;
-        //   line-height: .48rem;
-        // }
-    }
+	.mobile {
+		.page {
+			align-items: flex-start;
+		}
 
-    .warn {
-        margin-top: .24rem;
-        color: #FF3263;
-        font-size: .14rem;
-        text-decoration: underline;
-    }
+		.box {
+			width: 3.36rem;
+			height: 5.42rem;
 
-    //   .warn:hover{
-    //     color: #FF3263;
-    //   }
-}
-
-.mobile{
-  .page{
-    align-items: flex-start;
-  }
-
-  .box {
-    width: 3.36rem;
-    height: 5.42rem;
-
-    .input{
-      ::v-deep .el-input__inner{
-        width: 100%;
-      }
-    }
+			.input {
+				::v-deep .el-input__inner {
+					width: 100%;
+				}
+			}
 
 
 
-    .logo {
-      padding-top: .64rem;
-      width: .76rem;
-    }
+			.logo {
+				padding-top: .64rem;
+				width: .76rem;
+			}
 
-    .prompt{
-      font-size: .24rem;
-    }
+			.prompt {
+				font-size: .24rem;
+			}
 
-    .button {
-      width: 3.36rem;
-    }
-  }
-}
-
+			.button {
+				width: 3.36rem;
+			}
+		}
+	}
 </style>

@@ -161,10 +161,10 @@
 										</div>
 									</div>
 									<div class="img">
-										<el-image style="width: 100%; height: 100%" :src="item.images[0]"
+										<el-image style="width: 100%; height: 100%" :src="item.images?item.images[0]:''"
 											:preview-src-list="item.images">
 										</el-image>
-										<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
+										<p v-if="item.images>0">תמונות {{item.images.length}}<i
 												class="el-icon-view"></i></p>
 									</div>
 								</div>

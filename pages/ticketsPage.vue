@@ -10,7 +10,7 @@
 						<el-tab-pane label="היסטוריה" name="2"></el-tab-pane>
 						<el-tab-pane label="האירועים הקרובים" name="3"></el-tab-pane>
 					</el-tabs>
-					<div class="list">
+					<!-- <div class="list">
 						<div class="li">
 							<div class="info">
 								<div class="name">
@@ -36,7 +36,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<!-- 无数据 -->
 					<div class="no-data" v-if="activeName==3">
 						<img class="icon" src="~assets/images/icon/Group 1326.png" alt="">

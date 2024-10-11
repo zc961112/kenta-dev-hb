@@ -1,6 +1,9 @@
 <template>
-	<page-views-destination-mobile v-if="isMobile" :hid="hid" :query="searchQuery" />
-	<page-views-destination-web v-else :hid="hid" :query="searchQuery" />
+	<!-- <page-views-destination-mobile v-if="isMobile" :hid="hid" :query="searchQuery" /> -->
+	<page-views-destination-web :hid="hid" :query="searchQuery" />
+
+	<!-- <page-views-destination-mobile v-if="isMobile" :hid="hid" :query="searchQuery" />
+	<page-views-destination-web v-else :hid="hid" :query="searchQuery" /> -->
 </template>
 
 <script>

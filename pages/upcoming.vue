@@ -10,7 +10,7 @@
 						<el-tab-pane label="היסטוריה" name="2"></el-tab-pane>
 						<el-tab-pane label="החופשות הבאות" name="3"></el-tab-pane>
 					</el-tabs>
-					<div class="list">
+					<!-- <div class="list">
 						<div class="li">
 
 							<div class="laber-top" v-if="activeName==1">ההזמנה בוטלה<i class="el-icon-check"></i></div>
@@ -93,7 +93,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<!-- 无数据 -->
 					<div class="no-data" v-if="activeName==3">
 						<img class="icon" src="~assets/images/icon/Asset 71 1.png" alt="">

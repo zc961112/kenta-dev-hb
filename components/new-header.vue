@@ -70,10 +70,10 @@
 					<el-menu-item index="/upcoming">
 						<span>חופשות</span>
 					</el-menu-item>
-					<el-menu-item index="1">
+					<el-menu-item index="/ticketsPage">
 						<span>כרטיסים</span>
 					</el-menu-item>
-					<el-menu-item index="2">
+					<el-menu-item index="/chatPage">
 						<span>הודעות</span>
 					</el-menu-item>
 				</el-menu>
