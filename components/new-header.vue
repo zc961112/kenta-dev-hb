@@ -78,7 +78,7 @@
 					</el-menu-item>
 				</el-menu>
 				<div class="menu-line"></div>
-				<div class="menu-li">
+				<div :style="{color:$route.path=='/userSetting'?'rgba(255, 50, 99, 1)':''}" class="menu-li" @click="toUser">
 					איזור אישי
 				</div>
 				<div class="menu-li" @click="logOut">
@@ -117,6 +117,11 @@
 			window.addEventListener('scroll', this.listenerScroll, true)
 		},
 		methods: {
+			toUser() {
+				this.$router.push({
+					path: '/userSetting'
+				})
+			},
 			logOut() {
 				let that = this
 				this.$confirm('האם אתה בטוח שאתה מתנתק?', 'רֶמֶז', {

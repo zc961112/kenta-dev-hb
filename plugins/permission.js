@@ -19,9 +19,6 @@ const whiteList = [
 	'/eventlPage',
 	'/hotelPage',
 	'/checkoutPage',
-	'/upcoming',
-	'/ticketsPage',
-	'/chatPage',
 	// -----新增------
 
 	'/', '/index', '/login', '/loginbypass', '/password', '/privacy-policy', '/recover-password',
