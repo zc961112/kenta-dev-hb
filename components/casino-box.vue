@@ -283,7 +283,7 @@
 					padding-left: 0.16rem;
 
 					h3 {
-						width: 261px;
+						//width: 261px;
 						font-size: 0.16rem;
 						font-weight: 600;
 						text-align: right;

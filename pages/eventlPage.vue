@@ -309,6 +309,7 @@
 						tournament_name: item.tournament_name,
 						season: item.season,
 						city:item.city,
+						venue_id:item.venue_id
 					}
 				})
 			},

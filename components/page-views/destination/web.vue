@@ -51,7 +51,7 @@
 						<module-price-total :room="selectedRoom" :search-query="searchQuery" class="pac-button"
 							@next="openBookingModal" />
 					</template> -->
-					<casino-box :adults="adults" :dayTime="dayTime" v-for="item in cityList" :key="item.id" class="pac-item" :casino="item" :parent="form"
+					<casino-box :adults="adults" :dayTime="dayTime" v-for="(item,index) in cityList" :key="index" class="pac-item" :casino="item" :parent="form"
 						@enter="showMapPopper(item)" @leave="hideMapPopper(item)" @click="showDetail(item)" />
 				</div>
 			</div>

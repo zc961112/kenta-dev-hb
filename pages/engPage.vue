@@ -1,5 +1,5 @@
 <template>
-	<div class="page">
+	<div class="page theme-xs2event">
 		<new-header />
 		<div class="banner">
 			<div class="info">
@@ -19,7 +19,7 @@
 					<img src="~assets/images/icon/icon2.png" />
 					<span>{{$route.query.event_name}}{{$route.query.city}}</span>
 					<img src="~assets/images/icon/icon3.png" />
-					<span style="direction: rtl;">{{$route.query.season}}{{$route.query.tournament_name}}  </span>
+					<span style="direction: rtl;">{{$route.query.season}}{{$route.query.tournament_name}} </span>
 					<!-- <span class="Promo">Exclusive Promo</span>
 						<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper Casino</span> -->
 				</div>
@@ -32,7 +32,8 @@
 					</p>
 					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 				</div>
-				<div class="item-li" v-for="(item,index) in list" :key="index">
+				<div @mouseover="mouseover(index,item.category_id)" @mouseout="mouseout(item.category_id)"
+					:class="[active==index?'active':'']" class="item-li" v-for="(item,index) in list" :key="index">
 					<div class="text">
 						<img src="~assets/images/icon/icon7.png" />
 						<div class="info">
@@ -45,11 +46,11 @@
 						</div>
 					</div>
 					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer">Order -
-						€{{item.net_rate}}</router-link>
+						€{{item.net_rate/100}}</router-link>
 				</div>
 			</div>
 			<div class="right">
-				<img src="~assets/images/pm.png" />
+				<div id="venue-map"></div>
 			</div>
 		</div>
 		<new-footer />
@@ -60,29 +61,91 @@
 	import {
 		tickets
 	} from '@/api/kentaHb'
+	import * as d3 from "d3";
 	export default {
 		name: 'engPage',
 		data() {
 			return {
-				list: []
+				list: [],
+				svgUrl: '',
+				svg: '',
+				active: -1,
 			}
 		},
-		created() {
+		async created() {
 			this.getInfo()
+
+
+
 		},
 		methods: {
-			getInfo() {
+			// 鼠标移上去
+			mouseover(index, category_id) {
+				this.active = index
+				const venueMap = document.getElementById('venue-map');
+				var elements = venueMap.querySelectorAll(`.${CSS.escape(category_id)}`);
+				elements.forEach(function(element) {
+					element.classList.add('active');
+				})
+			},
+			// 鼠标移除
+			mouseout(category_id) {
+				this.active = -1
+				const venueMap = document.getElementById('venue-map');
+				var elements = venueMap.querySelectorAll(`.${CSS.escape(category_id)}`);
+				elements.forEach(function(element) {
+					element.classList.remove('active');
+				})
+			},
+			async getInfo() {
 				tickets({
 					event_id: this.$route.query.event_id
 				}).then(res => {
-					console.log(res,"数据")
 					this.list = res.tickets
+					this.getmap(res)
 				})
+			},
+			async getmap(res) {
+				let that = this
+				// svg 加载
+				let url = 'https://cdn.xs2event.com/venues/' + this.$route.query.venue_id + '.svg'
+				let svg = (await d3.xml(url)).documentElement;
+				document.getElementById("venue-map").append(svg);
+				// 页面一加载满足查找票是否在svg 存在 
+				res.tickets.forEach(obj => {
+					var elements = document.querySelectorAll(`.${CSS.escape(obj.category_id)}`);
+					elements.forEach(function(element) {
+						element.classList.add('nosale');
+					})
+				})
+				var nosaleElements = document.querySelectorAll('.nosale')
+				nosaleElements.forEach(Elements => {
+					// 监听svg鼠标移入
+					Elements.addEventListener('mouseover', function(e) {
+						let ElementList = e.toElement.classList
+						if (ElementList.length > 0) {
+							that.list.forEach((item, index) => {
+								ElementList.forEach(elm => {
+									if (item.category_id == elm) {
+										that.active = index
+										Elements.classList.add("active")
+									}
+								})
+							})
+						}
+					})
+					// 监听svg鼠标移出
+					Elements.addEventListener('mouseout', function(e) {
+						that.active = -1
+						Elements.classList.remove("active")
+					})
+				})
+
 			}
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 	.content {
 		padding: 0.5rem 0 0.35rem 0;
 		display: flex;
@@ -90,6 +153,10 @@
 		width: 1440px;
 		margin: 0 auto 0.8rem auto;
 		direction: rtl;
+
+		.active {
+			border-color: rgba(255, 50, 99, 1) !important;
+		}
 
 		.item-li {
 			margin-top: 0.15rem;
