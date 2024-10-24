@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="head warp">
-			<div class="logo">
+			<div class="logo" @click="toHome">
 				<img src="~assets/images/Logo.svg" alt='logo' />
 			</div>
 			<div class="celta">
@@ -45,8 +45,17 @@
 				type: Number,
 				default: 1
 			}
-		}
+		},
+		methods: {
+
+toHome() {
+		this.$router.push({
+			path: '/'
+		})
 	}
+}
+	}
+
 </script>
 
 <style lang="scss" scoped>

@@ -59,8 +59,8 @@
 							</div>
 						</div>
 						<div class="pages">
-							<div v-if="hidePage" @click="next">显示25条更多</div>
-							<div v-if="hideAll" @click="showAll">显示所有{{total_size}}条结果</div>
+							<div v-if="hidePage" @click="next">הצג עוד 25</div>
+							<div v-if="hideAll" @click="showAll">הצג הכל {{total_size}} תוצאות</div>
 						</div>
 					</div>
 				</div>
