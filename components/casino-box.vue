@@ -6,7 +6,7 @@
 
 		<div class="ccb-right">
 			<div class="title">
-				<div class="index">9</div>
+				<div class="index">{{casino.rating}}</div>
 				<div class="name">
 					<h3>{{casino.name}}</h3>
 					<p>{{casino.address}}</p>
@@ -15,15 +15,14 @@
 			<div class="see">
 				<div class="number">
 					<div class="top">
-						<span></span>
-						<span class="current"></span>
-						<span class="current"></span>
-						<span class="current"></span>
-						<span class="current"></span>
-						<img src="~assets/images/icon/image 1.png" />
+                    <!-- 填充空白的位置 -->
+                    <span v-for="j in Math.max(0, 5 - Math.floor(casino.rating / 2))" :key="'fraction-' + j"></span>
+                    <!-- 显示当前的分数 -->
+                    <span v-for="i in Math.min(5, Math.floor(casino.rating / 2))" :key="'current-' + i" class="current"></span>
+                    <img src="~assets/images/icon/image 1.png" />
 					</div>
 					<div class="text">
-						14,256 ביקורות
+						0 ביקורות
 					</div>
 				</div>
 				<div class="xx">
