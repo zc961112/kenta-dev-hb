@@ -410,6 +410,8 @@
 		// font-family: Rubik;
 		display: flex;
 		align-items: center;
+		justify-content: flex-end;
+		direction: rtl;
 
 		font-family: Rubik;
 		font-size: 14px;

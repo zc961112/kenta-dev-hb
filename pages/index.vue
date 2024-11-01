@@ -42,7 +42,8 @@
 			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
 				<div class="carousel-wrapper">
 					<div class="carousel">
-						<router-link :to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }" v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
+						<router-link :to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
+							v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
 							<img :src="item.src" />
 							<div class="info">
 								<h4>{{ item.title }} {{item.tournament_name}}</h4>
@@ -425,8 +426,11 @@
 						city: this.cityval
 					}).then(res => {
 						this.$router.push({
-							path: ("/destination/" + res[0].id)
+							path: ("/destination/" + this.cityval)
 						})
+						// this.$router.push({
+						// 	path: ("/destination/" + res[0].id)
+						// })
 					})
 				}
 			},
@@ -440,7 +444,7 @@
 
 			handleSelect(item) {
 				this.$router.push({
-					path: ("/destination/" + item.id)
+					path: ("/destination/" + item.city)
 				})
 			},
 			querySearch(queryString, cb) {

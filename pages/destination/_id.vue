@@ -12,7 +12,10 @@
 	import {
 		updateSessionQuery
 	} from '@/utils/casino'
-
+	import {
+		getIndexData,
+		getIdByName
+	} from '@/api/kentaHb'
 	export default {
 		name: 'DestinationPage',
 		components: {
@@ -43,8 +46,8 @@
 			}
 		},
 		mounted() {
+			this.getid()
 			this.hid = sessionStorage.getItem('hid') || ''
-			this.searchQuery.destinationId = this.$route.params.id
 			this.searchQuery.destinationName = this.$route.query.destinationName || ''
 			this.searchQuery.dateType = parseInt(this.$route.query.dateType || 0)
 			this.searchQuery.date = this.$route.query.date
@@ -57,6 +60,15 @@
 			}
 			updateSessionQuery(this.searchQuery)
 			sessionStorage.removeItem('hid')
+		},
+		methods: {
+			getid() {
+				getIdByName({
+					city: this.$route.params.id
+				}).then(res => {
+					this.searchQuery.destinationId = res[0].id
+				})
+			}
 		}
 	}
 </script>

@@ -13,7 +13,7 @@
 				<div class="pac-right-top">
 					<div class="pac-search">
 						<div class="search-btn" @click="citysearch"></div>
-						<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search" class="pac-input"
+						<el-autocomplete @keyup.enter.native="citysearch" suffix-icon="el-icon-search" class="pac-input"
 							v-model="searchQuery.destinationName" :fetch-suggestions="querySearch"
 							@focus="searchQuery.destinationName=''" placeholder="לאס וגאס, ארה״ב"
 							@select="handleSelect">

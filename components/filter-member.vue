@@ -38,25 +38,25 @@
 					Children: 8
 				},
 				guestList: [{
-						label: 'Adults',
-						tips: 'Age 13+',
+						label: 'מבוגרים',
+						tips: 'גילאים +18',
 						value: 1
 					},
 					{
-						label: 'Children',
-						tips: 'Age 1 to 12',
-						value: 0
+						label: 'ילדים',
+						tips: 'גילאים 18-',
+						value: 1
 					},
-					{
-						label: 'Infants',
-						tips: 'Under 1',
-						value: 0,
-					},
-					{
-						label: 'Pets',
-						tips: 'An extra free may apply',
-						value: 0
-					}
+					// {
+					// 	label: 'Infants',
+					// 	tips: 'Under 1',
+					// 	value: 0,
+					// },
+					// {
+					// 	label: 'Pets',
+					// 	tips: 'An extra free may apply',
+					// 	value: 0
+					// }
 				]
 			}
 		},
@@ -77,28 +77,28 @@
 					let infantText = '';
 					let petText = '';
 					let gutstNum = this.guestList[0].value + this.guestList[1].value;
-					let infantNum = this.guestList[2].value;
-					let petNum = this.guestList[3].value;
-					if (infantNum > 0 || petNum > 0) {
-						this.$set(this.guestList[0], 'min', 1);
-					} else {
-						this.$set(this.guestList[0], 'min', 0);
-					}
+					// let infantNum = this.guestList[2].value;
+					// let petNum = this.guestList[3].value;
+					// if (infantNum > 0 || petNum > 0) {
+					// 	this.$set(this.guestList[0], 'min', 1);
+					// } else {
+					// 	this.$set(this.guestList[0], 'min', 0);
+					// }
 					if (gutstNum == 1) {
 						gustText += gutstNum + ' guest'
 					} else if (gutstNum > 0) {
 						gustText += gutstNum + ' guests'
 					}
-					if (infantNum == 1) {
-						infantText += ' ,' + infantNum + ' infant'
-					} else if (infantNum > 1) {
-						infantText += ' , ' + infantNum + ' infants'
-					}
-					if (petNum == 1) {
-						petText += ' ,' + petNum + ' pet'
-					} else if (petNum > 1) {
-						petText += ' , ' + petNum + ' pets'
-					}
+					// if (infantNum == 1) {
+					// 	infantText += ' ,' + infantNum + ' infant'
+					// } else if (infantNum > 1) {
+					// 	infantText += ' , ' + infantNum + ' infants'
+					// }
+					// if (petNum == 1) {
+					// 	petText += ' ,' + petNum + ' pet'
+					// } else if (petNum > 1) {
+					// 	petText += ' , ' + petNum + ' pets'
+					// }
 					return `${gustText}${infantText}${petText}`
 				},
 				set() {}
@@ -106,8 +106,8 @@
 		},
 		methods: {
 			validPersonCount() {
-				const aValue = this.guestList.find(g => g.label === 'Adults').value
-				const cValue = this.guestList.find(g => g.label === 'Children').value
+				const aValue = this.guestList.find(g => g.label === 'מבוגרים').value
+				const cValue = this.guestList.find(g => g.label === 'ילדים').value
 				this.limitMap.Adults = Math.min(6, 8 - cValue)
 				this.limitMap.Children = 8 - aValue
 			},
@@ -131,6 +131,9 @@
 	.filter-member-point::v-deep .el-input__inner {
 		text-align: right;
 		padding:0 32px;
+	}
+	.item{
+		direction: rtl;
 	}
 
 	.filter-member-point {

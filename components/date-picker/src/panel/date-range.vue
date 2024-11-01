@@ -44,36 +44,13 @@
 						</span>
 					</span>
 				</div>
-				<div class="el-picker-panel__content el-date-range-picker__content is-left">
-					<div class="el-date-range-picker__header">
-						<!-- <button
-                type="button"
-                @click="leftPrevYear"
-                class="el-picker-panel__icon-btn el-icon-d-arrow-left"></button> -->
-						<button :style="{fontWeight:itemtypes?'600':''}" type="button" @click="leftPrevMonth"
-							class="el-picker-panel__icon-btn el-icon-back"></button>
-						<button type="button" @click="leftNextYear" v-if="unlinkPanels" :disabled="!enableYearArrow"
-							:class="{ 'is-disabled': !enableYearArrow }"
-							class="el-picker-panel__icon-btn el-icon-d-arrow-right"></button>
-						<button type="button" @click="leftNextMonth" v-if="unlinkPanels" :disabled="!enableMonthArrow"
-							:class="{ 'is-disabled': !enableMonthArrow }"
-							class="el-picker-panel__icon-btn el-icon-arrow-right"></button>
-
-						<div :class="[itemtypes?'flex':'']">{{ leftLabel }}</div>
-
-						<button :style="{fontWeight:itemtypes?'600':''}" v-if="itemtypes" type="button" @click="rightNextMonth"
-							class="el-picker-panel__icon-btn el-icon-right"></button>
-					</div>
-					<date-table selection-mode="range" :date="leftDate" :default-value="defaultValue" :min-date="minDate"
-						:max-date="maxDate" :range-state="rangeState" :disabled-date="disabledDate" :cell-class-name="cellClassName"
-						@changerange="handleChangeRange" :first-day-of-week="firstDayOfWeek" @pick="handleRangePick">
-					</date-table>
-				</div>
-				<div class="el-picker-panel__content el-date-range-picker__content is-right" v-if="!itemtypes">
-					<div class="el-date-range-picker__header">
+				
+				<div style="margin-right: 0.8rem;" class="el-picker-panel__content el-date-range-picker__content is-right" v-if="!itemtypes">
+					<div class="el-date-range-picker__header" style="direction: rtl;">
 						<button type="button" @click="rightPrevYear" v-if="unlinkPanels" :disabled="!enableYearArrow"
 							:class="{ 'is-disabled': !enableYearArrow }"
 							class="el-picker-panel__icon-btn el-icon-d-arrow-left"></button>
+							
 						<button type="button" @click="rightPrevMonth" v-if="unlinkPanels" :disabled="!enableMonthArrow"
 							:class="{ 'is-disabled': !enableMonthArrow }"
 							class="el-picker-panel__icon-btn el-icon-arrow-left"></button>
@@ -81,10 +58,38 @@
                 type="button"
                 @click="rightNextYear"
                 class="el-picker-panel__icon-btn el-icon-d-arrow-right"></button> -->
-						<button type="button" @click="rightNextMonth" class="el-picker-panel__icon-btn el-icon-right"></button>
+						<button type="button" :style="{fontWeight:itemtypes?'600':'',transform: 'rotate(180deg)'}" @click="rightNextMonth" class="el-picker-panel__icon-btn el-icon-right"></button>
 						<div>{{ rightLabel }}</div>
 					</div>
 					<date-table selection-mode="range" :date="rightDate" :default-value="defaultValue" :min-date="minDate"
+						:max-date="maxDate" :range-state="rangeState" :disabled-date="disabledDate" :cell-class-name="cellClassName"
+						@changerange="handleChangeRange" :first-day-of-week="firstDayOfWeek" @pick="handleRangePick">
+					</date-table>
+				</div>
+				
+				
+				<div class="el-picker-panel__content el-date-range-picker__content is-left" style="margin-right: 0;">
+					<div class="el-date-range-picker__header" style="direction: rtl;">
+						<!-- <button
+				type="button"
+				@click="leftPrevYear"
+				class="el-picker-panel__icon-btn el-icon-d-arrow-left"></button> -->
+						<button :style="{fontWeight:itemtypes?'600':'',transform: 'rotate(180deg)'}" type="button" @click="leftPrevMonth"
+							class="el-picker-panel__icon-btn el-icon-back"></button>
+							
+						<button type="button" @click="leftNextYear" v-if="unlinkPanels" :disabled="!enableYearArrow"
+							:class="{ 'is-disabled': !enableYearArrow }"
+							class="el-picker-panel__icon-btn el-icon-d-arrow-right"></button>
+						<button type="button" @click="leftNextMonth" v-if="unlinkPanels" :disabled="!enableMonthArrow"
+							:class="{ 'is-disabled': !enableMonthArrow }"
+							class="el-picker-panel__icon-btn el-icon-arrow-right"></button>
+				
+						<div :class="[itemtypes?'flex':'']">{{ leftLabel }}</div>
+				
+						<button :style="{fontWeight:itemtypes?'600':''}" v-if="itemtypes" type="button" @click="rightNextMonth"
+							class="el-picker-panel__icon-btn el-icon-right"></button>
+					</div>
+					<date-table selection-mode="range" :date="leftDate" :default-value="defaultValue" :min-date="minDate"
 						:max-date="maxDate" :range-state="rangeState" :disabled-date="disabledDate" :cell-class-name="cellClassName"
 						@changerange="handleChangeRange" :first-day-of-week="firstDayOfWeek" @pick="handleRangePick">
 					</date-table>

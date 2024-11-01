@@ -15,11 +15,12 @@
 			<div class="see">
 				<div class="number">
 					<div class="top">
-                    <!-- 填充空白的位置 -->
-                    <span v-for="j in Math.max(0, 5 - Math.floor(casino.rating / 2))" :key="'fraction-' + j"></span>
-                    <!-- 显示当前的分数 -->
-                    <span v-for="i in Math.min(5, Math.floor(casino.rating / 2))" :key="'current-' + i" class="current"></span>
-                    <img src="~assets/images/icon/image 1.png" />
+						<!-- 填充空白的位置 -->
+						<span v-for="j in Math.max(0, 5 - Math.floor(casino.rating / 2))" :key="'fraction-' + j"></span>
+						<!-- 显示当前的分数 -->
+						<span v-for="i in Math.min(5, Math.floor(casino.rating / 2))" :key="'current-' + i"
+							class="current"></span>
+						<img src="~assets/images/icon/image 1.png" />
 					</div>
 					<div class="text">
 						0 ביקורות
@@ -36,7 +37,8 @@
 			<div class="price">
 				<div class="num">₪ {{casino.daily_prices?casino.daily_prices[0]:'לא זמין'}}</div>
 				<div class="text">
-					<p>עבור 2 לילות, 2 אורחים</p>
+					<p style="direction: rtl; text-align: left;"> עבור {{casino.date}} לילות , {{casino.people}} אורחים
+					</p>
 					<div class="laber">
 						ביטול ללא עלות<img src="~assets/images/icon/secure-shield.png" />
 					</div>

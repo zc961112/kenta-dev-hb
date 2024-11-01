@@ -69,7 +69,15 @@ export default {
 			adults: '',
 			ids: [],
 			priceArr: [],
-			loading: true
+			loading: true,
+			modifyData: {
+				checkin: '',
+				checkout: '',
+				region_id: "",
+				ids: "",
+				adults: 1,
+				children: [12]
+			}
 		}
 	},
 	mounted() {
@@ -78,17 +86,26 @@ export default {
 	methods: {
 		// 筛选价格
 		getprice(dayTime) {
-			this.loading =true
-			let data = {
-				checkin: '',
-				checkout: '',
-				region_id: this.id,
-				ids: this.ids
-			}
+			this.loading = true
+			this.modifyData.region_id = this.id
+			this.modifyData.ids = this.ids
+
 			if (dayTime) {
-				data.checkin = (dayTime.split("/")[0])
-				data.checkout = (dayTime.split("/")[1])
+				let checkin = (dayTime.split("/")[0]).split("-")
+				let checkinTime = checkin[2] + '-' +
+					checkin[1] + '-' + checkin[0]
+
+				let checkout = (dayTime.split("/")[1]).split("-")
+				let checkoutTime = checkout[2] + '-' +
+					checkout[1] + '-' + checkout[0]
+
+				this.modifyData.checkin = checkinTime
+				this.modifyData.checkout = checkoutTime
 			}
+			this.replacePrice()
+		},
+		// 替换价格
+		replacePrice() {
 			// 清空标记点
 			if (this.markerList.length > 0) {
 				for (var i = 0; i < this.markerList.length; i++) {
@@ -96,7 +113,7 @@ export default {
 				}
 				this.markerList = []
 			}
-			updateHotelsInfo(data).then(res => {
+			updateHotelsInfo(this.modifyData).then(res => {
 				let list = res
 				list.forEach(item => {
 					this.cityList.forEach(i => {
@@ -112,7 +129,7 @@ export default {
 				})
 				this.initMapMarkers();
 				this.loading = false
-			}).catch(err=>{
+			}).catch(err => {
 				this.loading = false
 			})
 		},
@@ -123,13 +140,17 @@ export default {
 			}
 			getIdByName(data).then(res => {
 				this.$router.push({
-					path: ("/destination/" + res[0].id)
+					path: ("/destination/" + this.searchQuery.destinationName)
 				})
+
+				// this.$router.push({
+				// 	path: ("/destination/" + res[0].id)
+				// })
 			})
 		},
 		handleSelect(item) {
 			this.$router.push({
-				path: ("/destination/" + item.id)
+				path: ("/destination/" + item.city)
 			})
 		},
 		querySearch(queryString, cb) {
@@ -308,7 +329,7 @@ export default {
 
 							const el = document.createElement('div')
 							el.id = 'marker_' + (item.id || '-')
-							el.innerHTML = '€' + (item.daily_prices != null ? item.daily_prices[0] :
+							el.innerHTML = '₪' + (item.daily_prices != null ? item.daily_prices[0] :
 								'לא זמין')
 							el.className = 'map-area-marker'
 							const marker = new mapboxgl.Marker(el)
@@ -442,6 +463,7 @@ export default {
 			updateSessionQuery(this.searchQuery)
 		},
 		updateStartEndTime(value) {
+			console.log(value)
 			this.searchQuery.date = value
 			updateSessionQuery(this.searchQuery)
 		},
@@ -449,6 +471,20 @@ export default {
 			this.dayRageIndex = value
 		},
 		changeGuests(data) {
+			this.loading = true
+			this.modifyData.adults = data[0].value
+			// 获取未成年人
+			let children = []
+			if (data[1].value > 0) {
+				for (let i = 0; i < data[1].value; i++) {
+					let data = 12
+					children.push(data)
+				}
+			}
+			this.modifyData.children = children.length>0?children:[12],
+			this.replacePrice()
+			// this.replacePrice()
+			// console.log(data)
 			// data.forEach(item => {
 			// 	const index = this.searchQuery.guestList.findIndex(g => g.label === item.label)
 			// 	this.searchQuery.guestList[index].value = item.value
