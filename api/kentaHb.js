@@ -41,10 +41,3 @@ export const tickets = (params) => {
 		data: params
 	})
 }
-export const gclogin = (params) => {
-	return request({
-		url: '/kenta-hb/login',
-		method: 'post',
-		data: params
-	})
-}

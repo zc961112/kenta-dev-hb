@@ -8,7 +8,7 @@
 				<img class="logo" @click="toHome" src="~assets/images/logo.png" />
 				<div class="login-box">
 					<div class="title">התחברות</div>
-					<div class="item-li" @click="toLogin">
+					<div class="item-li">
 						<img class="jiant" src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
 						<div class="flex"></div>
 						<div class="name">המשיכו עם גוגל</div>
@@ -52,9 +52,6 @@
 	import {
 		getMail
 	} from '@/api/login'
-	import {
-		gclogin
-	} from '@/api/kentaHb'
 	export default {
 
 		data() {
@@ -77,9 +74,6 @@
 			}
 		},
 		methods: {
-			toLogin() {
-				window.open("https://admin.kenta.travel/prod-api/kenta-hb/login", "_self")
-			},
 			toHome() {
 				this.$router.push({
 					path: '/'

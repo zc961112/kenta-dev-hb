@@ -248,16 +248,7 @@
 				dayTime: '',
 				defaultTime: '',
 				list: [],
-				loading: true,
-				
-				modifyData: {
-					checkin: '',
-					checkout: '',
-					hid: "",
-					other: {},
-					adults: 1,
-					children: [12]
-				}
+				loading: true
 			}
 		},
 		mounted() {
@@ -280,20 +271,9 @@
 			window.removeEventListener('scroll', this.handleScroll);
 		},
 		methods: {
-			changeGuests(data) {
-				console.log(data)
-				this.loading = true
-				this.modifyData.adults = data[0].value
-				// 获取未成年人
-				let children = []
-				if (data[1].value > 0) {
-					for (let i = 0; i < data[1].value; i++) {
-						let data = 12
-						children.push(data)
-					}
-				}
-				this.modifyData.children = children.length>0?children:[12],
-				this.getDateils()
+			changeGuests(e) {
+				this.list = e
+				this.getHotel()
 			},
 			// 筛选时间
 			RangeTime(e) {
@@ -313,23 +293,25 @@
 				this.pricechSticky = window.scrollY >= this.priceOffset;
 			},
 			getHotel() {
-				this.modifyData.hid =  this.$route.query.id
-				if (this.dayTime) {
-					let checkin = (this.dayTime.split("/")[0]).split("-")
-					let checkinTime = checkin[2] + '-' +
-						checkin[1] + '-' + checkin[0]
-				
-					let checkout = (this.dayTime.split("/")[1]).split("-")
-					let checkoutTime = checkout[2] + '-' +
-						checkout[1] + '-' + checkout[0]
-				
-					this.modifyData.checkin = checkinTime
-					this.modifyData.checkout = checkoutTime
-					this.getDateils()
+				let data = {
+					hid: this.$route.query.id,
+					checkin: "",
+					checkout: "",
+					other: {},
+					// children: ""
 				}
-			},
-			getDateils(){
-				getHotelInfo(this.modifyData).then(res => {
+				if (this.list.length > 0) {
+					this.list.forEach(item => {
+						if (item.label == 'Adults') {
+							data.adults = item.value
+						}
+					})
+				}
+				if (this.dayTime) {
+					data.checkin = (this.dayTime.split("/")[0])
+					data.checkout = (this.dayTime.split("/")[1])
+				}
+				getHotelInfo(data).then(res => {
 					let arr = res.data.hotels[0].rates
 					this.hotelslist = []
 					this.other = res.data.other
@@ -347,7 +329,7 @@
 							})
 							index = this.hotelslist.length - 1
 						}
-				
+
 						this.hotelslist[index].children.push({
 							allotment: element.allotment,
 							daily_prices: element.daily_prices[0]
