@@ -8,7 +8,7 @@
 				<img class="logo" @click="toHome" src="~assets/images/logo.png" />
 				<div class="login-box">
 					<div class="title">התחברות</div>
-					<div class="item-li">
+					<div class="item-li" @click="toLogin">
 						<img class="jiant" src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
 						<div class="flex"></div>
 						<div class="name">המשיכו עם גוגל</div>
@@ -52,6 +52,9 @@
 	import {
 		getMail
 	} from '@/api/login'
+	import {
+		gclogin
+	} from '@/api/kentaHb'
 	export default {
 
 		data() {
@@ -63,17 +66,20 @@
 			}
 		},
 		mounted() {
-			if (google) {
-				this.client = google.accounts.oauth2.initCodeClient({
-					client_id: '16800385999-8c2rie3crqe9npuou97ubripn199cr4a.apps.googleusercontent.com',
-					scope: 'https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-					ux_mode: 'redirect',
-					redirect_uri: "https://casino-blog.vercel.app/auth",
-					state: "YOUR_BINDING_VALUE"
-				});
-			}
+			// if (google) {
+			// 	this.client = google.accounts.oauth2.initCodeClient({
+			// 		client_id: '16800385999-8c2rie3crqe9npuou97ubripn199cr4a.apps.googleusercontent.com',
+			// 		scope: 'https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+			// 		ux_mode: 'redirect',
+			// 		redirect_uri: "https://casino-blog.vercel.app/auth",
+			// 		state: "YOUR_BINDING_VALUE"
+			// 	});
+			// }
 		},
 		methods: {
+			toLogin() {
+				window.open("https://admin.kenta.travel/prod-api/kenta-hb/login", "_self")
+			},
 			toHome() {
 				this.$router.push({
 					path: '/'
@@ -101,8 +107,15 @@
 						email: this.email,
 					};
 					getMail(params).then((res) => {
-						this.isSuccess = true;
-					}).catch(() => {
+						if (res.code == 200) {
+							this.$notify({
+								title: '',
+								message: 'Please open your email to complete registration',
+								type: 'success'
+							});
+						}
+						// this.isSuccess = true;
+					}).catch((err) => {
 						this.$router.push({
 							path: '/password',
 							query: {

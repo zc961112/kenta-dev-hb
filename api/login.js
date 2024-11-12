@@ -73,8 +73,9 @@ export function getCodeImg() {
 
 
 export function getMail(data) {
+	// getMail
   return request({
-    url: '/getMail',
+    url: '/kenta-hb/local_login',
     headers: {
       isToken: false
     },
@@ -84,8 +85,9 @@ export function getMail(data) {
 }
 
 export function findPwdSendMail(data) {
+	// findPwdSendMail
   return request({
-    url: '/findPwdSendMail',
+    url: '/kenta-hb/local_password',
     headers: {
       isToken: false
     },

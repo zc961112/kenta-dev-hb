@@ -128,9 +128,9 @@ service.interceptors.response.use(res => {
     // })
     return Promise.reject(new Error(msg))
   } else if (code !== 200) {
-    Notification.error({
-      title: msg
-    })
+    // Notification.error({
+    //   title: msg
+    // })
     return Promise.reject('error')
   } else {
     return res.data
