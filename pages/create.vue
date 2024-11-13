@@ -80,8 +80,7 @@ export default {
             code:'',
             key:'',
             isFind:'',
-            password:'',
-			token:''
+            password:''
         },
       }
     },

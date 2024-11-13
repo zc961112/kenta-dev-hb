@@ -8,12 +8,12 @@
 				<img class="logo" @click="toHome" src="~assets/images/logo.png" />
 				<div class="login-box">
 					<div class="title">התחברות</div>
-					<a href="https://admin.kenta.travel/prod-api/kenta-hb/login" class="item-li">
+					<div class="item-li" @click="toLogin">
 						<img class="jiant" src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
 						<div class="flex"></div>
 						<div class="name">המשיכו עם גוגל</div>
 						<img class="icon" src="~assets/images/gg.png" />
-					</a>
+					</div>
 					<div class="item-li">
 						<img class="jiant" src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
 						<div class="flex"></div>
@@ -55,22 +55,6 @@
 	import {
 		gclogin
 	} from '@/api/kentaHb'
-	import {
-		getToken,
-		setToken,
-		removeToken,
-		getRedirect,
-		setRedirect,
-		getUserId,
-		setUserId,
-		removeUserId,
-		getUserName,
-		setUserName,
-		removeUserName,
-		getMemberId,
-		setMemberId,
-		removeMemberId
-	} from '@/utils/auth'
 	export default {
 
 		data() {
@@ -92,29 +76,9 @@
 			// 	});
 			// }
 		},
-		created() {
-			this.verifyToken()
-		},
 		methods: {
-			// 跳回来携带token谷歌登录验证token
-			verifyToken() {
-				let that = this
-				if (this.$route.query.token) {
-					setToken(this.$route.query.token)
-					sessionStorage.setItem("token", this.$route.query.token)
-					this.$store.commit('SET_TOKEN', this.$route.query.token)
-
-					this.$notify({
-						title: '',
-						message: 'Login succeeded',
-						type: 'success'
-					})
-					setTimeout(function() {
-						that.$router.push({
-							path: '/'
-						})
-					}, 200)
-				}
+			toLogin() {
+				window.open("https://admin.kenta.travel/prod-api/kenta-hb/login", "_self")
 			},
 			toHome() {
 				this.$router.push({
@@ -244,7 +208,6 @@
 				.name {
 					color: rgba(26, 26, 26, 0.6);
 					margin-right: 5px;
-					text-decoration: none;
 				}
 
 				.icon {
