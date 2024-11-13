@@ -24,7 +24,7 @@
 					</span>
 				</div>
 				<p>{{!isforget? 'סיסמא*':'כתובת אימייל*'}}</p>
-				
+
 			</div>
 			<div class="input password" v-if="!isforget">
 				<el-input @keyup.native.enter="handleLogin" v-model="form.password" placeholder="" show-password>
@@ -46,6 +46,22 @@
 	import {
 		findPwdSendMail
 	} from '@/api/login'
+	import {
+		getToken,
+		setToken,
+		removeToken,
+		getRedirect,
+		setRedirect,
+		getUserId,
+		setUserId,
+		removeUserId,
+		getUserName,
+		setUserName,
+		removeUserName,
+		getMemberId,
+		setMemberId,
+		removeMemberId
+	} from '@/utils/auth'
 	export default {
 		data() {
 			return {
@@ -72,13 +88,27 @@
 				}
 			},
 			handleSendEmail() {
-				findPwdSendMail({
-					email: this.email
-				}).then((res) => {
-					this.$message({
-						message: '发送邮件成功,请注意查收',
+				let that = this
+				findPwdSendMail(this.form).then((res) => {
+					setToken(res.auth_token)
+					sessionStorage.setItem("token", res.auth_token)
+					this.$store.commit('SET_TOKEN', res.auth_token)
+					this.$notify({
+						title: '',
+						message: 'Login succeeded',
 						type: 'success'
 					})
+					let username = (res.user_info.first_name || '') + (res.user_info.last_name || '')
+					sessionStorage.setItem("user_name", username)
+					setUserName(username)
+					this.$store.commit('SET_NAME', username)
+					setTimeout(function() {
+						that.$router.push({
+							path: '/'
+						})
+					}, 50)
+				}).catch((err) => {
+					console.log(err)
 				})
 			},
 			forget() {
@@ -91,17 +121,9 @@
 			},
 			handleLogin() {
 				if (!this.isforget) {
-					this.$store.dispatch('Login', this.form).then(async () => {
-						await this.$store.dispatch('GetInfo')
-						let redirect = this.$store.getters.redirect || '/';
-						this.$router.replace(redirect)
-						this.$store.commit('SET_REDIRECT', '/')
-					}).catch((err) => {
-						console.log(err);
-						this.$message.error(err)
-					})
-				} else {
 					this.handleSendEmail()
+				} else {
+
 				}
 			}
 		}

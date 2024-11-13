@@ -11,14 +11,29 @@
 					</div>
 
 					<div v-else>
-						<img v-if="top<456" class="D-icon" src="~assets/images/icon/D (1).png" />
-						<img v-else class="D-icon" src="~assets/images/icon/D.png" />
+						<div v-if="top<456">
+							<span class="username" v-if="userName" :style="{color:top<456?'#fff':'#333'}">{{userName}}</span>
+							<img v-else class="D-icon" src="~assets/images/icon/D (1).png" />
+						</div>
+						<div v-else>
+							<span class="username" v-if="userName" :style="{color:top<456?'#fff':'#333'}">{{userName}}</span>
+							<img v-else class="D-icon" src="~assets/images/icon/D.png" />
+						</div>
+
+
+						<!-- <img v-if="top<456" class="D-icon" src="~assets/images/icon/D (1).png" />
+						<div v-else>
+							<span v-if="userName">{{userName}}</span>
+						</div> -->
 					</div>
 				</div>
 				<div v-else>
 					<img v-if="!hasToken" class="user-icon"
 						src="~assets/images/icon/user-circle-svgrepo-com (1) 3 (1).png" />
-					<img v-else class="D-icon" src="~assets/images/icon/D.png" />
+					<div v-else>
+						<span class="username" v-if="userName">{{userName}}</span>
+						<img v-else class="D-icon" src="~assets/images/icon/D.png" />
+					</div>
 				</div>
 
 				<div class="navs-icon" v-if="ishome">
@@ -63,7 +78,7 @@
 			</div>
 		</div>
 		<div class="header-h" v-if="!ishome"></div>
-		<el-drawer title="David Gerbi" :visible.sync="drawer" direction="ltr">
+		<el-drawer :title="hedaName" :visible.sync="drawer" direction="ltr">
 			<div class="menu">
 				<div class="tips">ניווט</div>
 				<el-menu router :default-active="$route.path" class="el-menu-vertical-demo">
@@ -78,7 +93,8 @@
 					</el-menu-item>
 				</el-menu>
 				<div class="menu-line"></div>
-				<div :style="{color:$route.path=='/userSetting'?'rgba(255, 50, 99, 1)':''}" class="menu-li" @click="toUser">
+				<div :style="{color:$route.path=='/userSetting'?'rgba(255, 50, 99, 1)':''}" class="menu-li"
+					@click="toUser">
 					איזור אישי
 				</div>
 				<div class="menu-li" @click="logOut">
@@ -90,6 +106,22 @@
 </template>
 
 <script>
+	import {
+		getToken,
+		setToken,
+		removeToken,
+		getRedirect,
+		setRedirect,
+		getUserId,
+		setUserId,
+		removeUserId,
+		getUserName,
+		setUserName,
+		removeUserName,
+		getMemberId,
+		setMemberId,
+		removeMemberId
+	} from '@/utils/auth'
 	export default {
 		props: {
 			ishome: {
@@ -104,13 +136,19 @@
 		data() {
 			return {
 				top: 0,
-				drawer: false
+				drawer: false,
 			}
 
 		},
 		computed: {
 			hasToken() {
 				return this.$store.state.token
+			},
+			userName() {
+				return getUserName()?getUserName()[0]:''
+			},
+			hedaName() {
+				return getUserName()
 			}
 		},
 		mounted() {
@@ -158,6 +196,12 @@
 	}
 </script>
 <style lang="scss" scoped>
+	.username{
+		font-size: 0.3rem;
+		margin-right: 10px;
+		margin-top: -5px;
+		display: inline-block;
+	}
 	.tab {
 		text-align: center;
 		width: 100%;

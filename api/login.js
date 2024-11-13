@@ -119,3 +119,16 @@ export function findPwdByMail(data) {
     data,
   })
 }
+
+
+export function getUserInfo(data) {
+	// findPwdSendMail
+  return request({
+    url: '/kenta-hb/get_user_info',
+    headers: {
+      isToken: false
+    },
+    method: 'post',
+    data,
+  })
+}

@@ -50,7 +50,8 @@
 		validEmail
 	} from '@/utils/validate'
 	import {
-		getMail
+		getMail,
+		getUserInfo
 	} from '@/api/login'
 	import {
 		gclogin
@@ -79,6 +80,11 @@
 				tips: '',
 				successTips: 'Please open your email to complete registration',
 				isSuccess: false,
+				form: {
+					email: '',
+					token: '',
+					provider: ''
+				}
 			}
 		},
 		mounted() {
@@ -93,7 +99,6 @@
 			// }
 		},
 		created() {
-			console.log(this.$route.query,"获取参数")
 			this.verifyToken()
 		},
 		methods: {
@@ -101,20 +106,38 @@
 			verifyToken() {
 				let that = this
 				if (this.$route.query.token) {
-					setToken(this.$route.query.token)
-					sessionStorage.setItem("token", this.$route.query.token)
-					this.$store.commit('SET_TOKEN', this.$route.query.token)
+					this.form = Object.assign(this.form, this.$route.query);
 
-					this.$notify({
-						title: '',
-						message: 'Login succeeded',
-						type: 'success'
+					getUserInfo(this.form).then(res => {
+						if (res.status == 'success') {
+							setToken(this.$route.query.token)
+							sessionStorage.setItem("token", this.$route.query.token)
+							this.$store.commit('SET_TOKEN', this.$route.query.token)
+							let username = (res.data.first_name || '') + (res.data.last_name || '')
+							sessionStorage.setItem("user_name", username)
+							setUserName(username)
+							this.$store.commit('SET_NAME', username)
+
+							this.$notify({
+								title: '',
+								message: 'Login succeeded',
+								type: 'success'
+							})
+							setTimeout(function() {
+								that.$router.push({
+									path: '/'
+								})
+							}, 50)
+						} else {
+							this.$notify({
+								title: '',
+								message: 'user does not exist',
+								type: 'warning'
+							})
+						}
 					})
-					setTimeout(function() {
-						that.$router.push({
-							path: '/'
-						})
-					}, 200)
+
+
 				}
 			},
 			toHome() {
@@ -168,9 +191,10 @@
 </script>
 
 <style lang="scss" scoped>
-	a{
+	a {
 		text-decoration: none;
 	}
+
 	.item-li ::v-deep .el-input__inner {
 		border: none;
 		text-align: right;
@@ -244,7 +268,7 @@
 					outline: none;
 					outline: 0
 				}
-				
+
 
 				.name {
 					color: rgba(26, 26, 26, 0.6);
