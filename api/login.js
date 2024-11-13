@@ -98,8 +98,9 @@ export function findPwdSendMail(data) {
 
 
 export function registerByMail(data) {
+	// registerByMail
   return request({
-    url: '/registerByMail',
+    url: '/kenta-hb/create_account',
     headers: {
       isToken: false
     },
