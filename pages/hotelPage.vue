@@ -39,14 +39,14 @@
 						<div class="nav">
 							<div class="left flex">
 								<div class="yuan">
-									<span></span>
-									<span class="current"></span>
-									<span class="current"></span>
-									<span class="current"></span>
-									<span class="current"></span>
+									<!--填充空白的位置 -->
+									<span v-for="j in Math.max(0, 5 - Math.floor((other.rating || 0) / 2))" :key="'fraction-' + j"></span>
+									<!-- 显示当前的分数 -->
+									<span v-for="i in Math.min(5, Math.floor((other.rating || 0) / 2))" :key="'current-' + i"
+										class="current"></span>
 									<img src="~assets/images/icon/image 1.png" />
 								</div>
-								<p class="time">14,256 חוות דעת</p>
+								<p class="time">0 חוות דעת</p>
 							</div>
 							<div class="right">
 								<div class="xx">
@@ -76,7 +76,7 @@
 						<div class="price-info flex">
 							<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
 							<button>לצפיה בדילים</button>
-							<p class="num">₪ 2,770 -מ</p>
+							<p class="num">₪ {{ displayPrice }}</p>
 							<div class="flex"></div>
 							<span>מדיניות</span>
 							<span>מיקום</span>
@@ -89,47 +89,48 @@
 					<div class="Palace">
 						<div class="Palace-left" :class="{ sticky: isSticky }" ref="stickyElement">
 							<div class="top">
-								<div class="index">9</div>
+								<div class="index">{{other.rating}}</div>
 								<div class="name">
 									<h3>מעולה</h3>
 									<div class="yuan">
-										<span></span>
-										<span class="current"></span>
-										<span class="current"></span>
-										<span class="current"></span>
-										<span class="current"></span>
+									<!--填充空白的位置 -->
+									<span v-for="j in Math.max(0, 5 - Math.floor((other.rating || 0) / 2))" :key="'fraction-' + j"></span>
+									<!-- 显示当前的分数 -->
+									<span v-for="i in Math.min(5, Math.floor((other.rating || 0) / 2))" :key="'current-' + i"
+										class="current"></span>
+
 									</div>
-									<p>14,256 חוות דעת</p>
+									<p>0 חוות דעת</p>
 								</div>
 								<div class="speed">
 									<div class="tit">ביקורות האורחים:</div>
 									<div class="speed-li">
 										<div class="num">
-											<p class="flex">9</p>
+											<p class="flex">{{other.price}}</p>
 											תמורה על הכסף
 										</div>
 										<div class="progress">
-											<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+											<el-progress :stroke-width="8" :show-text="false" :percentage="computedPercentage"
 												color="rgba(0, 188, 147, 0.8)"></el-progress>
 										</div>
 									</div>
 									<div class="speed-li">
 										<div class="num">
-											<p class="flex">8</p>
+											<p class="flex">{{other.location}}</p>
 											מיקום המלון
 										</div>
 										<div class="progress">
-											<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+											<el-progress :stroke-width="8" :show-text="false" :percentage="computedPercentage1"
 												color="rgba(0, 188, 147, 0.8)"></el-progress>
 										</div>
 									</div>
 									<div class="speed-li">
 										<div class="num">
-											<p class="flex">10</p>
+											<p class="flex">{{other.wifi}}</p>
 											איכות ה-WiFi
 										</div>
 										<div class="progress">
-											<el-progress :stroke-width="8" :show-text="false" :percentage="90"
+											<el-progress :stroke-width="8" :show-text="false" :percentage="computedPercentage2"
 												color="rgba(0, 188, 147, 0.8)"></el-progress>
 										</div>
 									</div>
@@ -235,6 +236,27 @@
 		getHotelInfo
 	} from '@/api/kentaHb'
 	export default {
+		props: {
+			other: {
+			type: Object,
+			default: () => ({ price: 0, location: 0 ,wifi:0 }) // 设置默认值
+			}
+		},
+		computed: {
+			computedPercentage() {
+			// 将 `other.price` 限制在 0 到 100 之间
+			return Math.min(Math.max(this.other.price, 0), 100) *10 ;
+				},
+			computedPercentage1() {
+			// 将 `other.price` 限制在 0 到 100 之间
+			return Math.min(Math.max(this.other.location, 0), 100) *10 ;
+				},
+			computedPercentage2() {
+			// 将 `other.price` 限制在 0 到 100 之间
+			return Math.min(Math.max(this.other.wifi, 0), 100) *10 ;
+				}
+			},
+
 		mixins: [casino],
 		data() {
 			return {
@@ -257,8 +279,20 @@
 					other: {},
 					adults: 1,
 					children: [12]
-				}
+
+				},
+				item: {
+					children: [
+					{ daily_prices: 2770 },
+					// 其他价格项...
+					]
+				},
+				displayPrice: 0, 
+				pricechSticky: false,
 			}
+		},
+		displayPrice() {
+		return this.item.children.length > 0 ? this.item.children[0].daily_prices : [0];
 		},
 		mounted() {
 			this.stickyOffset = this.$refs.stickyElement.offsetTop;
