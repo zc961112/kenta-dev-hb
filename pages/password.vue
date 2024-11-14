@@ -100,6 +100,8 @@
 					})
 					let username = (res.user_info.first_name || '') + (res.user_info.last_name || '')
 					sessionStorage.setItem("user_name", username)
+					sessionStorage.setItem("user_email", res.user_info.email)
+					sessionStorage.setItem("user_provider", res.user_info.provider)
 					setUserName(username)
 					this.$store.commit('SET_NAME', username)
 					setTimeout(function() {

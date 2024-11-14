@@ -76,7 +76,7 @@
 						<div class="price-info flex">
 							<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
 							<button>לצפיה בדילים</button>
-							<p class="num">₪ {{ displayPrice }}</p>
+							<p class="num">₪ {{hotelslist.length>0? hotelslist[0].children[0].daily_prices:0}} -מ</p>
 							<div class="flex"></div>
 							<span>מדיניות</span>
 							<span>מיקום</span>
@@ -98,7 +98,6 @@
 									<!-- 显示当前的分数 -->
 									<span v-for="i in Math.min(5, Math.floor((other.rating || 0) / 2))" :key="'current-' + i"
 										class="current"></span>
-
 									</div>
 									<p>0 חוות דעת</p>
 								</div>
@@ -174,9 +173,11 @@
 										<div class="info item-l">
 											<div class="btn">
 												<p>המחיר הכי טוב</p>
-												<div class="button">
-													הזמינו עכשיו
-												</div>
+												<router-link :to="'/checkoutPage?book_hash=' + item.book_hash">
+													<div class="button">
+														הזמינו עכשיו
+													</div>
+												</router-link>
 											</div>
 											<div class="item-price flex">
 												<div>₪ {{item2.daily_prices}}</div>
@@ -236,7 +237,7 @@
 		getHotelInfo
 	} from '@/api/kentaHb'
 	export default {
-		props: {
+    		props: {
 			other: {
 			type: Object,
 			default: () => ({ price: 0, location: 0 ,wifi:0 }) // 设置默认值
@@ -271,7 +272,7 @@
 				defaultTime: '',
 				list: [],
 				loading: true,
-				
+
 				modifyData: {
 					checkin: '',
 					checkout: '',
@@ -279,20 +280,8 @@
 					other: {},
 					adults: 1,
 					children: [12]
-
-				},
-				item: {
-					children: [
-					{ daily_prices: 2770 },
-					// 其他价格项...
-					]
-				},
-				displayPrice: 0, 
-				pricechSticky: false,
+				}
 			}
-		},
-		displayPrice() {
-		return this.item.children.length > 0 ? this.item.children[0].daily_prices : [0];
 		},
 		mounted() {
 			this.stickyOffset = this.$refs.stickyElement.offsetTop;
@@ -352,11 +341,11 @@
 					let checkin = (this.dayTime.split("/")[0]).split("-")
 					let checkinTime = checkin[2] + '-' +
 						checkin[1] + '-' + checkin[0]
-				
+
 					let checkout = (this.dayTime.split("/")[1]).split("-")
 					let checkoutTime = checkout[2] + '-' +
 						checkout[1] + '-' + checkout[0]
-				
+
 					this.modifyData.checkin = checkinTime
 					this.modifyData.checkout = checkoutTime
 					this.getDateils()
@@ -377,11 +366,12 @@
 								room_name: element.room_name,
 								children: [],
 								room_data_trans: element.room_data_trans,
-								images: element.images
+								images: element.images,
+								book_hash:element.book_hash
 							})
 							index = this.hotelslist.length - 1
 						}
-				
+
 						this.hotelslist[index].children.push({
 							allotment: element.allotment,
 							daily_prices: element.daily_prices[0]
@@ -400,6 +390,9 @@
 	.sticky {
 		position: fixed;
 		top: 1.4rem;
+	}
+	a{
+		text-decoration: none;
 	}
 
 	.pricesticky {

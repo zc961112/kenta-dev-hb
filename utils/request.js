@@ -77,7 +77,6 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log(error)
   Promise.reject(error)
 })
 
@@ -137,7 +136,7 @@ service.interceptors.response.use(res => {
   }
 },
   error => {
-    console.log('err' + error)
+    console.log('报错了err' + error)
     let { message } = error;
     if (message == "Network Error") {
       message = "Abnormal backend interface connection";

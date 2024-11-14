@@ -113,6 +113,10 @@
 							setToken(this.$route.query.token)
 							sessionStorage.setItem("token", this.$route.query.token)
 							this.$store.commit('SET_TOKEN', this.$route.query.token)
+
+							sessionStorage.setItem("user_email", this.$route.query.email)
+							sessionStorage.setItem("user_provider", this.$route.query.provider)
+
 							let username = (res.data.first_name || '') + (res.data.last_name || '')
 							sessionStorage.setItem("user_name", username)
 							setUserName(username)

@@ -15,12 +15,12 @@
 						<div class="form-li">
 							<div class="li">
 								<p class="text">שם משפחה</p>
-								<el-input v-model="input" placeholder="Gerbi"></el-input>
+								<el-input v-model="form.first_name" placeholder=""></el-input>
 							</div>
 
 							<div class="li">
 								<p class="text">שם פרטי</p>
-								<el-input v-model="input" placeholder="David"></el-input>
+								<el-input v-model="form.last_name" placeholder=""></el-input>
 							</div>
 
 						</div>
@@ -31,25 +31,25 @@
 							</div>
 							<div class="li">
 								<p class="text">מספר פלאפון</p>
-								<el-input v-model="input" placeholder=""></el-input>
+								<el-input v-model="form.phone_number" placeholder=""></el-input>
 							</div>
 							<div class="li">
 								<p class="text">תאריך לידה</p>
 								<div class="t-input">
 									<div class="t-input-li">
-										<el-input v-model="input" placeholder="יום"></el-input>
+										<el-input v-model="day" placeholder="יום"></el-input>
 									</div>
 									<div class="t-input-li">
-										<el-input v-model="input" placeholder="חודש"></el-input>
+										<el-input v-model="month" placeholder="חודש"></el-input>
 									</div>
 									<div class="t-input-li">
-										<el-input v-model="input" placeholder="שנה"></el-input>
+										<el-input v-model="year" placeholder="שנה"></el-input>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="btn">
-							<button class="button">שמירה</button>
+							<button class="button" @click="updateUser">שמירה</button>
 						</div>
 					</div>
 					<div class="cart">
@@ -145,7 +145,6 @@
 								<p class="text">סיסמא חדשה</p>
 								<el-input v-model="input" type="password" placeholder=""></el-input>
 							</div>
-
 						</div>
 
 						<div class="btn no-boder">
@@ -159,19 +158,58 @@
 </template>
 
 <script>
+	import {
+		getUserInfo,
+		updateUserInfo
+	} from '@/api/kentaHb'
 	export default {
 		data() {
 			return {
 				activeName: "3",
 				input: "",
-				type: 0
+				type: 0,
+				form: {},
+				year: '',
+				month: '',
+				day: ''
 			}
 
 		},
 		mounted() {
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
+			this.getuser()
 		},
 		methods: {
+			// 编辑用户信息
+			async updateUser() {
+				this.form.birth_date = this.year && this.month && this.day ? this.year + '-' + this.month + '-' + this
+					.day : ''
+				this.form.token = sessionStorage.getItem("token")
+				this.form.provider = sessionStorage.getItem("user_provider")
+				this.form.email = sessionStorage.getItem("user_email")
+				const res = await updateUserInfo(this.form)
+				this.$notify({
+					title: '',
+					message: 'Edited successfully',
+					type: 'success'
+				})
+				this.getuser()
+			},
+			// 获取用户信息
+			async getuser() {
+				const res = await getUserInfo({
+					email: sessionStorage.getItem("user_email"),
+					token: sessionStorage.getItem("token"),
+					provider: sessionStorage.getItem("user_provider"),
+				})
+				if (res.data.birth_date) {
+					let arr = res.data.birth_date.split("-")
+					this.year = arr[0]
+					this.month = arr[1]
+					this.day = arr[2]
+				}
+				this.form = res.data
+			},
 			select(val) {
 				this.type = val
 			}
@@ -180,10 +218,11 @@
 </script>
 
 <style lang="scss" scoped>
-	.no-boder{
-		border: none!important;
+	.no-boder {
+		border: none !important;
 		margin-bottom: 2rem;
 	}
+
 	.btn {
 		text-align: right;
 		padding-bottom: 0.4rem;

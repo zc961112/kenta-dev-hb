@@ -3,7 +3,7 @@
 		<div class="header">
 			<div class="time">
 				<img class="l" src="~assets/images/icon/info-feature.png" />
-				<span class="num">09:58</span>
+				<span class="num">{{countdown}}</span>
 				<span class="p">זמן נותר להזמנה:</span>
 				<img class="r" src="~assets/images/icon/clock 1.png" />
 			</div>
@@ -195,7 +195,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="user">
 						<div class="top form-boxs">
 							<div class="name">ביחרו באמצעי תשלום<img class="r"
@@ -245,6 +245,9 @@
 </template>
 
 <script>
+	import {
+		getFrom
+	} from '@/api/kentaHb'
 	export default {
 		data() {
 			return {
@@ -252,29 +255,71 @@
 				options: [{
 					value: '"אזרחות*',
 					label: '"אזרחות*'
-				}]
+				}],
+				setData: {},
+				timer: null,
+				count: 10 * 60 // 转换为秒
 			}
 
 		},
-		mounted() {
+		created() {
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
+			this.getPeople()
+			this.startCountdown();
+		},
+		computed: {
+			countdown() {
+				let minutes = Math.floor(this.count / 60);
+				let seconds = this.count % 60;
+
+				minutes = minutes < 10 ? '0' + minutes : minutes;
+				seconds = seconds < 10 ? '0' + seconds : seconds;
+
+				return minutes + ':' + seconds;
+			}
+		},
+		beforeDestroy() {
+			this.clearCountdown();
 		},
 		methods: {
-
+			// 获取人数
+			async getPeople() {
+				const res = await getFrom({
+					book_hash: this.$route.query.book_hash
+				})
+				this.setData = res.data
+				console.log(res, "获取人数")
+			},
+			// 倒计时
+			startCountdown() {
+				this.timer = setInterval(() => {
+					if (this.count > 0) {
+						this.count -= 1;
+					} else {
+						this.clearCountdown();
+					}
+				}, 1000);
+			},
+			clearCountdown() {
+				clearInterval(this.timer);
+				this.timer = null;
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.btn{
+	.btn {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
 		padding: 16px 1.72rem 16px 0;
-		p{
+
+		p {
 			direction: rtl;
 		}
-		button{
+
+		button {
 			width: 1.34rem;
 			height: 0.40rem;
 			background-color: rgba(255, 50, 99, 1);
@@ -286,42 +331,52 @@
 			color: #fff;
 
 		}
-		.left{
+
+		.left {
 			font-size: 0.14rem;
 			font-weight: 400;
 			text-align: right;
 			color: rgba(26, 26, 26, 0.6);
-			span{
+
+			span {
 				color: rgba(26, 26, 26, 1);
 			}
 		}
 	}
-	.form-boxs{
-		padding: 0!important;
-		
-		.name{
+
+	.form-boxs {
+		padding: 0 !important;
+
+		.name {
 			margin-top: 0.42rem;
 			padding: 0 1.16rem;
 		}
-		.form-bg{
+
+		.form-bg {
 			margin-top: 0.26rem;
-			background-color:rgba(255, 184, 0, 0.16);
+			background-color: rgba(255, 184, 0, 0.16);
 			padding: 0.4rem 1.16rem 0.4rem 3.31rem;
-			.w{
-				width: 0.22rem!important;
+
+			.w {
+				width: 0.22rem !important;
 			}
-			.li-none{
-				flex: inherit!important;
+
+			.li-none {
+				flex: inherit !important;
 			}
+
 			.li-none::v-deep .el-input {
-				width: 1.16rem!important;
+				width: 1.16rem !important;
 			}
-			.li{
+
+			.li {
 				text-align: right;
-				.img{
-					top:0.4rem!important;
+
+				.img {
+					top: 0.4rem !important;
 				}
-				p{
+
+				p {
 					font-size: 0.12rem;
 					font-weight: 400;
 					text-align: right;
@@ -330,6 +385,7 @@
 			}
 		}
 	}
+
 	.form::v-deep .el-input__inner {
 		text-align: right;
 		direction: rtl;

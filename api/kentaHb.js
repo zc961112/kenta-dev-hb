@@ -48,3 +48,25 @@ export const gclogin = (params) => {
 		data: params
 	})
 }
+export const getUserInfo = (params) => {
+	return request({
+		url: '/kenta-hb/get_user_info',
+		method: 'post',
+		data: params
+	})
+}
+
+export const updateUserInfo = (params) => {
+	return request({
+		url: '/kenta-hb/update_user_info',
+		method: 'post',
+		data: params
+	})
+}
+export const getFrom = (params) => {
+	return request({
+		url: '/kenta-hb/get_from',
+		method: 'post',
+		data: params
+	})
+}
