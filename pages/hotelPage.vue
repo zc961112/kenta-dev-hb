@@ -68,7 +68,8 @@
 								<el-image style="width: 100%; height: 100%" :src="item"
 									:preview-src-list="other.images">
 								</el-image>
-								<p v-if="index==1">תמונות{{other.images.length}}-צפה ב</p>
+                  <p v-if="index == 1"style="direction: rtl;" >{{other.images.length}} תמונות </p>
+
 							</div>
 						</div>
 					</div>
