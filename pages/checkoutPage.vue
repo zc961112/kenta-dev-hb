@@ -243,6 +243,7 @@
 								<p>מהווה הסכמה<span>לתנאים ולהתניות.</span></p>
 							</div>
 							<button @click="Topayment">להשלים הזמנה</button>
+              <button @click="Topayment1">test_payment_page</button>
 						</div>
 					</div>
 					<div class="foo-h"></div>
@@ -425,12 +426,28 @@
 		},
 		methods: {
       Topayment(){
-        Topaymentpage().then((data)=>{
+        let date1 = {
+          test : '1'
+        }
+        Topaymentpage(date1).then((data)=>{
+          console.log(data)
+          window.open(data)
+        }
+        )
+      },
+
+
+      Topayment1(){
+        let date1 = {
+          test : '2'
+        }
+        Topaymentpage(date1).then((data)=>{
           console.log(data)
           window.open(data)
         })
-
       },
+
+
 			// 登录
 			toLogin() {
 				if (!this.loginForm.email) {
