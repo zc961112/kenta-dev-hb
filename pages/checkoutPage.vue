@@ -119,9 +119,52 @@
 							<img src="~assets/images/banner-2.png" />
 						</div>
 					</div>
-					<div class="more">
-						הזמן מהר יותר - התחבר לקנטה<i class="el-icon-arrow-down"></i>
+					<div class="more" v-if="!hasToken" @click="showLogin">
+						הזמן מהר יותר - התחבר לקנטה<i :class="[!hide?'xz':'']" class="el-icon-arrow-down"></i>
 					</div>
+					<div class="user" v-if="!hasToken&&hide">
+						<div class="top">
+							<div class="form">
+								<div class="form-li">
+									<a href="https://admin.kenta.travel/prod-api/kenta-hb/login" class="item-li">
+										<img class="jiant"
+											src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
+										<div class="flex"></div>
+										<div class="n">המשיכו עם גוגל</div>
+										<img class="icon" src="~assets/images/gg.png" />
+									</a>
+								</div>
+								<div class="form-li">
+									<div href="https://admin.kenta.travel/prod-api/kenta-hb/login" class="item-li">
+										<img class="jiant"
+											src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
+										<div class="flex"></div>
+										<div class="n">המשיכו עם פייסבוק</div>
+										<img class="icon" src="~assets/images/facebook-color-svgrepo-com 1.png" />
+									</div>
+								</div>
+
+								<div class="form-li">
+									<div class="li">
+										<el-input @keyup.native.enter="toLogin" v-model="loginForm.email"
+											placeholder="דואר אלקטרוני"></el-input>
+									</div>
+								</div>
+								<div class="form-li" v-if="showPassword">
+									<div class="li">
+										<el-input @keyup.native.enter="toLogin" show-password
+											v-model="loginForm.password" placeholder="'כתובת אימייל"></el-input>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="btn" @click="toLogin">
+							<button>
+								{{showPassword?'המשך' : 'המשך'}}
+							</button>
+						</div>
+					</div>
+
 					<div class="user">
 						<div class="top">
 							<div class="name"> פרטי קשר<img class="r"
@@ -131,17 +174,17 @@
 							<div class="form">
 								<div class="form-li">
 									<div class="li">
-										<el-input v-model="input" placeholder="שם משפחה*"></el-input>
+										<el-input v-model="payForm.amount" placeholder="שם משפחה*"></el-input>
 									</div>
 									<div class="w"></div>
 									<div class="li">
-										<el-input v-model="input" placeholder="שם פרטי*"></el-input>
+										<el-input v-model="payForm.client_name" placeholder="שם פרטי*"></el-input>
 									</div>
 								</div>
 								<div class="form-li">
 									<div class="li">
 										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<el-input v-model="input" placeholder="דואר אלקטרוני*"></el-input>
+										<el-input v-model="payForm.email" placeholder="דואר אלקטרוני*"></el-input>
 									</div>
 								</div>
 								<div class="form-li">
@@ -153,8 +196,8 @@
 									<div class="li">
 										<img class="img" src="~assets/images/icon/info-feature.png" />
 										<el-select v-model="input" placeholder="אזרחות*">
-											<el-option v-for="item in options" :key="item.value" :label="item.label"
-												:value="item.value">
+											<el-option v-for="item in CountryList" :key="item.alpha_3"
+												:label="item.name" :value="item.alpha_3">
 											</el-option>
 										</el-select>
 									</div>
@@ -177,7 +220,7 @@
 									<p>ב16:00</p>
 								</div>
 								<el-select v-model="input" placeholder="12:00">
-									<el-option v-for="item in options" :key="item.value" :label="item.label"
+									<el-option v-for="item in timeList" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
 								</el-select>
@@ -192,40 +235,6 @@
 										<el-dropdown-item>בקשות מיוחדות</el-dropdown-item>
 									</el-dropdown-menu>
 								</el-dropdown>
-							</div>
-						</div>
-					</div>
-
-					<div class="user">
-						<div class="top form-boxs">
-							<div class="name">ביחרו באמצעי תשלום<img class="r"
-									src="~assets/images/icon/secure-shield-password.png" />
-							</div>
-							<div class="form form-bg">
-								<div class="form-li">
-									<div class="li">
-										<p>מספר כרטיס אשראי</p>
-										<el-input v-model="input" placeholder="1234 5678 9123 4567"></el-input>
-									</div>
-								</div>
-								<div class="form-li">
-									<div class="li">
-										<p>תוקף</p>
-										<el-input v-model="input" placeholder="12 / 27"></el-input>
-									</div>
-									<div class="w"></div>
-									<div class="li li-none">
-										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<p>CVC / CVV</p>
-										<el-input v-model="input" placeholder="123"></el-input>
-									</div>
-								</div>
-								<div class="form-li">
-									<div class="li">
-										<p>מספר כרטיס אשראי</p>
-										<el-input v-model="input" placeholder="1234 5678 9123 4567"></el-input>
-									</div>
-								</div>
 							</div>
 						</div>
 						<div class="btn">
@@ -246,8 +255,31 @@
 
 <script>
 	import {
-		getFrom
+		getFrom,
+		getCountry,
 	} from '@/api/kentaHb'
+	import {
+		getMail,
+		getUserInfo,
+		findPwdSendMail
+	} from '@/api/login'
+	import {
+		getToken,
+		setToken,
+		removeToken,
+		getRedirect,
+		setRedirect,
+		getUserId,
+		setUserId,
+		removeUserId,
+		getUserName,
+		setUserName,
+		removeUserName,
+		getMemberId,
+		setMemberId,
+		removeMemberId
+	} from '@/utils/auth'
+
 	export default {
 		data() {
 			return {
@@ -258,7 +290,111 @@
 				}],
 				setData: {},
 				timer: null,
-				count: 10 * 60 // 转换为秒
+				count: 10 * 60, // 转换为秒
+				hide: true,
+				form: {
+					email: '',
+					token: '',
+					provider: ''
+				},
+				CountryList: [],
+				payForm: {
+					partner_order_id: '',
+					amount: '',
+					user_id: '',
+					client_name: '',
+					email: ''
+				},
+				timeList: [{
+						label: 'Unknown',
+						value: 'Unknown'
+					},
+					{
+						label: '16:00',
+						value: '16:00'
+					},
+					{
+						label: '17:00',
+						value: '17:00'
+					},
+					{
+						label: '18:00',
+						value: '18:00'
+					},
+					{
+						label: '19:00',
+						value: '19:00'
+					},
+					{
+						label: '20:00',
+						value: '20:00'
+					},
+					{
+						label: '21:00',
+						value: '21:00'
+					},
+					{
+						label: '22:00',
+						value: '22:00'
+					},
+					{
+						label: '23:00',
+						value: '23:00'
+					},
+					{
+						label: '00:00, Nov 17',
+						value: '00:00, Nov 17'
+					},
+					{
+						label: '01:00, Nov 17',
+						value: '01:00, Nov 17'
+					},
+					{
+						label: '02:00, Nov 17',
+						value: '02:00, Nov 17'
+					},
+					{
+						label: '03:00, Nov 17',
+						value: '03:00, Nov 17'
+					},
+					{
+						label: '04:00, Nov 17',
+						value: '04:00, Nov 17'
+					},
+					{
+						label: '05:00, Nov 17',
+						value: '05:00, Nov 17'
+					},
+					{
+						label: '06:00, Nov 17',
+						value: '06:00, Nov 17'
+					},
+					{
+						label: '07:00, Nov 17',
+						value: '07:00, Nov 17'
+					},
+					{
+						label: '08:00, Nov 17',
+						value: '08:00, Nov 17'
+					},
+					{
+						label: '09:00, Nov 17',
+						value: '09:00, Nov 17'
+					},
+					{
+						label: '10:00, Nov 17',
+						value: '10:00, Nov 17'
+					},
+					{
+						label: '11:00, Nov 17',
+						value: '11:00, Nov 17'
+					}
+				],
+				loginForm: {
+					email: '',
+					password: ''
+				},
+				showPassword: false
 			}
 
 		},
@@ -266,6 +402,8 @@
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 			this.getPeople()
 			this.startCountdown();
+			this.verifyToken()
+			this.getCountryList()
 		},
 		computed: {
 			countdown() {
@@ -276,19 +414,90 @@
 				seconds = seconds < 10 ? '0' + seconds : seconds;
 
 				return minutes + ':' + seconds;
+			},
+			hasToken() {
+				return this.$store.state.token
 			}
 		},
+
 		beforeDestroy() {
 			this.clearCountdown();
 		},
 		methods: {
+			// 登录
+			toLogin() {
+				if (!this.loginForm.email) {
+					this.$message({
+						message: 'Please Enter Your Email',
+						type: 'warning'
+					})
+				} else if (!this.loginForm.password && this.showPassword) {
+					this.$message({
+						message: 'Please Enter Your Password',
+						type: 'warning'
+					})
+				} else {
+					if (!this.showPassword) {
+						this.verifyEmail()
+					} else {
+						this.handleSendEmail()
+					}
+				}
+			},
+			// 登录
+			handleSendEmail() {
+				let that = this
+				findPwdSendMail(this.loginForm).then((res) => {
+					setToken(res.auth_token)
+					sessionStorage.setItem("token", res.auth_token)
+					this.$store.commit('SET_TOKEN', res.auth_token)
+					this.$notify({
+						title: '',
+						message: 'Login succeeded',
+						type: 'success'
+					})
+					let username = (res.user_info.first_name || '') + (res.user_info.last_name || '')
+					sessionStorage.setItem("user_name", username)
+					sessionStorage.setItem("user_email", res.user_info.email)
+					sessionStorage.setItem("user_provider", res.user_info.provider)
+					setUserName(username)
+					this.$store.commit('SET_NAME', username)
+				}).catch((err) => {
+					console.log(err)
+				})
+			},
+			// 验证邮箱
+			verifyEmail() {
+				getMail({
+					email: this.loginForm.email
+				}).then((res) => {
+					if (res.code == 200) {
+						this.$notify({
+							title: '',
+							message: 'Please open your email to complete registration',
+							type: 'success'
+						});
+					}
+				}).catch((err) => {
+					this.showPassword = true
+				})
+			},
+			// 获取国家
+			async getCountryList() {
+				const res = await getCountry()
+				this.CountryList = res.data
+				console.log(res, "获取国家")
+			},
+			// 显示登录隐藏
+			showLogin() {
+				this.hide = !this.hide
+			},
 			// 获取人数
 			async getPeople() {
 				const res = await getFrom({
 					book_hash: this.$route.query.book_hash
 				})
 				this.setData = res.data
-				console.log(res, "获取人数")
 			},
 			// 倒计时
 			startCountdown() {
@@ -303,12 +512,112 @@
 			clearCountdown() {
 				clearInterval(this.timer);
 				this.timer = null;
+			},
+			// 跳回来携带token谷歌登录验证token
+			verifyToken() {
+				let that = this
+				if (this.$route.query.token) {
+					this.form = Object.assign(this.form, this.$route.query);
+
+					getUserInfo(this.form).then(res => {
+						if (res.status == 'success') {
+							setToken(this.$route.query.token)
+							sessionStorage.setItem("token", this.$route.query.token)
+							this.$store.commit('SET_TOKEN', this.$route.query.token)
+
+							sessionStorage.setItem("user_email", this.$route.query.email)
+							sessionStorage.setItem("user_provider", this.$route.query.provider)
+
+							let username = (res.data.first_name || '') + (res.data.last_name || '')
+							sessionStorage.setItem("user_name", username)
+							setUserName(username)
+							this.$store.commit('SET_NAME', username)
+
+							this.$notify({
+								title: '',
+								message: 'Login succeeded',
+								type: 'success'
+							})
+							// 跳回原来的页面
+							this.$router.push({
+								path: '/checkoutPage?book_hash=' + this.$route.query.book_hash
+							})
+						} else {
+							this.$notify({
+								title: '',
+								message: 'user does not exist',
+								type: 'warning'
+							})
+						}
+					})
+				}
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	a {
+		text-decoration: none;
+	}
+
+	.item-li ::v-deep .el-input__inner {
+		border: none;
+		text-align: right;
+		height: 0.48rem;
+	}
+
+	.item-li {
+		cursor: pointer;
+		display: flex;
+		flex: 1;
+		height: 0.48rem;
+		padding: 0 0.16rem;
+		align-items: center;
+		border: 1px solid rgba(26, 26, 26, 0.5);
+		border-radius: 8px;
+		margin-bottom: 8px;
+		overflow: hidden;
+		font-size: 0.14rem;
+		color: rgba(26, 26, 26, 0.6);
+
+		.n {
+			margin-right: 5px;
+		}
+
+		input {
+			height: 0.48rem;
+			background-color: none;
+			text-align: right;
+			flex: 1;
+			border: none;
+			outline: none;
+			outline: 0
+		}
+
+
+		.name {
+			color: rgba(26, 26, 26, 0.6);
+			margin-right: 5px;
+		}
+
+		.icon {
+			width: 0.16rem;
+			height: auto;
+		}
+
+		.jiant {
+			width: 0.16rem;
+			height: auto;
+		}
+	}
+
+	.xz {
+		transform: rotate(180deg);
+		display: inline-block;
+		transition: ease .3s;
+	}
+
 	.btn {
 		display: flex;
 		align-items: center;
@@ -417,9 +726,9 @@
 		align-items: flex-start;
 
 		.form-li {
-			display: flex;
 			padding-right: 0.56rem;
 			margin-bottom: 0.16rem;
+			display: flex;
 
 			.w {
 				width: 16px;
@@ -444,7 +753,7 @@
 			border: 1px solid rgba(218, 218, 218, 1);
 			border-radius: 8px;
 			background-color: #fff;
-			margin-bottom: 16px;
+			margin-top: 16px;
 
 			.select::v-deep .el-input__inner {
 				background-color: rgba(255, 50, 99, 0.08);
@@ -593,6 +902,7 @@
 				font-weight: bold;
 				margin-left: 10px;
 				font-size: 16px;
+				transition: ease .3s;
 			}
 		}
 

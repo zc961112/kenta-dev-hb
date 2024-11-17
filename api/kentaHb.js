@@ -70,3 +70,10 @@ export const getFrom = (params) => {
 		data: params
 	})
 }
+export const getCountry = (params) => {
+	return request({
+		url: '/kenta-hb/get_country',
+		method: 'get',
+		data: params
+	})
+}
