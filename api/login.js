@@ -132,3 +132,15 @@ export function getUserInfo(data) {
     data,
   })
 }
+
+export function Topaymentpage(data) {
+	// findPwdSendMail
+  return request({
+    url: '/kenta-hb/to_payment',
+    headers: {
+      isToken: false
+    },
+    method: 'post',
+    data,
+  })
+}

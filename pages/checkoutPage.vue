@@ -239,10 +239,10 @@
 						</div>
 						<div class="btn">
 							<div class="left">
-								<p>לחיצה על הכפתור "להשלים הזמנה", </p>
+								<p >לחיצה על הכפתור "להשלים הזמנה", </p>
 								<p>מהווה הסכמה<span>לתנאים ולהתניות.</span></p>
 							</div>
-							<button>להשלים הזמנה</button>
+							<button @click="Topayment">להשלים הזמנה</button>
 						</div>
 					</div>
 					<div class="foo-h"></div>
@@ -258,11 +258,11 @@
 		getFrom,
 		getCountry,
 	} from '@/api/kentaHb'
-	import {
-		getMail,
-		getUserInfo,
-		findPwdSendMail
-	} from '@/api/login'
+  import {
+    getMail,
+    getUserInfo,
+    findPwdSendMail, Topaymentpage
+  } from '@/api/login'
 	import {
 		getToken,
 		setToken,
@@ -424,6 +424,13 @@
 			this.clearCountdown();
 		},
 		methods: {
+      Topayment(){
+        Topaymentpage().then((data)=>{
+          console.log(data)
+          window.open(data)
+        })
+
+      },
 			// 登录
 			toLogin() {
 				if (!this.loginForm.email) {
