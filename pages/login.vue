@@ -127,11 +127,9 @@
 								message: 'Login succeeded',
 								type: 'success'
 							})
-							setTimeout(function() {
-								that.$router.push({
-									path: '/'
-								})
-							}, 50)
+							this.$router.push({
+								path: '/'
+							})
 						} else {
 							this.$notify({
 								title: '',

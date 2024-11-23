@@ -69,7 +69,6 @@ export default {
 			adults: '',
 			ids: [],
 			priceArr: [],
-			loading: true,
 			modifyData: {
 				checkin: '',
 				checkout: '',
@@ -77,16 +76,34 @@ export default {
 				ids: "",
 				adults: 1,
 				children: [12]
-			}
+			},
+			displayMap: '',
+			displayRight: '',
+			windowWidth: ''
 		}
 	},
 	mounted() {
 		this.loadAll();
+		window.addEventListener("resize", this.checkIfMobile);
 	},
 	methods: {
+		// 页面是否是移动端
+		checkIfMobile() {
+			this.windowWidth = window.innerWidth;
+		},
+		// 显示地图
+		showMap() {
+			if (this.displayMap == 'none' || this.displayMap == '') {
+				this.displayMap = 'block'
+				this.displayRight = 'none'
+			} else {
+				this.displayMap = 'none'
+				this.displayRight = 'block'
+			}
+			this.initMapMarkers();
+		},
 		// 筛选价格
 		getprice(dayTime) {
-			this.loading = true
 			this.modifyData.region_id = this.id
 			this.modifyData.ids = this.ids
 
@@ -128,9 +145,7 @@ export default {
 					})
 				})
 				this.initMapMarkers();
-				this.loading = false
 			}).catch(err => {
-				this.loading = false
 			})
 		},
 		// 搜索
@@ -205,9 +220,7 @@ export default {
 						this.ids.push(item.id)
 					})
 				}
-				this.loading = false
 			}).catch(err => {
-				this.loading = false
 			})
 			// this.markerList = []
 			// try {
@@ -317,7 +330,7 @@ export default {
 							}
 
 							const popup = new mapboxgl.Popup({
-									offset: 25
+									offset: 25,
 								})
 								.setHTML(`<div class="map-popper">
                   <img src="${item.first_image}" class="map-pp-img">
@@ -471,8 +484,8 @@ export default {
 			this.dayRageIndex = value
 		},
 		changeGuests(data) {
-			this.loading = true
 			this.modifyData.adults = data[0].value
+			this.modifyData.region_id = this.id
 			// 获取未成年人
 			let children = []
 			if (data[1].value > 0) {
@@ -481,8 +494,8 @@ export default {
 					children.push(data)
 				}
 			}
-			this.modifyData.children = children.length>0?children:[12],
-			this.replacePrice()
+			this.modifyData.children = children.length > 0 ? children : [12],
+				this.replacePrice()
 			// this.replacePrice()
 			// console.log(data)
 			// data.forEach(item => {

@@ -104,11 +104,9 @@
 					sessionStorage.setItem("user_provider", res.user_info.provider)
 					setUserName(username)
 					this.$store.commit('SET_NAME', username)
-					setTimeout(function() {
-						that.$router.push({
-							path: '/'
-						})
-					}, 50)
+					this.$router.push({
+						path: '/'
+					})
 				}).catch((err) => {
 					console.log(err)
 				})

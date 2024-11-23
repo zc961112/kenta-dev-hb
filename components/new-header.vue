@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="header-box">
 		<div class="header" :class="[ishome?(top<456?'':'header-curr'):'']"
 			:style="{backgroundColor:ishome?(top<456?'rgba(255, 255, 255, 0)':'rgba(255, 255, 255, 1)'):'rgba(255, 255, 255, 1)',borderBottom:!ishome?'1px solid rgba(218, 218, 218, 1)':''}">
 			<div class="left-icon" :class="[!ishome?'icon-curr':'']" @click="showMenu">
@@ -12,11 +12,13 @@
 
 					<div v-else>
 						<div v-if="top<456">
-							<span class="username" v-if="userName" :style="{color:top<456?'#fff':'#333'}">{{userName}}</span>
+							<span class="username" v-if="userName"
+								:style="{color:top<456?'#fff':'#333'}">{{userName}}</span>
 							<img v-else class="D-icon" src="~assets/images/icon/D (1).png" />
 						</div>
 						<div v-else>
-							<span class="username" v-if="userName" :style="{color:top<456?'#fff':'#333'}">{{userName}}</span>
+							<span class="username" v-if="userName"
+								:style="{color:top<456?'#fff':'#333'}">{{userName}}</span>
 							<img v-else class="D-icon" src="~assets/images/icon/D.png" />
 						</div>
 
@@ -145,7 +147,7 @@
 				return this.$store.state.token
 			},
 			userName() {
-				return getUserName()?getUserName()[0]:''
+				return getUserName() ? getUserName()[0] : ''
 			},
 			hedaName() {
 				return getUserName()
@@ -196,12 +198,38 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.username{
+	@media (max-width: 820px) {
+		.header-box ::v-deep .el-drawer {
+			width: 80% !important;
+		}
+
+		.header-box {
+			.menu{
+				padding: 0 0.4rem;
+			}
+			.header {
+				padding: 0 0.2rem;
+			}
+
+			.left-icon {
+				margin-right: 0.1rem;
+				width: auto;
+			}
+
+			.username {
+				font-size: 0.25rem
+			}
+		}
+
+	}
+
+	.username {
 		font-size: 0.3rem;
 		margin-right: 10px;
 		margin-top: -5px;
 		display: inline-block;
 	}
+
 	.tab {
 		text-align: center;
 		width: 100%;

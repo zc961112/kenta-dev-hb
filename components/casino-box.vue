@@ -1,64 +1,85 @@
 <template>
 	<!-- <div class="c-casino-box" :class="{ 'active': isActive, 'mobile': isMobile }" @click="$emit('click')"
 		@mouseenter="$emit('enter')" @mouseleave="$emit('leave')"> -->
-	<div @click="toHotel(casino.hid)" @mouseenter="$emit('enter')" @mouseleave="$emit('leave')" class="c-casino-box"
-		:class="{ 'active': isActive, 'mobile': isMobile }">
-
-		<div class="ccb-right">
-			<div class="title">
-				<div class="index">{{casino.rating}}</div>
-				<div class="name">
-					<h3>{{casino.name}}</h3>
-					<p>{{casino.address}}</p>
-				</div>
+	<div class="casino">
+		<div @click="toHotel(casino.hid)" @mouseenter="$emit('enter')" @mouseleave="$emit('leave')"
+			class="c-casino-box">
+			<!-- :class="{ 'active': isActive, 'mobile': isMobile }" -->
+			<div class="ccb-left isMobile">
+				<img :src="casino.first_image" class="ccb-img">
+				<svg class="ccb-img-eye" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"
+					fill="none">
+					<path
+						d="M36.6665 20C34.9999 15 27.4999 8.33331 19.9999 8.33331C12.4999 8.33331 4.99992 15 3.33325 20"
+						stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" />
+					<path
+						d="M3.33325 19.9999C4.99992 24.9999 12.4999 31.6666 19.9999 31.6666C27.4999 31.6666 34.9999 24.9999 36.6666 19.9999"
+						stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" />
+					<path
+						d="M24.577 19.912C24.577 22.4687 22.5312 24.5831 19.9999 24.5831C17.4686 24.5831 15.4084 22.4687 15.4084 19.912C15.4084 17.3553 17.4686 15.4164 19.9999 15.4164C22.5312 15.4164 24.577 17.3553 24.577 19.912Z"
+						stroke="#FEFEFE" stroke-width="1.5" />
+				</svg>
 			</div>
-			<div class="see">
-				<div class="number">
-					<div class="top">
-						<!-- 填充空白的位置 -->
-						<span v-for="j in Math.max(0, 5 - Math.floor(casino.rating / 2))" :key="'fraction-' + j"></span>
-						<!-- 显示当前的分数 -->
-						<span v-for="i in Math.min(5, Math.floor(casino.rating / 2))" :key="'current-' + i"
-							class="current"></span>
-						<img src="~assets/images/icon/image 1.png" />
+
+			<div class="ccb-right">
+				<div class="title">
+					<div class="index">{{casino.rating}}</div>
+					<div class="name">
+						<h3>{{casino.name}}</h3>
+						<p>{{casino.address}}</p>
 					</div>
+				</div>
+				<div class="see">
+					<div class="number">
+						<div class="top">
+							<!-- 填充空白的位置 -->
+							<span v-for="j in Math.max(0, 5 - Math.floor(casino.rating / 2))"
+								:key="'fraction-' + j"></span>
+							<!-- 显示当前的分数 -->
+							<span v-for="i in Math.min(5, Math.floor(casino.rating / 2))" :key="'current-' + i"
+								class="current"></span>
+							<img src="~assets/images/icon/image 1.png" />
+						</div>
+						<div class="text">
+							0 ביקורות
+						</div>
+					</div>
+					<div class="xx">
+						<div class="top">
+							<el-rate void-color="#FFB800" :value="casino.star_rating" />
+							<div class="disabled"></div>
+						</div>
+						<div class="text">0.0 ק״מ ממרכז העיר</div>
+					</div>
+				</div>
+				<div class="price">
+					<div class="num">₪ {{casino.daily_prices?casino.daily_prices[0]:'לא זמין'}}</div>
 					<div class="text">
-						0 ביקורות
-					</div>
-				</div>
-				<div class="xx">
-					<div class="top">
-						<el-rate void-color="#FFB800" :value="casino.star_rating" />
-						<div class="disabled"></div>
-					</div>
-					<div class="text">0.0 ק״מ ממרכז העיר</div>
-				</div>
-			</div>
-			<div class="price">
-				<div class="num">₪ {{casino.daily_prices?casino.daily_prices[0]:'לא זמין'}}</div>
-				<div class="text">
-					<p style="direction: rtl; text-align: left;"> עבור {{casino.date}} לילות , {{casino.people}} אורחים
-					</p>
-					<div class="laber">
-						ביטול ללא עלות<img src="~assets/images/icon/secure-shield.png" />
+						<p style="direction: rtl; text-align: left;"> עבור {{casino.date}} לילות , {{casino.people}}
+							אורחים
+						</p>
+						<div class="laber">
+							ביטול ללא עלות<img src="~assets/images/icon/secure-shield.png" />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="ccb-left">
-			<img :src="casino.first_image" class="ccb-img">
-			<svg class="ccb-img-eye" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"
-				fill="none">
-				<path d="M36.6665 20C34.9999 15 27.4999 8.33331 19.9999 8.33331C12.4999 8.33331 4.99992 15 3.33325 20"
-					stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" />
-				<path
-					d="M3.33325 19.9999C4.99992 24.9999 12.4999 31.6666 19.9999 31.6666C27.4999 31.6666 34.9999 24.9999 36.6666 19.9999"
-					stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" />
-				<path
-					d="M24.577 19.912C24.577 22.4687 22.5312 24.5831 19.9999 24.5831C17.4686 24.5831 15.4084 22.4687 15.4084 19.912C15.4084 17.3553 17.4686 15.4164 19.9999 15.4164C22.5312 15.4164 24.577 17.3553 24.577 19.912Z"
-					stroke="#FEFEFE" stroke-width="1.5" />
-			</svg>
+			<div class="ccb-left noMobile">
+				<img :src="casino.first_image" class="ccb-img">
+				<svg class="ccb-img-eye" font-weight="bold" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+					viewBox="0 0 40 40" fill="none">
+					<path
+						d="M36.6665 20C34.9999 15 27.4999 8.33331 19.9999 8.33331C12.4999 8.33331 4.99992 15 3.33325 20"
+						stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" />
+					<path
+						d="M3.33325 19.9999C4.99992 24.9999 12.4999 31.6666 19.9999 31.6666C27.4999 31.6666 34.9999 24.9999 36.6666 19.9999"
+						stroke="#FEFEFE" stroke-width="1.5" stroke-linecap="round" />
+					<path
+						d="M24.577 19.912C24.577 22.4687 22.5312 24.5831 19.9999 24.5831C17.4686 24.5831 15.4084 22.4687 15.4084 19.912C15.4084 17.3553 17.4686 15.4164 19.9999 15.4164C22.5312 15.4164 24.577 17.3553 24.577 19.912Z"
+						stroke="#FEFEFE" stroke-width="1.5" />
+				</svg>
+			</div>
 		</div>
 	</div>
 </template>
@@ -94,6 +115,63 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.casino {
+			.c-casino-box .ccb-right .title .name {
+				margin-top: 0.16rem;
+			}
+
+			.page-area .pac-item {
+				margin-bottom: 0;
+			}
+
+			.c-casino-box.mobile {
+				padding: 0.16rem 0;
+			}
+
+			.c-casino-box .ccb-right .price {
+				margin-top: 0.08rem;
+			}
+
+			.c-casino-box {
+				display: inline-block;
+				width: 100%;
+			}
+
+			.c-casino-box .ccb-right {
+				padding: 0;
+			}
+
+			.c-casino-box .ccb-left {
+				width: 100%;
+			}
+
+			.isMobile {
+				display: block;
+			}
+
+			.noMobile {
+				display: none;
+			}
+
+			.c-casino-box .ccb-right .title .index {
+				position: absolute;
+				top: 0.17rem;
+				left: 0.16rem;
+				z-index: 1;
+			}
+		}
+
+	}
+
+	.isMobile {
+		display: none;
+	}
+
+	.casino {
+		position: relative;
+	}
+
 	.c-casino-box {
 		display: flex;
 		cursor: pointer;
@@ -267,12 +345,12 @@
 				align-items: center;
 
 				.index {
-					width: 0.24rem;
-					height: 0.32rem;
+					width: 0.26rem;
+					height: 0.34rem;
 					background: url("~assets/images/icon/Vector.png");
 					background-size: 100% 100%;
 					text-align: center;
-					font-size: 0.16rem;
+					font-size: 0.14rem;
 					font-weight: 600;
 					line-height: 0.3rem;
 					color: rgba(254, 254, 254, 1);

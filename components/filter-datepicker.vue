@@ -1,97 +1,176 @@
 <template>
-	<el-popover placement="bottom-start" trigger="click" :visible-arrow="false" popper-class="select-date-wrap"
-		v-model="show">
-		<div class="select-date-con">
-			<div class="tabs">
-				<div class="tab" :class="dateType == 0 ? 'active' : ''" @click="handleDateType(0)">
-					Select your dates
-				</div>
-				<div class="tab" :class="dateType == 1 ? 'active' : ''" @click="handleDateType(1)">
-					<span>New:&nbsp;</span> I’m flexible
-				</div>
-			</div>
-			<div class="tab-con" v-if="dateType == 0">
-				<date-picker ref="myDatePicker" v-model="dates" type="daterange" @pick="confirmDateRange"
-					popperClass="date-content" value-format="yyyy-MM-dd" range-separator="至" start-placeholder=""
-					end-placeholder="" />
-				<div class="exact-dates">
-					<div class="item" :class="dayRageIndex==0?'active':''" @click="handleDateRange(0)">Exact dates
+	<div class="dates">
+		<el-popover placement="bottom-start" trigger="click" :visible-arrow="false" popper-class="select-date-wrap"
+			v-model="show">
+			<div class="select-date-con">
+				<div class="tabs">
+					<div class="tab" :class="dateType == 0 ? 'active' : ''" @click="handleDateType(0)">
+						Select your dates
 					</div>
-					<div class="item" :class="dayRageIndex==1?'active':''" @click="handleDateRange(1)">± 1 day</div>
-					<div class="item" :class="dayRageIndex==2?'active':''" @click="handleDateRange(2)">± 2 days</div>
-					<div class="item" :class="dayRageIndex==3?'active':''" @click="handleDateRange(3)">± 3 days</div>
-					<div class="item" :class="dayRageIndex==7?'active':''" @click="handleDateRange(7)">± 7 days</div>
+					<div class="tab" :class="dateType == 1 ? 'active' : ''" @click="handleDateType(1)">
+						<span>New:&nbsp;</span> I’m flexible
+					</div>
 				</div>
-			</div>
-			<div class="tab-con" v-if="dateType == 1">
-				<div class="travel-type">
-					<div class="type-hd">Travel for...</div>
-					<div class="item-list">
-						<div class="item" :class="travelTypeIndex==0?'active':''"
-							@click="handleTravelType(0,'A short weekend')">
-							<div class="item-icon">
-								<img src="~assets/images/date-type-1.png" alt="">
-							</div>
-							<div class="item-text">A short weekend</div>
-							<div class="item-desc">Fri-Sun</div>
-							<div class="item-radio"></div>
+				<div class="tab-con" v-if="dateType == 0">
+					<date-picker ref="myDatePicker" v-model="dates" type="daterange" @pick="confirmDateRange"
+						popperClass="date-content" value-format="yyyy-MM-dd" range-separator="至" start-placeholder=""
+						end-placeholder="" />
+					<div class="exact-dates">
+						<div class="item" :class="dayRageIndex==0?'active':''" @click="handleDateRange(0)">Exact dates
 						</div>
-						<div class="item" :class="travelTypeIndex==1?'active':''"
-							@click="handleTravelType(1,'A long weekend')">
-							<div class="item-icon">
-								<img src="~assets/images/date-type-2.png" alt="">
-							</div>
-							<div class="item-text">a long weekend</div>
-							<div class="item-desc">Thu-Mon</div>
-							<div class="item-radio"></div>
+						<div class="item" :class="dayRageIndex==1?'active':''" @click="handleDateRange(1)">± 1 day</div>
+						<div class="item" :class="dayRageIndex==2?'active':''" @click="handleDateRange(2)">± 2 days
 						</div>
-						<div class="item" :class="travelTypeIndex==2?'active':''" @click="handleTravelType(2,'A week')">
-							<div class="item-icon">
-								<img src="~assets/images/date-type-3.png" alt="">
-							</div>
-							<div class="item-text">A week</div>
-							<div class="item-desc">7 days</div>
-							<div class="item-radio"></div>
+						<div class="item" :class="dayRageIndex==3?'active':''" @click="handleDateRange(3)">± 3 days
 						</div>
-						<div class="item" :class="travelTypeIndex==3?'active':''"
-							@click="handleTravelType(3,'Two weeks')">
-							<div class="item-icon">
-								<img src="~assets/images/date-type-4.png" alt="">
-							</div>
-							<div class="item-text">Two weeks</div>
-							<div class="item-desc">14 days</div>
-							<div class="item-radio"></div>
+						<div class="item" :class="dayRageIndex==7?'active':''" @click="handleDateRange(7)">± 7 days
 						</div>
 					</div>
 				</div>
-				<div class="travel-month">
-					<div class="type-hd">Travel in...</div>
-					<swiper :options="swiperOption">
-						<swiper-slide v-for="(item, index) in monthList" :key="index">
-							<div class="item" :class="item.checked?'checked':''" @click="handleMonth(index)">
-								<div class="item-month">{{ item.month }}</div>
-								<div class="item-year">{{ item.year }}</div>
+				<div class="tab-con" v-if="dateType == 1">
+					<div class="travel-type">
+						<div class="type-hd">Travel for...</div>
+						<div class="item-list">
+							<div class="item" :class="travelTypeIndex==0?'active':''"
+								@click="handleTravelType(0,'A short weekend')">
+								<div class="item-icon">
+									<img src="~assets/images/date-type-1.png" alt="">
+								</div>
+								<div class="item-text">A short weekend</div>
+								<div class="item-desc">Fri-Sun</div>
+								<div class="item-radio"></div>
 							</div>
-						</swiper-slide>
-						<div class="swiper-button-prev" slot="button-prev"></div>
-						<div class="swiper-button-next" slot="button-next"></div>
-					</swiper>
+							<div class="item" :class="travelTypeIndex==1?'active':''"
+								@click="handleTravelType(1,'A long weekend')">
+								<div class="item-icon">
+									<img src="~assets/images/date-type-2.png" alt="">
+								</div>
+								<div class="item-text">a long weekend</div>
+								<div class="item-desc">Thu-Mon</div>
+								<div class="item-radio"></div>
+							</div>
+							<div class="item" :class="travelTypeIndex==2?'active':''"
+								@click="handleTravelType(2,'A week')">
+								<div class="item-icon">
+									<img src="~assets/images/date-type-3.png" alt="">
+								</div>
+								<div class="item-text">A week</div>
+								<div class="item-desc">7 days</div>
+								<div class="item-radio"></div>
+							</div>
+							<div class="item" :class="travelTypeIndex==3?'active':''"
+								@click="handleTravelType(3,'Two weeks')">
+								<div class="item-icon">
+									<img src="~assets/images/date-type-4.png" alt="">
+								</div>
+								<div class="item-text">Two weeks</div>
+								<div class="item-desc">14 days</div>
+								<div class="item-radio"></div>
+							</div>
+						</div>
+					</div>
+					<div class="travel-month">
+						<div class="type-hd">Travel in...</div>
+						<swiper :options="swiperOption">
+							<swiper-slide v-for="(item, index) in monthList" :key="index">
+								<div class="item" :class="item.checked?'checked':''" @click="handleMonth(index)">
+									<div class="item-month">{{ item.month }}</div>
+									<div class="item-year">{{ item.year }}</div>
+								</div>
+							</swiper-slide>
+							<div class="swiper-button-prev" slot="button-prev"></div>
+							<div class="swiper-button-next" slot="button-next"></div>
+						</swiper>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="date-show-inp" slot="reference">
-			<div v-show="dateType==0">
-				<el-input suffix-icon="el-icon-date" placeholder="Add dates" v-model="formDate1"
-					@click.stop.native="handleVisible3" @clear="handleDateClear"></el-input>
-				<div class="show-date-range" v-if="formDate1&&dayRageIndex>0">±{{ dayRageIndex }}</div>
+			<div class="date-show-inp" slot="reference">
+				<div v-show="dateType==0">
+					<el-input suffix-icon="el-icon-date" placeholder="Add dates" v-model="formDate1"
+						@click.stop.native="handleVisible3" @clear="handleDateClear"></el-input>
+					<div class="show-date-range" v-if="formDate1&&dayRageIndex>0">±{{ dayRageIndex }}</div>
+				</div>
+				<div class="jb-bg" @click.stop="handleVisible3"></div>
+
+				<div v-show="dateType==1">
+					<el-input placeholder="Add dates" v-model="formDate2" @click.stop.native="handleVisible3"
+						@clear="handleDateClear2"></el-input>
+				</div>
+
 			</div>
-			<div v-show="dateType==1">
-				<el-input placeholder="Add dates" v-model="formDate2" @click.stop.native="handleVisible3"
-					@clear="handleDateClear2"></el-input>
+		</el-popover>
+
+		<!-- 移动端的 -->
+		<el-drawer :with-header="false" :visible.sync="direction" size="100%" direction="btt">
+			<mobile-header @close="direction=false" />
+			<div class="m-date">
+				<div class="select-date-con">
+					<div class="tab-con" v-if="dateType == 0">
+						<date-picker ref="myDatePicker" v-model="dates" type="daterange" @pick="confirmDateRange"
+							popperClass="date-content" value-format="yyyy-MM-dd" range-separator="至"
+							start-placeholder="" end-placeholder="" />
+					</div>
+					<div class="tab-con" v-if="dateType == 1">
+						<div class="travel-type">
+							<div class="type-hd">Travel for...</div>
+							<div class="item-list">
+								<div class="item" :class="travelTypeIndex==0?'active':''"
+									@click="handleTravelType(0,'A short weekend')">
+									<div class="item-icon">
+										<img src="~assets/images/date-type-1.png" alt="">
+									</div>
+									<div class="item-text">A short weekend</div>
+									<div class="item-desc">Fri-Sun</div>
+									<div class="item-radio"></div>
+								</div>
+								<div class="item" :class="travelTypeIndex==1?'active':''"
+									@click="handleTravelType(1,'A long weekend')">
+									<div class="item-icon">
+										<img src="~assets/images/date-type-2.png" alt="">
+									</div>
+									<div class="item-text">a long weekend</div>
+									<div class="item-desc">Thu-Mon</div>
+									<div class="item-radio"></div>
+								</div>
+								<div class="item" :class="travelTypeIndex==2?'active':''"
+									@click="handleTravelType(2,'A week')">
+									<div class="item-icon">
+										<img src="~assets/images/date-type-3.png" alt="">
+									</div>
+									<div class="item-text">A week</div>
+									<div class="item-desc">7 days</div>
+									<div class="item-radio"></div>
+								</div>
+								<div class="item" :class="travelTypeIndex==3?'active':''"
+									@click="handleTravelType(3,'Two weeks')">
+									<div class="item-icon">
+										<img src="~assets/images/date-type-4.png" alt="">
+									</div>
+									<div class="item-text">Two weeks</div>
+									<div class="item-desc">14 days</div>
+									<div class="item-radio"></div>
+								</div>
+							</div>
+						</div>
+						<div class="travel-month">
+							<div class="type-hd">Travel in...</div>
+							<swiper :options="swiperOption">
+								<swiper-slide v-for="(item, index) in monthList" :key="index">
+									<div class="item" :class="item.checked?'checked':''" @click="handleMonth(index)">
+										<div class="item-month">{{ item.month }}</div>
+										<div class="item-year">{{ item.year }}</div>
+									</div>
+								</swiper-slide>
+								<div class="swiper-button-prev" slot="button-prev"></div>
+								<div class="swiper-button-next" slot="button-next"></div>
+							</swiper>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-	</el-popover>
+		</el-drawer>
+	</div>
 </template>
 
 <script>
@@ -155,7 +234,8 @@
 				},
 				monthList: [],
 				selectedMonth: [],
-				formDate1: ""
+				formDate1: "",
+				direction: false
 			}
 		},
 		watch: {
@@ -217,12 +297,14 @@
 			},
 			handleVisible3() {
 				if (window.isMobile) {
-					this.$router.push({
-						path: '/mobileIndexDate'
-					});
-					return;
+					this.direction = !this.direction
+					// this.$router.push({
+					// 	path: '/mobileIndexDate'
+					// });
+					// return;
+				} else {
+					this.show = !this.show;
 				}
-				this.show = !this.show;
 			},
 			handleDateType(type) {
 				this.$emit('update:datetype', type)
@@ -234,6 +316,7 @@
 				this.formDate1 = tday.getday(start) + '/' + tday.getday(end)
 				this.$emit("RangeTime", this.formDate1)
 				this.show = false
+				this.direction = false
 
 				// console.log(tday.getday(start),tday.getday(end))
 				// this.$emit('update:time', [start, end].join(','))
@@ -291,8 +374,38 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.dates .jb-bg {
+			display: inline-block;
+		}
+
+	}
+	.m-date ::v-deep .el-picker-panel__body{
+		width: 100%;
+		min-width:100%;
+	}
+	.m-date ::v-deep .el-date-range-picker__content{
+		width: 100%;
+		padding: 0.25rem 0.2rem;
+		margin: 0!important;
+	}
+	.m-date .tab-con{
+		padding: 0!important;
+	}
+
 	.date-show-inp::v-deep .el-input__inner {
 		text-align: right;
+	}
+
+	.jb-bg {
+		display: none;
+		height: 40px;
+		left: 0;
+		z-index: 1;
+		width: 0.6rem;
+		top: 0;
+		position: absolute;
+		background: linear-gradient(90deg, #F5F5F5 44%, rgba(245, 245, 245, 0) 100%);
 	}
 
 	.date-show-inp {

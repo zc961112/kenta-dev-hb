@@ -1,24 +1,47 @@
 <template>
-	<el-popover placement="bottom-start" trigger="click" :visible-arrow="false" popper-class="select-guest-wrap"
-		v-model="show" @hide="hidePopper">
-		<div class="select-guest-con">
-			<div class="item-list">
-				<div class="item" v-for="(item, index) in guestList" :key="index">
-					<div class="item-con">
-						<div class="item-title">{{ item.label }}</div>
-						<div class="item-desc">{{ item.tips }}</div>
+	<div class="filters">
+		<el-popover placement="bottom-start" trigger="click" :visible-arrow="false" popper-class="select-guest-wrap"
+			v-model="show" @hide="hidePopper">
+			<div class="select-guest-con">
+				<div class="item-list">
+					<div class="item" v-for="(item, index) in guestList" :key="index">
+						<div class="item-con">
+							<div class="item-title">{{ item.label }}</div>
+							<div class="item-desc">{{ item.tips }}</div>
+						</div>
+						<el-input-number v-model="item.value" :min="0" :max="limitMap[item.label]"
+							@change="validPersonCount(item)" />
 					</div>
-					<el-input-number v-model="item.value" :min="0" :max="limitMap[item.label]"
-						@change="validPersonCount(item)" />
 				</div>
 			</div>
-		</div>
-		<div class="filter-member-point" slot="reference">
-			<i class="el-icon-arrow-down"></i>
-			<el-input placeholder="Add guests" v-model="guests" @click.stop.native="handleVisible4"></el-input>
-		    <img class="my" src="~assets/images/icon/my.png" />
-		</div>
-	</el-popover>
+			<div class="filter-member-point" slot="reference">
+				<div class="jb-bg" @click.stop="handleVisible4"></div>
+				<i class="el-icon-arrow-down"></i>
+				<el-input placeholder="Add guests" v-model="guests" @click.stop.native="handleVisible4"></el-input>
+				<img class="my" src="~assets/images/icon/my.png" />
+			</div>
+		</el-popover>
+		<!-- 移动端的 -->
+		<el-drawer :with-header="false" :visible.sync="direction" size="100%" direction="btt">
+			<mobile-header @close="direction=false" />
+			<div class="draweryd">
+				<div class="select-guest-con">
+					<div class="item-list">
+						<div class="name">מספר אורחים</div>
+						<div class="item" v-for="(item, index) in guestList" :key="index">
+							<div class="item-con">
+								<div class="item-title">{{ item.label }}</div>
+								<div class="item-desc">{{ item.tips }}</div>
+							</div>
+							<el-input-number v-model="item.value" :min="0" :max="limitMap[item.label]"
+								@change="validPersonCount(item)" />
+						</div>
+					</div>
+				</div>
+				<el-button @click="submit" type="primary" class="btns">נַעֲשָׂה</el-button>
+			</div>
+		</el-drawer>
+	</div>
 </template>
 
 <script>
@@ -37,6 +60,7 @@
 					Adults: 6,
 					Children: 8
 				},
+				direction: false,
 				guestList: [{
 						label: 'מבוגרים',
 						tips: 'גילאים +18',
@@ -105,6 +129,11 @@
 			}
 		},
 		methods: {
+			// 提交
+			submit() {
+				this.$emit('change', this.guestList)
+				this.direction = false
+			},
 			validPersonCount() {
 				const aValue = this.guestList.find(g => g.label === 'מבוגרים').value
 				const cValue = this.guestList.find(g => g.label === 'ילדים').value
@@ -115,42 +144,85 @@
 				this.$emit('change', this.guestList)
 			},
 			handleVisible4() {
+				console.log(this.guests)
 				if (window.isMobile) {
-					this.$router.push({
-						path: '/mobileIndexGuest'
-					})
-					return
+					this.direction = !this.direction
+				}else {
+					this.show = !this.show
 				}
-				this.show = !this.show
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.filters .jb-bg{
+			display: inline-block;
+		}
+		
+	}
+	.jb-bg{
+		display: none;
+		height: 40px;
+		left: 32px;
+		z-index: 1;
+		width: 0.6rem;
+		top: 0;
+		position: absolute;
+		background: linear-gradient(90deg, #F5F5F5 44%, rgba(245, 245, 245, 0) 100%);
+	}
+	.filter-member-point{
+		position: relative;
+	}
+	.btns{
+		margin-top: 0.24rem;
+		width: 100%;
+		background-color: #FF3263;
+		color: #fff;
+	}
 	.filter-member-point::v-deep .el-input__inner {
 		text-align: right;
-		padding:0 32px;
+		padding: 0 32px;
 	}
-	.item{
+
+	.draweryd {
+		padding: 0 0.20rem;
+
+		.name {
+			margin-top: 0.4rem;
+			text-align: right;
+			font-size: 0.24rem;
+		}
+
+		.item {
+			padding-left: 0.24rem;
+			padding-right: 0.24rem;
+		}
+	}
+
+	.item {
 		direction: rtl;
 	}
 
 	.filter-member-point {
 		position: relative;
-		i{
+
+		i {
 			position: absolute;
 			left: 0.12rem;
 			top: 0.12rem;
 			z-index: 9;
 		}
-		.my{
+
+		.my {
 			width: 0.16rem;
 			height: auto;
 			position: absolute;
 			right: 0.12rem;
 			top: 0.12rem;
 		}
+
 		:deep(.el-input__inner) {
 			background-color: #F5F5F5;
 		}
