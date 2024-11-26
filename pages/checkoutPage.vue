@@ -1,11 +1,13 @@
 <template>
-	<div>
+	<div class="checkoutPage">
 		<div class="header">
 			<div class="time">
 				<img class="l" src="~assets/images/icon/info-feature.png" />
-				<span class="num">{{countdown}}</span>
-				<span class="p">זמן נותר להזמנה:</span>
-				<img class="r" src="~assets/images/icon/clock 1.png" />
+				<div class="time-r">
+					<span class="num">{{countdown}}</span>
+					<span class="p">זמן נותר להזמנה:</span>
+					<img class="r" src="~assets/images/icon/clock 1.png" />
+				</div>
 			</div>
 			<div class="logo">
 				<img src="~assets/images/logo.png" />
@@ -15,6 +17,7 @@
 		<div class="header-h"></div>
 		<div class="warps">
 			<div class="content">
+				<!-- PC -->
 				<div class="left">
 					<div class="price">
 						<div class="top">
@@ -60,15 +63,79 @@
 						</div>
 					</div>
 				</div>
+				<!-- 移动端 -->
+				<el-drawer :with-header="false" :visible.sync="direction" size="100%" direction="btt">
+					<mobile-header @close="direction=false" />
+					<div class="left drawerleft">
+						<div class="price">
+							<div class="top">
+								<p class="flex">₪ 1,611</p>
+								<div>מחיר לילה</div>
+							</div>
+							<div class="text">עבור 3 לילות, 2 אורחים</div>
+							<div class="bottom">
+								<p class="flex">₪ 570</p>
+								<div>כולל מס מגורים</div>
+							</div>
+							<div class="item">
+								מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
+							</div>
+							<div class="num">
+								<p class="flex">₪ 4,833</p>
+								<div>סה״כ לתשלום</div>
+							</div>
+						</div>
+						<div class="price-c">
+							<div class="bg">
+								<div class="name">תשלום בעת ההגעה</div>
+								<div class="info">
+									<p class="flex">$170</p>
+									<div>דמי נופש</div>
+								</div>
+							</div>
+							<div class="b">
+								<p><span>לתשומת ליבך</span> כל המיסים ואגרות</p>
+								<p>יחוייבו במטבע מקומי (USD).</p>
+							</div>
+						</div>
+						<div class="send">
+							<div class="send-text">
+								<i class="el-icon-arrow-up"></i>
+								<div class="flex"></div>
+								<p>מבצעים והנחות</p>
+							</div>
+							<div class="send-box">
+								<img src="~assets/images/icon/Rectangle 780.png" />
+								<div class="flex"></div>
+								<p>קוד קופון</p>
+							</div>
+						</div>
+					</div>
+				</el-drawer>
+
 				<div class="right">
 					<div class="info">
 						<div class="info-left flex">
 							<div class="top">
-								<div class="l">
+								<!-- PC端 -->
+								<div class="l nomobile">
 									<p class="day">צ'ק אין - 16:00</p>
 									<p class="time">31 יולי 2024</p>
 									<p class="house">צ'ק אאוט - 11:00</p>
-									<p class="time">31 יולי 2024</p>
+									<p class="time">3 אוג׳ 2024</p>
+								</div>
+								<!-- 移动端 -->
+								<div class="ismobile">
+									<div class="m-time">
+										<div class="m-time-li">
+											<p class="t">צ'ק אאוט - 11:00</p>
+											<p>3 אוג׳ 2024</p>
+										</div>
+										<div class="m-time-li">
+											<p class="t">צ'ק אין - 16:00</p>
+											<p>31 יולי 2024</p>
+										</div>
+									</div>
 								</div>
 								<div class="r">
 									<div class="score">
@@ -172,7 +239,7 @@
 							</div>
 							<div class="text">נא למלא את כל שדות החובה</div>
 							<div class="form">
-								<div class="form-li">
+								<div class="form-li form-li-m">
 									<div class="li">
 										<el-input v-model="payForm.amount" placeholder="שם משפחה*"></el-input>
 									</div>
@@ -187,7 +254,7 @@
 										<el-input v-model="payForm.email" placeholder="דואר אלקטרוני*"></el-input>
 									</div>
 								</div>
-								<div class="form-li">
+								<div class="form-li form-li-m">
 									<div class="li">
 										<img class="img" src="~assets/images/icon/info-feature.png" />
 										<el-input v-model="input" placeholder="מספר פלאפון*"></el-input>
@@ -250,6 +317,22 @@
 				</div>
 			</div>
 		</div>
+		<!-- 移动端的悬浮 -->
+		<div class="suspension-h"></div>
+		<div class="suspension">
+			<div class="more" @click="direction = !direction"><i class="el-icon-arrow-up"></i></div>
+			<div class="price">
+				<div class="top">
+					<p class="flex">₪ 1,611</p>
+					<div>מחיר לילה</div>
+				</div>
+				<div class="text">עבור 3 לילות, 2 אורחים</div>
+				<div class="bottom">
+					<p class="flex">₪ 570</p>
+					<div>כולל מס מגורים</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	</div>
 </template>
@@ -298,6 +381,7 @@
 					token: '',
 					provider: ''
 				},
+				direction:false,
 				CountryList: [],
 				payForm: {
 					partner_order_id: '',
@@ -581,6 +665,214 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.checkoutPage {
+			.content {
+				margin-top: 0.09rem;
+				flex-direction: column;
+				padding: 0 0.2rem;
+			}
+
+			.ismobile {
+				display: inline-block;
+				text-align: right;
+			}
+
+			.m-time {
+				margin-top: 0.16rem;
+				display: flex;
+				align-items: center;
+				float: right
+			}
+
+			.m-time-li .t {
+				font-size: 0.12rem;
+				color: rgba(26, 26, 26, 0.6);
+			}
+
+			.m-time-li {
+				margin-left: 0.4rem;
+				line-height: 20px;
+			}
+
+			.content .right .img img {
+				width: 100%;
+				height: 1.40rem;
+			}
+
+			.content .right .info .info-left .bottom .wallet {
+				flex-direction: column-reverse;
+				align-items: flex-end;
+			}
+
+			.content .right .info .info-left .bottom .wallet .p {
+				margin-top: 0.08rem;
+			}
+
+			.content .right .info .info-left .top .r .name {
+				text-align: right;
+				margin: 0.16rem 0 0.08rem 0;
+			}
+
+			.content .right .info .info-left .top .l {
+				margin-top: 0.16rem;
+			}
+
+			.content .right .info .info-left .top {
+				flex-direction: column;
+				display: flex;
+				flex-direction: column-reverse;
+				padding: 0.16rem 0.16rem 0.24rem 0.16rem;
+			}
+
+			.header {
+				padding: 0 0.2rem;
+			}
+
+			.time-r {
+				direction: rtl;
+			}
+
+			.header .time .r {
+				margin-left: 0.08rem;
+			}
+
+			.warps {
+				width: 100%;
+			}
+
+			.content .user .name {
+				font-size: 0.28rem;
+			}
+
+			.content .user .text {
+				margin-top: 0;
+			}
+
+			.content .user .top {
+				padding: 0.4rem 0.2rem 0 0.2rem;
+			}
+
+			.content .form-li .li {
+				margin-bottom: 0.16rem;
+			}
+
+			.content .form-li .li:nth-last-child(1) {
+				margin-bottom: 0;
+			}
+
+			.content .form-li {
+				padding-right: 0;
+			}
+
+			.form-li-m {
+				flex-direction: column;
+			}
+
+			.btn button {
+				width: 100%;
+			}
+
+			.btn {
+				padding: 0.1rem 0.2rem 0.4rem 0.2rem;
+			}
+
+			.content .user .select {
+				padding: 0.24rem 0.2rem;
+				width: 100%;
+			}
+
+			.content .user .select p {
+				text-align: center;
+			}
+
+			.content .user .select-time .name {
+				font-size: 0.28rem;
+			}
+
+			.content .user .select-time::v-deep .el-input__inner {
+				width: 1.82rem;
+			}
+
+			.content .user .select .el-select {
+				width: 100%;
+			}
+
+			.content .user .select-time {
+				padding: 0.24rem 0.2rem;
+			}
+
+			.content .right .info {
+				flex-direction: column;
+				height: auto !important;
+				display: flex;
+				flex-direction: column-reverse;
+			}
+
+			.suspension-h,
+			.suspension,.drawerleft {
+				display: inline-block!important;
+			}
+			.content .drawerleft{
+				width: 100%;
+				margin-right:0;
+				padding: 0.24rem 0.2rem;
+			}
+			.content .left,
+			.header .time .p,
+			.nomobile {
+				display: none;
+			}
+		}
+
+	}
+
+	.suspension-h {
+		height: 1.2rem;
+		display: none;
+	}
+
+	.suspension {
+		display: none;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+		z-index: 1;
+		border-top: 1px solid #DADADA;
+		background-color: #fff;
+		padding: 0.2rem 0.2rem 0.24rem 0.2rem;
+		width: 100%;
+
+		.price {
+			border: none;
+
+			.top {
+				padding: 0;
+				margin-bottom: 0.03rem;
+			}
+
+			.text {
+				padding: 0;
+				margin-bottom: 0.1rem;
+			}
+
+			.bottom {
+				padding: 0;
+			}
+		}
+
+		.more {
+			text-align: center;
+
+			i {
+				color: #FF3263;
+				font-size: 0.25rem;
+			}
+		}
+	}
+
 	a {
 		text-decoration: none;
 	}
@@ -640,6 +932,11 @@
 		transform: rotate(180deg);
 		display: inline-block;
 		transition: ease .3s;
+	}
+
+	.time-r {
+		display: flex;
+		align-items: center;
 	}
 
 	.btn {
@@ -1220,26 +1517,72 @@
 				color: rgba(26, 26, 26, 0.6);
 			}
 
-			.price {
-				border: 1px solid rgba(218, 218, 218, 1);
-				border-radius: 8px;
-				background-color: #fff;
 
-				.top {
-					display: flex;
-					align-items: center;
-					padding: 0.16rem;
+		}
+	}
 
-					p {
-						font-size: 0.14rem;
-						font-weight: 400;
-					}
+	.price {
+		border: 1px solid rgba(218, 218, 218, 1);
+		border-radius: 8px;
+		background-color: #fff;
 
-					div {
-						font-size: 0.16rem;
-						font-weight: 600;
-					}
-				}
+		.text {
+			padding: 0 0.16rem;
+			text-align: right;
+			font-size: 0.12rem;
+			font-weight: 400;
+			color: rgba(26, 26, 26, 0.6);
+			margin-top: 4px;
+			margin-bottom: 8px;
+		}
+
+		.num {
+			display: flex;
+			align-items: center;
+			font-size: 0.16rem;
+			font-weight: 600;
+			padding: 0.16rem;
+		}
+
+		.item {
+			margin-top: 0.16rem;
+			display: flex;
+			padding: 0.18rem 0.16rem;
+			align-items: center;
+			justify-content: flex-end;
+			border-top: 1px solid rgba(218, 218, 218, 1);
+			border-bottom: 1px solid rgba(218, 218, 218, 1);
+			color: rgba(52, 81, 255, 1);
+
+			img {
+				width: 0.12rem;
+				height: auto;
+				margin: 0 0.16rem;
+			}
+		}
+
+		.bottom {
+			display: flex;
+			align-items: center;
+			font-size: 0.12rem;
+			padding: 0 0.16rem;
+			font-weight: 400;
+			color: rgba(26, 26, 26, 0.6);
+		}
+
+		.top {
+			display: flex;
+			align-items: center;
+			padding: 0.16rem;
+
+			p {
+				font-size: 0.14rem;
+				font-weight: 400;
+			}
+
+			div {
+				font-size: 0.16rem;
+				font-weight: 600;
 			}
 		}
 	}

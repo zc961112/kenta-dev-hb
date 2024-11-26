@@ -1,110 +1,34 @@
 <template>
-	<div class="page theme-xs2event">
-		<new-header />
-		<div class="banner">
-			<div class="info">
-				<div class="navigation">
-					<span>בית</span>
-					<i class="el-icon-arrow-right"></i>
-					<span>אירועים</span>
-					<i class="el-icon-arrow-right"></i>
-					<span>Dutch Grand Prix</span>
-				</div>
-				<h1 class="name">
-					{{$route.query.event_name}}
-				</h1>
-				<div class="time">
-					<p>
-						<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
-						<span>אוג’ 23, 2024 - אוג’ 25, 2024</span>
-					</p>
-					<p>
-						<img src="~assets/images/icon/icon2.png" />
-						<span>{{$route.query.event_name}}{{$route.query.city}}</span>
-					</p>
-					<p>
-						<img src="~assets/images/icon/icon3.png" />
-						<span style="direction: rtl;">{{$route.query.season}}{{$route.query.tournament_name}} </span>
-					</p>
-					<!-- <span class="Promo">Exclusive Promo</span>
-						<span class="Casino"><img src="~assets/images/icon/icon4.png" />Sponsored by Asper Casino</span> -->
-				</div>
-			</div>
+	<div class="map">
+		<div class="filter" @click="colse">
+			<img src="~assets/images/icon/mapcolse.png" />
 		</div>
-		<!-- 选座 -->
-		<img @click="showSeat" class="seat" src="~assets/images/seat.png" />
-		<div class="content">
-			<div class="left">
-				<div class="tips">
-					<p> כאן תוכלו למצוא את כל הכרטיסים שלנו לגראנד פרי האיטלקי. בחרו וקנו את כרטיסי הפורמולה 1
-					</p>
-					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
-				</div>
-				<div @mouseover="mouseover(index,item.category_id)" @mouseout="mouseout(item.category_id)"
-					:class="[active==index?'active':'']" class="item-li" v-for="(item,index) in list" :key="index">
-					<div class="text">
-						<div class="text-info">
-							<img src="~assets/images/icon/icon7.png" />
-							<div class="info">
-								<h3>{{item.ticket_title}}</h3>
-								<p>שישי - ראשון</p>
-							</div>
-						</div>
-						<div class="icon-img">
-							<img src="~assets/images/icon/icon6.png" />
-							<img src="~assets/images/icon/icon5.png" />
-						</div>
-					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer">Order -
-						€{{item.net_rate/100}}</router-link>
-				</div>
-			</div>
-			<div class="right">
-				<div id="venue-map"></div>
-			</div>
-		</div>
-		<!-- 座位移动端 -->
-		<el-drawer :with-header="false" :visible.sync="direction" size="100%" direction="btt">
-			<mobile-header @close="direction=false" />
-			<venue-map-m v-if="direction" @close="direction=false" ref="venueRef" />
-		</el-drawer>
-		<new-footer />
-
+		<div id="venue-map-m"></div>
 	</div>
 </template>
 
 <script>
-	import {
-		tickets
-	} from '@/api/kentaHb'
 	import * as d3 from "d3";
 	export default {
-		name: 'engPage',
 		data() {
 			return {
-				list: [],
-				svgUrl: '',
-				svg: '',
-				active: -1,
-				direction: false,
-				InfoData: null
+				venue_id: ''
 			}
 		},
-		async created() {
-			this.getInfo()
-		},
 		methods: {
-			// 移动端选座
-			showSeat() {
-				this.direction = !this.direction
-				this.$nextTick(() => {
-					this.$refs.venueRef.int(this.InfoData,this.$route.query.venue_id)
-				})
+			colse() {
+				this.venue_id = ""
+				this.$emit("close")
+			},
+			// 加载
+			int(res, venue_id) {
+				this.venue_id = venue_id
+				this.getmap(res)
 			},
 			// 鼠标移上去
 			mouseover(index, category_id) {
 				this.active = index
-				const venueMap = document.getElementById('venue-map');
+				const venueMap = document.getElementById('venue-map-m');
 				var elements = venueMap.querySelectorAll(`.${CSS.escape(category_id)}`);
 				elements.forEach(function(element) {
 					element.classList.add('active');
@@ -113,27 +37,18 @@
 			// 鼠标移除
 			mouseout(category_id) {
 				this.active = -1
-				const venueMap = document.getElementById('venue-map');
+				const venueMap = document.getElementById('venue-map-m');
 				var elements = venueMap.querySelectorAll(`.${CSS.escape(category_id)}`);
 				elements.forEach(function(element) {
 					element.classList.remove('active');
 				})
 			},
-			async getInfo() {
-				tickets({
-					event_id: this.$route.query.event_id
-				}).then(res => {
-					this.list = res.tickets
-					this.InfoData = res
-					this.getmap(res)
-				})
-			},
 			async getmap(res) {
 				let that = this
 				// svg 加载
-				let url = 'https://cdn.xs2event.com/venues/' + this.$route.query.venue_id + '.svg'
+				let url = 'https://cdn.xs2event.com/venues/' + this.venue_id + '.svg'
 				let svg = (await d3.xml(url)).documentElement;
-				document.getElementById("venue-map").append(svg);
+				document.getElementById("venue-map-m").append(svg);
 				// 页面一加载满足查找票是否在svg 存在 
 				res.tickets.forEach(obj => {
 					var elements = document.querySelectorAll(`.${CSS.escape(obj.category_id)}`);
@@ -168,81 +83,27 @@
 		}
 	}
 </script>
-<style lang="scss">
-	@media (max-width: 820px) {
-		.page {
-			.content .right {
-				display: none;
-			}
 
-			.seat {
-				display: inline-block;
-			}
+<style lang="scss" scoped>
+	.map {
+		padding: 0.24rem 0.2rem;
+	}
 
-			.text-info {
-				flex: 1;
-				flex-direction: column;
-			}
+	.filter {
+		background-color: rgba(245, 245, 245, 1);
+		display: inline-block;
+		height: 0.4rem;
+		padding-top: 0.12rem;
+		width: 0.48rem;
+		text-align: center;
+		border: 1px solid #DADADA;
+		border-radius: 6px;
+		margin-bottom: 0.4rem;
+	}
 
-			.content .item-li .info {
-				margin: 0.08rem 0 0 0;
-			}
-
-			.content .item-li {
-				padding: 0.16rem 0.16rem 0.72rem 0.16rem;
-				height: auto;
-				position: relative;
-			}
-
-			.content {
-				width: 100%;
-				padding: 0 0.2rem;
-				margin-bottom: 0.4rem;
-			}
-
-			.content .item-li .button {
-				width: calc(100% - 0.32rem);
-				position: absolute;
-				bottom: 0.16rem;
-				left: 0.16rem;
-			}
-
-			.content .left .tips {
-				margin: 0.4rem 0;
-			}
-
-			.banner {
-				background: url('~assets/images/engPage-bg.png') no-repeat;
-				background-size: 100% 100%;
-				padding: 0 0.2rem 0.28rem 0.2rem;
-				height: 3.12rem
-			}
-
-			.banner .info .navigation {
-				margin-bottom: 0.16rem;
-			}
-
-			.banner .info .name {
-				font-size: 0.4rem;
-				padding: 0;
-				line-height: 0.36rem;
-			}
-
-			.banner .info .time p {
-				margin-top: 0.16rem;
-			}
-
-			.banner .info .time img {
-				padding: 0;
-				margin-left: 0.08rem;
-			}
-
-			.banner .info .time {
-				flex-direction: column;
-				align-items: flex-start;
-			}
-
-		}
+	.filter img {
+		width: 0.11rem;
+		height: auto;
 	}
 
 	.seat {

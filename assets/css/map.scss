@@ -839,64 +839,64 @@
     --twc-popular-upcoming-forecolor: 0 0% 14.9%
 }
 
-#venue-map svg {
+#venue-map svg,#venue-map-m svg {
     width: 100%
 }
 
-#venue-map .track-border {
+#venue-map .track-border,#venue-map-m .track-border{
     fill: none;
     stroke: #737373;
     stroke-width: 25.4px;
     stroke-linejoin: round
 }
 
-#venue-map .track-overlay {
+#venue-map .track-overlay,#venue-map-m .track-overlay{
     fill: none;
     stroke: #fff;
     stroke-width: 17.72px;
     stroke-linejoin: round
 }
 
-#venue-map .track-drive {
+#venue-map .track-drive,#venue-map-m .track-drive {
     fill: none;
     stroke: #171717;
     stroke-width: 12.72px;
     stroke-linejoin: round
 }
 
-#venue-map .soccerfield {
+#venue-map .soccerfield,#venue-map-m .soccerfield{
     fill: hsl(var(--twc-soccerfield) / var(--twc-soccerfield-opacity, 1)) !important;
     stroke: hsl(var(--twc-soccerfield) / var(--twc-soccerfield-opacity, 1))!important
 }
 
-#venue-map .suite-legend,#venue-map .suite {
+#venue-map .suite-legend,#venue-map .suite,#venue-map-m .suite-legend,#venue-map-m .suite {
     fill: hsl(var(--twc-suite) / var(--twc-suite-opacity, 1));
     stroke: none
 }
 
-#venue-map .general-admission-legend,#venue-map .general-admission {
+#venue-map .general-admission-legend,#venue-map .general-admission,#venue-map-m .general-admission-legend,#venue-map-m .general-admission  {
     fill: hsl(var(--twc-general-admission) / var(--twc-general-admission-opacity, 1));
     stroke: hsl(var(--twc-grandstand) / var(--twc-grandstand-opacity, 1))
 }
 
-#venue-map .unavailable-legend,#venue-map .unavailable {
+#venue-map .unavailable-legend,#venue-map .unavailable,#venue-map-m .unavailable-legend,#venue-map-m .unavailable {
     fill: #d6d3d1;
     stroke: #fff
 }
 
-#venue-map .curve-red {
+#venue-map .curve-red,#venue-map-m .curve-red {
     fill: red
 }
 
-#venue-map .curve-grey {
+#venue-map .curve-grey,#venue-map-m .curve-grey {
     fill: #ddd
 }
 
-#venue-map .flag-white,#venue-map .starting-grid {
+#venue-map .flag-white,#venue-map .starting-grid,#venue-map-m .flag-white,#venue-map-m .starting-grid {
     fill: #fff
 }
 
-#venue-map .drive-arrow {
+#venue-map .drive-arrow,#venue-map-m .drive-arrow  {
     fill: #fcd34d
 }
 
@@ -908,21 +908,21 @@
     display: none
 }
 
-#venue-map .labels-legend {
+#venue-map .labels-legend,#venue-map-m .labels-legend {
     display: inline;
     font-size: 26px
 }
 
-#venue-map .active {
+#venue-map .active,#venue-map-m .active {
     fill: hsl(var(--twc-primary) / var(--twc-primary-opacity, 1))!important;
     stroke: hsl(var(--twc-alternate) / var(--twc-alternate-opacity, 1))!important
 }
 
-#venue-map .svg-background {
+#venue-map .svg-background,#venue-map-m .svg-background {
     fill: none
 }
 
-#venue-map .labels-logo {
+#venue-map .labels-logo,#venue-map-m .labels-logo {
     display: none
 }
 
@@ -1339,6 +1339,11 @@ ul.teamslst li[data-v-3793f0f7]:nth-child(n+6) {
 }
 
 #venue-map .grandstand-legend,#venue-map .grandstand {
+    
+	fill: hsl(var(--twc-disabled) / var(--twc-disabled-opacity, 1));
+	stroke: none
+}
+#venue-map-m .grandstand-legend,#venue-map-m .grandstand {
     
 	fill: hsl(var(--twc-disabled) / var(--twc-disabled-opacity, 1));
 	stroke: none

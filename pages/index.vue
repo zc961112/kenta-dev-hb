@@ -57,16 +57,26 @@
 						<i class="el-icon-arrow-left"></i>
 					</div>
 				</div>
-				<!-- <div class="arrow right" @click="next">
-					<i class="el-icon-arrow-right"></i>
-				</div> -->
 			</div>
 		</div>
 		<div class="experience">
+			<!-- 移动端 -->
 			<div class="experience-info">
-				<div class="left flex">
+				<div class="right ismobile">
+					<div class="name">
+						<h2>,חבילות נופש - לנפש</h2>
+						<h2>
+							.חוויה בכל הזמנה
+						</h2>
+					</div>
+					<div class="text">
+						<p>,אנו מבטיחים כרטיסים ומלונות רשמיים</p>
+						<p>.שקיפות מלאה ושירות יוצא דופן</p>
+					</div>
+				</div>
+				<div class="left flex ismobile" style="margin-bottom: 0;">
 					<div class="experience-list">
-						<swiper :options="swiperOption">
+						<swiper ref="mySwiper" :options="swiperOptionM">
 							<swiper-slide>
 								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
 									<img src="~assets/images/banner-2.png" />
@@ -112,7 +122,58 @@
 						</swiper>
 					</div>
 				</div>
-				<div class="right">
+			</div>
+			<!-- PC端 -->
+			<div class="experience-info">
+				<div class="left flex nomobile">
+					<div class="experience-list">
+						<swiper ref="mySwiper" :options="swiperOption">
+							<swiper-slide>
+								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+							<swiper-slide>
+								<div class="experience-li">
+									<img src="~assets/images/banner-2.png" />
+									<h3>סופ״ש ספונטני</h3>
+									<p>חבילות לרגע האחרון</p>
+								</div>
+							</swiper-slide>
+						</swiper>
+					</div>
+				</div>
+				<div class="right nomobile">
 					<div class="name">
 						<h2>,חבילות נופש - לנפש</h2>
 						<h2>
@@ -251,26 +312,31 @@
 				<div class="title">
 					חופשת החלומות הבאה שלך
 				</div>
-				<div class="vacation-list">
-					<div class="vacation-li">
-						<img src="~assets/images/banner-2.png" />
-						<h3>משתוקקים ליוקרה של דובאי?</h3>
+				<div class="vacation-hide">
+					<div class="vacation-list">
+						<div class="vacation-li">
+							<img src="~assets/images/banner-2.png" />
+							<h3>משתוקקים ליוקרה של דובאי?</h3>
+						</div>
+						<div class="vacation-li">
+							<img src="~assets/images/banner-2.png" />
+							<h3>משתוקקים ליוקרה של דובאי?</h3>
+						</div>
+						<div class="vacation-li">
+							<img src="~assets/images/banner-2.png" />
+							<h3>משתוקקים ליוקרה של דובאי?</h3>
+						</div>
+						<div class="vacation-li">
+							<img src="~assets/images/banner-2.png" />
+							<h3>משתוקקים ליוקרה של דובאי?</h3>
+						</div>
+						<div class="vacation-li">
+							<img src="~assets/images/banner-2.png" />
+							<h3>משתוקקים ליוקרה של דובאי?</h3>
+						</div>
 					</div>
-					<div class="vacation-li">
-						<img src="~assets/images/banner-2.png" />
-						<h3>משתוקקים ליוקרה של דובאי?</h3>
-					</div>
-					<div class="vacation-li">
-						<img src="~assets/images/banner-2.png" />
-						<h3>משתוקקים ליוקרה של דובאי?</h3>
-					</div>
-					<div class="vacation-li">
-						<img src="~assets/images/banner-2.png" />
-						<h3>משתוקקים ליוקרה של דובאי?</h3>
-					</div>
-					<div class="vacation-li">
-						<img src="~assets/images/banner-2.png" />
-						<h3>משתוקקים ליוקרה של דובאי?</h3>
+					<div class="arrow left" @click="prev">
+						<i class="el-icon-arrow-left"></i>
 					</div>
 				</div>
 			</div>
@@ -285,60 +351,127 @@
 					<i class="el-icon-arrow-up"></i>
 					<h3>כל היעדים</h3>
 				</div>
-				<div class="menus" v-if="over">
-					<div class="menus-li flex">
-						<p onclick="window.location.href='destination/6057278'">רומניה</p>
-						<p onclick="window.location.href='destination/684'">שוויץ</p>
-						<p>שוודיה</p>
-						<p onclick="window.location.href='destination/604'">תאילנד</p>
+				<!-- PC -->
+				<div class="menus-warp menus-nomobile">
+					<div class="menus" v-if="over">
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/6057278'">רומניה</p>
+							<p onclick="window.location.href='destination/684'">שוויץ</p>
+							<p>שוודיה</p>
+							<p onclick="window.location.href='destination/604'">תאילנד</p>
+						</div>
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/2080'">פורטוגל</p>
+							<p onclick="window.location.href='destination/2375'">פיליפינים</p>
+							<p onclick="window.location.href='destination/1443'">פינלנד</p>
+							<p onclick="window.location.href='destination/2872'">צ’כיה</p>
+							<p onclick="window.location.href='destination/2734'">צרפת</p>
+							<p onclick="window.location.href='destination/3124'">קוריאה הדרומית</p>
+							<p onclick="window.location.href='destination/10837'">קפריסין</p>
+							<p onclick="window.location.href='destination/1048'">קטאר</p>
+							<p onclick="window.location.href='destination/4025'">קנדה</p>
+							<p onclick="window.location.href='destination/6292740'">קרואטיה</p>
+						</div>
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/10048'">מונטנגרו</p>
+							<p onclick="window.location.href='destination/2343'">מלדיבים</p>
+							<p onclick="window.location.href='destination/2341'">מלטה</p>
+							<p onclick="window.location.href='destination/2265'">מקסיקו</p>
+							<p onclick="window.location.href='destination/2080'">מריציוס</p>
+							<p onclick="window.location.href='destination/2702'">נורבגיה</p>
+							<p onclick="window.location.href='destination/6333'">סרביה</p>
+							<p onclick="window.location.href='destination/3168'">סינגפור</p>
+							<p onclick="window.location.href='destination/2198'">ספרד</p>
+							<p onclick="window.location.href='destination/3765'">פולין</p>
+						</div>
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/441'">גאורגיה</p>
+							<p onclick="window.location.href='destination/536'">גרמניה</p>
+							<p onclick="window.location.href='destination/2080'">דנמרק</p>
+							<p onclick="window.location.href='destination/3124'">דרום קוריאה</p>
+							<p onclick="window.location.href='destination/378'">הולנד</p>
+							<p onclick="window.location.href='destination/178263'">הונג קונג</p>
+							<p onclick="window.location.href='destination/715'">הונגריה</p>
+							<p onclick="window.location.href='destination/2080'">יוון</p>
+							<p onclick="window.location.href='destination/3593'">יפן</p>
+							<p onclick="window.location.href='destination/2080'">מונאקו</p>
+						</div>
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/3704'">אוסטריה</p>
+							<p onclick="window.location.href='destination/786'">אוסטרליה</p>
+							<p onclick="window.location.href='destination/492'">אזרבייג’ן</p>
+							<p onclick="window.location.href='destination/453'">איחוד האמירויות</p>
+							<p onclick="window.location.href='destination/3023'">איטליה</p>
+							<p onclick="window.location.href='destination/2114'">אנגליה</p>
+							<p onclick="window.location.href='destination/3763'">ארצות הברית</p>
+							<p onclick="window.location.href='destination/490'">בחריין</p>
+							<p onclick="window.location.href='destination/690'">בלגיה</p>
+							<p onclick="window.location.href='destination/693'">ברזיל</p>
+						</div>
 					</div>
-					<div class="menus-li flex">
-						<p onclick="window.location.href='destination/2080'">פורטוגל</p>
-						<p onclick="window.location.href='destination/2375'">פיליפינים</p>
-						<p onclick="window.location.href='destination/1443'">פינלנד</p>
-						<p onclick="window.location.href='destination/2872'">צ’כיה</p>
-						<p onclick="window.location.href='destination/2734'">צרפת</p>
-						<p onclick="window.location.href='destination/3124'">קוריאה הדרומית</p>
-						<p onclick="window.location.href='destination/10837'">קפריסין</p>
-						<p onclick="window.location.href='destination/1048'">קטאר</p>
-						<p onclick="window.location.href='destination/4025'">קנדה</p>
-						<p onclick="window.location.href='destination/6292740'">קרואטיה</p>
-					</div>
-					<div class="menus-li flex">
-						<p onclick="window.location.href='destination/10048'">מונטנגרו</p>
-						<p onclick="window.location.href='destination/2343'">מלדיבים</p>
-						<p onclick="window.location.href='destination/2341'">מלטה</p>
-						<p onclick="window.location.href='destination/2265'">מקסיקו</p>
-						<p onclick="window.location.href='destination/2080'">מריציוס</p> <!--no place-->
-						<p onclick="window.location.href='destination/2702'">נורבגיה</p>
-						<p onclick="window.location.href='destination/6333'">סרביה</p>
-						<p onclick="window.location.href='destination/3168'">סינגפור</p>
-						<p onclick="window.location.href='destination/2198'">ספרד</p>
-						<p onclick="window.location.href='destination/3765'">פולין</p>
-					</div>
-					<div class="menus-li flex">
-						<p onclick="window.location.href='destination/441'">גאורגיה</p>
-						<p onclick="window.location.href='destination/536'">גרמניה</p>
-						<p onclick="window.location.href='destination/2080'">דנמרק</p><!--no place-->
-						<p onclick="window.location.href='destination/3124'">דרום קוריאה</p>
-						<p onclick="window.location.href='destination/378'">הולנד</p>
-						<p onclick="window.location.href='destination/178263'">הונג קונג</p>
-						<p onclick="window.location.href='destination/715'">הונגריה</p>
-						<p onclick="window.location.href='destination/2080'">יוון</p><!--no place-->
-						<p onclick="window.location.href='destination/3593'">יפן</p>
-						<p onclick="window.location.href='destination/2080'">מונאקו</p><!--no place-->
-					</div>
-					<div class="menus-li flex">
-						<p onclick="window.location.href='destination/3704'">אוסטריה</p>
-						<p onclick="window.location.href='destination/786'">אוסטרליה</p>
-						<p onclick="window.location.href='destination/492'">אזרבייג’ן</p>
-						<p onclick="window.location.href='destination/453'">איחוד האמירויות</p>
-						<p onclick="window.location.href='destination/3023'">איטליה</p>
-						<p onclick="window.location.href='destination/2114'">אנגליה</p>
-						<p onclick="window.location.href='destination/3763'">ארצות הברית</p>
-						<p onclick="window.location.href='destination/490'">בחריין</p>
-						<p onclick="window.location.href='destination/690'">בלגיה</p>
-						<p onclick="window.location.href='destination/693'">ברזיל</p>
+				</div>
+
+				<!-- 移动端 -->
+				<div class="menus-warp menus-ismobile">
+					<div class="menus" v-if="over">
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/3704'">אוסטריה</p>
+							<p onclick="window.location.href='destination/786'">אוסטרליה</p>
+							<p onclick="window.location.href='destination/492'">אזרבייג’ן</p>
+							<p onclick="window.location.href='destination/453'">איחוד האמירויות</p>
+							<p onclick="window.location.href='destination/3023'">איטליה</p>
+							<p onclick="window.location.href='destination/2114'">אנגליה</p>
+							<p onclick="window.location.href='destination/3763'">ארצות הברית</p>
+							<p onclick="window.location.href='destination/490'">בחריין</p>
+							<p onclick="window.location.href='destination/690'">בלגיה</p>
+							<p onclick="window.location.href='destination/693'">ברזיל</p>
+						</div>
+
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/441'">גאורגיה</p>
+							<p onclick="window.location.href='destination/536'">גרמניה</p>
+							<p onclick="window.location.href='destination/2080'">דנמרק</p>
+							<p onclick="window.location.href='destination/3124'">דרום קוריאה</p>
+							<p onclick="window.location.href='destination/378'">הולנד</p>
+							<p onclick="window.location.href='destination/178263'">הונג קונג</p>
+							<p onclick="window.location.href='destination/715'">הונגריה</p>
+							<p onclick="window.location.href='destination/2080'">יוון</p>
+							<p onclick="window.location.href='destination/3593'">יפן</p>
+							<p onclick="window.location.href='destination/2080'">מונאקו</p>
+						</div>
+
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/10048'">מונטנגרו</p>
+							<p onclick="window.location.href='destination/2343'">מלדיבים</p>
+							<p onclick="window.location.href='destination/2341'">מלטה</p>
+							<p onclick="window.location.href='destination/2265'">מקסיקו</p>
+							<p onclick="window.location.href='destination/2080'">מריציוס</p>
+							<p onclick="window.location.href='destination/2702'">נורבגיה</p>
+							<p onclick="window.location.href='destination/6333'">סרביה</p>
+							<p onclick="window.location.href='destination/3168'">סינגפור</p>
+							<p onclick="window.location.href='destination/2198'">ספרד</p>
+							<p onclick="window.location.href='destination/3765'">פולין</p>
+						</div>
+
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/2080'">פורטוגל</p>
+							<p onclick="window.location.href='destination/2375'">פיליפינים</p>
+							<p onclick="window.location.href='destination/1443'">פינלנד</p>
+							<p onclick="window.location.href='destination/2872'">צ’כיה</p>
+							<p onclick="window.location.href='destination/2734'">צרפת</p>
+							<p onclick="window.location.href='destination/3124'">קוריאה הדרומית</p>
+							<p onclick="window.location.href='destination/10837'">קפריסין</p>
+							<p onclick="window.location.href='destination/1048'">קטאר</p>
+							<p onclick="window.location.href='destination/4025'">קנדה</p>
+							<p onclick="window.location.href='destination/6292740'">קרואטיה</p>
+						</div>
+
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/6057278'">רומניה</p>
+							<p onclick="window.location.href='destination/684'">שוויץ</p>
+							<p>שוודיה</p>
+							<p onclick="window.location.href='destination/604'">תאילנד</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -392,9 +525,14 @@
 					spaceBetween: 16,
 					grabCursor: true
 				},
+				swiperOptionM: {
+					slidesPerView: 1.5,
+					centeredSlides: false,
+					spaceBetween: 16,
+					grabCursor: true
+				},
 				cityval: ''
 			}
-
 		},
 		mounted() {
 			this.loadAll();
@@ -474,6 +612,265 @@
 	}
 </script>
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.page {
+			.warps {
+				width: 100%;
+			}
+
+			.menus-ismobile {
+				display: inline-block;
+			}
+
+			.menus-nomobile {
+				display: none;
+			}
+
+			.Recommended {
+				padding: 0.8rem 0.2rem 0.64rem 0.2rem;
+			}
+
+			.Recommended .menus {
+				flex-wrap: wrap;
+				direction: rtl;
+			}
+
+			.menus-li {
+				width: 50%;
+				flex: inherit;
+				margin-bottom: 0.16rem;
+			}
+
+			.vacation-hide .arrow {
+				left: 0.2rem;
+			}
+
+			.vacation .title {
+				font-size: 0.28rem;
+				padding-right: 0.2rem;
+			}
+
+			.life .form .name p {
+				font-size: 0.32rem;
+				line-height: 0.28rem;
+			}
+
+			.life .form {
+				margin-left: 0;
+				border-radius: 16px;
+				width: 100%;
+				padding: 0.4rem 0.18rem;
+			}
+
+			.system {
+				padding: 0.64rem 0.2rem;
+			}
+
+			.system .text p {
+				line-height: 0.1984rem;
+			}
+
+			.system .system-more {
+				width: 100%;
+			}
+
+			.life {
+				background-image: url("~assets/images/life-m.png");
+				background-size: 100% 100%;
+				padding: 0 0.2rem;
+				margin-bottom: 0;
+			}
+
+			.language .right {
+				flex: inherit;
+				width: 100%;
+				padding-right: 0.2rem;
+			}
+
+			.more {
+				margin-bottom: 0.48rem;
+			}
+
+			.language .right .name h2 {
+				font-size: 0.28rem;
+			}
+
+			.language .left .language-list .language-li {
+				width: 48.5%;
+				margin-right: 3% !important;
+				margin-left: 0 !important;
+				margin-bottom: 3%;
+			}
+
+			.language .left .language-list .language-li:nth-child(even) {
+				margin-right: 0 !important;
+				margin-left: 0 !important;
+			}
+
+			.language .left .language-list .language-li:nth-child(5),
+			.language .left .language-list .language-li:nth-child(6) {
+				margin-bottom: 0 !important;
+			}
+
+			.language .left {
+				width: 100%;
+				padding: 0 0.2rem;
+			}
+
+			.language .language-info {
+				display: flex;
+				flex-direction: column-reverse;
+				/* 反转元素顺序 */
+				align-items: flex-end;
+				width: 100%;
+				padding: 0;
+			}
+
+			.choose .choose-list {
+				padding-right: 0.2rem;
+				display: flex;
+				flex-direction: column-reverse;
+				/* 反转元素顺序 */
+				align-items: flex-end;
+			}
+
+			.choose .title {
+				font-size: 0.28rem;
+				padding-right: 0.2rem;
+			}
+
+			.choose .choose-list .choose-li {
+				margin-bottom: 0.4rem;
+			}
+
+			.choose .choose-list .choose-li:nth-last-child(1) {
+				margin-bottom: 0;
+			}
+
+			.ismobile {
+				display: inline-block;
+				width: 100%;
+				margin-bottom: 0.4rem;
+			}
+
+			.nomobile {
+				display: none;
+			}
+
+			.experience .experience-info {
+				display: inherit;
+				width: 100%;
+				margin: 0;
+			}
+
+			.experience {
+				padding: 0.64rem 0;
+				margin-top: 0.64rem;
+			}
+
+			.experience .right {
+				padding-right: 0.2rem;
+			}
+
+			.experience .right .name h2 {
+				text-align: right;
+				font-size: 0.28rem;
+			}
+
+			.experience .left {
+				padding-right: 0.2rem;
+				margin-right: 0;
+			}
+
+			.carousel .carousel-li {
+				width: 3rem;
+			}
+
+			.carousel .carousel-li .info {
+				width: 3rem;
+				align-items: flex-start
+			}
+
+			.carousel-wrapper {
+				overflow: hidden;
+				direction: rtl;
+				margin-right: 0.2rem;
+			}
+
+			.vacation-hide {
+				overflow: hidden;
+				direction: rtl;
+				padding-right: 0.2rem;
+			}
+
+			.vacation .vacation-list .vacation-li:nth-child(1) {
+				margin-right: 0;
+			}
+
+			.vacation-list {
+				width: 11.6rem;
+			}
+
+
+			.carousel {
+				width: 9.32rem;
+				height: auto;
+			}
+
+			.Tickets {
+				padding-right: 0.2rem;
+				margin-top: 0.64rem;
+			}
+
+			.Tickets .title {
+				font-size: 0.28rem;
+			}
+
+			.banner .searches-list {
+				margin-top: 0.16rem;
+			}
+
+			.banner .searches-list .li {
+				margin: 0 0.04rem;
+				padding: 0 0.08rem;
+				height: 0.32rem;
+				line-height: 0.32rem;
+			}
+
+			.banner {
+				width: 100%;
+				overflow: hidden;
+				padding: 0 0.2rem;
+				height: 4.48rem;
+				justify-content: inherit;
+				background: url('~assets/images/Rectangle 594.png');
+				background-size: 100% 100%;
+			}
+
+			.banner .search {
+				width: 100%;
+				margin: 0.16rem 0 0.24rem 0;
+			}
+
+			.banner .title {
+				margin-top: 1.44rem;
+			}
+
+			.banner .title h1 {
+				font-size: 0.4rem;
+				line-height: 0.36rem;
+			}
+		}
+	}
+
+	.menus-ismobile {
+		display: none;
+	}
+
+	.ismobile {
+		display: none;
+	}
+
 	.Recommended {
 		padding: 0.80rem 1.48rem;
 
@@ -909,7 +1306,36 @@
 		display: none;
 	}
 
+	.vacation-hide {
+		position: relative;
+	}
 
+	.vacation-hide {
+		.arrow {
+			top: 1.75rem;
+			left: -0.2rem;
+		}
+	}
+
+	.arrow {
+		cursor: pointer;
+		background-color: #fff;
+		color: rgba(26, 26, 26, 1);
+		border: 1px solid rgba(218, 218, 218, 1);
+		width: 0.4rem;
+		height: 0.4rem;
+		line-height: 0.4rem;
+		top: 1.15rem;
+		border-radius: 50%;
+		text-align: center;
+		z-index: 9;
+		position: absolute;
+
+		i {
+			font-size: 18px;
+			font-weight: bold;
+		}
+	}
 
 	.carousel-box {
 		position: relative;
@@ -922,25 +1348,7 @@
 			right: -0.2rem;
 		}
 
-		.arrow {
-			cursor: pointer;
-			background-color: #fff;
-			color: rgba(26, 26, 26, 1);
-			border: 1px solid rgba(218, 218, 218, 1);
-			width: 0.4rem;
-			height: 0.4rem;
-			line-height: 0.4rem;
-			top: 1.15rem;
-			border-radius: 50%;
-			text-align: center;
-			z-index: 9;
-			position: absolute;
 
-			i {
-				font-size: 18px;
-				font-weight: bold;
-			}
-		}
 	}
 
 

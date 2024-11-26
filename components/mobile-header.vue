@@ -35,7 +35,7 @@
 		top: 0;
 		direction: ltr;
 		left: 0;
-		z-index: 899;
+		z-index: 9999;
 		display: flex;
 		width: 100%;
 		align-items: center;

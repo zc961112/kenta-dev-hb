@@ -1,128 +1,145 @@
 <template>
-	<div class="page">
-		<new-header />
-		<div class="warps" v-loading="loading">
-			<div class="hotel">
-				<div class="left flex">
-					<div class="events">
-						<div class="day">
-							{{page_size}} אירועים
-							מתוך{{total_size}} אירועים
-						</div>
-						<div class="about">למדו על הסטנדרטים שלנו</div>
-						<div class="item">
-							<div class="item-li">
-								<p>זמינות בזמן אמת</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-							<div class="item-li">
-								<p>מושבים אחד-ליד-השני</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-							<div class="item-li">
-								<p>אירועים מובטחים</p>
-								<img src="~assets/images/icon/checkmark.png" />
-							</div>
-							<div class="item-li">
-								<p>כרטיסים רישמיים</p>
-								<img src="~assets/images/icon/checkmark.png" />
+	<div class="eventlPage">
+		<div class="page">
+			<new-header />
+			<div class="warps" v-loading="loading">
+				<div class="hotel">
+					<div class="left flex">
+						<div class="ismobile">
+							<div class="nav">
+								<span>אירועים</span>
+								<i class="el-icon-arrow-left"></i>
+								<span>בית</span>
 							</div>
 						</div>
-						<div class="select-list">
-							<div v-for="(item,index) in list" :key="index" class="select-li" @click="toEngPage(item)">
-								<div class="flex">
-									<span class="el-icon-back"></span>
+						<div class="events">
+							<!-- 移动端 筛选 -->
+							<div class="filter" @click="show=!show">
+								<img v-if="show" src="~assets/images/icon/filter.png" />
+								<img v-else src="~assets/images/icon/mapcolse.png" />
+							</div>
+							<div class="day">
+								{{page_size}} אירועים
+								מתוך{{total_size}} אירועים
+							</div>
+							<div class="about">למדו על הסטנדרטים שלנו</div>
+							<div class="item" v-show="show||!ism">
+								<div class="item-li">
+									<p>זמינות בזמן אמת</p>
+									<img src="~assets/images/icon/checkmark.png" />
 								</div>
-								<div class="flex price">
-									<span v-if="item.number_of_tickets==0||item.number_of_tickets==null"
-										class="no-stock">אזל המלאי</span>
-									<span v-else
-										class="num">€{{item.min_ticket_price_eur?(item.min_ticket_price_eur/100).toFixed(2):'0.00'}}</span>
+								<div class="item-li">
+									<p>מושבים אחד-ליד-השני</p>
+									<img src="~assets/images/icon/checkmark.png" />
 								</div>
-								<div class="text">
-									<p>{{item.season}} {{item.tournament_name}}</p>
-									<p>{{item.venue_name}}</p>
-									<p>{{item.city}} ({{item.iso_country}})</p>
+								<div class="item-li">
+									<p>אירועים מובטחים</p>
+									<img src="~assets/images/icon/checkmark.png" />
 								</div>
-								<div class="info">
-									<div class="xx" v-if="item.is_popular">
-										<p class="xx-bg">
-											<span>אירוע פופולרי</span>
-											<img src="~assets/images/icon/icon4.png" />
+								<div class="item-li">
+									<p>כרטיסים רישמיים</p>
+									<img src="~assets/images/icon/checkmark.png" />
+								</div>
+							</div>
+							<div class="select-list" v-show="show||!ism">
+								<div v-for="(item,index) in list" :key="index" class="select-li"
+									@click="toEngPage(item)">
+									<div class="flex icon">
+										<span class="el-icon-back"></span>
+									</div>
+									<div class="flex price">
+										<span v-if="item.number_of_tickets==0||item.number_of_tickets==null"
+											class="no-stock">אזל המלאי</span>
+										<span v-else
+											class="num">€{{item.min_ticket_price_eur?(item.min_ticket_price_eur/100).toFixed(2):'0.00'}}</span>
+									</div>
+									<div class="text">
+										<p>{{item.season}} {{item.tournament_name}}</p>
+										<p>{{item.venue_name}}</p>
+										<p>{{item.city}} ({{item.iso_country}})</p>
+									</div>
+									<div class="info">
+										<div class="xx" v-if="item.is_popular">
+											<p class="xx-bg">
+												<span>אירוע פופולרי</span>
+												<img src="~assets/images/icon/icon4.png" />
+											</p>
+										</div>
+										<h3>{{item.event_name}}</h3>
+										<p class="time">
+											{{item.date_stop}} - {{item.date_start}}
 										</p>
 									</div>
-									<h3>{{item.event_name}}</h3>
-									<p class="time">
-										{{item.date_stop}} - {{item.date_start}}
-									</p>
 								</div>
 							</div>
-						</div>
-						<div class="pages">
-							<div v-if="hidePage" @click="next">הצג עוד 25</div>
-							<div v-if="hideAll" @click="showAll">הצג הכל {{total_size}} תוצאות</div>
+							<div class="pages" v-show="show||!ism">
+								<div v-if="hidePage" @click="next">הצג עוד 25</div>
+								<div v-if="hideAll" @click="showAll">הצג הכל {{total_size}} תוצאות</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="right">
-					<div class="nav">
-						<span>אירועים</span>
-						<i class="el-icon-arrow-left"></i>
-						<span>בית</span>
-					</div>
-					<div class="Dates">
-						<div class="name">תאריכים</div>
-						<date-picker itemtypes="1" ref="myDatePicker" v-model="date" type="daterange"
-							@pick="confirmDateRange" popperClass="date-content" value-format="yyyy-MM-dd"
-							range-separator="至" start-placeholder="" end-placeholder="">
-						</date-picker>
-					</div>
-					<div class="Sports">
-						<div class="check">
-							<div class="name">ענפי ספורט</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
-							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
-							</div>
-							<div class="check-li">
-								<span>(798)</span>
-								<p>כדורגל</p>
-								<div class="check-img"></div>
-							</div>
-							<div class="total">צפייה בהכל (10)</div>
+					<div class="right" v-show="!show&&ism||!ism">
+						<div class="nav nomobile">
+							<span>אירועים</span>
+							<i class="el-icon-arrow-left"></i>
+							<span>בית</span>
 						</div>
-						<div class="check">
-							<div class="name">ענפי ספורט</div>
-							<div class="check-li" @click="selectCountry(item)" v-if="index<countryIndex"
-								v-for="(item,index) in countryList" :key="index">
-								<span>({{item.num}})</span>
-								<p>{{item.name}}</p>
-								<img class="icon-img" :src="item.flag" />
-								<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
-									<img src="~assets/images/icon/select.png" />
+						<div class="Dates">
+							<div class="name">תאריכים</div>
+							<date-picker itemtypes="1" ref="myDatePicker" v-model="date" type="daterange"
+								@pick="confirmDateRange" popperClass="date-content" value-format="yyyy-MM-dd"
+								range-separator="至" start-placeholder="" end-placeholder="">
+							</date-picker>
+						</div>
+						<div class="Sports">
+							<div class="check">
+								<div class="name">ענפי ספורט</div>
+								<div class="check-li">
+									<span>(798)</span>
+									<p>כדורגל</p>
+									<div class="check-img"></div>
 								</div>
+								<div class="check-li">
+									<span>(798)</span>
+									<p>כדורגל</p>
+									<div class="check-img"></div>
+								</div>
+								<div class="check-li">
+									<span>(798)</span>
+									<p>כדורגל</p>
+									<div class="check-img"></div>
+								</div>
+								<div class="total">צפייה בהכל (10)</div>
 							</div>
-							<div class="total" @click="countryIndex=countryList.length">({{countryList.length}}) צפייה
-								בהכל</div>
-						</div>
+							<div class="check">
+								<div class="name">ענפי ספורט</div>
+								<div class="check-li" @click="selectCountry(item)" v-if="index<countryIndex"
+									v-for="(item,index) in countryList" :key="index">
+									<span>({{item.num}})</span>
+									<p>{{item.name}}</p>
+									<img class="icon-img" :src="item.flag" />
+									<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
+										<img src="~assets/images/icon/select.png" />
+									</div>
+								</div>
+								<div class="total" @click="countryIndex=countryList.length">({{countryList.length}})
+									צפייה
+									בהכל</div>
+							</div>
 
-						<div class="check">
-							<div class="name">ערים</div>
-							<div @click="selectCity(item)" class="check-li" v-if="index<cityIndex"
-								v-for="(item,index) in cityList" :key="index">
-								<span>({{item.num}})</span>
-								<p>{{item.name}}</p>
-								<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
-									<img src="~assets/images/icon/select.png" />
+							<div class="check">
+								<div class="name">ערים</div>
+								<div @click="selectCity(item)" class="check-li" v-if="index<cityIndex"
+									v-for="(item,index) in cityList" :key="index">
+									<span>({{item.num}})</span>
+									<p>{{item.name}}</p>
+									<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
+										<img src="~assets/images/icon/select.png" />
+									</div>
+								</div>
+								<div class="total" @click="cityIndex=cityList.length">({{cityList.length}}) צפייה בהכל
 								</div>
 							</div>
-							<div class="total" @click="cityIndex=cityList.length">({{cityList.length}}) צפייה בהכל</div>
 						</div>
 					</div>
 				</div>
@@ -175,13 +192,24 @@
 			countryIndex: 3,
 			filtercountryList: [],
 			filtercityList: [],
-			filterAll: []
+			filterAll: [],
+			show: true,
+			ism: false
 		}),
 		mounted() {
 			this.makMonthList();
 			this.getEvents()
+			window.addEventListener("resize", this.checkIfMobile);
 		},
 		methods: {
+			// 页面是否是移动端
+			checkIfMobile() {
+				if (820 < window.innerWidth) {
+					this.ism = false
+				} else {
+					this.ism = true
+				}
+			},
 			selectCountry(item) {
 				item.select = !item.select
 				this.getselectCountry()
@@ -308,8 +336,8 @@
 						event_name: item.event_name,
 						tournament_name: item.tournament_name,
 						season: item.season,
-						city:item.city,
-						venue_id:item.venue_id
+						city: item.city,
+						venue_id: item.venue_id
 					}
 				})
 			},
@@ -371,6 +399,119 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.eventlPage {
+			background-color: rgba(245, 245, 245, 1);
+			min-height: 100vh;
+
+			.ismobile {
+				display: inline-block;
+				text-align: right;
+				width: 100%;
+				margin: 0.24rem 0;
+			}
+
+			.page .hotel .left .select-list .select-li {
+				flex-direction: column-reverse;
+				position: relative;
+				align-items: flex-end;
+			}
+
+			.page .hotel .left .select-list .select-li .price {
+				position: absolute;
+				left: 0;
+				bottom: 0.32rem;
+			}
+
+			.page .hotel .left .select-list .select-li .text p {
+				margin-top: 0.08rem;
+			}
+
+			.pages {
+				padding: 0.2rem 0;
+			}
+
+			.select-list .icon,
+			.nomobile {
+				display: none !important;
+			}
+
+			.filter {
+				position: absolute;
+				left: 0;
+				background-color: #fff;
+				top: 0;
+				display: inline-block;
+				height: 0.4rem;
+				padding-top: 0.1rem;
+				width: 0.48rem;
+				text-align: center;
+				border: 1px solid #DCDFE6;
+				border-radius: 6px;
+			}
+
+			.filter img {
+				width: 0.16rem;
+				height: auto;
+			}
+
+			.hotel {
+				flex-direction: column;
+
+			}
+
+			.page .hotel .left .events .item {
+				flex-wrap: wrap;
+				justify-content: flex-end;
+				padding: 0.16rem 0.24rem 0 0.24rem;
+			}
+
+			.page .hotel .left .events .item .item-li {
+				flex: inherit;
+				text-align: right;
+				margin-left: 0.08rem;
+				margin-bottom: 0.16rem;
+			}
+
+			.page .hotel .left .events .item .item-li p {
+				font-size: 0.14rem;
+			}
+
+			.warps {
+				width: 100%;
+			}
+
+			.Sports {
+				padding-bottom: 0.4rem;
+			}
+
+			.page .hotel .right .Dates {
+				margin-top: 0.24rem;
+			}
+
+			.page .hotel .left {
+				padding: 0 0.2rem;
+			}
+
+			.page .hotel .left .events {
+				padding: 0;
+			}
+
+			.page .hotel .right {
+				width: 100%;
+				margin-top: 0.16rem;
+				border-left: none;
+				padding: 0 0.2rem;
+				background-color: #fff;
+			}
+		}
+	}
+
+	.ismobile,
+	.filter {
+		display: none;
+	}
+
 	.pages {
 		display: flex;
 		text-align: center;
@@ -488,6 +629,7 @@
 
 				.events {
 					padding: 0.4rem 1rem 0 1rem;
+					position: relative;
 
 					.item {
 						margin-top: 0.24rem;
@@ -531,6 +673,26 @@
 						font-weight: 400;
 						direction: rtl;
 					}
+				}
+			}
+
+			.nav {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+
+				span {
+					font-size: 0.12rem;
+					font-weight: 400;
+					color: rgba(26, 26, 26, 0.6)
+				}
+
+				i {
+					margin: 0 4px;
+					display: inline-block;
+					font-size: 0.12rem;
+					font-weight: 600;
+					color: rgba(26, 26, 26, 0.6)
 				}
 			}
 
@@ -617,25 +779,7 @@
 					}
 				}
 
-				.nav {
-					display: flex;
-					align-items: center;
-					justify-content: flex-end;
 
-					span {
-						font-size: 0.12rem;
-						font-weight: 400;
-						color: rgba(26, 26, 26, 0.6)
-					}
-
-					i {
-						margin: 0 4px;
-						display: inline-block;
-						font-size: 0.12rem;
-						font-weight: 600;
-						color: rgba(26, 26, 26, 0.6)
-					}
-				}
 			}
 		}
 	}

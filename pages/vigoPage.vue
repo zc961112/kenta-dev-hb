@@ -200,7 +200,7 @@
 							אני מסכים לתנאיו של מארגן האירוע.
 						</div>
 						<div class="payment">
-							<router-link :to="'/ValenciaPage'" tag="button" >המשך לתשלום</router-link>
+							<router-link :to="'/ValenciaPage'" tag="button">המשך לתשלום</router-link>
 							<!-- <button>המשך לתשלום</button> -->
 							<div class="p">
 								<p>
@@ -292,6 +292,94 @@
 							</div>
 						</div>
 					</div>
+					<!-- 价格信息移动端 -->
+					<el-drawer :with-header="false" :visible.sync="pricedirection" size="100%" direction="btt">
+						<mobile-header @close="pricedirection=false" />
+						<div class="priceSummary">
+							<div class="filter-w">
+								<div class="filter" @click="pricedirection=false">
+									<img src="~assets/images/icon/mapcolse.png" />
+								</div>
+							</div>
+							<div class="Summary">
+								<div class="name">
+									סיכום ההזמנה שלך
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										אירוע
+									</div>
+									<p class="p">
+										Celta de Vigo vs Valencia CF
+									</p>
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										תאריך
+									</div>
+									<p class="p">
+										<span class="dec"><i class="el-icon-check"></i>
+											התאריך אושר</span>
+										אוגוסט 23, 2024
+									</p>
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										איצטדיון
+									</div>
+									<p class="p">
+										Estadio Municipal de Balaídos
+									</p>
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										מושבים
+									</div>
+									<p class="p">
+										Long Side
+									</p>
+								</div>
+								<div class="Summary-li Summary-Number">
+									<div class="n">
+										מספר אנשים
+									</div>
+									<p class="p">
+										2 מבוגרים
+									</p>
+								</div>
+								<div class="Card">
+									<div>כרטיס/ים</div>
+									<p>2</p>
+								</div>
+								<div class="Card">
+									<div>סה״כ מחיר לאדם</div>
+									<p>€55</p>
+								</div>
+								<div class="Total">
+									<div class="n">
+										<h4>סה״כ עבור 2 מבוגרים</h4>
+										<p>ללא עלויות נוספות</p>
+									</div>
+									<div class="num">
+										€110
+									</div>
+								</div>
+								<div class="order">
+									<div class="n">
+										<img src="~assets/images/icon/icon15.png" />
+										הזמינו בבטחה עם קנטה
+									</div>
+									<div class="img">
+										<img src="~assets/images/icon/imgs1.png" />
+										<img src="~assets/images/icon/imgs5.png" />
+										<img src="~assets/images/icon/imgs3.png" />
+										<img src="~assets/images/icon/imgs2.png" />
+										<img src="~assets/images/icon/imgs4.png" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</el-drawer>
 					<div class="why padding">
 						<div class="name">
 							למה להזמין ב-<span>Kenta</span>？
@@ -346,7 +434,7 @@
 							<div class="help-name">איך נוכל לעזור?</div>
 							<div class="user">
 								<div class="state"></div>
-								<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
+								<img src="~assets/images/kefu.png" />
 								<div class="text">
 									<p>שירות הלקוחות שלנו ישמח לסייע לכם </p>
 									<p>בימי חול בין השעות 09:00-17:00.</p>
@@ -378,6 +466,19 @@
 			</div>
 			<div class="foo-h"></div>
 		</main>
+		<!-- 移动端的悬浮 -->
+		<div class="suspension-h"></div>
+		<div class="suspension">
+			<div class="suspension-warp">
+				<div class="l">
+					<h3>€110</h3>
+					<p>Total for 2 adults</p>
+				</div>
+				<div class="r" @click="pricedirection=true">
+					פרטי נסיעה<i class="el-icon-arrow-up"></i>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -392,7 +493,8 @@
 					label: 'Choose your nationality'
 				}],
 				value: '',
-				agree: true
+				agree: true,
+				pricedirection: false
 			}
 
 		},
@@ -403,6 +505,170 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.page {
+			.content {
+				width: 100%;
+				padding: 0 0.2rem;
+				margin-top: 0.24rem;
+				flex-direction: column;
+			}
+
+			.suspension-warp {
+				display: flex;
+				align-items: center;
+				direction: ltr;
+
+				.r {
+					color: #EE2344;
+					font-size: 0.16rem;
+
+					i {
+						margin-left: 0.16rem;
+					}
+				}
+
+				.l {
+					flex: 1;
+
+					h3 {
+						font-size: 0.32rem;
+						color: #00BC93;
+					}
+
+					p {
+						font-size: 0.12rem;
+						color: #1A1A1A;
+					}
+				}
+			}
+
+			.suspension-h,
+			.suspension {
+				display: inline-block !important;
+			}
+
+			.form {
+				padding: 0.32rem 0;
+			}
+
+			.form .form-li {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.form-li-f p {
+				margin-top: 0.1rem;
+			}
+
+			.form .form-li-f {
+				width: 100%;
+				flex: inherit;
+			}
+
+			.form .form-li-f .i {
+				top: 0.54rem !important;
+			}
+
+			.organizer .name {
+				font-size: 0.28rem;
+			}
+
+			.agree {
+				margin-top: 0.2rem;
+			}
+
+			.payment button {
+				width: 100%;
+				margin-left: 0;
+				margin-bottom: 0.08rem;
+			}
+
+			.payment .p {
+				padding-left: 0;
+			}
+
+			.payment {
+				flex-direction: column;
+				padding: 0.24rem 0.2rem;
+			}
+
+			.form .Month {
+				margin: 0 0.14rem;
+			}
+
+			.form .w {
+				width: 0.14rem;
+			}
+
+			.form-info {
+				padding: 0 0.2rem;
+			}
+
+			.ready {
+				font-size: 0.28rem;
+				margin: 0.24rem 0;
+			}
+
+			.Summary {
+				display: none;
+			}
+
+			.content .right {
+				width: 100%;
+				margin-right: 0;
+			}
+		}
+	}
+
+	.priceSummary .Summary {
+		display: inline-block !important;
+		border: none;
+	}
+
+	.priceSummary .filter-w {
+		padding: 0.24rem 0.2rem;
+	}
+
+	.filter-w {
+		text-align: left;
+	}
+
+	.filter {
+		background-color: rgba(245, 245, 245, 1);
+		display: inline-block;
+		height: 0.4rem;
+		padding-top: 0.12rem;
+		width: 0.48rem;
+		text-align: center;
+		border: 1px solid #DADADA;
+		border-radius: 6px;
+	}
+
+	.filter img {
+		width: 0.11rem;
+		height: auto;
+	}
+
+	.suspension-h {
+		height: 0.7rem;
+		display: none;
+	}
+
+	.suspension {
+		display: none;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+		z-index: 1;
+		border-top: 1px solid #DADADA;
+		background-color: #fff;
+		padding: 0.2rem 0.2rem 0.24rem 0.2rem;
+		width: 100%;
+	}
+
 	.form-info::v-deep .el-input__suffix {
 		left: 40px;
 		right: auto;

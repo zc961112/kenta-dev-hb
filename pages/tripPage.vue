@@ -115,7 +115,7 @@
 						<div class="help-name">איך נוכל לעזור?</div>
 						<div class="user">
 							<div class="state"></div>
-							<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
+							<img src="~assets/images/kefu.png" />
 							<div class="text">
 								<p>שירות הלקוחות שלנו ישמח לסייע לכם</p>
 								<p>בימי חול בין השעות 09:00-17:00.</p>
@@ -183,6 +183,70 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.page{
+			.content .right .r-img{
+				display: none;
+			}
+			.content .right{
+				width: 100%;
+				margin-right: 0;
+			}
+			.content .item-li{
+				margin-top: 0.24rem;
+				font-size: 0.28rem;
+				height:auto;
+				padding: 0.24rem 0.2rem;
+			}
+			.content .left{
+				width: 100%;
+				flex: inherit;
+			}
+			.content .left .choose .choose-bg{
+				padding: 0.32rem 0.16rem;
+			}
+			.content .choose .confirm button{
+				width: 100%;
+				margin-bottom: 0.12rem;
+			}
+			.content .choose .confirm .confirm-text{
+				margin-right: 0;
+			}
+			.content .choose .confirm{
+				flex-direction: column;
+				padding: 0.16rem 0.2rem;
+			}
+			.content .type-li{
+				margin-left: 0;
+				margin-bottom: 0.08rem;
+			}
+			.content .type-li:nth-last-child(1) {
+				margin-bottom: 0;
+			}
+			.content .left .choose .text img{
+				width: 0.14rem;
+				height:0.14rem;
+			}
+			.content .left .choose .text{
+				height: auto;
+				font-size: 0.14rem;
+				padding: 0.12rem;
+				align-items:flex-start
+			}
+			.content .type{
+				flex-direction: column;
+			}
+			.content .left .choose h1{
+				font-size: 0.28rem;
+			}
+			.content{
+				width: 100%;
+				padding: 0 0.2rem;
+				margin-top: 0.24rem;
+				flex-direction: column;
+			}
+		}
+	}
 	.page::v-deep .el-input__suffix {
 		left: 0;
 		right: auto;

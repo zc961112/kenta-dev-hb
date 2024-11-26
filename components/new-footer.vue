@@ -1,6 +1,6 @@
 <template>
 	<div class="footer">
-		<div class="footer-item">
+		<div class="footer-item footer-item1">
 			<div class="name">
 				קישורים
 			</div>
@@ -67,6 +67,35 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.footer {
+			display: flex;
+			flex-direction: column-reverse;
+			/* 反转元素顺序 */
+			align-items: flex-end;
+			padding: 0.4rem 0.2rem!important
+		}
+
+		.logo {
+			text-align: right;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-items: flex-end;
+			margin-bottom: 0.32rem
+		}
+
+		.footer-item1 {
+			margin-bottom: 0 !important;
+		}
+
+		.footer-item {
+			width: 100%;
+			flex: inherit;
+			margin-bottom: 0.32rem
+		}
+	}
+
 	.footer {
 		background-color: rgba(26, 26, 26, 1);
 		padding: 0.6rem 0.32rem;

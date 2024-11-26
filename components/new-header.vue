@@ -204,16 +204,33 @@
 		}
 
 		.header-box {
-			.menu{
+			.menu {
 				padding: 0 0.4rem;
 			}
+
 			.header {
 				padding: 0 0.2rem;
+				border-bottom: 1px solid #DADADA;
+			}
+
+			.header .navs,.header .username {
+				display: none;
+			}
+
+			.header .navs-icon img {
+				width: 0.30rem;
 			}
 
 			.left-icon {
 				margin-right: 0.1rem;
-				width: auto;
+				height: 0.64rem;
+				border-radius: 0px;
+				padding-right: 0.2rem;
+				border-right: 1px solid #DADADA;
+
+				.user-icon {
+					display: none;
+				}
 			}
 
 			.username {

@@ -73,7 +73,55 @@
 									</p>
 									<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
 									</p>
+									<!-- 移动端下拉查看更多 -->
+									<div class="see-more" @click="direction=!direction">מידע נוסף<i
+											class="el-icon-arrow-down"></i></div>
 								</div>
+								<!-- 移动端 座位图-->
+								<div class="pm-mobile">
+									<img src="~assets/images/pm.png" />
+								</div>
+								<!-- 查看更多 移动端 -->
+								<el-drawer :with-header="false" :visible.sync="direction" size="100%" direction="btt">
+									<mobile-header @close="direction=false" />
+									<div class="mobile-padding">
+										<div class="filter-w">
+											<div class="filter" @click="direction=false">
+												<img src="~assets/images/icon/mapcolse.png" />
+											</div>
+										</div>
+										<div class="info">
+											<div class="top">
+												<div class="checkbox">
+													<img src="~assets/images/icon/select.png" />
+												</div>
+												<div class="tickets">Category 3 (corners) tickets</div>
+												<div class="price">
+													<p style="text-align: left;"><span>€0</span> +</p>
+													<div>תוספת לאדם</div>
+												</div>
+											</div>
+											<div class="imgText">
+												<p>
+													נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון. מקסימום 50
+												</p>
+												<p style="margin-bottom: 0.2rem;">מושבים מובטחים הממוקמים יחד.</p>
+												<p style="margin-bottom: 0.2rem;">מקום: Estadi Olímpic Lluís Companys
+												</p>
+												<p style="margin-bottom: 0.2rem;">סוג קטגוריה: יציע</p>
+												<p>סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
+												<p> משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
+												</p>
+												<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
+												</p>
+											</div>
+											<!-- 移动端 座位图-->
+											<div class="pm-mobile">
+												<img src="~assets/images/pm.png" />
+											</div>
+										</div>
+									</div>
+								</el-drawer>
 							</div>
 
 							<div class="select">
@@ -185,6 +233,95 @@
 							</div>
 						</div>
 					</div>
+					<!-- 价格信息移动端 -->
+					<el-drawer :with-header="false" :visible.sync="pricedirection" size="100%" direction="btt">
+						<mobile-header @close="pricedirection=false" />
+						<div class="priceSummary">
+							<div class="filter-w">
+								<div class="filter" @click="pricedirection=false">
+									<img src="~assets/images/icon/mapcolse.png" />
+								</div>
+							</div>
+							<div class="Summary">
+								<div class="name">
+									סיכום ההזמנה שלך
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										אירוע
+									</div>
+									<p class="p">
+										Celta de Vigo vs Valencia CF
+									</p>
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										תאריך
+									</div>
+									<p class="p">
+										<span class="dec"><i class="el-icon-check"></i>
+											התאריך אושר</span>
+										אוגוסט 23, 2024
+									</p>
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										איצטדיון
+									</div>
+									<p class="p">
+										Estadio Municipal de Balaídos
+									</p>
+								</div>
+								<div class="Summary-li">
+									<div class="n">
+										מושבים
+									</div>
+									<p class="p">
+										Long Side
+									</p>
+								</div>
+								<div class="Summary-li Summary-Number">
+									<div class="n">
+										מספר אנשים
+									</div>
+									<p class="p">
+										2 מבוגרים
+									</p>
+								</div>
+								<div class="Card">
+									<div>כרטיס/ים</div>
+									<p>2</p>
+								</div>
+								<div class="Card">
+									<div>סה״כ מחיר לאדם</div>
+									<p>€55</p>
+								</div>
+								<div class="Total">
+									<div class="n">
+										<h4>סה״כ עבור 2 מבוגרים</h4>
+										<p>ללא עלויות נוספות</p>
+									</div>
+									<div class="num">
+										€110
+									</div>
+								</div>
+								<div class="order">
+									<div class="n">
+										<img src="~assets/images/icon/icon15.png" />
+										הזמינו בבטחה עם קנטה
+									</div>
+									<div class="img">
+										<img style="height: 0.24rem;" src="~assets/images/icon/imgs1.png" />
+										<img style="height: 0.24rem;" src="~assets/images/icon/imgs5.png" />
+										<img style="height: 0.4rem;" src="~assets/images/icon/imgs3.png" />
+										<img style="height: 0.16rem;" src="~assets/images/icon/imgs2.png" />
+										<img style="height: 0.4rem;" src="~assets/images/icon/imgs4.png" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</el-drawer>
+
 					<div class="why padding">
 						<div class="name">
 							למה להזמין ב- <span> Kenta</span>？
@@ -239,7 +376,7 @@
 							<div class="help-name">איך נוכל לעזור?</div>
 							<div class="user">
 								<div class="state"></div>
-								<img src="https://t10.baidu.com/it/u=666889455,569580402&fm=58" />
+								<img src="~assets/images/kefu.png" />
 								<div class="text">
 									<p>שירות הלקוחות שלנו ישמח לסייע לכם</p>
 									<p>בימי חול בין השעות 09:00-17:00.</p>
@@ -271,6 +408,19 @@
 			</div>
 			<div class="foo-h"></div>
 		</main>
+		<!-- 移动端的悬浮 -->
+		<div class="suspension-h"></div>
+		<div class="suspension">
+			<div class="suspension-warp">
+				<div class="l">
+					<h3>€110</h3>
+					<p>Total for 2 adults</p>
+				</div>
+				<div class="r" @click="pricedirection=true">
+					פרטי נסיעה<i class="el-icon-arrow-up"></i>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -283,6 +433,8 @@
 					value: '2 אנשים',
 					label: '1'
 				}],
+				direction: false,
+				pricedirection: false,
 				value: '',
 				list: [{
 						name: 'כרטיס/ים',
@@ -308,9 +460,242 @@
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.page {
+			.content .left .choose h1 {
+				font-size: 0.28rem;
+			}
+
+			.suspension-h,
+			.suspension {
+				display: inline-block !important;
+			}
+
+			.suspension-warp {
+				display: flex;
+				align-items: center;
+				direction: ltr;
+
+				.r {
+					color: #EE2344;
+					font-size: 0.16rem;
+
+					i {
+						margin-left: 0.16rem;
+					}
+				}
+
+				.l {
+					flex: 1;
+
+					h3 {
+						font-size: 0.32rem;
+						color: #00BC93;
+					}
+
+					p {
+						font-size: 0.12rem;
+						color: #1A1A1A;
+					}
+				}
+			}
+
+			.filter-w {
+				text-align: left;
+			}
+
+			.filter {
+				background-color: rgba(245, 245, 245, 1);
+				display: inline-block;
+				height: 0.4rem;
+				padding-top: 0.12rem;
+				width: 0.48rem;
+				text-align: center;
+				border: 1px solid #DADADA;
+				border-radius: 6px;
+			}
+
+			.filter img {
+				width: 0.11rem;
+				height: auto;
+			}
+
+			.see-more {
+				color: #3451FF;
+				width: 100%;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				direction: ltr;
+				font-size: 0.16rem;
+				padding: 0.24rem 0.2rem 0.14rem 0.2rem;
+				text-align: right;
+				background: linear-gradient(180deg, rgba(254, 238, 242, 0.7) 0%, #FEEEF2 100%);
+			}
+
+			.mobile-padding {
+				padding: 0.2rem;
+			}
+
+			.imgText p:nth-child(n+4) {
+				display: none;
+			}
+
+			.pm-mobile {
+				border-top: 1px solid #DADADA;
+				padding: 0.2rem;
+				display: inline-block;
+			}
+
+			.pm-mobile img {
+				width: 100%;
+			}
+
+			.priceSummary .Summary {
+				display: inline-block !important;
+				border: none;
+			}
+			.priceSummary .filter-w{
+				padding: 0.24rem 0.2rem;
+			}
+
+			.content .choose .confirm button {
+				width: 100%;
+				margin-bottom: 0.12rem;
+				margin-left: 0;
+			}
+
+			.content .choose .confirm .confirm-text {
+				margin-right: 0;
+				margin-left: 0;
+			}
+
+			.would .would-left .top {
+				padding: 0.2rem !important;
+			}
+
+			.content .item-li {
+				margin-top: 0.24rem;
+				font-size: 0.28rem;
+				height: auto;
+				padding: 0.24rem 0.2rem;
+			}
+
+			.would .would-left .info .imgText {
+				padding: 0.2rem;
+				position: relative;
+			}
+
+			.would .would-left .select {
+				padding: 0 0.2rem !important;
+			}
+
+			.would .would-left .select .tickets,
+			.would .would-left .top .tickets {
+				font-size: 0.14rem;
+				padding: 0;
+				padding-right: 0.16rem !important;
+			}
+
+			.would .would-left .info {
+				margin-top: 0.16rem;
+			}
+
+			.would .would-left h3 {
+				margin-top: 0.4rem;
+				padding-top: 0;
+				font-size: 0.28rem;
+			}
+
+			.would .would-left {
+				border: none;
+				padding-left: 0;
+				padding-bottom: 0.16rem;
+			}
+
+			.content .left .choose .text img {
+				width: 0.14rem;
+				height: 0.14rem;
+			}
+
+			.content .left .choose .text {
+				height: auto;
+				font-size: 0.14rem;
+				padding: 0.12rem;
+				align-items: flex-start;
+				margin-left: 0;
+			}
+
+			.content .choose .confirm {
+				flex-direction: column;
+				padding: 0.16rem 0.2rem;
+			}
+
+			.content .left .choose .choose-bg {
+				padding: 0.32rem 0.16rem;
+			}
+
+			.content .type-li {
+				margin-left: 0;
+				margin-bottom: 0.08rem;
+			}
+
+			.content .type-li:nth-last-child(1) {
+				margin-bottom: 0;
+			}
+
+			.content .type {
+				flex-direction: column;
+			}
+
+			.would .would-right {
+				display: none;
+			}
+
+			.Summary {
+				display: none;
+			}
+
+			.content .right {
+				width: 100%;
+				margin-right: 0;
+			}
+
+			.content {
+				width: 100%;
+				padding: 0 0.2rem;
+				margin-top: 0.24rem;
+				flex-direction: column;
+			}
+		}
+	}
+
 	.page::v-deep .el-input__suffix {
 		left: 0;
 		right: auto;
+	}
+
+	.suspension-h {
+		height: 0.7rem;
+		display: none;
+	}
+
+	.suspension {
+		display: none;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+		z-index: 1;
+		border-top: 1px solid #DADADA;
+		background-color: #fff;
+		padding: 0.2rem 0.2rem 0.24rem 0.2rem;
+		width: 100%;
+	}
+
+	.pm-mobile {
+		display: none;
 	}
 
 	.people::v-deep .el-input__suffix {
@@ -361,7 +746,8 @@
 			padding-left: 0.17rem;
 			padding-bottom: 0.3rem;
 			border-left: 1px solid rgba(218, 218, 218, 1);
-			.info{
+
+			.info {
 				cursor: pointer;
 			}
 

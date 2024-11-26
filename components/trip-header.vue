@@ -1,26 +1,23 @@
 <template>
-	<div>
+	<div class="trip-header">
 		<div class="head warp">
 			<div class="logo" @click="toHome">
 				<img src="~assets/images/Logo.svg" alt='logo' />
 			</div>
 			<div class="celta">
-				<h3>Manchester United vs Liverpool</h3>
+				<h3>Celta de Vigo vs Valencia CF</h3>
 				<div class="text">
-					<span>אוגוסט 23, 2024</span>
-					<span>19:00-20:45</span>
-					<p class="date">
-						<i class="el-icon-check"></i>
-						The date is confirmed
-					</p>
-					<div class="line"></div>
-					<span>
+					<p>אוגוסט 23, 2024</p>
+					<p class="day-t">19:00-20:45</p>
+					<p class="date"><i class="el-icon-check"></i>התאריך אושר</p>
+					<div class="line line-l"></div>
+					<p class="span">
 						Estadio Municipal de Balaídos Vigo (ESP)
-					</span>
-					<div class="line"></div>
-					<span>
+					</p>
+					<div class="line line-l"></div>
+					<p class="span">
 						לה ליגה 24/25
-					</span>
+					</p>
 				</div>
 			</div>
 			<div class="trip">
@@ -35,6 +32,19 @@
 			</div>
 		</div>
 		<div class="head-h"></div>
+		<!-- 移动端 -->
+		<div class="mobile-trip">
+			<div class="trip">
+				<div class="index" :class="[index == 1 ? '' : 'no-index']">1</div>
+				<span :class="[index == 1 ? '' : 'no-select']">הטיול שלך </span>
+				<i class="el-icon-arrow-left"></i>
+				<div class="index" :class="[index == 2 ? '' : 'no-index']">2</div>
+				<span :class="[index == 2 ? '' : 'no-select']">אוגוסט </span>
+				<i class="el-icon-arrow-left"></i>
+				<div class="index" :class="[index == 3 ? '' : 'no-index']">3</div>
+				<span :class="[index == 3 ? '' : 'no-select']">תשלום </span>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -48,23 +58,114 @@
 		},
 		methods: {
 
-toHome() {
-		this.$router.push({
-			path: '/'
-		})
+			toHome() {
+				this.$router.push({
+					path: '/'
+				})
+			}
+		}
 	}
-}
-	}
-
 </script>
 
 <style lang="scss" scoped>
+	@media (max-width: 820px) {
+		.trip-header {
+			.warp {
+				padding: 0 0.2rem;
+			}
+			
+			.mobile-trip{
+				display: inline-block;
+				padding: 0.16rem 0.1rem 0.16rem 0.1rem;
+			}
+
+			.head .celta .text p {
+				margin-right: 0;
+				font-size: 0.1rem;
+			}
+
+			.day-t {
+				margin: 0 0.04rem !important;
+			}
+
+			.head .celta .text .date {
+				padding: 0.05rem;
+			}
+
+			.head .celta h3 {
+				padding-right: 0;
+			}
+
+			.head .logo {
+				margin-left: 0.08rem;
+			}
+
+			.head .celta {
+				padding-left: 0;
+				margin-left: 0;
+				border: none;
+			}
+
+			.head .trip,
+			.line-l,
+			.span {
+				display: none !important;
+			}
+
+		}
+	}
+
 	.warp {
 		padding: 0 32px;
 	}
 
 	.head-h {
 		height: 0.64rem;
+	}
+	.mobile-trip{
+		display: none;
+	}
+
+	.trip {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+
+		.index {
+			width: 0.28rem;
+			height: 0.28rem;
+			display: flex;
+			line-height: 0.26rem;
+			// align-items: center;
+			justify-content: center;
+			border: 2px solid #FF3263;
+			border-radius: 50%;
+			color: #FF3263;
+			font-weight: 500;
+			margin: 0 0.10rem;
+			;
+		}
+
+		i {
+			color: rgba(26, 26, 26, 0.6);
+			font-size: 0.12rem;
+			margin-left: 0.05rem;
+			font-weight: bold;
+		}
+
+		span {
+			font-size: 0.16rem;
+			font-weight: 500;
+		}
+
+		.no-select {
+			color: #d0d0d0;
+		}
+
+		.no-index {
+			border-color: #d0d0d0;
+			color: #d0d0d0;
+		}
 	}
 
 	.head {
@@ -76,7 +177,7 @@ toHome() {
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 99;
+		z-index: 999;
 		width: 100%;
 
 
@@ -138,7 +239,7 @@ toHome() {
 
 				}
 
-				span {
+				p {
 					font-size: 0.12rem;
 					color: rgba(26, 26, 26, 0.6);
 					margin-right: 0.15rem;
@@ -147,47 +248,7 @@ toHome() {
 			}
 		}
 
-		.trip {
-			display: flex;
-			align-items: center;
-			flex-direction: row;
 
-			.index {
-				width: 0.28rem;
-				height: 0.28rem;
-				display: flex;
-				line-height: 0.26rem;
-				// align-items: center;
-				justify-content: center;
-				border: 2px solid #FF3263;
-				border-radius: 50%;
-				color: #FF3263;
-				font-weight: 500;
-				margin: 0 0.10rem;
-				;
-			}
-
-			i {
-				color: rgba(26, 26, 26, 0.6);
-				font-size: 0.12rem;
-				margin-left: 0.05rem;
-				font-weight: bold;
-			}
-
-			span {
-				font-size: 0.16rem;
-				font-weight: 500;
-			}
-
-			.no-select {
-				color: #d0d0d0;
-			}
-
-			.no-index {
-				border-color: #d0d0d0;
-				color: #d0d0d0;
-			}
-		}
 
 	}
 </style>

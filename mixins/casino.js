@@ -84,6 +84,7 @@ export default {
 	},
 	mounted() {
 		this.loadAll();
+		this.checkIfMobile()
 		window.addEventListener("resize", this.checkIfMobile);
 	},
 	methods: {
@@ -214,6 +215,7 @@ export default {
 			this.ids = []
 			getHotelsByRegion(data).then(res => {
 				this.cityList = res
+				
 				if (res.length > 0) {
 					this.initMapMarkers();
 					this.cityList.forEach(item => {
