@@ -86,14 +86,14 @@
 			</div>
 
 			<div class="date-show-inp" slot="reference">
-				<div v-show="dateType==0">
+				<div v-show="dateType==0" v-if="hideDate">
 					<el-input suffix-icon="el-icon-date" placeholder="Add dates" v-model="formDate1"
 						@click.stop.native="handleVisible3" @clear="handleDateClear"></el-input>
 					<div class="show-date-range" v-if="formDate1&&dayRageIndex>0">±{{ dayRageIndex }}</div>
 				</div>
 				<div class="jb-bg" @click.stop="handleVisible3"></div>
 
-				<div v-show="dateType==1">
+				<div v-show="dateType==1" v-if="hideDate">
 					<el-input placeholder="Add dates" v-model="formDate2" @click.stop.native="handleVisible3"
 						@clear="handleDateClear2"></el-input>
 				</div>
@@ -192,6 +192,10 @@
 			dayRageIndex: {
 				type: Number,
 				default: 0
+			},
+			hideDate: {
+				type: Boolean,
+				default: true
 			}
 		},
 		data() {
@@ -380,17 +384,20 @@
 		}
 
 	}
-	.m-date ::v-deep .el-picker-panel__body{
+
+	.m-date ::v-deep .el-picker-panel__body {
 		width: 100%;
-		min-width:100%;
+		min-width: 100%;
 	}
-	.m-date ::v-deep .el-date-range-picker__content{
+
+	.m-date ::v-deep .el-date-range-picker__content {
 		width: 100%;
 		padding: 0.25rem 0.2rem;
-		margin: 0!important;
+		margin: 0 !important;
 	}
-	.m-date .tab-con{
-		padding: 0!important;
+
+	.m-date .tab-con {
+		padding: 0 !important;
 	}
 
 	.date-show-inp::v-deep .el-input__inner {

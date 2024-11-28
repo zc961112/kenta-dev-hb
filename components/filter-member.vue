@@ -14,7 +14,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="filter-member-point" slot="reference">
+			<div v-if="hideMember" class="filter-member-point" slot="reference">
 				<div class="jb-bg" @click.stop="handleVisible4"></div>
 				<i class="el-icon-arrow-down"></i>
 				<el-input placeholder="Add guests" v-model="guests" @click.stop.native="handleVisible4"></el-input>
@@ -51,7 +51,11 @@
 	export default {
 		name: 'FilterMember',
 		props: {
-			list: Array
+			list: Array,
+			hideMember: {
+				type: Boolean,
+				default: true
+			}
 		},
 		data() {
 			return {

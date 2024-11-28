@@ -168,6 +168,7 @@ export default {
 			this.$router.push({
 				path: ("/destination/" + item.city)
 			})
+			this.searchdirection = false
 		},
 		querySearch(queryString, cb) {
 			var restaurants = this.restaurants;

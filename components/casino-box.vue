@@ -119,6 +119,9 @@
 		.casino {
 			.c-casino-box .ccb-right .title .name {
 				margin-top: 0.16rem;
+				padding-left: 0;
+				flex: inherit;
+				width: 100%;
 			}
 
 			.page-area .pac-item {

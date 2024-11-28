@@ -199,6 +199,7 @@
 		mounted() {
 			this.makMonthList();
 			this.getEvents()
+			this.checkIfMobile()
 			window.addEventListener("resize", this.checkIfMobile);
 		},
 		methods: {

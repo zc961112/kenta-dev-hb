@@ -831,6 +831,9 @@
 		height: 1.2rem;
 		display: none;
 	}
+	.ismobile{
+		display: none;
+	}
 
 	.suspension {
 		display: none;
