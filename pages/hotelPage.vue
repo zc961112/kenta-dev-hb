@@ -493,16 +493,18 @@
 			// 跳去下一个页面
 			tocheckout(e) {
 				let query = {
-					room_name:e.room_name,
-					book_hash:e.book_hash,
-					price: (this.hotelslist.length > 0 ? this.hotelslist[0].children[0].daily_prices : 0),
-					taxprice:this.futax(e),
-					unit:this.fuunit(e),
-					checkin:this.modifyData.checkin,
-					checkout:this.modifyData.checkout,
-					other:JSON.stringify(this.other)
+					room_name: e.room_name,
+					book_hash: e.book_hash,
+					taxprice: this.futax(e),
+					unit: this.fuunit(e),
+					checkin: this.modifyData.checkin,
+					checkout: this.modifyData.checkout,
+					other: JSON.stringify(this.other)
 				}
-				this.$router.push({ path: '/checkoutPage', query: query})
+				this.$router.push({
+					path: '/checkoutPage',
+					query: query
+				})
 			},
 			// 移动端人数选择
 			showmember() {
@@ -519,12 +521,10 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								item.tax_data.taxes.forEach(j => {
-									Object.keys(currencyMap).forEach(key => {
-										if (j.currency_code == key) {
-											unit = currencyMap[key]
-										}
-									})
+								Object.keys(currencyMap).forEach(key => {
+									if (item.show_currency_code == key) {
+										unit = currencyMap[key]
+									}
 								})
 							})
 							return unit;
@@ -543,10 +543,7 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								item.tax_data.taxes.forEach(j => {
-									price = price + Number(j.amount)
-								})
-
+								price = price + Number(item.amount)
 							})
 							return price.toFixed(2);
 						}

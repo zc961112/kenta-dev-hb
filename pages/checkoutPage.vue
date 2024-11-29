@@ -33,7 +33,7 @@
 							מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
 						</div>
 						<div class="num">
-							<p class="flex">₪ {{Number(price) + Number(taxprice)}}</p>
+							<p class="flex">₪ {{price}}</p>
 							<div>סה״כ לתשלום</div>
 						</div>
 					</div>
@@ -81,7 +81,7 @@
 								מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
 							</div>
 							<div class="num">
-								<p class="flex">₪ {{Number(price) + Number(taxprice)}}</p>
+								<p class="flex">₪ {{price}}</p>
 								<div>סה״כ לתשלום</div>
 							</div>
 						</div>
@@ -499,13 +499,14 @@
 					tax: '',
 					amount: '',
 					user_first_name:'',
-					user_first_name:''
+					user_first_name:'',
+					partner_order_id:'',
+					order_id:''
 				},
 			}
 
 		},
 		created() {
-			this.price = this.$route.query.price
 			this.taxprice = this.$route.query.taxprice
 			this.unit = this.$route.query.unit
 			this.checkin = this.$route.query.checkin
@@ -573,11 +574,13 @@
 					this.payForm.client_name = this.payForm.user_last_name + this.payForm.user_first_name
 					this.payForm.hotel_price = this.price
 					this.payForm.tax = this.taxprice
-					this.payForm.amount = Number(this.price) + Number(this.taxprice)
+					this.payForm.amount = this.price
 					this.payForm.checkin = this.checkin
 					this.payForm.checkout = this.checkout
 					this.payForm.hotel_name = this.other.name
 					this.payForm.book_hash = this.$route.query.book_hash
+					this.payForm.order_id = this.setData.order_id
+					this.payForm.partner_order_id = this.setData.partner_order_id
 					
 					if (sessionStorage.getItem("user_provider")) {
 						this.payForm.provider = sessionStorage.getItem("user_provider")
@@ -665,6 +668,11 @@
 					book_hash: this.$route.query.book_hash
 				})
 				this.setData = res.data
+				res.data.payment_types.forEach(item=>{
+					if(item.currency_code=='ILS') {
+						this.price = item.amount
+					}
+				})
 			},
 			// 倒计时
 			startCountdown() {

@@ -46,7 +46,7 @@
 							v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
 							<img :src="item.src" />
 							<div class="info">
-								<h4>{{ item.title }} {{item.tournament_name}}</h4>
+								<h4>{{ item.title }}</h4>
 								<router-link
 									:to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
 									tag="button">לצפייה בכרטיסים</router-link>
@@ -79,44 +79,37 @@
 						<swiper ref="mySwiper" :options="swiperOptionM">
 							<swiper-slide>
 								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
-									<img src="~assets/images/banner-2.png" />
+									<img src="~assets/images/Rectangle 715.png" />
 									<h3>סופ״ש ספונטני</h3>
 									<p>חבילות לרגע האחרון</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 716.png" />
+									<h3>אירועי ספורט</h3>
+									<p>חבילות ספורט בעולם</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 717.png" />
+									<h3>טיולי שופינג</h3>
+									<p>חבילות ליעדי קניות</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 719.png" />
+									<h3>חופשות קזינו</h3>
+									<p>חבילות קזינו</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
-								</div>
-							</swiper-slide>
-							<swiper-slide>
-								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 718.png" />
+									<h3>נופש על המים</h3>
+									<p>חבילות בטן-גב</p>
 								</div>
 							</swiper-slide>
 						</swiper>
@@ -130,44 +123,37 @@
 						<swiper ref="mySwiper" :options="swiperOption">
 							<swiper-slide>
 								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
-									<img src="~assets/images/banner-2.png" />
+									<img src="~assets/images/Rectangle 715.png" />
 									<h3>סופ״ש ספונטני</h3>
 									<p>חבילות לרגע האחרון</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 716.png" />
+									<h3>אירועי ספורט</h3>
+									<p>חבילות ספורט בעולם</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 717.png" />
+									<h3>טיולי שופינג</h3>
+									<p>חבילות ליעדי קניות</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 719.png" />
+									<h3>חופשות קזינו</h3>
+									<p>חבילות קזינו</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
 								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
-								</div>
-							</swiper-slide>
-							<swiper-slide>
-								<div class="experience-li">
-									<img src="~assets/images/banner-2.png" />
-									<h3>סופ״ש ספונטני</h3>
-									<p>חבילות לרגע האחרון</p>
+									<img src="~assets/images/Rectangle 718.png" />
+									<h3>נופש על המים</h3>
+									<p>חבילות בטן-גב</p>
 								</div>
 							</swiper-slide>
 						</swiper>
@@ -231,23 +217,23 @@
 							<div>ליגה ספרדית</div>
 						</div>
 						<div class="language-li">
-							<img src="~assets/images/icon/icon22.png" />
+							<img src="~assets/images/icon/language1.png" />
 							<div>ליגה אנגלית</div>
 						</div>
 						<div class="language-li">
-							<img src="~assets/images/icon/icon22.png" />
+							<img src="~assets/images/icon/language2.png" />
 							<div>ליגת האלופות</div>
 						</div>
 						<div class="language-li">
-							<img src="~assets/images/icon/icon22.png" />
+							<img src="~assets/images/icon/language3.png" />
 							<div>ליגה גרמנית</div>
 						</div>
 						<div class="language-li">
-							<img src="~assets/images/icon/icon22.png" />
+							<img src="~assets/images/icon/language4.png" />
 							<div>ליגה צרפתית</div>
 						</div>
 						<div class="language-li">
-							<img src="~assets/images/icon/icon22.png" />
+							<img src="~assets/images/icon/language5.png" />
 							<div>ליגה איטלקית</div>
 						</div>
 					</div>
@@ -285,7 +271,6 @@
 							<el-input v-model="input" placeholder="...אני מתעניין ב">
 							</el-input>
 						</div>
-						<img src="~assets/images/icon/icon23.png" />
 					</div>
 					<div class="btn flex">
 						<button>תשאירו אותי מעדוכן</button>
@@ -315,24 +300,24 @@
 				<div class="vacation-hide">
 					<div class="vacation-list">
 						<div class="vacation-li">
-							<img src="~assets/images/banner-2.png" />
+							<img src="~assets/images/Rectangle 673.png" />
 							<h3>משתוקקים ליוקרה של דובאי?</h3>
 						</div>
 						<div class="vacation-li">
-							<img src="~assets/images/banner-2.png" />
+							<img src="~assets/images/Rectangle 669.png" />
+							<h3>נרגשים לכדורגל בברצלונה?</h3>
+						</div>
+						<div class="vacation-li">
+							<img src="~assets/images/Rectangle 670.png" />
+							<h3>מתחשק לך שופינג בלונדון?</h3>
+						</div>
+						<div class="vacation-li">
+							<img src="~assets/images/Rectangle 671.png" />
 							<h3>משתוקקים ליוקרה של דובאי?</h3>
 						</div>
 						<div class="vacation-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>משתוקקים ליוקרה של דובאי?</h3>
-						</div>
-						<div class="vacation-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>משתוקקים ליוקרה של דובאי?</h3>
-						</div>
-						<div class="vacation-li">
-							<img src="~assets/images/banner-2.png" />
-							<h3>משתוקקים ליוקרה של דובאי?</h3>
+							<img src="~assets/images/Rectangle 766.png" />
+							<h3>מוכנים לשחק בלאס וגאס?</h3>
 						</div>
 					</div>
 					<div class="arrow left" @click="prev">
@@ -496,12 +481,12 @@
 					},
 					{
 						src: require("assets/images/Group2.png"),
-						title: "כרטיסים למירוץ זמינים כעת",
+						title: "כרטיסים ללה ליגה 24/25 זמינים כעת",
 						tournament_name: 'La Liga'
 					},
 					{
 						src: require("assets/images/Group3.png"),
-						title: "כרטיסים לספורט זמינים כעת",
+						title: "כרטיסים לליגת האלופות 24/25",
 						tournament_name: 'Champions League'
 					}
 				],
@@ -614,6 +599,10 @@
 <style lang="scss" scoped>
 	@media (max-width: 820px) {
 		.page {
+			.carousel {
+				direction: ltr;
+			}
+
 			.warps {
 				width: 100%;
 			}
@@ -663,11 +652,12 @@
 			}
 
 			.system {
-				padding: 0.64rem 0.2rem;
+				margin: 0 0.2rem;
 			}
 
 			.system .text p {
-				line-height: 0.1984rem;
+				line-height: 0.1684rem;
+				font-size: 0.12rem;
 			}
 
 			.system .system-more {
@@ -788,7 +778,6 @@
 
 			.carousel .carousel-li .info {
 				width: 3rem;
-				align-items: flex-start
 			}
 
 			.carousel-wrapper {
@@ -809,6 +798,7 @@
 
 			.vacation-list {
 				width: 11.6rem;
+				direction: ltr;
 			}
 
 
