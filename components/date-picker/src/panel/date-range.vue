@@ -86,7 +86,7 @@
 				
 						<div :class="[itemtypes?'flex':'']">{{ leftLabel }}</div>
 				
-						<button :style="{fontWeight:itemtypes?'600':''}" v-if="itemtypes" type="button" @click="rightNextMonth"
+						<button :style="{fontWeight:itemtypes?'600':'',transform: 'rotate(180deg)'}" v-if="itemtypes" type="button" @click="rightNextMonth"
 							class="el-picker-panel__icon-btn el-icon-right"></button>
 					</div>
 					<date-table selection-mode="range" :date="leftDate" :default-value="defaultValue" :min-date="minDate"

@@ -55,8 +55,8 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer">Order -
-						€{{item.net_rate/100}}</router-link>
+					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer;direction: ltr;">
+						€{{item.net_rate/100}} -הזמינו</router-link>
 				</div>
 			</div>
 			<div class="right">

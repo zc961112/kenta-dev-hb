@@ -90,8 +90,8 @@
 					<el-input suffix-icon="el-icon-date" placeholder="Add dates" v-model="formDate1"
 						@click.stop.native="handleVisible3" @clear="handleDateClear"></el-input>
 					<div class="show-date-range" v-if="formDate1&&dayRageIndex>0">±{{ dayRageIndex }}</div>
+					<div class="jb-bg" @click.stop="handleVisible3"></div>
 				</div>
-				<div class="jb-bg" @click.stop="handleVisible3"></div>
 
 				<div v-show="dateType==1" v-if="hideDate">
 					<el-input placeholder="Add dates" v-model="formDate2" @click.stop.native="handleVisible3"

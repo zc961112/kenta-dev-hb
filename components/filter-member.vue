@@ -170,7 +170,7 @@
 	.jb-bg {
 		display: none;
 		height: 32px;
-		left: 1px;
+		left: 0.24rem;
 		z-index: 1;
 		width: 0.6rem;
 		top: 4px;

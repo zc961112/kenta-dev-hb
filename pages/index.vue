@@ -1314,12 +1314,14 @@
 		border: 1px solid rgba(218, 218, 218, 1);
 		width: 0.4rem;
 		height: 0.4rem;
-		line-height: 0.4rem;
 		top: 1.15rem;
 		border-radius: 50%;
 		text-align: center;
 		z-index: 9;
 		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		i {
 			font-size: 18px;
