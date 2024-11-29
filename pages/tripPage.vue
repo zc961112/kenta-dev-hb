@@ -188,6 +188,10 @@
 			.content .right .r-img{
 				display: none;
 			}
+			.content .left .tips{
+				width: 100%;
+				margin: 0;
+			}
 			.content .right{
 				width: 100%;
 				margin-right: 0;
@@ -462,6 +466,7 @@
 		font-weight: 400;
 		width: 176px;
 		color: rgba(26, 26, 26, 0.6);
+		
 	}
 
 	.content .people {

@@ -406,11 +406,11 @@
 
 	.jb-bg {
 		display: none;
-		height: 40px;
-		left: 0;
+		height: 32px;
+		left: 1px;
 		z-index: 1;
 		width: 0.6rem;
-		top: 0;
+		top: 4px;
 		position: absolute;
 		background: linear-gradient(90deg, #F5F5F5 44%, rgba(245, 245, 245, 0) 100%);
 	}

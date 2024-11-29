@@ -465,6 +465,10 @@
 			.content .left .choose h1 {
 				font-size: 0.28rem;
 			}
+			.content .left .tips{
+				width: 100%;
+				margin: 0;
+			}
 
 			.suspension-h,
 			.suspension {

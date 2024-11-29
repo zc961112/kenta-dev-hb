@@ -24,7 +24,7 @@
 								<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search"
 									class="pac-input" v-model="searchQuery.destinationName"
 									:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''"
-									placeholder="select city" @select="handleSelect">
+									placeholder="Caesar’s Palace Hotel & Casino" @select="handleSelect">
 									<template slot-scope="{ item }">
 										<div>{{ item.city }}</div>
 									</template>
@@ -36,9 +36,14 @@
 			</div>
 			<div class="warps">
 				<div class="navs">
-					<span>Caesar’s Palace Hotel & Casino</span><i class="el-icon-arrow-left"></i>
-					<span>לאס וגאס</span><i class="el-icon-arrow-left"></i><span>ארצות הברית</span><i
-						class="el-icon-arrow-left"></i>בית
+					<span class="span-li">
+						<span>Caesar’s Palace Hotel & Casino</span><i class="el-icon-arrow-left"></i>
+					</span>
+
+					<span class="span-li">
+						<span>לאס וגאס</span><i class="el-icon-arrow-left"></i><span>ארצות הברית</span><i
+							class="el-icon-arrow-left"></i>בית
+					</span>
 				</div>
 			</div>
 			<div class="warps">
@@ -59,10 +64,13 @@
 							</div>
 							<div class="right">
 								<div class="xx">
-									<p class="p address">{{other.address}}<span class="line m-line"></span></p>
+									<p class="p address">
+										<span class="n">{{other.address}}</span>
+										<span class="line m-line"></span>
+									</p>
 									<div class="xx-info">
 										<span class="line m-line-no"></span>
-										<span class="p">0.0 ק״מ ממרכז העיר</span>
+										<span class="p rtl">0.0 ק״מ ממרכז העיר</span>
 										<span class="line"></span>
 										<div class="rate">
 											<el-rate void-color="#FFB800" :value="other.star_rating" />
@@ -300,7 +308,7 @@
 										<el-image style="width: 100%; height: 100%" :src="item.images?item.images[0]:''"
 											:preview-src-list="item.images">
 										</el-image>
-										<p v-if="item.images>0">תמונות {{item.images.length}}<i
+										<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
 												class="el-icon-view"></i></p>
 									</div>
 								</div>
@@ -476,7 +484,6 @@
 			this.defaultTime = this.$route.query.time
 			this.searchOffset = this.$refs.searchElement.offsetTop;
 			this.checkIfMobile()
-			window.addEventListener('scroll', this.handleScroll);
 			window.addEventListener("resize", this.checkIfMobile);
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 
@@ -643,6 +650,7 @@
 						this.stickyOffset = this.$refs.stickyElement.offsetTop;
 						this.priceOffset = this.$refs.priceElement.offsetTop;
 					})
+					window.addEventListener('scroll', this.handleScroll);
 				}).catch(err => {
 					this.loading = false
 				})
@@ -662,6 +670,10 @@
 
 	@media (max-width: 820px) {
 		.page {
+			.content .nav .right .xx .rtl {
+				direction: rtl;
+			}
+
 			.Palace .Palace-left .top .name {
 				border-bottom: none;
 			}
@@ -831,7 +843,7 @@
 				border-radius: 8px;
 				overflow: hidden;
 				margin-top: 0.08rem;
-				border-bottom: none
+				border: 1px solid rgb(218, 218, 218)!important;
 			}
 
 			.Palace .Palace-right .Hotel-li .room {
@@ -839,6 +851,7 @@
 				background-color: #fff;
 				border-radius: 8px;
 				overflow: hidden;
+				border: 1px solid rgb(218, 218, 218);
 			}
 
 			.Palace .Palace-right .Hotel-li .room .left .laber {
@@ -973,6 +986,9 @@
 			.navs {
 				padding: 0 0.2rem;
 				line-height: 0.18rem;
+				display: flex;
+				flex-direction: column-reverse;
+
 			}
 
 			.content .nav .right h1 {
@@ -1023,6 +1039,10 @@
 		font-size: 0.12rem;
 		text-align: right;
 		color: rgba(26, 26, 26, 0.6);
+
+		.span-li {
+			margin: 0 !important;
+		}
 
 		span {
 			margin: 0 0.05rem;

@@ -9,9 +9,9 @@
 							<div class="flex">
 								<div class="search-btn" @click="citysearch"></div>
 								<el-autocomplete @keyup.enter.native="citysearch" suffix-icon="el-icon-search"
-									class="pac-input" v-model="searchQuery.destinationName" :fetch-suggestions="querySearch"
-									@focus="searchQuery.destinationName=''" placeholder="לאס וגאס, ארה״ב"
-									@select="handleSelect">
+									class="pac-input" v-model="searchQuery.destinationName"
+									:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''"
+									placeholder="לאס וגאס, ארה״ב" @select="handleSelect">
 									<template slot-scope="{ item }">
 										<div>{{ item.city }}</div>
 									</template>
@@ -20,11 +20,12 @@
 							<div class="iconBox-m">
 								<div class="iconBox">
 									<div class="search-icon" @click="showMap">
-										<img style="width: 0.12rem; height: 0.12rem;" src="~assets/images/icon/mapcolse.png" />
+										<img style="width: 0.12rem; height: 0.12rem;"
+											src="~assets/images/icon/mapcolse.png" />
 									</div>
 									<div class="search-icon">
-										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"
-											fill="none">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+											viewBox="0 0 16 16" fill="none">
 											<path
 												d="M2.66669 3.33333H4.66669M9.33335 3.33333H13.3334M9.33335 3.33333C9.33335 2.59695 8.73642 2 8.00002 2C7.26362 2 6.66669 2.59695 6.66669 3.33333C6.66669 4.06971 7.26362 4.66667 8.00002 4.66667C8.73642 4.66667 9.33335 4.06971 9.33335 3.33333ZM6.66669 8H10.6667M10.6667 8C10.6667 8.7364 11.2636 9.33333 12 9.33333C12.7364 9.33333 13.3334 8.7364 13.3334 8C13.3334 7.2636 12.7364 6.66667 12 6.66667C11.2636 6.66667 10.6667 7.2636 10.6667 8ZM2.66669 8H4.66669M7.33335 12.6667H13.3334M4.00002 11.3333C4.7364 11.3333 5.33335 11.9303 5.33335 12.6667C5.33335 13.4031 4.7364 14 4.00002 14C3.26364 14 2.66669 13.4031 2.66669 12.6667C2.66669 11.9303 3.26364 11.3333 4.00002 11.3333Z"
 												stroke="#1A1A1A" stroke-opacity="0.6" stroke-linecap="round" />
@@ -34,7 +35,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<page-hotel v-if="selectedHotel" :casino="selectedHotel" :search-query="searchQuery"
 						:selected-room="selectedRoom" @room-select="handleRoomSelect" />
 					<div v-else class="map-container">
@@ -103,7 +104,7 @@
 							@next="openBookingModal" />
 					</template> -->
 						<casino-box :adults="adults" :dayTime="dayTime" v-for="(item,index) in cityList" :key="index"
-							class="pac-item" :casino="item"  :parent="form" @enter="showMapPopper(item)"
+							class="pac-item" :casino="item" :parent="form" @enter="showMapPopper(item)"
 							@leave="hideMapPopper(item)" @click="showDetail(item)" />
 					</div>
 				</div>
@@ -172,6 +173,10 @@
 </script>
 
 <style lang="scss" scoped>
+	.page-box::v-deep .el-rate {
+		direction: rtl;
+	}
+
 	@media (max-width: 820px) {
 		.page-box {
 			.pac-filters {
@@ -221,9 +226,10 @@
 			}
 		}
 	}
-	.map-menu{
+
+	.map-menu {
 		display: none;
-		padding-bottom: 0.16rem!important;
+		padding-bottom: 0.16rem !important;
 		width: 100%;
 	}
 

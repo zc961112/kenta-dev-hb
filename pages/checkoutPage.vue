@@ -153,13 +153,25 @@
 							<div class="bottom">
 								<div class="name">{{room_name}}</div>
 								<div class="wallet">
-									<div class="p">
-										<img class="l" src="~assets/images/icon/info-feature.png" />
-										<p class="curr">
-											ניתן לבטל בחינם עד ל-27 באוגוסט*
-										</p>
-										<img class="r" src="~assets/images/icon/icon.png" />
+
+									<div class="wallet-m">
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											<p>לא כולל ארוחות</p>
+											<img class="r" src="~assets/images/icon/icon26.png" />
+										</div>
 									</div>
+
+									<div class="wallet-pc">
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											<p class="curr">
+												ניתן לבטל בחינם עד ל-27 באוגוסט*
+											</p>
+											<img class="r" src="~assets/images/icon/icon.png" />
+										</div>
+									</div>
+
 									<div class="p">
 										<img class="l" src="~assets/images/icon/info-feature.png" />
 										<p>מיטה כפולה</p>
@@ -174,16 +186,31 @@
 										</p>
 										<img class="r" src="~assets/images/icon/qb.png" />
 									</div>
-									<div class="p">
-										<img class="l" src="~assets/images/icon/info-feature.png" />
-										<p>לא כולל ארוחות</p>
-										<img class="r" src="~assets/images/icon/icon26.png" />
+
+									<div class="wallet-m">
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											<p class="curr">
+												ניתן לבטל בחינם עד ל-27 באוגוסט*
+											</p>
+											<img class="r" src="~assets/images/icon/icon.png" />
+										</div>
+									</div>
+									<div class="wallet-pc">
+										<div class="p">
+											<img class="l" src="~assets/images/icon/info-feature.png" />
+											<p>לא כולל ארוחות</p>
+											<img class="r" src="~assets/images/icon/icon26.png" />
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="img">
-							<el-image style="width: 2.14rem; height: 2.22rem" :src="otherimg[0]"
+							<el-image class="PC-img" style="width: 2.14rem; height: 2.22rem" :src="otherimg[0]"
+								:preview-src-list="other.images">
+							</el-image>
+							<el-image class="no-PC-img" style="width: 100%; height: 1.4rem" :src="otherimg[0]"
 								:preview-src-list="other.images">
 							</el-image>
 						</div>
@@ -498,10 +525,10 @@
 					hotel_price: '',
 					tax: '',
 					amount: '',
-					user_first_name:'',
-					user_first_name:'',
-					partner_order_id:'',
-					order_id:''
+					user_first_name: '',
+					user_first_name: '',
+					partner_order_id: '',
+					order_id: ''
 				},
 			}
 
@@ -581,7 +608,7 @@
 					this.payForm.book_hash = this.$route.query.book_hash
 					this.payForm.order_id = this.setData.order_id
 					this.payForm.partner_order_id = this.setData.partner_order_id
-					
+
 					if (sessionStorage.getItem("user_provider")) {
 						this.payForm.provider = sessionStorage.getItem("user_provider")
 					}
@@ -668,8 +695,8 @@
 					book_hash: this.$route.query.book_hash
 				})
 				this.setData = res.data
-				res.data.payment_types.forEach(item=>{
-					if(item.currency_code=='ILS') {
+				res.data.payment_types.forEach(item => {
+					if (item.currency_code == 'ILS') {
 						this.price = item.amount
 					}
 				})
@@ -733,8 +760,36 @@
 </script>
 
 <style lang="scss" scoped>
+	.no-PC-img,
+	.wallet-m {
+		display: none;
+	}
+
+	.wallet-pc {
+		flex: 1;
+	}
+
+	.checkoutPage::v-deep .content .right .info .info-left .top .r .score .rate {
+		direction: rtl;
+	}
+
 	@media (max-width: 820px) {
 		.checkoutPage {
+
+			.no-PC-img,
+			.wallet-m {
+				display: inline-block;
+			}
+
+			.content .right .info .info-left .top .r .score p {
+				direction: rtl;
+			}
+
+			.PC-img,
+			.wallet-pc {
+				display: none;
+			}
+
 			.content {
 				margin-top: 0.09rem;
 				flex-direction: column;

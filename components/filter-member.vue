@@ -151,7 +151,7 @@
 				console.log(this.guests)
 				if (window.isMobile) {
 					this.direction = !this.direction
-				}else {
+				} else {
 					this.show = !this.show
 				}
 			}
@@ -161,30 +161,34 @@
 
 <style lang="scss" scoped>
 	@media (max-width: 820px) {
-		.filters .jb-bg{
+		.filters .jb-bg {
 			display: inline-block;
 		}
-		
+
 	}
-	.jb-bg{
+
+	.jb-bg {
 		display: none;
-		height: 40px;
-		left: 32px;
+		height: 32px;
+		left: 1px;
 		z-index: 1;
 		width: 0.6rem;
-		top: 0;
+		top: 4px;
 		position: absolute;
 		background: linear-gradient(90deg, #F5F5F5 44%, rgba(245, 245, 245, 0) 100%);
 	}
-	.filter-member-point{
+
+	.filter-member-point {
 		position: relative;
 	}
-	.btns{
+
+	.btns {
 		margin-top: 0.24rem;
 		width: 100%;
 		background-color: #FF3263;
 		color: #fff;
 	}
+
 	.filter-member-point::v-deep .el-input__inner {
 		text-align: right;
 		padding: 0 32px;
