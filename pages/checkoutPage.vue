@@ -21,19 +21,19 @@
 				<div class="left">
 					<div class="price">
 						<div class="top">
-							<p class="flex">₪ 1,611</p>
+							<p class="flex">₪ {{price}}</p>
 							<div>מחיר לילה</div>
 						</div>
 						<div class="text">עבור 3 לילות, 2 אורחים</div>
 						<div class="bottom">
-							<p class="flex">₪ 570</p>
+							<p class="flex">{{unit}} {{taxprice}}</p>
 							<div>כולל מס מגורים</div>
 						</div>
 						<div class="item">
 							מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
 						</div>
 						<div class="num">
-							<p class="flex">₪ 4,833</p>
+							<p class="flex">₪ {{Number(price) + Number(taxprice)}}</p>
 							<div>סה״כ לתשלום</div>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 						<div class="bg">
 							<div class="name">תשלום בעת ההגעה</div>
 							<div class="info">
-								<p class="flex">$170</p>
+								<p class="flex">{{unit}} {{taxprice}}</p>
 								<div>דמי נופש</div>
 							</div>
 						</div>
@@ -69,19 +69,19 @@
 					<div class="left drawerleft">
 						<div class="price">
 							<div class="top">
-								<p class="flex">₪ 1,611</p>
+								<p class="flex">₪ {{price}}</p>
 								<div>מחיר לילה</div>
 							</div>
 							<div class="text">עבור 3 לילות, 2 אורחים</div>
 							<div class="bottom">
-								<p class="flex">₪ 570</p>
+								<p class="flex">{{unit}} {{taxprice}}</p>
 								<div>כולל מס מגורים</div>
 							</div>
 							<div class="item">
 								מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
 							</div>
 							<div class="num">
-								<p class="flex">₪ 4,833</p>
+								<p class="flex">₪ {{Number(price) + Number(taxprice)}}</p>
 								<div>סה״כ לתשלום</div>
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 							<div class="bg">
 								<div class="name">תשלום בעת ההגעה</div>
 								<div class="info">
-									<p class="flex">$170</p>
+									<p class="flex">{{unit}} {{taxprice}}</p>
 									<div>דמי נופש</div>
 								</div>
 							</div>
@@ -120,20 +120,20 @@
 								<!-- PC端 -->
 								<div class="l nomobile">
 									<p class="day">צ'ק אין - 16:00</p>
-									<p class="time">31 יולי 2024</p>
+									<p class="time">{{checkout}}</p>
 									<p class="house">צ'ק אאוט - 11:00</p>
-									<p class="time">3 אוג׳ 2024</p>
+									<p class="time">{{checkin}}</p>
 								</div>
 								<!-- 移动端 -->
 								<div class="ismobile">
 									<div class="m-time">
 										<div class="m-time-li">
 											<p class="t">צ'ק אאוט - 11:00</p>
-											<p>3 אוג׳ 2024</p>
+											<p>{{checkout}}</p>
 										</div>
 										<div class="m-time-li">
 											<p class="t">צ'ק אין - 16:00</p>
-											<p>31 יולי 2024</p>
+											<p>{{checkin}}</p>
 										</div>
 									</div>
 								</div>
@@ -142,16 +142,16 @@
 										<p>0.0 ק״מ ממרכז העיר</p>
 										<div class="line"></div>
 										<div class="rate">
-											<el-rate void-color="#FFB800" :value="5" />
+											<el-rate void-color="#FFB800" :value="other.star_rating" />
 											<div class="disabled"></div>
 										</div>
 									</div>
-									<div class="name">Caesar’s Palace Hotel & Casino</div>
-									<div class="text">3655 Las Vegas Blvd S, Paradise</div>
+									<div class="name">{{other.name}}</div>
+									<div class="text">{{other.address}}</div>
 								</div>
 							</div>
 							<div class="bottom">
-								<div class="name">Julius Deluxe Double room</div>
+								<div class="name">{{room_name}}</div>
 								<div class="wallet">
 									<div class="p">
 										<img class="l" src="~assets/images/icon/info-feature.png" />
@@ -183,7 +183,9 @@
 							</div>
 						</div>
 						<div class="img">
-							<img src="~assets/images/banner-2.png" />
+							<el-image style="width: 2.14rem; height: 2.22rem" :src="otherimg[0]"
+								:preview-src-list="other.images">
+							</el-image>
 						</div>
 					</div>
 					<div class="more" v-if="!hasToken" @click="showLogin">
@@ -241,11 +243,11 @@
 							<div class="form">
 								<div class="form-li form-li-m">
 									<div class="li">
-										<el-input v-model="payForm.amount" placeholder="שם משפחה*"></el-input>
+										<el-input v-model="payForm.user_first_name" placeholder="שם משפחה*"></el-input>
 									</div>
 									<div class="w"></div>
 									<div class="li">
-										<el-input v-model="payForm.client_name" placeholder="שם פרטי*"></el-input>
+										<el-input v-model="payForm.user_last_name" placeholder="שם פרטי*"></el-input>
 									</div>
 								</div>
 								<div class="form-li">
@@ -257,12 +259,12 @@
 								<div class="form-li form-li-m">
 									<div class="li">
 										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<el-input v-model="input" placeholder="מספר פלאפון*"></el-input>
+										<el-input v-model="payForm.phone" placeholder="מספר פלאפון*"></el-input>
 									</div>
 									<div class="w"></div>
 									<div class="li">
 										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<el-select v-model="input" placeholder="אזרחות*">
+										<el-select v-model="payForm.country" placeholder="אזרחות*">
 											<el-option v-for="item in CountryList" :key="item.alpha_3"
 												:label="item.name" :value="item.alpha_3">
 											</el-option>
@@ -286,14 +288,14 @@
 									<p>חדר שלך יהיה מוכן</p>
 									<p>ב16:00</p>
 								</div>
-								<el-select v-model="input" placeholder="12:00">
+								<el-select v-model="payForm.checkin_time" placeholder="12:00">
 									<el-option v-for="item in timeList" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
 								</el-select>
 							</div>
 							<div class="select-menu">
-								<el-dropdown trigger="click">
+								<!-- <el-dropdown trigger="click">
 									<span class="el-dropdown-link">
 										בקשות מיוחדות<i class="el-icon-arrow-down el-icon--right"></i>
 									</span>
@@ -301,16 +303,15 @@
 										<el-dropdown-item>בקשות מיוחדות</el-dropdown-item>
 										<el-dropdown-item>בקשות מיוחדות</el-dropdown-item>
 									</el-dropdown-menu>
-								</el-dropdown>
+								</el-dropdown> -->
 							</div>
 						</div>
 						<div class="btn">
 							<div class="left">
-								<p >לחיצה על הכפתור "להשלים הזמנה", </p>
+								<p>לחיצה על הכפתור "להשלים הזמנה", </p>
 								<p>מהווה הסכמה<span>לתנאים ולהתניות.</span></p>
 							</div>
 							<button @click="Topayment">להשלים הזמנה</button>
-              <button @click="Topayment1">test_payment_page</button>
 						</div>
 					</div>
 					<div class="foo-h"></div>
@@ -323,12 +324,12 @@
 			<div class="more" @click="direction = !direction"><i class="el-icon-arrow-up"></i></div>
 			<div class="price">
 				<div class="top">
-					<p class="flex">₪ 1,611</p>
+					<p class="flex">₪ {{price}}</p>
 					<div>מחיר לילה</div>
 				</div>
 				<div class="text">עבור 3 לילות, 2 אורחים</div>
 				<div class="bottom">
-					<p class="flex">₪ 570</p>
+					<p class="flex">{{unit}} {{taxprice}}</p>
 					<div>כולל מס מגורים</div>
 				</div>
 			</div>
@@ -342,11 +343,12 @@
 		getFrom,
 		getCountry,
 	} from '@/api/kentaHb'
-  import {
-    getMail,
-    getUserInfo,
-    findPwdSendMail, Topaymentpage
-  } from '@/api/login'
+	import {
+		getMail,
+		getUserInfo,
+		findPwdSendMail,
+		Topaymentpage
+	} from '@/api/login'
 	import {
 		getToken,
 		setToken,
@@ -381,15 +383,11 @@
 					token: '',
 					provider: ''
 				},
-				direction:false,
+				direction: false,
 				CountryList: [],
-				payForm: {
-					partner_order_id: '',
-					amount: '',
-					user_id: '',
-					client_name: '',
-					email: ''
-				},
+
+				surname: '',
+				username: '',
 				timeList: [{
 						label: 'Unknown',
 						value: 'Unknown'
@@ -479,16 +477,47 @@
 					email: '',
 					password: ''
 				},
-				showPassword: false
+				showPassword: false,
+				price: 0,
+				taxprice: 0,
+				unit: '',
+				other: {},
+				otherimg: [],
+				checkout: '',
+				checkin: '',
+				room_name: '',
+				payForm: {
+					client_name: '',
+					email: '',
+					phone: '',
+					country: '',
+					checkin_time: '12:00',
+					hotel_name: '',
+					checkin: '',
+					checkout: '',
+					hotel_price: '',
+					tax: '',
+					amount: '',
+					user_first_name:'',
+					user_first_name:''
+				},
 			}
 
 		},
 		created() {
+			this.price = this.$route.query.price
+			this.taxprice = this.$route.query.taxprice
+			this.unit = this.$route.query.unit
+			this.checkin = this.$route.query.checkin
+			this.checkout = this.$route.query.checkout
+			this.room_name = this.$route.query.room_name
+			this.other = JSON.parse(this.$route.query.other)
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 			this.getPeople()
 			this.startCountdown();
 			this.verifyToken()
 			this.getCountryList()
+			this.otherimg = this.other.images.length > 2 ? this.other.images.slice(0, 2) : []
 		},
 		computed: {
 			countdown() {
@@ -509,29 +538,59 @@
 			this.clearCountdown();
 		},
 		methods: {
-      Topayment(){
-        let date1 = {
-          test : '1'
-        }
-        Topaymentpage(date1).then((data)=>{
-          console.log(data)
-          window.open(data)
-        }
-        )
-      },
+			Topayment() {
+				if (!this.payForm.user_first_name) {
+					this.$message({
+						message: 'Please enter your last name',
+						type: 'warning'
+					})
+				} else if (!this.payForm.user_last_name) {
+					this.$message({
+						message: 'Please enter your name',
+						type: 'warning'
+					})
+				} else if (!this.payForm.email) {
+					this.$message({
+						message: 'Please enter your email',
+						type: 'warning'
+					})
+				} else if (!this.payForm.phone) {
+					this.$message({
+						message: 'Please enter your phone',
+						type: 'warning'
+					})
+				} else if (!this.payForm.country) {
+					this.$message({
+						message: 'Please select a country',
+						type: 'warning'
+					})
+				} else if (!this.payForm.checkin_time) {
+					this.$message({
+						message: 'Please select the arrival time',
+						type: 'warning'
+					})
+				} else {
+					this.payForm.client_name = this.payForm.user_last_name + this.payForm.user_first_name
+					this.payForm.hotel_price = this.price
+					this.payForm.tax = this.taxprice
+					this.payForm.amount = Number(this.price) + Number(this.taxprice)
+					this.payForm.checkin = this.checkin
+					this.payForm.checkout = this.checkout
+					this.payForm.hotel_name = this.other.name
+					this.payForm.book_hash = this.$route.query.book_hash
+					
+					if (sessionStorage.getItem("user_provider")) {
+						this.payForm.provider = sessionStorage.getItem("user_provider")
+					}
+					if (sessionStorage.getItem("user_id")) {
+						this.payForm.user_id = sessionStorage.getItem("user_id")
+					}
+					Topaymentpage(this.payForm).then((data) => {
+						window.open(data)
+					})
+				}
 
-
-      Topayment1(){
-        let date1 = {
-          test : '2'
-        }
-        Topaymentpage(date1).then((data)=>{
-          console.log(data)
-          window.open(data)
-        })
-      },
-
-
+			},
 			// 登录
 			toLogin() {
 				if (!this.loginForm.email) {
@@ -568,6 +627,7 @@
 					sessionStorage.setItem("user_name", username)
 					sessionStorage.setItem("user_email", res.user_info.email)
 					sessionStorage.setItem("user_provider", res.user_info.provider)
+					sessionStorage.setItem("user_id", res.user_info.user_id)
 					setUserName(username)
 					this.$store.commit('SET_NAME', username)
 				}).catch((err) => {
@@ -594,7 +654,6 @@
 			async getCountryList() {
 				const res = await getCountry()
 				this.CountryList = res.data
-				console.log(res, "获取国家")
 			},
 			// 显示登录隐藏
 			showLogin() {
@@ -635,6 +694,7 @@
 
 							sessionStorage.setItem("user_email", this.$route.query.email)
 							sessionStorage.setItem("user_provider", this.$route.query.provider)
+							sessionStorage.setItem("user_id", this.$route.query.user_id)
 
 							let username = (res.data.first_name || '') + (res.data.last_name || '')
 							sessionStorage.setItem("user_name", username)
@@ -810,14 +870,17 @@
 			}
 
 			.suspension-h,
-			.suspension,.drawerleft {
-				display: inline-block!important;
+			.suspension,
+			.drawerleft {
+				display: inline-block !important;
 			}
-			.content .drawerleft{
+
+			.content .drawerleft {
 				width: 100%;
-				margin-right:0;
+				margin-right: 0;
 				padding: 0.24rem 0.2rem;
 			}
+
 			.content .left,
 			.header .time .p,
 			.nomobile {
@@ -831,7 +894,8 @@
 		height: 1.2rem;
 		display: none;
 	}
-	.ismobile{
+
+	.ismobile {
 		display: none;
 	}
 

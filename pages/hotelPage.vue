@@ -309,11 +309,14 @@
 										<div class="info item-l">
 											<div class="btn">
 												<p>המחיר הכי טוב</p>
-												<router-link :to="'/checkoutPage?book_hash=' + item.book_hash">
+												<div class="button" @click="tocheckout(item)">
+													הזמינו עכשיו
+												</div>
+												<!-- <router-link :to="'/checkoutPage?book_hash=' + item.book_hash">
 													<div class="button">
 														הזמינו עכשיו
 													</div>
-												</router-link>
+												</router-link> -->
 											</div>
 											<div class="item-price flex">
 												<div>₪ {{item2.daily_prices}}</div>
@@ -487,6 +490,20 @@
 			window.removeEventListener('scroll', this.handleScroll);
 		},
 		methods: {
+			// 跳去下一个页面
+			tocheckout(e) {
+				let query = {
+					room_name:e.room_name,
+					book_hash:e.book_hash,
+					price: (this.hotelslist.length > 0 ? this.hotelslist[0].children[0].daily_prices : 0),
+					taxprice:this.futax(e),
+					unit:this.fuunit(e),
+					checkin:this.modifyData.checkin,
+					checkout:this.modifyData.checkout,
+					other:JSON.stringify(this.other)
+				}
+				this.$router.push({ path: '/checkoutPage', query: query})
+			},
 			// 移动端人数选择
 			showmember() {
 				this.$refs.member.handleVisible4()
@@ -502,10 +519,12 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								Object.keys(currencyMap).forEach(key => {
-									if (item.currency_code == key) {
-										unit = currencyMap[key]
-									}
+								item.tax_data.taxes.forEach(j => {
+									Object.keys(currencyMap).forEach(key => {
+										if (j.currency_code == key) {
+											unit = currencyMap[key]
+										}
+									})
 								})
 							})
 							return unit;
@@ -524,7 +543,10 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								price = price + Number(item.amount)
+								item.tax_data.taxes.forEach(j => {
+									price = price + Number(j.amount)
+								})
+
 							})
 							return price.toFixed(2);
 						}
@@ -649,6 +671,7 @@
 
 			.m-search {
 				padding: 0.3rem 0;
+
 				.pac-search {
 					text-align: center;
 				}
@@ -1027,7 +1050,7 @@
 		position: fixed;
 		top: 0.64rem;
 		width: 100%;
-		z-index: 99999;
+		z-index: 999;
 		left: 0;
 		margin-top: 0 !important;
 		border: none !important;
@@ -1206,6 +1229,7 @@
 
 						.btn {
 							.button {
+								cursor: pointer;
 								margin-top: 8px;
 								width: 1.19rem;
 								height: 0.40rem;

@@ -73,7 +73,7 @@
 			flex-direction: column-reverse;
 			/* 反转元素顺序 */
 			align-items: flex-end;
-			padding: 0.4rem 0.2rem!important
+			padding: 0.4rem 0.2rem !important
 		}
 
 		.logo {
@@ -173,6 +173,7 @@
 			.icon {
 				display: flex;
 				align-items: center;
+				direction: rtl;
 
 				.icon-li {
 					border: 1px solid rgba(254, 254, 254, 0.16);

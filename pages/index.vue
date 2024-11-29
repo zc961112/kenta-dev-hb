@@ -199,18 +199,18 @@
 						<p>.איתכם בכל שלב</p>
 					</div>
 					<div class="choose-li flex">
-						<img src="~assets/images/icon/Asset2.png" />
-						<div>חוויות שכולן נופש</div>
-						<p>הזמינו אפילו ברגע האחרון, דלגו על תורים</p>
-						<p>ותהנו מביטול חינם לחווית נופש קלילה </p>
-						<p>.ונעימה יותר</p>
-					</div>
-					<div class="choose-li flex">
 						<img src="~assets/images/icon/Asset3.png" />
 						<div>מבצעים והפתעות</div>
 						<p>כרטיסים רישמיים בלבד, מלונות במחירים</p>
 						<p>מעולים ובקרוב גם קרדיט לחיסכון נוסף</p>
 						<p>.בחופשה הבאה שלך</p>
+					</div>
+					<div class="choose-li flex">
+						<img src="~assets/images/icon/Asset2.png" />
+						<div>חוויות שכולן נופש</div>
+						<p>הזמינו אפילו ברגע האחרון, דלגו על תורים</p>
+						<p>ותהנו מביטול חינם לחווית נופש קלילה </p>
+						<p>.ונעימה יותר</p>
 					</div>
 					<div class="choose-li flex">
 						<img src="~assets/images/icon/Asset4.png" />
@@ -743,7 +743,7 @@
 				margin-bottom: 0.4rem;
 			}
 
-			.choose .choose-list .choose-li:nth-last-child(1) {
+			.choose .choose-list .choose-li:nth-child(1) {
 				margin-bottom: 0;
 			}
 

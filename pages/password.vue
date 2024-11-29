@@ -102,6 +102,7 @@
 					sessionStorage.setItem("user_name", username)
 					sessionStorage.setItem("user_email", res.user_info.email)
 					sessionStorage.setItem("user_provider", res.user_info.provider)
+					sessionStorage.setItem("user_id", res.user_info.user_id)
 					setUserName(username)
 					this.$store.commit('SET_NAME', username)
 					this.$router.push({

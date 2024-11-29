@@ -479,7 +479,6 @@ export default {
 			updateSessionQuery(this.searchQuery)
 		},
 		updateStartEndTime(value) {
-			console.log(value)
 			this.searchQuery.date = value
 			updateSessionQuery(this.searchQuery)
 		},
