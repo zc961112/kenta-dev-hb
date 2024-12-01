@@ -222,13 +222,13 @@
 						<div class="top">
 							<div class="form">
 								<div class="form-li">
-									<a href="https://admin.kenta.travel/prod-api/kenta-hb/login" class="item-li">
+									<div @click="glLogin" class="item-li">
 										<img class="jiant"
 											src="~assets/images/icon/arrow-narrow-left-svgrepo-com 1.png" />
 										<div class="flex"></div>
 										<div class="n">המשיכו עם גוגל</div>
 										<img class="icon" src="~assets/images/gg.png" />
-									</a>
+									</div>
 								</div>
 								<div class="form-li">
 									<div href="https://admin.kenta.travel/prod-api/kenta-hb/login" class="item-li">
@@ -566,6 +566,14 @@
 			this.clearCountdown();
 		},
 		methods: {
+			// 谷歌登录
+			glLogin() {
+				let url = window.location.href
+				let parm = window.location.protocol + "//" + window.location.host + '/'
+				let urlarr = url.split(parm)
+				
+				window.open('https://admin.kenta.travel/prod-api/kenta-hb/login?redirect_url=' + urlarr[1])
+			},
 			Topayment() {
 				if (!this.payForm.first_name) {
 					this.$message({
