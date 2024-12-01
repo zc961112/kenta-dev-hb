@@ -270,11 +270,11 @@
 							<div class="form">
 								<div class="form-li form-li-m">
 									<div class="li">
-										<el-input v-model="payForm.user_first_name" placeholder="שם משפחה*"></el-input>
+										<el-input v-model="payForm.first_name" placeholder="שם משפחה*"></el-input>
 									</div>
 									<div class="w"></div>
 									<div class="li">
-										<el-input v-model="payForm.user_last_name" placeholder="שם פרטי*"></el-input>
+										<el-input v-model="payForm.last_name" placeholder="שם פרטי*"></el-input>
 									</div>
 								</div>
 								<div class="form-li">
@@ -514,7 +514,7 @@
 				checkin: '',
 				room_name: '',
 				payForm: {
-					client_name: '',
+					// client_name: '',
 					email: '',
 					phone: '',
 					country: '',
@@ -525,8 +525,8 @@
 					hotel_price: '',
 					tax: '',
 					amount: '',
-					user_first_name: '',
-					user_first_name: '',
+					first_name: '',
+					last_name: '',
 					partner_order_id: '',
 					order_id: ''
 				},
@@ -567,12 +567,12 @@
 		},
 		methods: {
 			Topayment() {
-				if (!this.payForm.user_first_name) {
+				if (!this.payForm.first_name) {
 					this.$message({
 						message: 'Please enter your last name',
 						type: 'warning'
 					})
-				} else if (!this.payForm.user_last_name) {
+				} else if (!this.payForm.last_name) {
 					this.$message({
 						message: 'Please enter your name',
 						type: 'warning'
@@ -598,7 +598,7 @@
 						type: 'warning'
 					})
 				} else {
-					this.payForm.client_name = this.payForm.user_last_name + this.payForm.user_first_name
+					// this.payForm.client_name = this.payForm.last_name + this.payForm.first_name
 					this.payForm.hotel_price = this.price
 					this.payForm.tax = this.taxprice
 					this.payForm.amount = this.price
