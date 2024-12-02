@@ -12,7 +12,7 @@
 				<div class="search-input">
 					<el-autocomplete @keyup.enter.native="search" class="inline-input" v-model="cityval"
 						:fetch-suggestions="querySearch" placeholder="חפשו חבילות, כרטיסים או יעדים"
-						@select="handleSelect">
+						@select="handleSelect" @change="changeInput">
 						<template slot-scope="{ item }">
 							<div>{{ item.city }}</div>
 						</template>
@@ -468,7 +468,8 @@
 <script>
 	import {
 		getIndexData,
-		getIdByName
+		getIdByName,
+		postgetIndexData
 	} from '@/api/kentaHb'
 	export default {
 		name: 'home',
@@ -516,7 +517,8 @@
 					spaceBetween: 16,
 					grabCursor: true
 				},
-				cityval: ''
+				cityval: '',
+				defaultList:[]
 			}
 		},
 		mounted() {
@@ -564,17 +566,46 @@
 			// },
 			// 下一页
 
-
+			// 搜框输入获取数据
+			changeInput(e) {
+				console.log(e)
+			},
 			handleSelect(item) {
 				this.$router.push({
 					path: ("/destination/" + item.city)
 				})
 			},
 			querySearch(queryString, cb) {
-				var restaurants = this.restaurants;
-				var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-				// 调用 callback 返回建议列表的数据
-				cb(results);
+				let that = this
+				if (!queryString) {
+					this.restaurants = this.defaultList
+					let restaurants = this.restaurants;
+					let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+					// 调用 callback 返回建议列表的数据
+					cb(results);
+				} else {
+					this.restaurants = []
+					postgetIndexData({
+						name: queryString
+					}).then(res => {
+						for (let i = 0; i < res.length; i++) {
+							this.restaurants.push({
+								value: res[i].city,
+								city: res[i].city,
+								id: res[i].id
+							})
+						}
+						cb(this.restaurants);
+						// setTimeout(function() {
+						// 	let restaurants = that.restaurants;
+						// 	let results = queryString ? restaurants.filter(that.createFilter(
+						// 		queryString)) : restaurants;
+						// 	// 调用 callback 返回建议列表的数据
+						// 	cb(results);
+						// }, 1000)
+					})
+				}
+
 			},
 			createFilter(queryString) {
 				return (restaurant) => {
@@ -592,6 +623,7 @@
 						})
 					}
 				})
+				this.defaultList = this.restaurants
 			}
 		}
 	}

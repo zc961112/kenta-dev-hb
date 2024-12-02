@@ -504,9 +504,10 @@
 					book_hash: e.book_hash,
 					taxprice: this.futax(e),
 					unit: this.fuunit(e),
+					hid:this.$route.query.id,
 					checkin: this.modifyData.checkin,
 					checkout: this.modifyData.checkout,
-					other: JSON.stringify(this.other)
+					// other: JSON.stringify(this.other)
 				}
 				this.$router.push({
 					path: '/checkoutPage',

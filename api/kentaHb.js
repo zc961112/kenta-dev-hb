@@ -1,5 +1,11 @@
 import request from '@/utils/request'
-
+export const postgetIndexData = (data) => {
+	return request({
+		url: '/kenta-hb/get_index_data',
+		data,
+		method: 'post',
+	})
+}
 export const getIndexData = () => {
 	return request({
 		url: '/kenta-hb/get_index_data',

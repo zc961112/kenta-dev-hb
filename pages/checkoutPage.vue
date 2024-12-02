@@ -9,9 +9,9 @@
 					<img class="r" src="~assets/images/icon/clock 1.png" />
 				</div>
 			</div>
-			<div class="logo">
+			<router-link to="/" class="logo">
 				<img src="~assets/images/logo.png" />
-			</div>
+			</router-link>
 			<p>עמוד תשלום</p>
 		</div>
 		<div class="header-h"></div>
@@ -369,6 +369,7 @@
 	import {
 		getFrom,
 		getCountry,
+		getHotelInfo
 	} from '@/api/kentaHb'
 	import {
 		getMail,
@@ -530,6 +531,7 @@
 					partner_order_id: '',
 					order_id: ''
 				},
+				hotelslist: []
 			}
 
 		},
@@ -539,13 +541,12 @@
 			this.checkin = this.$route.query.checkin
 			this.checkout = this.$route.query.checkout
 			this.room_name = this.$route.query.room_name
-			this.other = JSON.parse(this.$route.query.other)
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 			this.getPeople()
 			this.startCountdown();
 			this.verifyToken()
 			this.getCountryList()
-			this.otherimg = this.other.images.length > 2 ? this.other.images.slice(0, 2) : []
+			this.getHotel()
 		},
 		computed: {
 			countdown() {
@@ -566,12 +567,51 @@
 			this.clearCountdown();
 		},
 		methods: {
+			getHotel() {
+				let modifyData = {
+					checkin: this.$route.query.checkin,
+					checkout: this.$route.query.checkout,
+					hid: this.$route.query.hid
+				}
+				this.getDateils(modifyData)
+			},
+			getDateils(modifyData) {
+				getHotelInfo(modifyData).then(res => {
+					let arr = res.data.hotels[0].rates
+					this.hotelslist = []
+					this.other = res.data.other
+					this.otherimg = this.other.images.length > 2 ? this.other.images.slice(0, 2) : []
+					arr.forEach(element => {
+						let index = this.hotelslist.findIndex(t => {
+							return t.room_name === element.room_name
+						})
+						if (index === -1) {
+							this.hotelslist.push({
+								room_name: element.room_name,
+								children: [],
+								payment_options: element.payment_options,
+								room_data_trans: element.room_data_trans,
+								images: element.images,
+								book_hash: element.book_hash
+							})
+							index = this.hotelslist.length - 1
+						}
+
+						this.hotelslist[index].children.push({
+							allotment: element.allotment,
+							daily_prices: element.daily_prices[0]
+						})
+					})
+				}).catch(err => {
+					this.loading = false
+				})
+			},
 			// 谷歌登录
 			glLogin() {
 				let url = window.location.href
 				let parm = window.location.protocol + "//" + window.location.host + '/'
 				let urlarr = url.split(parm)
-				
+
 				window.open('https://admin.kenta.travel/prod-api/kenta-hb/login?redirect_url=' + urlarr[1])
 			},
 			Topayment() {
