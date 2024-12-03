@@ -23,7 +23,7 @@
 
 			<div class="ccb-right">
 				<div class="title">
-					<div class="index">{{casino.rating}}</div>
+					<div class="index"><span>{{casino.rating}}</span></div>
 					<div class="name">
 						<h3>{{casino.name}}</h3>
 						<p>{{casino.address}}</p>
@@ -348,7 +348,7 @@
 				align-items: center;
 
 				.index {
-					width: 0.26rem;
+					width: 0.28rem;
 					height: 0.34rem;
 					background: url("~assets/images/icon/Vector.png");
 					background-size: 100% 100%;

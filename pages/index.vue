@@ -596,13 +596,6 @@
 							})
 						}
 						cb(this.restaurants);
-						// setTimeout(function() {
-						// 	let restaurants = that.restaurants;
-						// 	let results = queryString ? restaurants.filter(that.createFilter(
-						// 		queryString)) : restaurants;
-						// 	// 调用 callback 返回建议列表的数据
-						// 	cb(results);
-						// }, 1000)
 					})
 				}
 

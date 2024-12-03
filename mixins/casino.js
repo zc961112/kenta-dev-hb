@@ -20,7 +20,8 @@ import {
 	updateHotelsInfo,
 	getIdByName,
 	getIndexData,
-	getHotelsByRegion
+	getHotelsByRegion,
+	postgetIndexData
 } from '@/api/kentaHb'
 export default {
 	data() {
@@ -79,7 +80,8 @@ export default {
 			},
 			displayMap: '',
 			displayRight: '',
-			windowWidth: ''
+			windowWidth: '',
+			defaultList:[]
 		}
 	},
 	mounted() {
@@ -171,10 +173,29 @@ export default {
 			this.searchdirection = false
 		},
 		querySearch(queryString, cb) {
-			var restaurants = this.restaurants;
-			var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-			// 调用 callback 返回建议列表的数据
-			cb(results);
+			let that = this
+			if (!queryString) {
+				this.restaurants = this.defaultList
+				let restaurants = this.restaurants;
+				let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+				// 调用 callback 返回建议列表的数据
+				cb(results);
+			} else {
+				this.restaurants = []
+				postgetIndexData({
+					name: queryString
+				}).then(res => {
+					for (let i = 0; i < res.length; i++) {
+						this.restaurants.push({
+							value: res[i].city,
+							city: res[i].city,
+							id: res[i].id
+						})
+					}
+					cb(this.restaurants);
+				})
+			}
+		
 		},
 		createFilter(queryString) {
 			return (restaurant) => {
@@ -191,6 +212,7 @@ export default {
 						id: res[i].id
 					})
 				}
+				this.defaultList = this.restaurants
 			})
 		},
 		hideMapPopper() {

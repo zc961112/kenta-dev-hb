@@ -543,8 +543,8 @@
 			this.room_name = this.$route.query.room_name
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 			this.getPeople()
-			this.startCountdown();
 			this.verifyToken()
+			this.startCountdown();
 			this.getCountryList()
 			this.getHotel()
 		},
@@ -788,10 +788,6 @@
 								title: '',
 								message: 'Login succeeded',
 								type: 'success'
-							})
-							// 跳回原来的页面
-							this.$router.push({
-								path: '/checkoutPage?book_hash=' + this.$route.query.book_hash
 							})
 						} else {
 							this.$notify({
