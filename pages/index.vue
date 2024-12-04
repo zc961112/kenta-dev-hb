@@ -299,28 +299,12 @@
 				</div>
 				<div class="vacation-hide">
 					<div class="vacation-list">
-						<div class="vacation-li">
-							<img src="~assets/images/Rectangle 673.png" />
-							<h3>משתוקקים ליוקרה של דובאי?</h3>
-						</div>
-						<div class="vacation-li">
-							<img src="~assets/images/Rectangle 669.png" />
-							<h3>נרגשים לכדורגל בברצלונה?</h3>
-						</div>
-						<div class="vacation-li">
-							<img src="~assets/images/Rectangle 670.png" />
-							<h3>מתחשק לך שופינג בלונדון?</h3>
-						</div>
-						<div class="vacation-li">
-							<img src="~assets/images/Rectangle 671.png" />
-							<h3>משתוקקים ליוקרה של דובאי?</h3>
-						</div>
-						<div class="vacation-li">
-							<img src="~assets/images/Rectangle 766.png" />
-							<h3>מוכנים לשחק בלאס וגאס?</h3>
+						<div class="vacation-li" v-for="(item,index) in slideImg" :key="index">
+							<img :src="item.src" />
+							<h3>{{item.title}}</h3>
 						</div>
 					</div>
-					<div class="arrow left" @click="prev">
+					<div class="arrow left" @click="prevslide">
 						<i class="el-icon-arrow-left"></i>
 					</div>
 				</div>
@@ -491,6 +475,30 @@
 						tournament_name: 'Champions League'
 					}
 				],
+				imagesList: [{
+						src: require("assets/images/Rectangle 673.png"),
+						title: 'משתוקקים ליוקרה של דובאי?'
+					},
+					{
+						src: require("assets/images/Rectangle 669.png"),
+						title: 'נרגשים לכדורגל בברצלונה?'
+					},
+					{
+						src: require("assets/images/Rectangle 670.png"),
+						title: 'מתחשק לך שופינג בלונדון?'
+					},
+					{
+						src: require("assets/images/Rectangle 671.png"),
+						title: 'משתוקקים ליוקרה של דובאי?'
+					},
+					{
+						src: require("assets/images/Rectangle 766.png"),
+						title: 'מוכנים לשחק בלאס וגאס?'
+					}
+
+				],
+				slideImg: [],
+				slidecurrentIndex: 0,
 				visibleImages: [],
 				currentIndex: 0,
 				list: [{
@@ -518,14 +526,30 @@
 					grabCursor: true
 				},
 				cityval: '',
-				defaultList:[]
+				defaultList: [],
+
 			}
 		},
 		mounted() {
 			this.loadAll();
 			this.initializeVisibleImages();
+			this.getImages()
 		},
 		methods: {
+			getImages() {
+				this.slideImg = this.imagesList.slice(0, 5); // 初始化显示前三张图片
+			},
+			prevslide() {
+				this.slidecurrentIndex = (this.slidecurrentIndex + 1) % this.imagesList.length;
+				this.updateslideImages();
+			},
+			updateslideImages() {
+				this.slideImg = [];
+				for (let i = 0; i < 5; i++) {
+					const index = (this.slidecurrentIndex + i) % this.imagesList.length;
+					this.slideImg.push(this.imagesList[index]);
+				}
+			},
 			initializeVisibleImages() {
 				this.visibleImages = this.images.slice(0, 3); // 初始化显示前三张图片
 			},
@@ -634,6 +658,10 @@
 
 			.menus-ismobile {
 				display: inline-block;
+			}
+
+			.vacation .vacation-list .vacation-li h3 {
+				font-size: 0.15rem;
 			}
 
 			.menus-nomobile {
@@ -957,7 +985,6 @@
 			}
 
 			.vacation-li {
-				cursor: pointer;
 				width: 2.74rem;
 				margin-right: 0.16rem;
 
@@ -966,6 +993,7 @@
 					font-size: 0.2rem;
 					font-weight: 600;
 					text-align: right;
+					direction: rtl;
 				}
 
 				img {
@@ -985,7 +1013,7 @@
 	}
 
 	.inline-input::v-deep .el-input__inner {
-		text-align: right;
+		direction: rtl;
 	}
 
 

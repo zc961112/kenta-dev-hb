@@ -2,7 +2,7 @@
 	<div class="page-box">
 		<div class="page-area">
 			<new-header />
-			<div class="page-area-content">
+			<div class="page-area-content" v-loading="loading">
 				<div class="pac-left" :style="{display:windowWidth<820?displayMap:'block'}">
 					<div class="pac-right-top map-menu" :style="{display:windowWidth<820?displayMap:'none'}">
 						<div class="pac-search">

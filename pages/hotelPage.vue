@@ -529,10 +529,12 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								Object.keys(currencyMap).forEach(key => {
-									if (item.show_currency_code == key) {
-										unit = currencyMap[key]
-									}
+								item.tax_data.taxes.forEach(j=>{
+									Object.keys(currencyMap).forEach(key => {
+										if (j.currency_code == key) {
+											unit = currencyMap[key]
+										}
+									})
 								})
 							})
 							return unit;
@@ -551,7 +553,10 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								price = price + Number(item.amount)
+								item.tax_data.taxes.forEach(j=>{
+									price = price + Number(j.amount)
+								})
+								
 							})
 							return price.toFixed(2);
 						}
@@ -695,9 +700,9 @@
 				width: 100%;
 				background-color: #f5f5f5;
 				padding: 0.12rem 0;
-				position: absolute;
+				position: fixed;
 				left: 0;
-				top: 1.39rem;
+				bottom: 0;
 				z-index: 9;
 				border-top: 1px solid rgb(218, 218, 218);
 				border-bottom: 1px solid rgb(218, 218, 218);
@@ -747,7 +752,7 @@
 				margin-bottom: 0.4rem;
 
 				.Palace .Palace-left .top .speed {
-					padding-top: 0.9rem;
+					border-top: 1px solid rgba(218, 218, 218, 1)
 				}
 
 				.Palace-left {
@@ -797,7 +802,7 @@
 
 				.customer {
 					margin-top: 0;
-					margin-bottom: 0.57rem;
+					margin-bottom: 0.9rem;
 				}
 			}
 

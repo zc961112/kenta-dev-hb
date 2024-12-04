@@ -81,7 +81,8 @@ export default {
 			displayMap: '',
 			displayRight: '',
 			windowWidth: '',
-			defaultList:[]
+			defaultList: [],
+			loading: true
 		}
 	},
 	mounted() {
@@ -107,6 +108,7 @@ export default {
 		},
 		// 筛选价格
 		getprice(dayTime) {
+			this.loading = true
 			this.modifyData.region_id = this.id
 			this.modifyData.ids = this.ids
 
@@ -148,7 +150,9 @@ export default {
 					})
 				})
 				this.initMapMarkers();
+				this.loading = false
 			}).catch(err => {
+				this.loading = false
 			})
 		},
 		// 搜索
@@ -195,7 +199,7 @@ export default {
 					cb(this.restaurants);
 				})
 			}
-		
+
 		},
 		createFilter(queryString) {
 			return (restaurant) => {
@@ -238,14 +242,16 @@ export default {
 			this.ids = []
 			getHotelsByRegion(data).then(res => {
 				this.cityList = res
-				
+
 				if (res.length > 0) {
 					this.initMapMarkers();
 					this.cityList.forEach(item => {
 						this.ids.push(item.id)
 					})
 				}
+				this.loading = false
 			}).catch(err => {
+				this.loading = false
 			})
 			// this.markerList = []
 			// try {
