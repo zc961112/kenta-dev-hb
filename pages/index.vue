@@ -1359,6 +1359,11 @@
 			left: -0.2rem;
 		}
 	}
+	.carousel-wrapper{
+		height: 2.4rem;
+		position: relative;
+		margin-bottom: 0.64rem;
+	}
 
 	.arrow {
 		cursor: pointer;
@@ -1367,7 +1372,8 @@
 		border: 1px solid rgba(218, 218, 218, 1);
 		width: 0.4rem;
 		height: 0.4rem;
-		top: 1.15rem;
+		top: 50%;
+		margin-top: -0.2rem;
 		border-radius: 50%;
 		text-align: center;
 		z-index: 9;
@@ -1401,7 +1407,6 @@
 		margin-top: 0.15rem;
 		display: flex;
 		overflow: hidden;
-		height: 300px;
 
 		.carousel-li:nth-child(even) {
 			margin: 0 0.16rem;

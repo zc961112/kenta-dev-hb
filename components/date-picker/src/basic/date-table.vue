@@ -467,8 +467,7 @@
 				} else if (this.selectionMode === 'dates') {
 					const value = this.value || [];
 					const newValue = cell.selected ?
-						removeFromArray(value, date => date.getTime() === newDate.getTime()) :
-						[...value, newDate];
+						removeFromArray(value, date => date.getTime() === newDate.getTime()) : [...value, newDate];
 					this.$emit('pick', newValue);
 				}
 			}
@@ -478,5 +477,21 @@
 <style scoped>
 	.el-date-table {
 		direction: rtl;
+	}
+
+	.el-date-table td.end-date div {
+		border-top-left-radius: 15px;
+		border-bottom-left-radius: 15px;
+		margin-right: 0;
+		border-top-right-radius:0;
+		border-bottom-right-radius:0
+	}
+
+	.el-date-table td.start-date div {
+		border-top-right-radius: 15px;
+		border-bottom-right-radius: 15px;
+		border-top-left-radius:0;
+		border-bottom-left-radius:0;
+		margin-left: 0;
 	}
 </style>

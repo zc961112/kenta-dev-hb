@@ -39,8 +39,8 @@
 						</div>
 					</div>
 					<div class="confirm">
-						<router-link :to="'/celtaPage'" tag="button">אישור והמשך</router-link>
-						<!-- <button>אישור והמשך</button> -->
+						<!-- <div @click="toceltaPage" tag="button">אישור והמשך</div> -->
+						<button @click="toceltaPage">אישור והמשך</button>
 						<div class="confirm-text">
 							<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות</p>
 							<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
@@ -180,9 +180,15 @@
 		mounted() {
 			this.setData = JSON.parse(this.$route.query.data)
 			this.getoptions()
-			console.log(this.setData)
 		},
 		methods: {
+			// 下一页
+			toceltaPage() {
+				this.setData.peopleNum = this.peopleNum
+				this.$router.push({
+					path: '/celtaPage?data=' + JSON.stringify(this.setData)
+				})
+			},
 			// 获取人数
 			getoptions() {
 				let list = []

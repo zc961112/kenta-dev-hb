@@ -316,7 +316,7 @@
 			getEvents() {
 				this.getady()
 				events({
-					sport_type: 'soccer',
+					sport_type: this.$route.query.tournament_name?'soccer':'formula1',
 					date_start: 'ge:' + this.getady(),
 					tournament_name: this.$route.query.tournament_name || ''
 				}).then(res => {

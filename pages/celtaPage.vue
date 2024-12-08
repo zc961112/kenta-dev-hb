@@ -4,7 +4,7 @@
 		<main>
 			<div class="content">
 				<div class="left">
-					<div class="choose">
+					<!-- <div class="choose">
 						<div class="choose-bg">
 							<h1>1. &nbsp;&nbsp;בחרו כרטיס או חבילה</h1>
 							<div class="text" style="margin-right: 0;">
@@ -39,14 +39,7 @@
 								</el-select>
 							</div>
 						</div>
-						<div class="confirm">
-							<button>אישור והמשך</button>
-							<div class="confirm-text">
-								<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות </p>
-								<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
-							</div>
-						</div>
-					</div>
+					</div> -->
 					<div class="would">
 						<div class="would-left">
 							<h3>2.איפה תרצו לשבת?</h3>
@@ -149,6 +142,13 @@
 						</div>
 						<div class="would-right">
 							<img src="~assets/images/pm.png" />
+						</div>
+					</div>
+					<div class="confirm">
+						<button @click="toValenciapage">אישור והמשך</button>
+						<div class="confirm-text">
+							<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות </p>
+							<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
 						</div>
 					</div>
 					<div class="item-li">
@@ -447,11 +447,21 @@
 						t: 'והמלון שלך בשלב 2 ו- 3.'
 					}
 				],
-				active: 0
+				active: 0,
+				setData: {}
 			}
 
 		},
+		mounted() {
+			this.setData = JSON.parse(this.$route.query.data)
+		},
 		methods: {
+			// 下一页
+			toValenciapage() {
+				this.$router.push({
+					path: '/Valenciapage?data=' + JSON.stringify(this.setData)
+				})
+			},
 			select(index) {
 				this.active = index
 			}
@@ -465,7 +475,8 @@
 			.content .left .choose h1 {
 				font-size: 0.28rem;
 			}
-			.content .left .tips{
+
+			.content .left .tips {
 				width: 100%;
 				margin: 0;
 			}
@@ -559,17 +570,18 @@
 				display: inline-block !important;
 				border: none;
 			}
-			.priceSummary .filter-w{
+
+			.priceSummary .filter-w {
 				padding: 0.24rem 0.2rem;
 			}
 
-			.content .choose .confirm button {
+			.content .confirm button {
 				width: 100%;
 				margin-bottom: 0.12rem;
 				margin-left: 0;
 			}
 
-			.content .choose .confirm .confirm-text {
+			.content .confirm .confirm-text {
 				margin-right: 0;
 				margin-left: 0;
 			}
@@ -630,7 +642,7 @@
 				margin-left: 0;
 			}
 
-			.content .choose .confirm {
+			.content .confirm {
 				flex-direction: column;
 				padding: 0.16rem 0.2rem;
 			}
@@ -672,6 +684,31 @@
 				flex-direction: column;
 			}
 		}
+	}
+
+	.confirm {
+		padding: 32px;
+		display: flex;
+		align-items: center;
+	}
+
+	.confirm button {
+		background-color: rgba(255, 50, 99, 1);
+		border-radius: 8px;
+		width: 123px;
+		height: 40px;
+		cursor: pointer;
+		font-weight: 400;
+		border: none;
+		color: rgba(254, 254, 254, 1);
+		margin-left: 0.24rem;
+	}
+
+	.confirm .confirm-text {
+		margin-left: 32px;
+		font-weight: 400;
+		line-height: 16px;
+		color: rgba(26, 26, 26, 0.6);
 	}
 
 	.page::v-deep .el-input__suffix {
@@ -1059,31 +1096,7 @@
 		flex: 1;
 	}
 
-	.content .choose .confirm {
-		padding: 32px;
-		display: flex;
-		align-items: center;
-		border-top: 1px solid #DADADA;
-	}
 
-	.content .choose .confirm button {
-		background-color: rgba(255, 50, 99, 1);
-		border-radius: 8px;
-		width: 123px;
-		height: 40px;
-		cursor: pointer;
-		font-weight: 400;
-		border: none;
-		color: rgba(254, 254, 254, 1);
-		margin-left: 0.24rem;
-	}
-
-	.content .choose .confirm .confirm-text {
-		margin-left: 32px;
-		font-weight: 400;
-		line-height: 16px;
-		color: rgba(26, 26, 26, 0.6);
-	}
 
 	.content .item-li {
 		margin-top: 0.25rem;
