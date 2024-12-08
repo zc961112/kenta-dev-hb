@@ -42,7 +42,8 @@
 								</div>
 							</div>
 							<div class="select-list" v-show="show||!ism">
-								<div v-if="(item.number_of_tickets!=0&&item.number_of_tickets)||item.is_popular" v-for="(item,index) in list" :key="index" class="select-li"
+								<div v-if="(item.number_of_tickets!=0&&item.number_of_tickets)||item.is_popular"
+									v-for="(item,index) in list" :key="index" class="select-li"
 									@click="toEngPage(item)">
 									<div class="flex icon">
 										<span class="el-icon-back"></span>
@@ -94,22 +95,16 @@
 						<div class="Sports">
 							<div class="check">
 								<div class="name">ענפי ספורט</div>
-								<div class="check-li">
-									<span>(798)</span>
-									<p>כדורגל</p>
-									<div class="check-img"></div>
+								<div class="check-li" @click="selectSport(item)" v-for="(item,index) in sportCounts"
+									:key="index" v-if="index<sportIndex">
+									<span>({{item.num}})</span>
+									<p>{{item.name}}</p>
+									<div class="check-img" :style="{backgroundColor:item.select?'rgb(255, 50, 99)':''}">
+										<img src="~assets/images/icon/select.png" />
+									</div>
 								</div>
-								<div class="check-li">
-									<span>(798)</span>
-									<p>כדורגל</p>
-									<div class="check-img"></div>
-								</div>
-								<div class="check-li">
-									<span>(798)</span>
-									<p>כדורגל</p>
-									<div class="check-img"></div>
-								</div>
-								<div class="total">צפייה בהכל (10)</div>
+								<div class="total" @click="sportIndex=sportCounts.length">צפייה בהכל
+									({{sportCounts.length}})</div>
 							</div>
 							<div class="check">
 								<div class="name">מדינה</div>
@@ -187,11 +182,14 @@
 			hideAll: true,
 			allList: [],
 			cityList: [],
+			sportCounts: [],
 			countryList: [],
 			cityIndex: 3,
 			countryIndex: 3,
+			sportIndex: 3,
 			filtercountryList: [],
 			filtercityList: [],
+			filtersportCounts: [],
 			filterAll: [],
 			show: true,
 			ism: false
@@ -210,6 +208,14 @@
 				} else {
 					this.ism = true
 				}
+			},
+			selectSport(item) {
+				item.select = !item.select
+				this.getselectSport()
+			},
+			getselectSport() {
+				this.filtersportCounts = this.sportCounts.filter(item => item.select)
+				this.fnfilter()
 			},
 			selectCountry(item) {
 				item.select = !item.select
@@ -236,6 +242,9 @@
 				let filteredItems = this.allList.filter(item => {
 					if (this.filtercountryList.length > 0 && this.filtercityList.length == 0) {
 						return this.filtercountryList.map(item1 => item1.name).includes(item.country_name)
+					} else if (this.filtersportCounts.length > 0) {
+						return this
+							.filtersportCounts.map(item1 => item1.name).includes(item.sport_type)
 					} else if (this.filtercityList.length > 0 && this.filtercountryList.length == 0) {
 						return this
 							.filtercityList.map(item1 => item1.name).includes(item.city)
@@ -264,6 +273,7 @@
 					this.page = 1
 					this.filtercityList = []
 					this.filtercountryList = []
+					this.filtersportCounts = []
 					this.getEvents()
 				}
 			},
@@ -308,7 +318,7 @@
 				events({
 					sport_type: 'soccer',
 					date_start: 'ge:' + this.getady(),
-					tournament_name: this.$route.query.tournament_name
+					tournament_name: this.$route.query.tournament_name || ''
 				}).then(res => {
 					this.list = res.events.slice(0, this.maxItems)
 					this.allList = res.events
@@ -316,6 +326,7 @@
 					this.total_size = res.pagination.total_size
 					this.page_size = res.pagination.page_size
 					this.cityList = res.pagination.city_counts
+					this.sportCounts = res.pagination.sport_counts
 					this.countryList = res.pagination.country_counts
 					this.loading = false
 					if (res.events.length < this.maxItems) {
@@ -402,14 +413,15 @@
 <style lang="scss" scoped>
 	.warps {
 		width: 100%;
-		padding: 0 0.32rem;
+		padding: 0 0.32rem 0 1.48rem;
 	}
 
 	@media (max-width: 820px) {
 		.eventlPage {
 			background-color: rgba(245, 245, 245, 1);
 			min-height: 100vh;
-			.warps{
+
+			.warps {
 				padding: 0 0.2rem;
 			}
 

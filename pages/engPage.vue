@@ -340,7 +340,7 @@
 		}
 
 		.right {
-			margin-right: 180px;
+			margin-right: 130px;
 			width: 566px;
 
 			img {
