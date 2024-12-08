@@ -31,8 +31,8 @@
 						</div>
 						<div class="people">
 							<div class="type-name">מספר אנשים:</div>
-							<el-select v-model="value" placeholder="2 אנשים">
-								<el-option v-for="item in options" :key="item.value" :label="item.value"
+							<el-select v-model="peopleNum" placeholder="2 אנשים">
+								<el-option v-for="item in optionsList" :key="item.value" :label="item.value"
 									:value="item.value">
 								</el-option>
 							</el-select>
@@ -90,21 +90,21 @@
 							שאלות נפוצות
 						</div>
 						<div class="checkbox">
-							<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+							<el-select disabled v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
 								<el-option v-for="item in options" :key="item.value" :label="item.label"
 									:value="item.value">
 								</el-option>
 							</el-select>
 						</div>
 						<div class="checkbox">
-							<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+							<el-select disabled v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
 								<el-option v-for="item in options" :key="item.value" :label="item.label"
 									:value="item.value">
 								</el-option>
 							</el-select>
 						</div>
 						<div class="checkbox">
-							<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+							<el-select disabled v-model="value" placeholder="איפה אני אשב באיצדטיון?">
 								<el-option v-for="item in options" :key="item.value" :label="item.label"
 									:value="item.value">
 								</el-option>
@@ -154,6 +154,7 @@
 		name: 'tripPage',
 		data() {
 			return {
+				peopleNum: 1,
 				options: [{
 					value: '2 אנשים',
 					label: '1'
@@ -170,11 +171,30 @@
 						t: 'והמלון שלך בשלב 2 ו- 3.'
 					}
 				],
-				active: 0
+				active: 0,
+				setData: {},
+				optionsList: []
 			}
 
 		},
+		mounted() {
+			this.setData = JSON.parse(this.$route.query.data)
+			this.getoptions()
+			console.log(this.setData)
+		},
 		methods: {
+			// 获取人数
+			getoptions() {
+				let list = []
+				for (let i = 1; i <= this.setData.stock; i++) {
+					let data = {
+						value: i,
+						label: i
+					}
+					list.push(data)
+				}
+				this.optionsList = list
+			},
 			select(index) {
 				this.active = index
 			}
@@ -184,66 +204,81 @@
 
 <style lang="scss" scoped>
 	@media (max-width: 820px) {
-		.page{
-			.content .right .r-img{
+		.page {
+			.content .right .r-img {
 				display: none;
 			}
-			.content .left .tips{
+
+			.content .left .tips {
 				width: 100%;
 				margin: 0;
 			}
-			.content .right{
+
+			.content .right {
 				width: 100%;
 				margin-right: 0;
 			}
-			.content .item-li{
+
+			.content .item-li {
 				margin-top: 0.24rem;
 				font-size: 0.28rem;
-				height:auto;
+				height: auto;
 				padding: 0.24rem 0.2rem;
 			}
-			.content .left{
+
+			.content .left {
 				width: 100%;
 				flex: inherit;
 			}
-			.content .left .choose .choose-bg{
+
+			.content .left .choose .choose-bg {
 				padding: 0.32rem 0.16rem;
 			}
-			.content .choose .confirm button{
+
+			.content .choose .confirm button {
 				width: 100%;
 				margin-bottom: 0.12rem;
 			}
-			.content .choose .confirm .confirm-text{
+
+			.content .choose .confirm .confirm-text {
 				margin-right: 0;
 			}
-			.content .choose .confirm{
+
+			.content .choose .confirm {
 				flex-direction: column;
 				padding: 0.16rem 0.2rem;
 			}
-			.content .type-li{
+
+			.content .type-li {
 				margin-left: 0;
 				margin-bottom: 0.08rem;
 			}
+
 			.content .type-li:nth-last-child(1) {
 				margin-bottom: 0;
 			}
-			.content .left .choose .text img{
+
+			.content .left .choose .text img {
 				width: 0.14rem;
-				height:0.14rem;
+				height: 0.14rem;
 			}
-			.content .left .choose .text{
+
+			.content .left .choose .text {
 				height: auto;
 				font-size: 0.14rem;
 				padding: 0.12rem;
-				align-items:flex-start
+				align-items: flex-start
 			}
-			.content .type{
+
+			.content .type {
 				flex-direction: column;
 			}
-			.content .left .choose h1{
+
+			.content .left .choose h1 {
 				font-size: 0.28rem;
 			}
-			.content{
+
+			.content {
 				width: 100%;
 				padding: 0 0.2rem;
 				margin-top: 0.24rem;
@@ -251,6 +286,7 @@
 			}
 		}
 	}
+
 	.page::v-deep .el-input__suffix {
 		left: 0;
 		right: auto;
@@ -466,7 +502,7 @@
 		font-weight: 400;
 		width: 176px;
 		color: rgba(26, 26, 26, 0.6);
-		
+
 	}
 
 	.content .people {

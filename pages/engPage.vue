@@ -55,8 +55,8 @@
 							<img src="~assets/images/icon/icon5.png" />
 						</div>
 					</div>
-					<router-link :to="'/tripPage'" tag="button" class="button" style="cursor: pointer;direction: ltr;">
-						€{{item.net_rate/100}} -הזמינו</router-link>
+					<div @click="totripPage(item)" tag="button" class="button" style="cursor: pointer;direction: ltr;">
+						€{{item.net_rate/100}} -הזמינו</div>
 				</div>
 			</div>
 			<div class="right">
@@ -94,11 +94,17 @@
 			this.getInfo()
 		},
 		methods: {
+			// 下一页
+			totripPage(e) {
+				this.$router.push({
+					path: '/tripPage?data=' + JSON.stringify(e)
+				})
+			},
 			// 移动端选座
 			showSeat() {
 				this.direction = !this.direction
 				this.$nextTick(() => {
-					this.$refs.venueRef.int(this.InfoData,this.$route.query.venue_id)
+					this.$refs.venueRef.int(this.InfoData, this.$route.query.venue_id)
 				})
 			},
 			// 鼠标移上去
@@ -283,6 +289,8 @@
 			.button {
 				width: 1.34rem;
 				height: 0.4rem;
+				text-align: center;
+				line-height: 0.4rem;
 				border-radius: 8px;
 				background-color: rgba(255, 50, 99, 1);
 				font-size: 0.14rem;
