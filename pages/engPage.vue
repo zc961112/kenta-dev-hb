@@ -260,11 +260,10 @@
 	}
 
 	.content {
-		padding: 0.5rem 0 0.35rem 0;
+		padding: 0.4rem 0.32rem 1rem 0.32rem;
 		display: flex;
 		flex-direction: row;
-		width: 1440px;
-		margin: 0 auto 0.8rem auto;
+		width: 100%;
 		direction: rtl;
 
 		.active {

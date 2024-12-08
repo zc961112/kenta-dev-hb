@@ -665,7 +665,7 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.m-ban::v-deep .swiper-pagination-bullet {
 		background: rgba(218, 218, 218, 1);
 	}

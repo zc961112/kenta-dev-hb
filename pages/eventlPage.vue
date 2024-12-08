@@ -42,7 +42,7 @@
 								</div>
 							</div>
 							<div class="select-list" v-show="show||!ism">
-								<div v-for="(item,index) in list" :key="index" class="select-li"
+								<div v-if="(item.number_of_tickets!=0&&item.number_of_tickets)||item.is_popular" v-for="(item,index) in list" :key="index" class="select-li"
 									@click="toEngPage(item)">
 									<div class="flex icon">
 										<span class="el-icon-back"></span>
@@ -112,7 +112,7 @@
 								<div class="total">צפייה בהכל (10)</div>
 							</div>
 							<div class="check">
-								<div class="name">ענפי ספורט</div>
+								<div class="name">מדינה</div>
 								<div class="check-li" @click="selectCountry(item)" v-if="index<countryIndex"
 									v-for="(item,index) in countryList" :key="index">
 									<span>({{item.num}})</span>
@@ -400,10 +400,18 @@
 </script>
 
 <style lang="scss" scoped>
+	.warps {
+		width: 100%;
+		padding: 0 0.32rem;
+	}
+
 	@media (max-width: 820px) {
 		.eventlPage {
 			background-color: rgba(245, 245, 245, 1);
 			min-height: 100vh;
+			.warps{
+				padding: 0 0.2rem;
+			}
 
 			.ismobile {
 				display: inline-block;
@@ -491,7 +499,7 @@
 			}
 
 			.page .hotel .left {
-				padding: 0 0.2rem;
+				// padding: 0 0.2rem;
 			}
 
 			.page .hotel .left .events {
@@ -629,7 +637,7 @@
 				}
 
 				.events {
-					padding: 0.4rem 1rem 0 1rem;
+					padding: 0.4rem 1rem 0 0;
 					position: relative;
 
 					.item {
