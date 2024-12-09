@@ -1,5 +1,5 @@
 <template>
-	<div class="page">
+	<div class="page theme-xs2event">
 		<TripHeader :ishome="false" />
 		<main>
 			<div class="content">
@@ -43,14 +43,15 @@
 					<div class="would">
 						<div class="would-left">
 							<h3>2.איפה תרצו לשבת?</h3>
-							<div class="info">
+							<div class="info" :class="[selectActive==-1?'infocurrent':'']"
+								@click="selectItem(-1,defaultData)">
 								<div class="top">
-									<div class="checkbox">
-										<img src="~assets/images/icon/select.png" />
+									<div class="checkbox" :class="[selectActive==-1?'checkboxcurrent':'']">
+										<img v-if="selectActive==-1" src="~assets/images/icon/select.png" />
 									</div>
-									<div class="tickets">Category 3 (corners) tickets</div>
+									<div class="tickets">{{defaultData.ticket_title}}</div>
 									<div class="price">
-										<p style="text-align: left;"><span>€0</span> +</p>
+										<p style="text-align: left;"><span>€{{defaultData.net_rate/100}}</span> +</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
@@ -117,35 +118,29 @@
 								</el-drawer>
 							</div>
 
-							<div class="select">
-								<div class="checkbox">
-									<img src="~assets/images/icon/select.png" />
-								</div>
-								<div class="tickets">Category 2 (Lateral) tickets</div>
-								<div class="price">
-									<p style="text-align: left;"> <span>€20</span> +</p>
-									<div>תוספת לאדם</div>
-								</div>
-							</div>
-
-							<div class="select">
-								<div class="checkbox">
-									<img src="~assets/images/icon/select.png" />
-								</div>
-								<div class="tickets">Category 2 (Lateral) tickets</div>
-								<div class="price">
-									<p style="text-align: left;"><span>€101</span> +</p>
-									<div>תוספת לאדם</div>
+							<div class="select-box">
+								<div @click="selectItem(index,item)" v-if="category_id!=item.category_id" class="select"
+									@mouseover="mouseover(index,item.category_id)"
+									@mouseout="mouseout(item.category_id)" :class="[active==index?'active':'']"
+									v-for="(item,index) in list" :key="index">
+									<div class="checkbox" :class="[selectActive==index?'checkboxcurrent':'']">
+										<img v-if="selectActive==index" src="~assets/images/icon/select.png" />
+									</div>
+									<div class="tickets">{{item.ticket_title}}</div>
+									<div class="price">
+										<p style="text-align: left;"> <span>€{{item.net_rate/100}}</span> +</p>
+										<div>תוספת לאדם</div>
+									</div>
 								</div>
 							</div>
 
 						</div>
 						<div class="would-right">
-							<img src="~assets/images/pm.png" />
+							<div id="venue-map"></div>
 						</div>
 					</div>
 					<div class="confirm">
-						<button @click="toValenciapage">אישור והמשך</button>
+						<button @click="toVigopage">אישור והמשך</button>
 						<div class="confirm-text">
 							<p>יש לאשר כדי לראות את המחיר הסופי. ניתן לשנות </p>
 							<p>את פרטי הכרטיס/חבילה עד לביצוע ההזמנה סופית.</p>
@@ -199,7 +194,7 @@
 								מספר אנשים
 							</div>
 							<p class="p">
-								2 מבוגרים
+								{{peopleNum}} מבוגרים
 							</p>
 						</div>
 						<div class="Card">
@@ -208,15 +203,15 @@
 						</div>
 						<div class="Card">
 							<div>סה״כ מחיר לאדם</div>
-							<p>€55</p>
+							<p>€{{setData.net_rate/100}}</p>
 						</div>
 						<div class="Total">
 							<div class="n">
-								<h4>סה״כ עבור 2 מבוגרים</h4>
+								<h4>סה״כ עבור {{peopleNum}} מבוגרים</h4>
 								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
-								€110
+								€{{(setData.net_rate/100)*peopleNum}}
 							</div>
 						</div>
 						<div class="order">
@@ -285,7 +280,7 @@
 										מספר אנשים
 									</div>
 									<p class="p">
-										2 מבוגרים
+										{{peopleNum}} מבוגרים
 									</p>
 								</div>
 								<div class="Card">
@@ -294,15 +289,15 @@
 								</div>
 								<div class="Card">
 									<div>סה״כ מחיר לאדם</div>
-									<p>€55</p>
+									<p>€{{setData.net_rate/100}}</p>
 								</div>
 								<div class="Total">
 									<div class="n">
-										<h4>סה״כ עבור 2 מבוגרים</h4>
+										<h4>סה״כ עבור {{peopleNum}} מבוגרים</h4>
 										<p>ללא עלויות נוספות</p>
 									</div>
 									<div class="num">
-										€110
+										€{{(setData.net_rate/100)*peopleNum}}
 									</div>
 								</div>
 								<div class="order">
@@ -351,21 +346,21 @@
 								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+								<el-select v-model="value" disabled placeholder="האם תאריכי הכרטיסים מאושרים?">
 									<el-option v-for="item in options" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
 								</el-select>
 							</div>
 							<div class="checkbox">
-								<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+								<el-select v-model="value" disabled placeholder="איך ומתי אקבל את הכרטיסים שלי?">
 									<el-option v-for="item in options" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
 								</el-select>
 							</div>
 							<div class="checkbox">
-								<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+								<el-select v-model="value" disabled placeholder="איפה אני אשב באיצדטיון?">
 									<el-option v-for="item in options" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
@@ -413,8 +408,8 @@
 		<div class="suspension">
 			<div class="suspension-warp">
 				<div class="l">
-					<h3>€110</h3>
-					<p>Total for 2 adults</p>
+					<h3>€{{(setData.net_rate/100)*peopleNum}}</h3>
+					<p>Total for {{peopleNum}} adults</p>
 				</div>
 				<div class="r" @click="pricedirection=true">
 					פרטי נסיעה<i class="el-icon-arrow-up"></i>
@@ -425,6 +420,10 @@
 </template>
 
 <script>
+	import {
+		tickets
+	} from '@/api/kentaHb'
+	import * as d3 from "d3";
 	export default {
 		name: 'tripPage',
 		data() {
@@ -447,29 +446,121 @@
 						t: 'והמלון שלך בשלב 2 ו- 3.'
 					}
 				],
-				active: 0,
-				setData: {}
+				active: -1,
+				setData: {},
+				list: [],
+				svgUrl: '',
+				svg: '',
+				selectActive: -1,
+				peopleNum: 1,
+				category_id: '',
+				event_id: '',
+				venue_id: '',
+				defaultData: {}
 			}
 
 		},
-		mounted() {
+		async created() {
 			this.setData = JSON.parse(this.$route.query.data)
+			this.peopleNum = this.setData.peopleNum
+			this.category_id = this.setData.category_id
+			this.event_id = this.setData.event_id
+			this.venue_id = this.setData.venue_id
+			this.defaultData = this.setData
+
+			this.getInfo()
 		},
 		methods: {
 			// 下一页
-			toValenciapage() {
+			toVigopage() {
+				this.setData.peopleNum = this.peopleNum
 				this.$router.push({
-					path: '/Valenciapage?data=' + JSON.stringify(this.setData)
+					path: '/vigopage?data=' + JSON.stringify(this.setData)
 				})
 			},
-			select(index) {
+			// 选择
+			selectItem(index, item) {
+				this.selectActive = index
+				this.setData = item
+			},
+			// 鼠标移上去
+			mouseover(index, category_id) {
 				this.active = index
+				const venueMap = document.getElementById('venue-map');
+				var elements = venueMap.querySelectorAll(`.${CSS.escape(category_id)}`);
+				elements.forEach(function(element) {
+					element.classList.add('active');
+				})
+			},
+			// 鼠标移除
+			mouseout(category_id) {
+				this.active = -1
+				const venueMap = document.getElementById('venue-map');
+				var elements = venueMap.querySelectorAll(`.${CSS.escape(category_id)}`);
+				elements.forEach(function(element) {
+					element.classList.remove('active');
+				})
+			},
+			async getInfo() {
+				tickets({
+					event_id: this.event_id
+				}).then(res => {
+					this.list = res.tickets
+					this.InfoData = res
+					this.getmap(res)
+				})
+			},
+			async getmap(res) {
+				let that = this
+				// svg 加载
+				let url = 'https://cdn.xs2event.com/venues/' + this.venue_id + '.svg'
+				let svg = (await d3.xml(url)).documentElement;
+				document.getElementById("venue-map").append(svg);
+				// 页面一加载满足查找票是否在svg 存在 
+				res.tickets.forEach(obj => {
+					var elements = document.querySelectorAll(`.${CSS.escape(obj.category_id)}`);
+					elements.forEach(function(element) {
+						element.classList.add('nosale');
+					})
+				})
+				var nosaleElements = document.querySelectorAll('.nosale')
+				nosaleElements.forEach(Elements => {
+					// 监听svg鼠标移入
+					Elements.addEventListener('mouseover', function(e) {
+						let ElementList = e.toElement.classList
+						if (ElementList.length > 0) {
+							that.list.forEach((item, index) => {
+								ElementList.forEach(elm => {
+									if (item.category_id == elm) {
+										that.active = index
+										Elements.classList.add("active")
+									}
+								})
+							})
+						}
+					})
+					// 监听svg鼠标移出
+					Elements.addEventListener('mouseout', function(e) {
+						that.active = -1
+						Elements.classList.remove("active")
+					})
+				})
+
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.would .would-left .active {
+		border-color: rgba(255, 50, 99, 1) !important;
+	}
+
+	.select-box {
+		max-height: 3rem;
+		overflow: auto;
+	}
+
 	@media (max-width: 820px) {
 		.page {
 			.content .left .choose h1 {
@@ -803,7 +894,7 @@
 				margin-top: 0.1rem;
 				height: 0.64rem;
 				padding: 0 0.25rem !important;
-				border: 1px solid rgba(218, 218, 218, 1) !important;
+				border: 1px solid rgba(218, 218, 218, 1);
 				border-radius: 6px;
 
 				.price {
@@ -847,6 +938,11 @@
 					padding: 0 0.20rem;
 				}
 
+				.checkboxcurrent {
+					border: 1px solid rgb(255, 50, 99) !important;
+					background-color: rgb(255, 50, 99) !important;
+				}
+
 
 				.checkbox {
 					width: 0.24rem;
@@ -856,8 +952,8 @@
 					align-items: center;
 					justify-content: center;
 					border-radius: 50%;
-					border: 1px solid rgb(255, 50, 99);
-					background-color: rgb(255, 50, 99);
+					border: 1px solid rgb(218, 218, 218);
+					background-color: #fff;
 
 					img {
 						width: 0.12rem;
@@ -866,10 +962,15 @@
 				}
 			}
 
+			.infocurrent {
+				background-color: rgba(255, 50, 99, 0.08) !important;
+				border: 1px solid rgb(255, 50, 99) !important;
+			}
+
 			.info {
 				margin-top: 0.25rem;
-				background-color: rgba(255, 50, 99, 0.08);
-				border: 1px solid rgb(255, 50, 99);
+				background-color: #fff;
+				border: 1px solid rgb(218, 218, 218);
 				border-radius: 6px;
 
 				.imgText {

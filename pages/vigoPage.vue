@@ -4,7 +4,7 @@
 		<main>
 			<div class="content">
 				<div class="left">
-					<div class="Change-t">
+					<div class="Change-t" @click="$router.back()">
 						<i class="el-icon-right"></i>
 						<p>
 							שנוי הזמנה
@@ -77,9 +77,9 @@
 								<div class="form-li-f">
 									<p>מדינה*</p>
 									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select v-model="value" placeholder="בחר/י את המדינה שלך">
-										<el-option v-for="item in options" :key="item.value" :label="item.label"
-											:value="item.value">
+									<el-select v-model="payForm.country" placeholder="בחר/י את המדינה שלך111">
+										<el-option v-for="item in CountryList" :key="item.alpha_3"
+											:label="item.name" :value="item.alpha_3">
 										</el-option>
 									</el-select>
 								</div>
@@ -258,7 +258,7 @@
 								מספר אנשים
 							</div>
 							<p class="p">
-								2 מבוגרים
+								{{setData.peopleNum}} מבוגרים
 							</p>
 						</div>
 						<div class="Card">
@@ -267,15 +267,15 @@
 						</div>
 						<div class="Card">
 							<div>סה״כ מחיר לאדם</div>
-							<p>€55</p>
+							<p>€{{setData.net_rate/100}}</p>
 						</div>
 						<div class="Total">
 							<div class="n">
-								<h4>סה״כ עבור 2 מבוגרים</h4>
+								<h4>סה״כ עבור {{setData.peopleNum}} מבוגרים</h4>
 								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
-								€110
+								€{{(setData.net_rate/100)*setData.peopleNum}}
 							</div>
 						</div>
 						<div class="order">
@@ -344,7 +344,7 @@
 										מספר אנשים
 									</div>
 									<p class="p">
-										2 מבוגרים
+										{{setData.peopleNum}} מבוגרים
 									</p>
 								</div>
 								<div class="Card">
@@ -353,15 +353,15 @@
 								</div>
 								<div class="Card">
 									<div>סה״כ מחיר לאדם</div>
-									<p>€55</p>
+									<p>€{{setData.net_rate/100}}</p>
 								</div>
 								<div class="Total">
 									<div class="n">
-										<h4>סה״כ עבור 2 מבוגרים</h4>
+										<h4>סה״כ עבור {{setData.peopleNum}} מבוגרים</h4>
 										<p>ללא עלויות נוספות</p>
 									</div>
 									<div class="num">
-										€110
+										€{{(setData.net_rate/100)*setData.peopleNum}}
 									</div>
 								</div>
 								<div class="order">
@@ -409,21 +409,21 @@
 								שאלות נפוצות
 							</div>
 							<div class="checkbox">
-								<el-select v-model="value" placeholder="האם תאריכי הכרטיסים מאושרים?">
+								<el-select v-model="value" disabled placeholder="האם תאריכי הכרטיסים מאושרים?">
 									<el-option v-for="item in options" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
 								</el-select>
 							</div>
 							<div class="checkbox">
-								<el-select v-model="value" placeholder="איך ומתי אקבל את הכרטיסים שלי?">
+								<el-select v-model="value" disabled placeholder="איך ומתי אקבל את הכרטיסים שלי?">
 									<el-option v-for="item in options" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
 								</el-select>
 							</div>
 							<div class="checkbox">
-								<el-select v-model="value" placeholder="איפה אני אשב באיצדטיון?">
+								<el-select v-model="value" disabled placeholder="איפה אני אשב באיצדטיון?">
 									<el-option v-for="item in options" :key="item.value" :label="item.label"
 										:value="item.value">
 									</el-option>
@@ -471,8 +471,8 @@
 		<div class="suspension">
 			<div class="suspension-warp">
 				<div class="l">
-					<h3>€110</h3>
-					<p>Total for 2 adults</p>
+					<h3>€{{(setData.net_rate/100)*setData.peopleNum}}</h3>
+					<p>Total for {{setData.peopleNum}} adults</p>
 				</div>
 				<div class="r" @click="pricedirection=true">
 					פרטי נסיעה<i class="el-icon-arrow-up"></i>
@@ -483,6 +483,17 @@
 </template>
 
 <script>
+	import {
+		getFrom,
+		getCountry,
+		getHotelInfo
+	} from '@/api/kentaHb'
+	import {
+		getMail,
+		getUserInfo,
+		findPwdSendMail,
+		Topaymentpage
+	} from '@/api/login'
 	export default {
 		name: 'tripPage',
 		data() {
@@ -494,12 +505,45 @@
 				}],
 				value: '',
 				agree: true,
-				pricedirection: false
+				pricedirection: false,
+				setData: {},
+				payForm: {
+					email: '',
+					phone: '',
+					country: '',
+					checkin_time: '',
+					hotel_name: '',
+					checkin: '',
+					checkout: '',
+					hotel_price: '',
+					tax: '',
+					amount: '',
+					first_name: '',
+					last_name: '',
+					partner_order_id: '',
+					order_id: ''
+				},
+				CountryList:[]
 			}
 
 		},
+		async created() {
+			this.setData = JSON.parse(this.$route.query.data)
+			console.log(this.setData)
+			this.getCountryList()
+		},
 		methods: {
-
+			// 支付
+			Topayment() {
+				Topaymentpage(this.payForm).then((data) => {
+					window.open(data)
+				})
+			},
+			// 获取国家
+			async getCountryList() {
+				const res = await getCountry()
+				this.CountryList = res.data
+			},
 		}
 	}
 </script>

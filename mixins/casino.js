@@ -368,12 +368,12 @@ export default {
                   <h3 class="map-pp-title">${item.name}</h3>
                   <div class="map-pp-text">${item.country_code} ,${item.region_name}</div>
                   <div class="map-pp-line"></div>
-                  <div class="map-pp-price"><span class="map-pp-price-no">₪ ${(item.daily_prices!=null?item.daily_prices[0]:'לא זמין')}</span> -החל מ</div>
+                  <div class="map-pp-price"><span class="map-pp-price-no">₪ ${(item.daily_prices!=null?(item.daily_prices[0]||'לא זמין'):'לא זמין')}</span> -החל מ</div>
                 </div>`)
 
 							const el = document.createElement('div')
 							el.id = 'marker_' + (item.id || '-')
-							el.innerHTML = '₪' + (item.daily_prices != null ? item.daily_prices[0] :
+							el.innerHTML = '₪ ' + (item.daily_prices != null ? (item.daily_prices[0]||'לא זמין') :
 								'לא זמין')
 							el.className = 'map-area-marker'
 							const marker = new mapboxgl.Marker(el)

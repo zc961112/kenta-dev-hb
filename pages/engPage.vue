@@ -96,6 +96,8 @@
 		methods: {
 			// 下一页
 			totripPage(e) {
+				e.venue_id = this.$route.query.venue_id
+				e.event_id = this.$route.query.event_id
 				this.$router.push({
 					path: '/tripPage?data=' + JSON.stringify(e)
 				})
