@@ -316,7 +316,7 @@
 			getEvents() {
 				this.getady()
 				events({
-					sport_type: this.$route.query.tournament_name?'soccer':'formula1',
+					sport_type: this.$route.query.tournament_name ? 'soccer' : 'formula1',
 					date_start: 'ge:' + this.getady(),
 					tournament_name: this.$route.query.tournament_name || ''
 				}).then(res => {
@@ -349,7 +349,9 @@
 						tournament_name: item.tournament_name,
 						season: item.season,
 						city: item.city,
-						venue_id: item.venue_id
+						venue_id: item.venue_id,
+						date_stop: item.date_stop,
+						date_start: item.date_start
 					}
 				})
 			},

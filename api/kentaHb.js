@@ -83,3 +83,10 @@ export const getCountry = (params) => {
 		data: params
 	})
 }
+export const toEventPayment = (params) => {
+	return request({
+		url: '/kenta-hb/to_event_payment',
+		method: 'post',
+		data: params
+	})
+}

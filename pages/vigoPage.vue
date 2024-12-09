@@ -20,22 +20,22 @@
 							<div class="form-li">
 								<div class="form-li-f">
 									<p>שם פרטי*</p>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.first_name" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
 									<p>שם משפחה*</p>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.last_name" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
 									<p>אזרחות*</p>
 									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select prefix-icon="el-icon-search" v-model="value"
+									<el-select prefix-icon="el-icon-search" v-model="payForm.country"
 										placeholder="בחרו באזרחות שלכם">
-										<el-option v-for="item in options" :key="item.value" :label="item.label"
-											:value="item.value">
+										<el-option v-for="item in CountryList" :key="item.alpha_3" :label="item.name"
+											:value="item.alpha_3">
 										</el-option>
 									</el-select>
 								</div>
@@ -44,13 +44,13 @@
 									<p>תאריך לידה*</p>
 									<div class="form-li-input">
 										<div class="input">
-											<el-input v-model="input" placeholder="יום"></el-input>
+											<el-input v-model="day" placeholder="יום"></el-input>
 										</div>
 										<div class="input Month">
-											<el-input v-model="input" placeholder="חודש"></el-input>
+											<el-input v-model="month" placeholder="חודש"></el-input>
 										</div>
 										<div class="input">
-											<el-input v-model="input" placeholder="שנה"></el-input>
+											<el-input v-model="year" placeholder="שנה"></el-input>
 										</div>
 									</div>
 								</div>
@@ -59,27 +59,27 @@
 								<div class="form-li-f">
 									<p>כתובת*</p>
 									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.address" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
 									<p>מיקוד</p>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.postal_code" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
 									<p>עיר מגורים*</p>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.live_city" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
 									<p>מדינה*</p>
 									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select v-model="payForm.country" placeholder="בחר/י את המדינה שלך111">
-										<el-option v-for="item in CountryList" :key="item.alpha_3"
-											:label="item.name" :value="item.alpha_3">
+									<el-select v-model="payForm.live_country" placeholder="בחר/י את המדינה שלך">
+										<el-option v-for="item in CountryList" :key="item.alpha_3" :label="item.name"
+											:value="item.alpha_3">
 										</el-option>
 									</el-select>
 								</div>
@@ -94,19 +94,20 @@
 							<div class="form-li">
 								<div class="form-li-f">
 									<p>כתובת אימייל*</p>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.email" placeholder=""></el-input>
 								</div>
 								<div class="w"></div>
 								<div class="form-li-f">
 									<p>מספר טלפון*</p>
-									<el-input v-model="input" placeholder=""></el-input>
+									<el-input v-model="payForm.phone" placeholder=""></el-input>
 								</div>
 							</div>
 							<div class="form-li">
 								<div class="form-li-f">
 									<div class="agreement">
-										<div class="icon">
-
+										<div @click="payForm.save_email=!payForm.save_email" class="icon"
+											:class="[payForm.save_email?'currrent':'']">
+											<img v-if="payForm.save_email" src="~assets/images/icon/select.png" />
 										</div>
 										<div class="flex">
 											<p class="text">ברצוני לקבל הצעות והמלצות מיוחדות למייל.</p>
@@ -126,48 +127,49 @@
 							</p>
 						</div>
 					</div>
-					<div class="ready">
+					<div class="ready" v-if="payForm.other_data.length>0">
 						נוסע 2
 					</div>
-					<div class="form">
-						<div class="form-info">
-
-							<div class="form-li" style="margin-top:0px;">
-								<div class="form-li-f">
-									<p>שם פרטי*</p>
-									<el-input v-model="input" placeholder=""></el-input>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>שם משפחה*</p>
-									<el-input v-model="input" placeholder=""></el-input>
-								</div>
-							</div>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>אזרחות*</p>
-									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select v-model="value" placeholder="Choose your nationality">
-										<el-option v-for="item in options" :key="item.value" :label="item.label"
-											:value="item.value">
-										</el-option>
-									</el-select>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>תאריך לידה*</p>
-									<div class="form-li-input">
-										<div class="input">
-											<el-input v-model="input" placeholder="שנה"></el-input>
-										</div>
-										<div class="input Month">
-											<el-input v-model="input" placeholder="חודש"></el-input>
-										</div>
-										<div class="input">
-											<el-input v-model="input" placeholder="יום"></el-input>
-										</div>
+					<div class="other_data">
+						<div v-if="payForm.other_data.length>0" class="form" v-for="(item,index) in payForm.other_data" :key="index">
+							<div class="form-info">
+								<div class="form-li" style="margin-top:0px;">
+									<div class="form-li-f">
+										<p>שם פרטי*</p>
+										<el-input v-model="item.first_name" placeholder=""></el-input>
 									</div>
-
+									<div class="w"></div>
+									<div class="form-li-f">
+										<p>שם משפחה*</p>
+										<el-input v-model="item.last_name" placeholder=""></el-input>
+									</div>
+								</div>
+								<div class="form-li">
+									<div class="form-li-f">
+										<p>אזרחות*</p>
+										<span style="left: 16px; top: 42px;" class="i">i</span>
+										<el-select v-model="item.country" placeholder="Choose your nationality">
+											<el-option v-for="item in CountryList" :key="item.alpha_3" :label="item.name"
+												:value="item.alpha_3">
+											</el-option>
+										</el-select>
+									</div>
+									<div class="w"></div>
+									<div class="form-li-f">
+										<p>תאריך לידה*</p>
+										<div class="form-li-input">
+											<div class="input">
+												<el-input v-model="item.day" placeholder="שנה"></el-input>
+											</div>
+											<div class="input Month">
+												<el-input v-model="item.month" placeholder="חודש"></el-input>
+											</div>
+											<div class="input">
+												<el-input v-model="item.year" placeholder="יום"></el-input>
+											</div>
+										</div>
+						
+									</div>
 								</div>
 							</div>
 						</div>
@@ -200,8 +202,7 @@
 							אני מסכים לתנאיו של מארגן האירוע.
 						</div>
 						<div class="payment">
-							<router-link :to="'/ValenciaPage'" tag="button">המשך לתשלום</router-link>
-							<!-- <button>המשך לתשלום</button> -->
+							<button @click="Topayment">המשך לתשלום</button>
 							<div class="p">
 								<p>
 									מוכנים לחוויה בלתי נשכחת? לחץ על המשך לתשלום כדי לנעול את
@@ -224,7 +225,7 @@
 								אירוע
 							</div>
 							<p class="p">
-								Celta de Vigo vs Valencia CF
+								{{setData.event_name}}
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -234,7 +235,7 @@
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
 									התאריך אושר</span>
-								אוגוסט 23, 2024
+								אוגוסט {{setData.date_time}}
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -242,7 +243,7 @@
 								איצטדיון
 							</div>
 							<p class="p">
-								Estadio Municipal de Balaídos
+								{{setData.city_address}}
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -250,7 +251,7 @@
 								מושבים
 							</div>
 							<p class="p">
-								Long Side
+								{{setData.category_type}}
 							</p>
 						</div>
 						<div class="Summary-li Summary-Number">
@@ -263,7 +264,7 @@
 						</div>
 						<div class="Card">
 							<div>כרטיס/ים</div>
-							<p>2</p>
+							<p>{{setData.peopleNum}}</p>
 						</div>
 						<div class="Card">
 							<div>סה״כ מחיר לאדם</div>
@@ -310,7 +311,7 @@
 										אירוע
 									</div>
 									<p class="p">
-										Celta de Vigo vs Valencia CF
+										{{setData.event_name}}
 									</p>
 								</div>
 								<div class="Summary-li">
@@ -320,7 +321,7 @@
 									<p class="p">
 										<span class="dec"><i class="el-icon-check"></i>
 											התאריך אושר</span>
-										אוגוסט 23, 2024
+										אוגוסט {{setData.date_time}}
 									</p>
 								</div>
 								<div class="Summary-li">
@@ -328,7 +329,7 @@
 										איצטדיון
 									</div>
 									<p class="p">
-										Estadio Municipal de Balaídos
+										{{setData.city_address}}
 									</p>
 								</div>
 								<div class="Summary-li">
@@ -336,7 +337,7 @@
 										מושבים
 									</div>
 									<p class="p">
-										Long Side
+										{{setData.category_type}}
 									</p>
 								</div>
 								<div class="Summary-li Summary-Number">
@@ -349,7 +350,7 @@
 								</div>
 								<div class="Card">
 									<div>כרטיס/ים</div>
-									<p>2</p>
+									<p>{{setData.peopleNum}}</p>
 								</div>
 								<div class="Card">
 									<div>סה״כ מחיר לאדם</div>
@@ -486,13 +487,13 @@
 	import {
 		getFrom,
 		getCountry,
-		getHotelInfo
+		getHotelInfo,
+		toEventPayment
 	} from '@/api/kentaHb'
 	import {
 		getMail,
 		getUserInfo,
 		findPwdSendMail,
-		Topaymentpage
 	} from '@/api/login'
 	export default {
 		name: 'tripPage',
@@ -508,35 +509,98 @@
 				pricedirection: false,
 				setData: {},
 				payForm: {
-					email: '',
-					phone: '',
-					country: '',
-					checkin_time: '',
-					hotel_name: '',
-					checkin: '',
-					checkout: '',
-					hotel_price: '',
-					tax: '',
+					tic_name: '',
+					start_date: '',
+					site_local: '',
+					seat_type: '',
+					tic_num: '',
+					net_rate: '',
 					amount: '',
 					first_name: '',
 					last_name: '',
-					partner_order_id: '',
-					order_id: ''
+					birthday: '',
+					country: '',
+					address: '',
+					live_city: '',
+					postal_code: '',
+					live_country: '',
+					phone: '',
+					email: '',
+					currency_code: '',
+					save_email: false,
+					ticket_id: '',
+					other_data: []
 				},
-				CountryList:[]
+				CountryList: [],
+				year: '',
+				month: '',
+				day: ''
 			}
 
 		},
 		async created() {
 			this.setData = JSON.parse(this.$route.query.data)
-			console.log(this.setData)
+			this.getpeople()
 			this.getCountryList()
 		},
 		methods: {
+			// 获取乘客
+			getpeople() {
+				if (this.setData.peopleNum == 2) {
+					this.topush()
+				}
+				if (this.setData.peopleNum > 2) {
+					for (let i = 0; i < this.setData.peopleNum; i++) {
+						this.topush()
+					}
+				}
+			},
+			// 追击
+			topush() {
+				let data = {
+					last_name: '',
+					first_name: '',
+					birthday: '',
+					country: '',
+					year: '',
+					month: '',
+					day: ''
+				}
+				this.payForm.other_data.push(data)
+			},
 			// 支付
 			Topayment() {
-				Topaymentpage(this.payForm).then((data) => {
-					window.open(data)
+				if (!this.agree) {
+					this.$message({
+						message: 'Please agree and check the terms of the event organizer',
+						type: 'warning'
+					})
+				} else {
+					this.payForm.birthday = this.day + '-' + this.month + '-' + this.year
+					this.payForm.tic_name = this.setData.event_name
+					this.payForm.start_date = this.setData.date_time
+					this.payForm.site_local = this.setData.city_address
+					this.payForm.seat_type = this.setData.category_type
+					this.payForm.tic_num = this.setData.peopleNum
+					this.payForm.net_rate = this.setData.net_rate / 100
+					this.payForm.amount = (this.setData.net_rate / 100) * this.setData.peopleNum
+					this.payForm.currency_code = this.setData.currency_code
+					this.payForm.ticket_id = this.setData.ticket_id
+					// 获取乘客生日
+					if (this.payForm.other_data.length > 0) {
+						this.getbirthday()
+					}
+
+					toEventPayment(this.payForm).then((data) => {
+						window.open(data)
+					})
+				}
+
+			},
+			// 获取乘客生日
+			getbirthday() {
+				this.payForm.other_data.forEach(item => {
+					item.birthday = item.day + '-' + item.month + '-' + item.year
 				})
 			},
 			// 获取国家
@@ -549,6 +613,19 @@
 </script>
 
 <style lang="scss" scoped>
+	.other_data{
+		.form:nth-last-child(1) {
+			margin-bottom:0
+		}
+		.form{
+			margin-bottom: 0.25rem;
+		}
+	}
+	.currrent {
+		background-color: #EE2344 !important;
+		border-color: #EE2344 !important;
+	}
+
 	@media (max-width: 820px) {
 		.page {
 			.content {
@@ -831,8 +908,16 @@
 
 	.agreement {
 		display: flex;
+		align-items: center;
+
+		img {
+			width: 0.10rem;
+			height: 0.10rem;
+		}
 
 		.icon {
+			cursor: pointer;
+			text-align: center;
 			background-color: rgba(245, 245, 245, 1);
 			border: 1px solid rgba(218, 218, 218, 1);
 			border-radius: 4px;

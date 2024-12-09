@@ -16,7 +16,7 @@
 				<div class="time">
 					<p>
 						<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
-						<span>אוג’ 23, 2024 - אוג’ 25, 2024</span>
+						<span>{{'אוג’'+date_start + '- אוג’ ' + date_stop}}</span>
 					</p>
 					<p>
 						<img src="~assets/images/icon/icon2.png" />
@@ -78,6 +78,7 @@
 		tickets
 	} from '@/api/kentaHb'
 	import * as d3 from "d3";
+	import tday from '@/utils/time.js'
 	export default {
 		name: 'engPage',
 		data() {
@@ -87,17 +88,28 @@
 				svg: '',
 				active: -1,
 				direction: false,
-				InfoData: null
+				InfoData: null,
+				date_stop: '',
+				date_start: '',
 			}
 		},
 		async created() {
 			this.getInfo()
+			this.date_stop = tday.getday(this.$route.query.date_stop)
+			this.date_start = tday.getday(this.$route.query.date_start)
 		},
 		methods: {
 			// 下一页
 			totripPage(e) {
+				let date_time = tday.getday(this.$route.query.date_stop) + '-' + tday.getday(this.$route.query.date_start)
+				let city_address = this.$route.query.event_name + this.$route.query.city
+
 				e.venue_id = this.$route.query.venue_id
 				e.event_id = this.$route.query.event_id
+				e.event_name = this.$route.query.event_name
+				e.date_time = date_time
+				e.city_address = city_address
+
 				this.$router.push({
 					path: '/tripPage?data=' + JSON.stringify(e)
 				})

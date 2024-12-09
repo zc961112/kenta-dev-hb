@@ -4,6 +4,9 @@
 		<main>
 			<div class="content">
 				<div class="left">
+					<div class="item-li" style="margin: 0 0 0.25rem 0;">
+						1.בחרו כרטיס או חבילה
+					</div>
 					<!-- <div class="choose">
 						<div class="choose-bg">
 							<h1>1. &nbsp;&nbsp;בחרו כרטיס או חבילה</h1>
@@ -160,7 +163,7 @@
 								אירוע
 							</div>
 							<p class="p">
-								Celta de Vigo vs Valencia CF
+								{{event_name}}
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -170,7 +173,7 @@
 							<p class="p">
 								<span class="dec"><i class="el-icon-check"></i>
 									התאריך אושר</span>
-								אוגוסט 23, 2024
+								אוגוסט {{date_time}}
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -178,7 +181,7 @@
 								איצטדיון
 							</div>
 							<p class="p">
-								Estadio Municipal de Balaídos
+								{{city_address}}
 							</p>
 						</div>
 						<div class="Summary-li">
@@ -186,7 +189,7 @@
 								מושבים
 							</div>
 							<p class="p">
-								Long Side
+								{{defaultData.category_type}}
 							</p>
 						</div>
 						<div class="Summary-li Summary-Number">
@@ -199,7 +202,7 @@
 						</div>
 						<div class="Card">
 							<div>כרטיס/ים</div>
-							<p>2</p>
+							<p>{{peopleNum}}</p>
 						</div>
 						<div class="Card">
 							<div>סה״כ מחיר לאדם</div>
@@ -246,7 +249,7 @@
 										אירוע
 									</div>
 									<p class="p">
-										Celta de Vigo vs Valencia CF
+										{{event_name}}
 									</p>
 								</div>
 								<div class="Summary-li">
@@ -256,7 +259,7 @@
 									<p class="p">
 										<span class="dec"><i class="el-icon-check"></i>
 											התאריך אושר</span>
-										אוגוסט 23, 2024
+										אוגוסט {{date_time}}
 									</p>
 								</div>
 								<div class="Summary-li">
@@ -264,7 +267,7 @@
 										איצטדיון
 									</div>
 									<p class="p">
-										Estadio Municipal de Balaídos
+										{{city_address}}
 									</p>
 								</div>
 								<div class="Summary-li">
@@ -272,7 +275,7 @@
 										מושבים
 									</div>
 									<p class="p">
-										Long Side
+										{{defaultData.category_type}}
 									</p>
 								</div>
 								<div class="Summary-li Summary-Number">
@@ -285,7 +288,7 @@
 								</div>
 								<div class="Card">
 									<div>כרטיס/ים</div>
-									<p>2</p>
+									<p>{{peopleNum}}</p>
 								</div>
 								<div class="Card">
 									<div>סה״כ מחיר לאדם</div>
@@ -456,16 +459,23 @@
 				category_id: '',
 				event_id: '',
 				venue_id: '',
-				defaultData: {}
+				defaultData: {},
+				event_name:'',
+				date_time:'',
+				city_address:''
 			}
 
 		},
 		async created() {
 			this.setData = JSON.parse(this.$route.query.data)
+			console.log(this.setData)
+			this.city_address = this.setData.city_address
+			this.date_time = this.setData.date_time
 			this.peopleNum = this.setData.peopleNum
 			this.category_id = this.setData.category_id
 			this.event_id = this.setData.event_id
 			this.venue_id = this.setData.venue_id
+			this.event_name = this.setData.event_name
 			this.defaultData = this.setData
 
 			this.getInfo()
@@ -474,6 +484,9 @@
 			// 下一页
 			toVigopage() {
 				this.setData.peopleNum = this.peopleNum
+				this.setData.event_name = this.event_name
+				this.setData.date_time = this.date_time
+				this.setData.city_address = this.city_address
 				this.$router.push({
 					path: '/vigopage?data=' + JSON.stringify(this.setData)
 				})
