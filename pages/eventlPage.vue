@@ -68,7 +68,7 @@
 										</div>
 										<h3>{{item.event_name}}</h3>
 										<p class="time">
-											{{item.date_stop}} - {{item.date_start}}
+											{{fndate(item.date_stop)}},{{fndate(item.date_start)}}
 										</p>
 									</div>
 								</div>
@@ -148,6 +148,7 @@
 		events
 	} from '@/api/kentaHbEvent'
 	import dayjs from 'dayjs'
+	import tday from '@/utils/time.js'
 	export default {
 		data: () => ({
 			dateType: 0,
@@ -201,6 +202,13 @@
 			window.addEventListener("resize", this.checkIfMobile);
 		},
 		methods: {
+			fndate(e) {
+				if(e) {
+					return tday.getday(e)
+				}else {
+					return ''
+				}
+			},
 			// 页面是否是移动端
 			checkIfMobile() {
 				if (820 < window.innerWidth) {

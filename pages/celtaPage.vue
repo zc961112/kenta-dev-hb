@@ -71,30 +71,30 @@
 									<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
 									</p>
 									<!-- 移动端下拉查看更多 -->
-									<div class="see-more" @click="direction=!direction">מידע נוסף<i
+									<div class="see-more" :style="{background:selectActive==-1?'linear-gradient(180deg, rgba(254, 238, 242, 0.7) 0%, #FEEEF2 100%)':'linear-gradient(180deg, #fff 0%, #fff 100%)'}" @click.stop="showdirection">מידע נוסף<i
 											class="el-icon-arrow-down"></i></div>
 								</div>
 								<!-- 移动端 座位图-->
-								<div class="pm-mobile">
-									<img src="~assets/images/pm.png" />
+								<div class="pm-mobile" v-if="ism&&!direction">
+									<venue-map-m :iscolse="false" ref="venueRef" />
 								</div>
 								<!-- 查看更多 移动端 -->
 								<el-drawer :with-header="false" :visible.sync="direction" size="100%" direction="btt">
-									<mobile-header @close="direction=false" />
+									<mobile-header @close="closedirection" />
 									<div class="mobile-padding">
 										<div class="filter-w">
-											<div class="filter" @click="direction=false">
+											<div class="filter" @click="closedirection">
 												<img src="~assets/images/icon/mapcolse.png" />
 											</div>
 										</div>
-										<div class="info">
+										<div class="info" style="background-color: rgba(255, 50, 99, 0.08);border-color: rgb(255, 50, 99)">
 											<div class="top">
-												<div class="checkbox">
+												<div class="checkbox" style="background-color: rgb(255, 50, 99); border-color: rgb(255, 50, 99);">
 													<img src="~assets/images/icon/select.png" />
 												</div>
-												<div class="tickets">Category 3 (corners) tickets</div>
+												<div class="tickets">{{defaultData.ticket_title}}</div>
 												<div class="price">
-													<p style="text-align: left;"><span>€0</span> +</p>
+													<p style="text-align: left;"><span>€{{defaultData.net_rate/100}}</span> +</p>
 													<div>תוספת לאדם</div>
 												</div>
 											</div>
@@ -114,7 +114,7 @@
 											</div>
 											<!-- 移动端 座位图-->
 											<div class="pm-mobile">
-												<img src="~assets/images/pm.png" />
+												<venue-map-pm v-if="direction" :iscolse="false" ref="venuePMRef" />
 											</div>
 										</div>
 									</div>
@@ -122,7 +122,8 @@
 							</div>
 
 							<div class="select-box">
-								<div @click="selectItem(index,item)" v-if="category_id!=item.category_id" class="select"
+								<div @click="selectItem(index,item)"
+									v-if="category_id!=item.category_id&&item.net_rate>0" class="select"
 									@mouseover="mouseover(index,item.category_id)"
 									@mouseout="mouseout(item.category_id)" :class="[active==index?'active':'']"
 									v-for="(item,index) in list" :key="index">
@@ -460,15 +461,16 @@
 				event_id: '',
 				venue_id: '',
 				defaultData: {},
-				event_name:'',
-				date_time:'',
-				city_address:''
+				event_name: '',
+				date_time: '',
+				city_address: '',
+				ism: false
+
 			}
 
 		},
 		async created() {
 			this.setData = JSON.parse(this.$route.query.data)
-			console.log(this.setData)
 			this.city_address = this.setData.city_address
 			this.date_time = this.setData.date_time
 			this.peopleNum = this.setData.peopleNum
@@ -479,8 +481,38 @@
 			this.defaultData = this.setData
 
 			this.getInfo()
+			window.addEventListener("resize", this.checkIfMobile);
 		},
 		methods: {
+			// 关闭
+			closedirection() {
+				this.direction = false
+				this.showSeat()
+			},
+			// 移动端座位
+			showdirection() {
+				this.direction = !this.direction
+				this.$nextTick(() => {
+					this.$refs.venuePMRef.int(this.InfoData, this.setData.venue_id)
+				})
+			},
+			// 页面是否是移动端
+			checkIfMobile() {
+				if (820 < window.innerWidth) {
+					this.ism = false
+				} else {
+					this.ism = true
+					if (!this.direction) {
+						this.showSeat()
+					}
+				}
+			},
+			// 移动端选座
+			showSeat() {
+				this.$nextTick(() => {
+					this.$refs.venueRef.int(this.InfoData, this.setData.venue_id)
+				})
+			},
 			// 下一页
 			toVigopage() {
 				this.setData.peopleNum = this.peopleNum
@@ -521,6 +553,7 @@
 					this.list = res.tickets
 					this.InfoData = res
 					this.getmap(res)
+					this.checkIfMobile()
 				})
 			},
 			async getmap(res) {
@@ -830,9 +863,9 @@
 		position: fixed;
 		bottom: 0;
 		left: 0;
+		z-index: 99;
 		border-top-right-radius: 8px;
 		border-top-left-radius: 8px;
-		z-index: 1;
 		border-top: 1px solid #DADADA;
 		background-color: #fff;
 		padding: 0.2rem 0.2rem 0.24rem 0.2rem;

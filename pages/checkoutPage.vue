@@ -267,38 +267,52 @@
 									src="~assets/images/icon/2users-svgrepo-com 1.png" />
 							</div>
 							<div class="text">נא למלא את כל שדות החובה</div>
-							<div class="form">
-								<div class="form-li form-li-m">
-									<div class="li">
-										<el-input v-model="payForm.first_name" placeholder="שם משפחה*"></el-input>
-									</div>
-									<div class="w"></div>
-									<div class="li">
-										<el-input v-model="payForm.last_name" placeholder="שם פרטי*"></el-input>
-									</div>
-								</div>
-								<div class="form-li">
-									<div class="li">
-										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<el-input v-model="payForm.email" placeholder="דואר אלקטרוני*"></el-input>
-									</div>
-								</div>
-								<div class="form-li form-li-m">
-									<div class="li">
-										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<el-input v-model="payForm.phone" placeholder="מספר פלאפון*"></el-input>
-									</div>
-									<div class="w"></div>
-									<div class="li">
-										<img class="img" src="~assets/images/icon/info-feature.png" />
-										<el-select v-model="payForm.country" placeholder="אזרחות*">
-											<el-option v-for="item in CountryList" :key="item.alpha_3"
-												:label="item.name" :value="item.alpha_3">
-											</el-option>
-										</el-select>
-									</div>
-								</div>
-							</div>
+
+							<el-form :model="payForm" :rules="rules" ref="payForm" class="form">
+								<el-form-item label=" " required>
+									<el-row :gutter="20">
+										<el-col :xs="24" :span="12">
+											<el-form-item prop="first_name">
+												<el-input v-model="payForm.first_name"
+													placeholder="שם משפחה*"></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :span="12">
+											<el-form-item prop="last_name">
+												<el-input v-model="payForm.last_name" placeholder="שם פרטי*"></el-input>
+											</el-form-item>
+										</el-col>
+									</el-row>
+								</el-form-item>
+								<el-form-item label=" " required>
+									<el-col :xs="24" :span="24">
+										<el-form-item prop="email">
+											<img class="imgicon" src="~assets/images/icon/info-feature.png" />
+											<el-input v-model="payForm.email" placeholder="דואר אלקטרוני*"></el-input>
+										</el-form-item>
+									</el-col>
+								</el-form-item>
+								<el-form-item label=" " required>
+									<el-row :gutter="20">
+										<el-col :xs="24" :span="12">
+											<el-form-item prop="phone">
+												<img class="imgicon" src="~assets/images/icon/info-feature.png" />
+												<el-input v-model="payForm.phone" placeholder="מספר פלאפון*"></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :span="12">
+											<el-form-item prop="country">
+												<img class="imgicon" src="~assets/images/icon/info-feature.png" />
+												<el-select v-model="payForm.country" placeholder="אזרחות*">
+													<el-option v-for="item in CountryList" :key="item.alpha_3"
+														:label="item.name" :value="item.alpha_3">
+													</el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+									</el-row>
+								</el-form-item>
+							</el-form>
 						</div>
 						<div class="select">
 							<el-select v-model="input" placeholder="הזינו אורחים נוספים">
@@ -338,7 +352,7 @@
 								<p>לחיצה על הכפתור "להשלים הזמנה", </p>
 								<p>מהווה הסכמה<span>לתנאים ולהתניות.</span></p>
 							</div>
-							<button @click="Topayment">להשלים הזמנה</button>
+							<button @click="Topayment('payForm')">להשלים הזמנה</button>
 						</div>
 					</div>
 					<div class="foo-h"></div>
@@ -531,7 +545,64 @@
 					partner_order_id: '',
 					order_id: ''
 				},
-				hotelslist: []
+				hotelslist: [],
+				rules: {
+					first_name: [{
+						required: true,
+						message: 'Please enter a first name',
+						trigger: 'blur'
+					}],
+					last_name: [{
+						required: true,
+						message: 'Please enter last name',
+						trigger: 'blur'
+					}],
+					country: [{
+						required: true,
+						message: 'Please select nationality',
+						trigger: 'blur'
+					}],
+					day: [{
+						required: true,
+						message: 'Please enter the day',
+						trigger: 'blur'
+					}],
+					month: [{
+						required: true,
+						message: 'Please enter the month',
+						trigger: 'blur'
+					}],
+					year: [{
+						required: true,
+						message: 'Please enter the year',
+						trigger: 'blur'
+					}],
+					address: [{
+						required: true,
+						message: 'Please enter the address',
+						trigger: 'blur'
+					}],
+					live_city: [{
+						required: true,
+						message: 'Please enter the live city',
+						trigger: 'blur'
+					}],
+					live_country: [{
+						required: true,
+						message: 'Please select live country',
+						trigger: 'blur'
+					}],
+					phone: [{
+						required: true,
+						message: 'Please enter the phone',
+						trigger: 'blur'
+					}],
+					email: [{
+						required: true,
+						message: 'Please enter the email',
+						trigger: 'blur'
+					}]
+				}
 			}
 
 		},
@@ -614,60 +685,33 @@
 
 				window.open('https://admin.kenta.travel/prod-api/kenta-hb/login?redirect_url=' + urlarr[1])
 			},
-			Topayment() {
-				if (!this.payForm.first_name) {
-					this.$message({
-						message: 'Please enter your last name',
-						type: 'warning'
-					})
-				} else if (!this.payForm.last_name) {
-					this.$message({
-						message: 'Please enter your name',
-						type: 'warning'
-					})
-				} else if (!this.payForm.email) {
-					this.$message({
-						message: 'Please enter your email',
-						type: 'warning'
-					})
-				} else if (!this.payForm.phone) {
-					this.$message({
-						message: 'Please enter your phone',
-						type: 'warning'
-					})
-				} else if (!this.payForm.country) {
-					this.$message({
-						message: 'Please select a country',
-						type: 'warning'
-					})
-				} else if (!this.payForm.checkin_time) {
-					this.$message({
-						message: 'Please select the arrival time',
-						type: 'warning'
-					})
-				} else {
-					// this.payForm.client_name = this.payForm.last_name + this.payForm.first_name
-					this.payForm.hotel_price = this.price
-					this.payForm.tax = this.taxprice
-					this.payForm.amount = this.price
-					this.payForm.checkin = this.checkin
-					this.payForm.checkout = this.checkout
-					this.payForm.hotel_name = this.other.name
-					this.payForm.book_hash = this.$route.query.book_hash
-					this.payForm.order_id = this.setData.order_id
-					this.payForm.partner_order_id = this.setData.partner_order_id
+			Topayment(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						// this.payForm.client_name = this.payForm.last_name + this.payForm.first_name
+						this.payForm.hotel_price = this.price
+						this.payForm.tax = this.taxprice
+						this.payForm.amount = this.price
+						this.payForm.checkin = this.checkin
+						this.payForm.checkout = this.checkout
+						this.payForm.hotel_name = this.other.name
+						this.payForm.book_hash = this.$route.query.book_hash
+						this.payForm.order_id = this.setData.order_id
+						this.payForm.partner_order_id = this.setData.partner_order_id
 
-					if (sessionStorage.getItem("user_provider")) {
-						this.payForm.provider = sessionStorage.getItem("user_provider")
+						if (sessionStorage.getItem("user_provider")) {
+							this.payForm.provider = sessionStorage.getItem("user_provider")
+						}
+						if (sessionStorage.getItem("user_id")) {
+							this.payForm.user_id = sessionStorage.getItem("user_id")
+						}
+						Topaymentpage(this.payForm).then((data) => {
+							window.open(data)
+						})
+					} else {
+						return false;
 					}
-					if (sessionStorage.getItem("user_id")) {
-						this.payForm.user_id = sessionStorage.getItem("user_id")
-					}
-					Topaymentpage(this.payForm).then((data) => {
-						window.open(data)
-					})
-				}
-
+				})
 			},
 			// 登录
 			toLogin() {
@@ -804,6 +848,19 @@
 </script>
 
 <style lang="scss" scoped>
+	.checkoutPage::v-deep .el-form-item__label::before {
+		display: none;
+	}
+
+	.imgicon {
+		width: 0.12rem;
+		height: auto;
+		position: absolute;
+		left: 15px;
+		top: 18px;
+		z-index: 1;
+	}
+
 	.no-PC-img,
 	.wallet-m {
 		display: none;
@@ -1233,14 +1290,7 @@
 				flex: 1;
 				position: relative;
 
-				.img {
-					width: 0.12rem;
-					height: auto;
-					position: absolute;
-					left: 15px;
-					top: 18px;
-					z-index: 1;
-				}
+
 			}
 		}
 

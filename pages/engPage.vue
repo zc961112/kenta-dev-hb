@@ -41,7 +41,7 @@
 					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 				</div>
 				<div @mouseover="mouseover(index,item.category_id)" @mouseout="mouseout(item.category_id)"
-					:class="[active==index?'active':'']" class="item-li" v-for="(item,index) in list" :key="index">
+					:class="[active==index?'active':'']" v-if="item.net_rate>0" class="item-li" v-for="(item,index) in list" :key="index">
 					<div class="text">
 						<div class="text-info">
 							<img src="~assets/images/icon/icon7.png" />
@@ -101,7 +101,7 @@
 		methods: {
 			// 下一页
 			totripPage(e) {
-				let date_time = tday.getday(this.$route.query.date_stop) + '-' + tday.getday(this.$route.query.date_start)
+				let date_time = tday.getday(this.$route.query.date_stop) + ',' + tday.getday(this.$route.query.date_start)
 				let city_address = this.$route.query.event_name + this.$route.query.city
 
 				e.venue_id = this.$route.query.venue_id

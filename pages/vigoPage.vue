@@ -13,95 +13,124 @@
 					<div class="ready">
 						ההזמנה כמעט מוכנה!
 					</div>
-					<div class="form">
+					<el-form :model="payForm" :rules="rules" ref="payForm" class="form">
 						<div class="form-info">
 							<p class="t">פרטי המזמין/מטייל</p>
 							<p class="f">נא למלא את כל הפרטים</p>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>שם פרטי*</p>
-									<el-input v-model="payForm.first_name" placeholder=""></el-input>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>שם משפחה*</p>
-									<el-input v-model="payForm.last_name" placeholder=""></el-input>
-								</div>
-							</div>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>אזרחות*</p>
-									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select prefix-icon="el-icon-search" v-model="payForm.country"
-										placeholder="בחרו באזרחות שלכם">
-										<el-option v-for="item in CountryList" :key="item.alpha_3" :label="item.name"
-											:value="item.alpha_3">
-										</el-option>
-									</el-select>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>תאריך לידה*</p>
-									<div class="form-li-input">
-										<div class="input">
-											<el-input v-model="day" placeholder="יום"></el-input>
-										</div>
-										<div class="input Month">
-											<el-input v-model="month" placeholder="חודש"></el-input>
-										</div>
-										<div class="input">
-											<el-input v-model="year" placeholder="שנה"></el-input>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>כתובת*</p>
-									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-input v-model="payForm.address" placeholder=""></el-input>
-								</div>
-							</div>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>מיקוד</p>
-									<el-input v-model="payForm.postal_code" placeholder=""></el-input>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>עיר מגורים*</p>
-									<el-input v-model="payForm.live_city" placeholder=""></el-input>
-								</div>
-							</div>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>מדינה*</p>
-									<span style="left: 16px; top: 42px;" class="i">i</span>
-									<el-select v-model="payForm.live_country" placeholder="בחר/י את המדינה שלך">
-										<el-option v-for="item in CountryList" :key="item.alpha_3" :label="item.name"
-											:value="item.alpha_3">
-										</el-option>
-									</el-select>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-								</div>
-							</div>
+							<el-form-item label=" " required>
+								<el-row :gutter="20">
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="last_name">
+											<p>שם משפחה*</p>
+											<el-input v-model="payForm.last_name" placeholder=""></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="first_name">
+											<p>שם פרטי*</p>
+											<el-input v-model="payForm.first_name" placeholder=""></el-input>
+										</el-form-item>
+									</el-col>
+								</el-row>
+							</el-form-item>
+
+							<el-form-item label=" " required>
+								<el-row :gutter="20">
+									<el-col :xs="24" :span="12">
+										<el-row :gutter="20">
+											<el-col :span="8">
+												<el-form-item prop="year">
+													<p></p>
+													<el-input v-model="payForm.year" placeholder="שנה"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item prop="month">
+													<p></p>
+													<el-input v-model="payForm.month" placeholder="חודש"></el-input>
+												</el-form-item>
+											</el-col>
+											<el-col :span="8">
+												<el-form-item prop="day">
+													<p>תאריך לידה*</p>
+													<el-input v-model="payForm.day" placeholder="יום"></el-input>
+												</el-form-item>
+											</el-col>
+										</el-row>
+									</el-col>
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="country">
+											<div class="form-li-f">
+												<p>אזרחות*</p>
+												<span style="left: 16px; top: 37px;" class="i">i</span>
+												<el-select prefix-icon="el-icon-search" v-model="payForm.country"
+													placeholder="בחרו באזרחות שלכם">
+													<el-option v-for="item in CountryList" :key="item.alpha_3"
+														:label="item.name" :value="item.alpha_3">
+													</el-option>
+												</el-select>
+											</div>
+										</el-form-item>
+									</el-col>
+								</el-row>
+							</el-form-item>
+							<el-form-item label=" " prop="address">
+								<p>כתובת*</p>
+								<span style="left: 16px; top: 37px;" class="i">i</span>
+								<el-input v-model="payForm.address" placeholder=""></el-input>
+							</el-form-item>
+							<el-form-item label=" ">
+								<el-row :gutter="20">
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="live_city">
+											<p>עיר מגורים*</p>
+											<el-input v-model="payForm.live_city" placeholder=""></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :xs="24" :span="12">
+										<p>מיקוד</p>
+										<el-input v-model="payForm.postal_code" placeholder=""></el-input>
+									</el-col>
+								</el-row>
+							</el-form-item>
+							<el-form-item label=" ">
+								<el-row :gutter="20">
+									<el-col :xs="24" :span="12">
+										<p class="no-p"></p>
+									</el-col>
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="live_country">
+											<p>מדינה*</p>
+											<span style="left: 16px; top: 37px;" class="i">i</span>
+											<el-select v-model="payForm.live_country" placeholder="בחר/י את המדינה שלך">
+												<el-option v-for="item in CountryList" :key="item.alpha_3"
+													:label="item.name" :value="item.alpha_3">
+												</el-option>
+											</el-select>
+										</el-form-item>
+									</el-col>
+								</el-row>
+							</el-form-item>
 						</div>
 						<div class="Contact">
 							<p class="t">פרטי התקשרות</p>
 							<p class="f">איך נוכל ליצור איתך קשר?</p>
-							<div class="form-li">
-								<div class="form-li-f">
-									<p>כתובת אימייל*</p>
-									<el-input v-model="payForm.email" placeholder=""></el-input>
-								</div>
-								<div class="w"></div>
-								<div class="form-li-f">
-									<p>מספר טלפון*</p>
-									<el-input v-model="payForm.phone" placeholder=""></el-input>
-								</div>
-							</div>
+							<el-form-item label=" ">
+								<el-row :gutter="20">
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="email">
+											<p>כתובת אימייל*</p>
+											<el-input v-model="payForm.email" placeholder=""></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :xs="24" :span="12">
+										<el-form-item prop="phone">
+											<p>מספר טלפון*</p>
+											<el-input v-model="payForm.phone" placeholder=""></el-input>
+										</el-form-item>
+									</el-col>
+								</el-row>
+							</el-form-item>
 							<div class="form-li">
 								<div class="form-li-f">
 									<div class="agreement">
@@ -126,37 +155,39 @@
 								האם יש לך קוד קופון או שובר?
 							</p>
 						</div>
-					</div>
+					</el-form>
+
 					<div class="ready" v-if="payForm.other_data.length>0">
 						נוסע 2
 					</div>
 					<div class="other_data">
-						<div v-if="payForm.other_data.length>0" class="form" v-for="(item,index) in payForm.other_data" :key="index">
+						<div v-if="payForm.other_data.length>0" class="form" v-for="(item,index) in payForm.other_data"
+							:key="index">
 							<div class="form-info">
 								<div class="form-li" style="margin-top:0px;">
 									<div class="form-li-f">
-										<p>שם פרטי*</p>
+										<p>שם פרטי</p>
 										<el-input v-model="item.first_name" placeholder=""></el-input>
 									</div>
 									<div class="w"></div>
 									<div class="form-li-f">
-										<p>שם משפחה*</p>
+										<p>שם משפחה</p>
 										<el-input v-model="item.last_name" placeholder=""></el-input>
 									</div>
 								</div>
 								<div class="form-li">
 									<div class="form-li-f">
-										<p>אזרחות*</p>
-										<span style="left: 16px; top: 42px;" class="i">i</span>
+										<p>אזרחות</p>
+										<span style="left: 16px; top: 55px;" class="i">i</span>
 										<el-select v-model="item.country" placeholder="Choose your nationality">
-											<el-option v-for="item in CountryList" :key="item.alpha_3" :label="item.name"
-												:value="item.alpha_3">
+											<el-option v-for="item in CountryList" :key="item.alpha_3"
+												:label="item.name" :value="item.alpha_3">
 											</el-option>
 										</el-select>
 									</div>
 									<div class="w"></div>
 									<div class="form-li-f">
-										<p>תאריך לידה*</p>
+										<p>תאריך לידה</p>
 										<div class="form-li-input">
 											<div class="input">
 												<el-input v-model="item.day" placeholder="שנה"></el-input>
@@ -168,7 +199,7 @@
 												<el-input v-model="item.year" placeholder="יום"></el-input>
 											</div>
 										</div>
-						
+
 									</div>
 								</div>
 							</div>
@@ -202,7 +233,7 @@
 							אני מסכים לתנאיו של מארגן האירוע.
 						</div>
 						<div class="payment">
-							<button @click="Topayment">המשך לתשלום</button>
+							<button @click="Topayment('payForm')">המשך לתשלום</button>
 							<div class="p">
 								<p>
 									מוכנים לחוויה בלתי נשכחת? לחץ על המשך לתשלום כדי לנעול את
@@ -529,12 +560,69 @@
 					currency_code: '',
 					save_email: false,
 					ticket_id: '',
-					other_data: []
+					other_data: [],
+					year: '',
+					month: '',
+					day: '',
 				},
 				CountryList: [],
-				year: '',
-				month: '',
-				day: ''
+				rules: {
+					first_name: [{
+						required: true,
+						message: 'Please enter a first name',
+						trigger: 'blur'
+					}],
+					last_name: [{
+						required: true,
+						message: 'Please enter last name',
+						trigger: 'blur'
+					}],
+					country: [{
+						required: true,
+						message: 'Please select nationality',
+						trigger: 'blur'
+					}],
+					day: [{
+						required: true,
+						message: 'Please enter the day',
+						trigger: 'blur'
+					}],
+					month: [{
+						required: true,
+						message: 'Please enter the month',
+						trigger: 'blur'
+					}],
+					year: [{
+						required: true,
+						message: 'Please enter the year',
+						trigger: 'blur'
+					}],
+					address: [{
+						required: true,
+						message: 'Please enter the address',
+						trigger: 'blur'
+					}],
+					live_city: [{
+						required: true,
+						message: 'Please enter the live city',
+						trigger: 'blur'
+					}],
+					live_country: [{
+						required: true,
+						message: 'Please select live country',
+						trigger: 'blur'
+					}],
+					phone: [{
+						required: true,
+						message: 'Please enter the phone',
+						trigger: 'blur'
+					}],
+					email: [{
+						required: true,
+						message: 'Please enter the email',
+						trigger: 'blur'
+					}]
+				}
 			}
 
 		},
@@ -569,33 +657,38 @@
 				this.payForm.other_data.push(data)
 			},
 			// 支付
-			Topayment() {
-				if (!this.agree) {
-					this.$message({
-						message: 'Please agree and check the terms of the event organizer',
-						type: 'warning'
-					})
-				} else {
-					this.payForm.birthday = this.day + '-' + this.month + '-' + this.year
-					this.payForm.tic_name = this.setData.event_name
-					this.payForm.start_date = this.setData.date_time
-					this.payForm.site_local = this.setData.city_address
-					this.payForm.seat_type = this.setData.category_type
-					this.payForm.tic_num = this.setData.peopleNum
-					this.payForm.net_rate = this.setData.net_rate / 100
-					this.payForm.amount = (this.setData.net_rate / 100) * this.setData.peopleNum
-					this.payForm.currency_code = this.setData.currency_code
-					this.payForm.ticket_id = this.setData.ticket_id
-					// 获取乘客生日
-					if (this.payForm.other_data.length > 0) {
-						this.getbirthday()
+			Topayment(formName) {
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						if (!this.agree) {
+							this.$message({
+								message: 'Please agree and check the terms of the event organizer',
+								type: 'warning'
+							})
+						} else {
+							this.payForm.birthday = this.payForm.day + '-' + this.payForm.month + '-' + this
+								.payForm.year
+							this.payForm.tic_name = this.setData.event_name
+							this.payForm.start_date = this.setData.date_time
+							this.payForm.site_local = this.setData.city_address
+							this.payForm.seat_type = this.setData.category_type
+							this.payForm.tic_num = this.setData.peopleNum
+							this.payForm.net_rate = this.setData.net_rate / 100
+							this.payForm.amount = (this.setData.net_rate / 100) * this.setData.peopleNum
+							this.payForm.currency_code = this.setData.currency_code
+							this.payForm.ticket_id = this.setData.ticket_id
+							// 获取乘客生日
+							if (this.payForm.other_data.length > 0) {
+								this.getbirthday()
+							}
+							toEventPayment(this.payForm).then((data) => {
+								window.open(data)
+							})
+						}
+					} else {
+						return false;
 					}
-
-					toEventPayment(this.payForm).then((data) => {
-						window.open(data)
-					})
-				}
-
+				})
 			},
 			// 获取乘客生日
 			getbirthday() {
@@ -613,14 +706,24 @@
 </script>
 
 <style lang="scss" scoped>
-	.other_data{
+	.page::v-deep .el-form-item__label::before {
+		display: none;
+	}
+
+	.form::v-deep .el-select {
+		width: 100%;
+	}
+
+	.other_data {
 		.form:nth-last-child(1) {
-			margin-bottom:0
+			margin-bottom: 0
 		}
-		.form{
+
+		.form {
 			margin-bottom: 0.25rem;
 		}
 	}
+
 	.currrent {
 		background-color: #EE2344 !important;
 		border-color: #EE2344 !important;
@@ -628,6 +731,9 @@
 
 	@media (max-width: 820px) {
 		.page {
+			.no-p{
+				display: none;
+			}
 			.content {
 				width: 100%;
 				padding: 0 0.2rem;
@@ -673,22 +779,25 @@
 				padding: 0.32rem 0;
 			}
 
+			.form p {
+				height: 0.3rem;
+				line-height: 0.3rem;
+			}
+
+
 			.form .form-li {
 				flex-direction: column;
 				align-items: flex-start;
 			}
 
-			.form-li-f p {
-				margin-top: 0.1rem;
-			}
 
 			.form .form-li-f {
 				width: 100%;
 				flex: inherit;
 			}
 
-			.form .form-li-f .i {
-				top: 0.54rem !important;
+			.form .i {
+				top: 0.4rem !important;
 			}
 
 			.organizer .name {
@@ -903,6 +1012,7 @@
 			display: inline-block;
 			border-bottom: 1px solid rgba(26, 26, 26, 1);
 			color: rgba(26, 26, 26, 1);
+			height: auto !important;
 		}
 	}
 
@@ -941,6 +1051,7 @@
 			font-size: 0.12rem;
 			font-weight: 400;
 			margin-bottom: 0.05rem !important;
+			height: auto !important;
 
 		}
 	}
@@ -988,28 +1099,34 @@
 			}
 		}
 
+		.i {
+			width: 0.16rem;
+			height: 0.16rem;
+			text-align: center;
+			line-height: 0.16rem;
+			background: rgba(245, 245, 245, 1);
+			display: inline-block;
+			border-radius: 0.03rem;
+			font-size: 0.12rem;
+			position: absolute;
+			z-index: 2;
+		}
+
+		p {
+			// margin-bottom: 0.10rem;
+			font-size: 0.14rem;
+			font-weight: 400;
+			height: 0.25rem;
+			line-height: 0.2rem;
+		}
+
 		.form-li-f {
 			flex: 1;
 			position: relative;
 
-			.i {
-				width: 0.16rem;
-				height: 0.16rem;
-				text-align: center;
-				line-height: 0.16rem;
-				background: rgba(245, 245, 245, 1);
-				display: inline-block;
-				border-radius: 0.03rem;
-				font-size: 0.12rem;
-				position: absolute;
-				z-index: 2;
-			}
 
-			p {
-				margin-bottom: 0.10rem;
-				font-size: 0.14rem;
-				font-weight: 400;
-			}
+
+
 		}
 
 
