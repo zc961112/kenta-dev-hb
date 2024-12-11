@@ -88,7 +88,8 @@
 								<el-image style="width: 100%; height: 100%" :src="item"
 									:preview-src-list="other.images">
 								</el-image>
-								<p v-if="index == 1" style="direction: rtl;">{{other.images.length}} תמונות </p>
+								<p v-if="index == 1" style="direction: rtl;">{{other.images?other.images.length:0}}
+									תמונות </p>
 							</div>
 						</div>
 						<!-- 移动端轮播 -->
@@ -308,8 +309,8 @@
 										<el-image style="width: 100%; height: 100%" :src="item.images?item.images[0]:''"
 											:preview-src-list="item.images">
 										</el-image>
-										<p v-if="item.images.length>0">תמונות {{item.images.length}}<i
-												class="el-icon-view"></i></p>
+										<p v-if="item.images?item.images.length>0:false">תמונות
+											{{item.images?item.images.length:0}}<i class="el-icon-view"></i></p>
 									</div>
 								</div>
 								<div class="item-li">
@@ -504,7 +505,7 @@
 					book_hash: e.book_hash,
 					taxprice: this.futax(e),
 					unit: this.fuunit(e),
-					hid:this.$route.query.id,
+					hid: this.$route.query.id,
 					checkin: this.modifyData.checkin,
 					checkout: this.modifyData.checkout,
 					// other: JSON.stringify(this.other)
@@ -529,7 +530,7 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								item.tax_data.taxes.forEach(j=>{
+								item.tax_data.taxes.forEach(j => {
 									Object.keys(currencyMap).forEach(key => {
 										if (j.currency_code == key) {
 											unit = currencyMap[key]
@@ -553,10 +554,10 @@
 					if (val.payment_options) {
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
-								item.tax_data.taxes.forEach(j=>{
+								item.tax_data.taxes.forEach(j => {
 									price = price + Number(j.amount)
 								})
-								
+
 							})
 							return price.toFixed(2);
 						}
@@ -628,8 +629,8 @@
 					let arr = res.data.hotels[0].rates
 					this.hotelslist = []
 					this.other = res.data.other
-					this.otherimg = this.other.images.length > 2 ? this.other.images.slice(0, 2) : [],
-						this.mimgNum = res.data.other.images.length > 0 ? res.data.other.images.length : 0
+					this.otherimg = this.other.images?(this.other.images.length > 2 ? this.other.images.slice(0, 2) : []):[]
+					this.mimgNum = res.data.other.images?(res.data.other.images.length > 0 ? res.data.other.images.length : 0):0
 					arr.forEach(element => {
 						let index = this.hotelslist.findIndex(t => {
 							return t.room_name === element.room_name
@@ -849,7 +850,7 @@
 				border-radius: 8px;
 				overflow: hidden;
 				margin-top: 0.08rem;
-				border: 1px solid rgb(218, 218, 218)!important;
+				border: 1px solid rgb(218, 218, 218) !important;
 			}
 
 			.Palace .Palace-right .Hotel-li .room {

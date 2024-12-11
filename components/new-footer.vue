@@ -56,7 +56,7 @@
 					<img src="~assets/images/icon/icon9.png" />
 				</div>
 				<div class="icon-li">
-					<img src="~assets/images/icon/icon8.png" />
+					<img src="~assets/images/icon/facebook 2.png" />
 				</div>
 			</div>
 		</div>

@@ -39,22 +39,43 @@
 			<div class="Tickets">
 				<div class="title">כרטיסים לאירועי ספורט</div>
 			</div>
-			<div class="carousel-box" :class="[list.length<=1?'carousel-l':'']">
+			<!-- PC -->
+			<div class="carousel-box nomobile">
 				<div class="carousel-wrapper">
 					<div class="carousel">
-						<router-link :to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
-							v-for="(item, index) in visibleImages" :key="index" class="carousel-li">
-							<img :src="item.src" />
-							<div class="info">
-								<h4>{{ item.title }}</h4>
-								<router-link
-									:to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
-									tag="button">לצפייה בכרטיסים</router-link>
-							</div>
-						</router-link>
+						<swiper ref="mySwiper" :options="visibleOption">
+							<swiper-slide v-for="(item, index) in images" :key="index">
+								<div class="carousel-li">
+									<img :src="item.src" />
+									<div class="info">
+										<h4>{{ item.title }}</h4>
+										<router-link
+											:to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
+											tag="button">לצפייה בכרטיסים</router-link>
+									</div>
+								</div>
+							</swiper-slide>
+						</swiper>
 					</div>
-					<div class="arrow left" @click="prev">
-						<i class="el-icon-arrow-left"></i>
+				</div>
+			</div>
+			<!-- 移动端 -->
+			<div class="carousel-box ismobile">
+				<div class="carousel-wrapper">
+					<div class="carousel">
+						<swiper ref="mySwiper" :options="swiperOptionM">
+							<swiper-slide v-for="(item, index) in images" :key="index">
+								<div class="carousel-li">
+									<img :src="item.src" />
+									<div class="info">
+										<h4>{{ item.title }}</h4>
+										<router-link
+											:to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
+											tag="button">לצפייה בכרטיסים</router-link>
+									</div>
+								</div>
+							</swiper-slide>
+						</swiper>
 					</div>
 				</div>
 			</div>
@@ -297,15 +318,30 @@
 				<div class="title">
 					חופשת החלומות הבאה שלך
 				</div>
-				<div class="vacation-hide">
+				<!-- PC -->
+				<div class="vacation-hide nomobile">
 					<div class="vacation-list">
-						<div class="vacation-li" v-for="(item,index) in slideImg" :key="index">
-							<img :src="item.src" />
-							<h3>{{item.title}}</h3>
-						</div>
+						<swiper ref="mySwiper" :options="slideImgOption">
+							<swiper-slide v-for="(item,index) in imagesList" :key="index">
+								<div class="vacation-li">
+									<img :src="item.src" />
+									<h3>{{item.title}}</h3>
+								</div>
+							</swiper-slide>
+						</swiper>
 					</div>
-					<div class="arrow left" @click="prevslide">
-						<i class="el-icon-arrow-left"></i>
+				</div>
+				<!-- 移动 -->
+				<div class="vacation-hide ismobile">
+					<div class="vacation-list">
+						<swiper ref="mySwiper" :options="swiperOptionM">
+							<swiper-slide v-for="(item,index) in imagesList" :key="index">
+								<div class="vacation-li">
+									<img :src="item.src" />
+									<h3>{{item.title}}</h3>
+								</div>
+							</swiper-slide>
+						</swiper>
 					</div>
 				</div>
 			</div>
@@ -517,13 +553,30 @@
 					slidesPerView: 4.5,
 					centeredSlides: false,
 					spaceBetween: 16,
-					grabCursor: true
+					grabCursor: true,
+					loop: true
+
+				},
+				visibleOption: {
+					slidesPerView: 3,
+					centeredSlides: false,
+					spaceBetween: 16,
+					grabCursor: true,
+					loop: true
+				},
+				slideImgOption: {
+					slidesPerView: 5,
+					centeredSlides: false,
+					spaceBetween: 16,
+					grabCursor: true,
+					loop: true
 				},
 				swiperOptionM: {
 					slidesPerView: 1.5,
 					centeredSlides: false,
 					spaceBetween: 16,
-					grabCursor: true
+					grabCursor: true,
+					loop: true
 				},
 				cityval: '',
 				defaultList: [],
@@ -646,10 +699,19 @@
 	}
 </script>
 <style lang="scss" scoped>
+	.nomobile{
+		display: block;
+	}
 	@media (max-width: 820px) {
 		.page {
+
+			.carousel-box,
+			.carousel-wrapper,.vacation-hide {
+				margin-bottom: 0 !important;
+			}
+
 			.carousel {
-				direction: ltr;
+				direction: rtl;
 			}
 
 			.warps {
@@ -666,6 +728,10 @@
 
 			.menus-nomobile {
 				display: none;
+			}
+
+			.carousel .carousel-li .info {
+				align-items: flex-start;
 			}
 
 			.Recommended {
@@ -826,11 +892,11 @@
 			}
 
 			.carousel .carousel-li {
-				width: 3rem;
+				width: 100%;
 			}
 
 			.carousel .carousel-li .info {
-				width: 3rem;
+				width: 100%;
 			}
 
 			.carousel-wrapper {
@@ -845,20 +911,21 @@
 				padding-right: 0.2rem;
 			}
 
-			.vacation .vacation-list .vacation-li:nth-child(1) {
-				margin-right: 0;
-			}
+			// .vacation .vacation-list .vacation-li:nth-child(1) {
+			// 	margin-right: 0;
+			// }
+			
 
 			.vacation-list {
-				width: 11.6rem;
-				direction: ltr;
+				// width: 11.6rem;
+				direction: rtl;
 			}
 
 
-			.carousel {
-				width: 9.32rem;
-				height: auto;
-			}
+			// .carousel {
+			// 	width: 9.32rem;
+			// 	height: auto;
+			// }
 
 			.Tickets {
 				padding-right: 0.2rem;
@@ -985,8 +1052,8 @@
 			}
 
 			.vacation-li {
-				width: 2.74rem;
-				margin-right: 0.16rem;
+				width: 100%;
+				// margin-right: 0.16rem;
 
 				h3 {
 					margin-top: 0.12rem;
@@ -1356,11 +1423,12 @@
 	.vacation-hide {
 		.arrow {
 			top: 1.75rem;
-			left: -0.2rem;
+			left: 0.2rem;
 		}
 	}
-	.carousel-wrapper{
-		height: 2.4rem;
+
+	.carousel-wrapper {
+		// height: 2.4rem;
 		position: relative;
 		margin-bottom: 0.64rem;
 	}
@@ -1392,7 +1460,7 @@
 		position: relative;
 
 		.left {
-			left: -0.2rem;
+			left: 0.2rem;
 		}
 
 		.right {
@@ -1414,12 +1482,11 @@
 
 		.carousel-li {
 			cursor: pointer;
-			width: 4.693333333333333rem;
 			height: 2.40rem;
 			position: relative;
 
 			.info {
-				width: 4.693333333333333rem;
+				width: 100%;
 				height: 2.40rem;
 				position: absolute;
 				left: 0;
