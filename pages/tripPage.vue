@@ -178,7 +178,9 @@
 
 		},
 		mounted() {
-			this.setData = JSON.parse(this.$route.query.data)
+			if (sessionStorage.getItem('TotripData')) {
+				this.setData = JSON.parse(sessionStorage.getItem('TotripData'))
+			}
 			this.getoptions()
 		},
 		methods: {
@@ -186,8 +188,12 @@
 			toceltaPage() {
 				this.setData.peopleNum = this.peopleNum
 				this.$router.push({
-					path: '/celtaPage?data=' + JSON.stringify(this.setData)
+					path: '/celtaPage'
 				})
+				// this.$router.push({
+				// 	path: '/celtaPage?data=' + JSON.stringify(this.setData)
+				// })
+				sessionStorage.setItem("TotripData", JSON.stringify(this.setData))
 			},
 			// 获取人数
 			getoptions() {

@@ -627,7 +627,10 @@
 
 		},
 		async created() {
-			this.setData = JSON.parse(this.$route.query.data)
+			// this.setData = JSON.parse(this.$route.query.data)
+			if (sessionStorage.getItem('TotripData')) {
+				this.setData = JSON.parse(sessionStorage.getItem('TotripData'))
+			}
 			this.getpeople()
 			this.getCountryList()
 		},

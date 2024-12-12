@@ -41,7 +41,8 @@
 					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 				</div>
 				<div @mouseover="mouseover(index,item.category_id)" @mouseout="mouseout(item.category_id)"
-					:class="[active==index?'active':'']" v-if="item.net_rate>0" class="item-li" v-for="(item,index) in list" :key="index">
+					:class="[active==index?'active':'']" v-if="item.net_rate>0" class="item-li"
+					v-for="(item,index) in list" :key="index">
 					<div class="text">
 						<div class="text-info">
 							<img src="~assets/images/icon/icon7.png" />
@@ -110,9 +111,13 @@
 				e.date_time = date_time
 				e.city_address = city_address
 
+				// this.$router.push({
+				// 	path: '/tripPage?data=' + JSON.stringify(e)
+				// })
 				this.$router.push({
-					path: '/tripPage?data=' + JSON.stringify(e)
+					path: '/tripPage'
 				})
+				sessionStorage.setItem("TotripData", JSON.stringify(e))
 			},
 			// 移动端选座
 			showSeat() {

@@ -40,7 +40,7 @@
 				<div class="title">כרטיסים לאירועי ספורט</div>
 			</div>
 			<!-- PC -->
-			<div class="carousel-box nomobile">
+			<div class="carousel-box nomobile" v-if="showSwiper">
 				<div class="carousel-wrapper">
 					<div class="carousel">
 						<swiper ref="mySwiper" :options="visibleOption">
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<!-- 移动端 -->
-			<div class="carousel-box ismobile">
+			<div class="carousel-box ismobile" v-if="showSwiper">
 				<div class="carousel-wrapper">
 					<div class="carousel">
 						<swiper ref="mySwiper" :options="swiperOptionM">
@@ -95,7 +95,7 @@
 						<p>.שקיפות מלאה ושירות יוצא דופן</p>
 					</div>
 				</div>
-				<div class="left flex ismobile" style="margin-bottom: 0;">
+				<div class="left flex ismobile" style="margin-bottom: 0;" v-if="showSwiper">
 					<div class="experience-list">
 						<swiper ref="mySwiper" :options="swiperOptionM">
 							<swiper-slide>
@@ -141,7 +141,7 @@
 			<div class="experience-info">
 				<div class="left flex nomobile">
 					<div class="experience-list">
-						<swiper ref="mySwiper" :options="swiperOption">
+						<swiper ref="mySwiper" :options="swiperOption" v-if="showSwiper">
 							<swiper-slide>
 								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
 									<img src="~assets/images/Rectangle 715.png" />
@@ -321,7 +321,7 @@
 				<!-- PC -->
 				<div class="vacation-hide nomobile">
 					<div class="vacation-list">
-						<swiper ref="mySwiper" :options="slideImgOption">
+						<swiper ref="mySwiper" :options="slideImgOption" v-if="showSwiper">
 							<swiper-slide v-for="(item,index) in imagesList" :key="index">
 								<div class="vacation-li">
 									<img :src="item.src" />
@@ -334,7 +334,7 @@
 				<!-- 移动 -->
 				<div class="vacation-hide ismobile">
 					<div class="vacation-list">
-						<swiper ref="mySwiper" :options="swiperOptionM">
+						<swiper ref="mySwiper" :options="swiperOptionM" v-if="showSwiper">
 							<swiper-slide v-for="(item,index) in imagesList" :key="index">
 								<div class="vacation-li">
 									<img :src="item.src" />
@@ -580,15 +580,31 @@
 				},
 				cityval: '',
 				defaultList: [],
-
+				showSwiper: true
 			}
 		},
 		mounted() {
 			this.loadAll();
 			this.initializeVisibleImages();
 			this.getImages()
+			// 监听窗口尺寸变化
+			window.addEventListener('resize', this.handleResize);
+		},
+		beforeDestroy() {
+			window.removeEventListener('resize', this.handleResize);
 		},
 		methods: {
+			handleResize() {
+				this.reloadSwiper();
+			},
+			reloadSwiper() {
+				// 销毁并重新加载 Swiper
+				this.showSwiper = false;
+				this.$nextTick(() => {
+					location.reload()
+					this.showSwiper = true;
+				})
+			},
 			getImages() {
 				this.slideImg = this.imagesList.slice(0, 5); // 初始化显示前三张图片
 			},
@@ -699,14 +715,16 @@
 	}
 </script>
 <style lang="scss" scoped>
-	.nomobile{
+	.nomobile {
 		display: block;
 	}
+
 	@media (max-width: 820px) {
 		.page {
 
 			.carousel-box,
-			.carousel-wrapper,.vacation-hide {
+			.carousel-wrapper,
+			.vacation-hide {
 				margin-bottom: 0 !important;
 			}
 
@@ -914,7 +932,7 @@
 			// .vacation .vacation-list .vacation-li:nth-child(1) {
 			// 	margin-right: 0;
 			// }
-			
+
 
 			.vacation-list {
 				// width: 11.6rem;

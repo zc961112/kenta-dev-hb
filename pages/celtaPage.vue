@@ -71,8 +71,9 @@
 									<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
 									</p>
 									<!-- 移动端下拉查看更多 -->
-									<div class="see-more" :style="{background:selectActive==-1?'linear-gradient(180deg, rgba(254, 238, 242, 0.7) 0%, #FEEEF2 100%)':'linear-gradient(180deg, #fff 0%, #fff 100%)'}" @click.stop="showdirection">מידע נוסף<i
-											class="el-icon-arrow-down"></i></div>
+									<div class="see-more"
+										:style="{background:selectActive==-1?'linear-gradient(180deg, rgba(254, 238, 242, 0.7) 0%, #FEEEF2 100%)':'linear-gradient(180deg, #fff 0%, #fff 100%)'}"
+										@click.stop="showdirection">מידע נוסף<i class="el-icon-arrow-down"></i></div>
 								</div>
 								<!-- 移动端 座位图-->
 								<div class="pm-mobile" v-if="ism&&!direction">
@@ -87,14 +88,17 @@
 												<img src="~assets/images/icon/mapcolse.png" />
 											</div>
 										</div>
-										<div class="info" style="background-color: rgba(255, 50, 99, 0.08);border-color: rgb(255, 50, 99)">
+										<div class="info"
+											style="background-color: rgba(255, 50, 99, 0.08);border-color: rgb(255, 50, 99)">
 											<div class="top">
-												<div class="checkbox" style="background-color: rgb(255, 50, 99); border-color: rgb(255, 50, 99);">
+												<div class="checkbox"
+													style="background-color: rgb(255, 50, 99); border-color: rgb(255, 50, 99);">
 													<img src="~assets/images/icon/select.png" />
 												</div>
 												<div class="tickets">{{defaultData.ticket_title}}</div>
 												<div class="price">
-													<p style="text-align: left;"><span>€{{defaultData.net_rate/100}}</span> +</p>
+													<p style="text-align: left;">
+														<span>€{{defaultData.net_rate/100}}</span> +</p>
 													<div>תוספת לאדם</div>
 												</div>
 											</div>
@@ -470,7 +474,11 @@
 
 		},
 		async created() {
-			this.setData = JSON.parse(this.$route.query.data)
+			if (sessionStorage.getItem('TotripData')) {
+				this.setData = JSON.parse(sessionStorage.getItem('TotripData'))
+			}
+			// this.setData = JSON.parse(this.$route.query.data)
+
 			this.city_address = this.setData.city_address
 			this.date_time = this.setData.date_time
 			this.peopleNum = this.setData.peopleNum
@@ -519,9 +527,13 @@
 				this.setData.event_name = this.event_name
 				this.setData.date_time = this.date_time
 				this.setData.city_address = this.city_address
+				// this.$router.push({
+				// 	path: '/vigopage?data=' + JSON.stringify(this.setData)
+				// })
 				this.$router.push({
-					path: '/vigopage?data=' + JSON.stringify(this.setData)
+					path: '/vigopage'
 				})
+				sessionStorage.setItem("TotripData", JSON.stringify(this.setData))
 			},
 			// 选择
 			selectItem(index, item) {

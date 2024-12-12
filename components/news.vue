@@ -17,7 +17,7 @@
 							<el-dropdown-item>יעדים</el-dropdown-item>
 						</el-dropdown-menu>
 					</el-dropdown>
-		
+
 					<span class="btn-text" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">הרשמה</span>
 					<span class="btn-text" :style="{color:ishome?'rgba(255, 255, 255, 1)':'rgba(26, 26, 26, 0.6)'}">התחברות</span>
 				</div>
@@ -77,7 +77,7 @@
 						</el-collapse-item>
 					</el-collapse>
 					<div class="nav-list">
-		
+
 						<div class="item"><router-link to="../ticket">Events</router-link></div>
 						<div class="item"><router-link to="../about">About us</router-link></div>
 						<div class="item"><router-link to="../blog">Travel Guides</router-link></div>
@@ -259,7 +259,7 @@
 		font-weight: 500;
 		width: 100%;
 		box-sizing: border-box;
-	
+
 		.header-right {
 			padding-left: 0.88rem;
 			display: flex;
