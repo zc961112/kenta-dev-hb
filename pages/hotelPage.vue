@@ -310,7 +310,8 @@
 											:preview-src-list="item.images">
 										</el-image>
 										<p v-if="item.images?item.images.length>0:false">תמונות
-											{{item.images?item.images.length:0}}<i class="el-icon-view"></i></p>
+											{{item.images?item.images.length:0}}<i class="el-icon-view"></i>
+										</p>
 									</div>
 								</div>
 								<div class="item-li">
@@ -484,8 +485,6 @@
 			this.dayTime = this.$route.query.time
 			this.defaultTime = this.$route.query.time
 			this.searchOffset = this.$refs.searchElement.offsetTop;
-			this.checkIfMobile()
-			window.addEventListener("resize", this.checkIfMobile);
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 
 			if (this.$route.query.adults) {
@@ -500,14 +499,20 @@
 		methods: {
 			// 跳去下一个页面
 			tocheckout(e) {
+				let peopleNum = 2
+				if (this.list.length > 0) {
+					peopleNum = this.list[0].value + this.list[1].value
+				}
 				let query = {
 					room_name: e.room_name,
 					book_hash: e.book_hash,
-					taxprice: this.futax(e),
-					unit: this.fuunit(e),
+					// taxprice: this.futax(e),
+					// unit: this.fuunit(e),
+					taxes:JSON.stringify(e.payment_options.payment_types[0].tax_data.taxes),
 					hid: this.$route.query.id,
 					checkin: this.modifyData.checkin,
 					checkout: this.modifyData.checkout,
+					peopleNum: peopleNum
 					// other: JSON.stringify(this.other)
 				}
 				this.$router.push({
@@ -571,6 +576,7 @@
 			changeGuests(data) {
 				this.loading = true
 				this.modifyData.adults = data[0].value
+				this.list = data
 				// 获取未成年人
 				let children = []
 				if (data[1].value > 0) {
@@ -629,8 +635,10 @@
 					let arr = res.data.hotels[0].rates
 					this.hotelslist = []
 					this.other = res.data.other
-					this.otherimg = this.other.images?(this.other.images.length > 2 ? this.other.images.slice(0, 2) : []):[]
-					this.mimgNum = res.data.other.images?(res.data.other.images.length > 0 ? res.data.other.images.length : 0):0
+					this.otherimg = this.other.images ? (this.other.images.length > 2 ? this.other.images.slice(0,
+						2) : []) : []
+					this.mimgNum = res.data.other.images ? (res.data.other.images.length > 0 ? res.data.other
+						.images.length : 0) : 0
 					arr.forEach(element => {
 						let index = this.hotelslist.findIndex(t => {
 							return t.room_name === element.room_name
@@ -658,6 +666,10 @@
 						this.priceOffset = this.$refs.priceElement.offsetTop;
 					})
 					window.addEventListener('scroll', this.handleScroll);
+					
+					this.checkIfMobile()
+					window.addEventListener("resize", this.checkIfMobile);
+					
 				}).catch(err => {
 					this.loading = false
 				})

@@ -92,7 +92,8 @@
 			casino: Object,
 			isActive: Boolean,
 			dayTime: String,
-			adults: String
+			adults: String,
+			children:Array
 		},
 		data() {
 			return {

@@ -23,6 +23,7 @@ import {
 	getHotelsByRegion,
 	postgetIndexData
 } from '@/api/kentaHb'
+import tday from '@/utils/time.js'
 export default {
 	data() {
 		return {
@@ -373,7 +374,8 @@ export default {
 
 							const el = document.createElement('div')
 							el.id = 'marker_' + (item.id || '-')
-							el.innerHTML = '₪ ' + (item.daily_prices != null ? (item.daily_prices[0]||'לא זמין') :
+							el.innerHTML = '₪ ' + (item.daily_prices != null ? (item.daily_prices[0] ||
+									'לא זמין') :
 								'לא זמין')
 							el.className = 'map-area-marker'
 							const marker = new mapboxgl.Marker(el)
@@ -514,6 +516,24 @@ export default {
 			this.dayRageIndex = value
 		},
 		changeGuests(data) {
+			this.loading = true
+			// 默认时间
+			if (!this.modifyData.checkin && !this.modifyData.checkout) {
+				let dayTime = tday.tdaytime(0) + '/' + tday.tdaytime(1)
+				let checkin = (dayTime.split("/")[0]).split("-")
+				let checkinTime = checkin[2] + '-' +
+					checkin[1] + '-' + checkin[0]
+
+				let checkout = (dayTime.split("/")[1]).split("-")
+				let checkoutTime = checkout[2] + '-' +
+					checkout[1] + '-' + checkout[0]
+
+				this.modifyData.checkin = checkinTime
+				this.modifyData.checkout = checkoutTime
+			}
+
+			// 成人
+			this.modifyData.ids = this.ids
 			this.modifyData.adults = data[0].value
 			this.modifyData.region_id = this.id
 			// 获取未成年人
@@ -526,14 +546,7 @@ export default {
 			}
 			this.modifyData.children = children.length > 0 ? children : [12],
 				this.replacePrice()
-			// this.replacePrice()
-			// console.log(data)
-			// data.forEach(item => {
-			// 	const index = this.searchQuery.guestList.findIndex(g => g.label === item.label)
-			// 	this.searchQuery.guestList[index].value = item.value
-			// })
-			// updateSessionQuery(this.searchQuery)
-
+				
 			this.adults = JSON.stringify(data)
 		}
 	},

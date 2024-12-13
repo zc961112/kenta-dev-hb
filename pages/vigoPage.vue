@@ -14,7 +14,7 @@
 						ההזמנה כמעט מוכנה!
 					</div>
 					<el-form :model="payForm" :rules="rules" ref="payForm" class="form">
-						<div class="form-info">
+						<div class="form-info form-info1">
 							<p class="t">פרטי המזמין/מטייל</p>
 							<p class="f">נא למלא את כל הפרטים</p>
 							<el-form-item label=" " required>
@@ -158,7 +158,7 @@
 					</el-form>
 
 					<div class="ready" v-if="payForm.other_data.length>0">
-						נוסע 2
+						נוסע {{payForm.other_data.length}}
 					</div>
 					<div class="other_data">
 						<div v-if="payForm.other_data.length>0" class="form" v-for="(item,index) in payForm.other_data"
@@ -178,7 +178,7 @@
 								<div class="form-li">
 									<div class="form-li-f">
 										<p>אזרחות</p>
-										<span style="left: 16px; top: 55px;" class="i">i</span>
+										<span style="left: 16px; top: 40px;" class="i">i</span>
 										<el-select v-model="item.country" placeholder="Choose your nationality">
 											<el-option v-for="item in CountryList" :key="item.alpha_3"
 												:label="item.name" :value="item.alpha_3">
@@ -734,9 +734,10 @@
 
 	@media (max-width: 820px) {
 		.page {
-			.no-p{
+			.no-p {
 				display: none;
 			}
+
 			.content {
 				width: 100%;
 				padding: 0 0.2rem;
@@ -799,7 +800,15 @@
 				flex: inherit;
 			}
 
-			.form .i {
+			.form-li-f .i {
+				top: 0.48rem !important;
+			}
+			.form-info1::v-deep .el-input__inner,.Contact::v-deep .el-input__inner{
+				height: 0.48rem;
+				line-height: 0.48rem;
+			}
+
+			.form-info1 .i {
 				top: 0.4rem !important;
 			}
 

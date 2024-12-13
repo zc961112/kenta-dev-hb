@@ -24,10 +24,13 @@
 							<p class="flex">₪ {{price}}</p>
 							<div>מחיר לילה</div>
 						</div>
-						<div class="text">עבור 3 לילות, 2 אורחים</div>
-						<div class="bottom">
-							<p class="flex">{{unit}} {{taxprice}}</p>
-							<div>כולל מס מגורים</div>
+						<div class="text">
+							עבור {{peopleday}} לילות, {{peopleNum}} אורחים
+						</div>
+
+						<div class="bottom" style="margin-bottom: 10px;" v-for="(item,index) in taxestop" :key="index">
+							<p class="flex">{{item.unit}} {{item.amount}}</p>
+							<div>{{item.name}}</div>
 						</div>
 						<div class="item">
 							מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
@@ -40,9 +43,9 @@
 					<div class="price-c">
 						<div class="bg">
 							<div class="name">תשלום בעת ההגעה</div>
-							<div class="info">
-								<p class="flex">{{unit}} {{taxprice}}</p>
-								<div>דמי נופש</div>
+							<div class="info" v-for="(item,index) in taxesbot" :key="index">
+								<p class="flex">{{item.unit}} {{item.amount}}</p>
+								<div>{{item.name}}</div>
 							</div>
 						</div>
 						<div class="b">
@@ -72,10 +75,12 @@
 								<p class="flex">₪ {{price}}</p>
 								<div>מחיר לילה</div>
 							</div>
-							<div class="text">עבור 3 לילות, 2 אורחים</div>
-							<div class="bottom">
-								<p class="flex">{{unit}} {{taxprice}}</p>
-								<div>כולל מס מגורים</div>
+							<div class="text">
+								עבור {{peopleday}} לילות, {{peopleNum}} אורחים
+							</div>
+							<div class="bottom" style="margin-bottom: 10px;" v-for="(item,index) in taxestop" :key="index">
+								<p class="flex">{{item.unit}} {{item.amount}}</p>
+								<div>{{item.name}}</div>
 							</div>
 							<div class="item">
 								מידע חשוב <img src="~assets/images/icon/info-feature-s.png" />פירוט ההזמנה
@@ -86,11 +91,11 @@
 							</div>
 						</div>
 						<div class="price-c">
-							<div class="bg">
+							<div class="bg"> 
 								<div class="name">תשלום בעת ההגעה</div>
-								<div class="info">
-									<p class="flex">{{unit}} {{taxprice}}</p>
-									<div>דמי נופש</div>
+								<div class="info" v-for="(item,index) in taxesbot" :key="index">
+									<p class="flex">{{item.unit}} {{item.amount}}</p>
+									<div>{{item.name}}</div>
 								</div>
 							</div>
 							<div class="b">
@@ -315,11 +320,51 @@
 							</el-form>
 						</div>
 						<div class="select">
-							<el-select v-model="input" placeholder="הזינו אורחים נוספים">
-								<el-option v-for="item in options" :key="item.value" :label="item.label"
-									:value="item.value">
-								</el-option>
-							</el-select>
+							<div class="select-from" v-if="hideFrom" v-for="(item,index) in payForm.other_data"
+								:key="index">
+								<div class="select-from-li">
+									<el-row :gutter="20">
+										<el-col :xs="24" :span="12">
+											<p></p>
+										</el-col>
+										<el-col :xs="24" :span="12">
+											<el-input v-model="item.first_name" placeholder="שם משפחה*"></el-input>
+										</el-col>
+									</el-row>
+								</div>
+								<div class="select-from-li">
+									<el-row :gutter="20">
+										<el-col :xs="24" :span="12">
+											<p></p>
+										</el-col>
+										<el-col :xs="24" :span="12">
+											<el-input v-model="item.last_name" placeholder="שם פרטי*"></el-input>
+										</el-col>
+									</el-row>
+								</div>
+								<div class="select-email">
+									<div class="email" @click="emailSelect(item)">
+										<div class="checkbox" :class="[item.emailSelect?'checkboxcurrent':'']">
+											<img v-if="item.emailSelect" src="~assets/images/icon/select.png" />
+										</div>
+										<div class="p">Send the confirmation copy to this guest</div>
+									</div>
+								</div>
+								<div class="select-from-li" v-if="item.emailSelect">
+									<el-row :gutter="20">
+										<el-col :xs="24" :span="12">
+											<p></p>
+										</el-col>
+										<el-col :xs="24" :span="12">
+											<el-input v-model="item.email" placeholder="דואר אלקטרוני*"></el-input>
+										</el-col>
+									</el-row>
+								</div>
+							</div>
+							<div class="selectdown" @click="hideFrom=!hideFrom">
+								<div class="n">הזינו אורחים נוספים <i :class="[!hideFrom?'xz':'']"
+										class="el-icon-arrow-down"></i></div>
+							</div>
 							<p>לא חייב, מיועד כאישור הזמנה עבור קבלת ויזה</p>
 						</div>
 						<div class="select-time">
@@ -368,10 +413,10 @@
 					<p class="flex">₪ {{price}}</p>
 					<div>מחיר לילה</div>
 				</div>
-				<div class="text">עבור 3 לילות, 2 אורחים</div>
-				<div class="bottom">
-					<p class="flex">{{unit}} {{taxprice}}</p>
-					<div>כולל מס מגורים</div>
+				<div class="text">עבור {{peopleday}} לילות, {{peopleNum}} אורחים</div>
+				<div class="bottom" style="margin-bottom:10px" v-for="(item,index) in taxestop" :key="index">
+					<p class="flex">{{item.unit}} {{item.amount}}</p>
+					<div>{{item.name}}</div>
 				</div>
 			</div>
 		</div>
@@ -391,6 +436,9 @@
 		findPwdSendMail,
 		Topaymentpage
 	} from '@/api/login'
+	import {
+		currencyMap
+	} from '@/config/paypal.js'
 	import {
 		getToken,
 		setToken,
@@ -416,6 +464,7 @@
 					value: '"אזרחות*',
 					label: '"אזרחות*'
 				}],
+				hideFrom: false,
 				setData: {},
 				timer: null,
 				count: 10 * 60, // 转换为秒
@@ -543,9 +592,12 @@
 					first_name: '',
 					last_name: '',
 					partner_order_id: '',
-					order_id: ''
+					order_id: '',
+					other_data: []
 				},
 				hotelslist: [],
+				peopleNum: 1,
+				peopleday: 1,
 				rules: {
 					first_name: [{
 						required: true,
@@ -601,14 +653,17 @@
 						required: true,
 						message: 'Please enter the email',
 						trigger: 'blur'
-					}]
-				}
+					}],
+				},
+				taxestop: [],
+				taxesbot: []
 			}
 
 		},
 		created() {
-			this.taxprice = this.$route.query.taxprice
-			this.unit = this.$route.query.unit
+			// this.taxprice = this.$route.query.taxprice
+			this.peopleNum = this.$route.query.peopleNum
+			// this.unit = this.$route.query.unit
 			this.checkin = this.$route.query.checkin
 			this.checkout = this.$route.query.checkout
 			this.room_name = this.$route.query.room_name
@@ -618,6 +673,11 @@
 			this.startCountdown();
 			this.getCountryList()
 			this.getHotel()
+			this.getpeopleday()
+			this.getpeople()
+			this.cftaxes()
+			// this.taxesList = JSON.parse(this.$route.query.taxes)
+			// console.log(this.taxesList,"税费")
 		},
 		computed: {
 			countdown() {
@@ -638,6 +698,70 @@
 			this.clearCountdown();
 		},
 		methods: {
+			// 税费遍历
+			cftaxes() {
+				let list = JSON.parse(this.$route.query.taxes)
+				if (list.length > 0) {
+					list.forEach(item => {
+						console.log(item)
+						if (item.included_by_supplier) {
+							this.taxestop.push(item)
+						} else {
+							this.taxesbot.push(item)
+						}
+					})
+				}
+				this.taxestop.forEach(item=>{
+					Object.keys(currencyMap).forEach(key => {
+						if (item.currency_code == key) {
+							item.unit = currencyMap[key]
+						}
+					})
+				})
+				this.taxesbot.forEach(item=>{
+					Object.keys(currencyMap).forEach(key => {
+						if (item.currency_code == key) {
+							item.unit = currencyMap[key]
+						}
+					})
+				})
+			},
+			// 邮箱选择
+			emailSelect(e) {
+				e.emailSelect = !e.emailSelect
+				if (!e.emailSelect) {
+					e.email = ''
+				}
+			},
+			// 获取人数
+			getpeople() {
+				if (this.$route.query.peopleNum > 1) {
+					for (let i = 0; i < (this.$route.query.peopleNum - 1); i++) {
+						this.topush()
+					}
+				} else {
+					this.payForm.other_data = []
+				}
+			},
+			// 追击
+			topush() {
+				let data = {
+					last_name: '',
+					first_name: '',
+					email: '',
+					emailSelect: true
+				}
+				this.payForm.other_data.push(data)
+			},
+			// 计算多少晚
+			getpeopleday() {
+				// 创建两个日期对象
+				let date1 = new Date(this.$route.query.checkin);
+				let date2 = new Date(this.$route.query.checkout);
+				let timeDifference = date2 - date1;
+				let daysDifference = timeDifference / (1000 * 3600 * 24);
+				this.peopleday = daysDifference
+			},
 			getHotel() {
 				let modifyData = {
 					checkin: this.$route.query.checkin,
@@ -852,6 +976,81 @@
 		display: none;
 	}
 
+	.select-from {
+		border-bottom: 1px solid rgb(218, 218, 218);
+		padding: 0.24rem 1.16rem;
+	}
+
+	.select-from:nth-last-child(1) {
+		border: none;
+	}
+
+	.select-email {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		margin-bottom: 22px;
+
+		.email {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+		}
+
+		.p {
+			margin-top: 0;
+			margin-left: 0.1rem;
+		}
+	}
+
+	.checkboxcurrent {
+		border: 1px solid rgb(255, 50, 99) !important;
+		background-color: rgb(255, 50, 99) !important;
+	}
+
+
+	.checkbox {
+		width: 0.20rem;
+		height: 0.20rem;
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		border: 1px solid rgb(218, 218, 218);
+		background-color: #fff;
+
+		img {
+			width: 0.10rem;
+			height: 0.10rem;
+		}
+	}
+
+	.select-from-li {
+		margin-bottom: 22px;
+	}
+
+	.selectdown {
+		margin: 0.24rem 1.16rem 0 1.16rem;
+		width: 2.09rem;
+		border: 1px solid #FF3263;
+		border-radius: 4px;
+		height: 0.4rem;
+		line-height: 0.4rem;
+		display: inline-block;
+		padding: 0 0.24rem;
+		font-size: 0.16rem;
+		color: #FF3263;
+		cursor: pointer;
+		background: rgba(255, 50, 99, 0.08);
+
+		i {
+			margin-left: 0.1rem;
+			font-weight: bold;
+			transition: ease .3s;
+		}
+	}
+
 	.imgicon {
 		width: 0.12rem;
 		height: auto;
@@ -875,7 +1074,47 @@
 	}
 
 	@media (max-width: 820px) {
+		.el-form::v-deep .el-col-12 {
+			margin-bottom: 22px;
+		}
+
+		.el-form::v-deep .el-col-12:nth-last-child(1) {
+			margin-bottom: 0;
+		}
+
+		.select-from::v-deep .el-col-12 {
+			margin-bottom: 0;
+		}
+
 		.checkoutPage {
+			.selectdown {
+				width: 100%;
+				text-align: center;
+				padding: 0;
+				margin: 0;
+			}
+
+			.content .user .select p {
+				padding: 0;
+			}
+
+			.selectdown {
+				margin-bottom: 0.08rem;
+			}
+
+			.select-from {
+				margin-bottom: 0.22rem;
+				padding: 0;
+			}
+
+			.select-email {
+				justify-content: center;
+			}
+
+			.select-email .p {
+				font-size: 0.12rem;
+				text-align: center;
+			}
 
 			.no-PC-img,
 			.wallet-m {
@@ -1174,7 +1413,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		padding: 16px 1.72rem 16px 0;
+		padding: 16px 1.16rem 16px 0;
 
 		p {
 			direction: rtl;
@@ -1278,7 +1517,7 @@
 		align-items: flex-start;
 
 		.form-li {
-			padding-right: 0.56rem;
+			// padding-right: 0.56rem;
 			margin-bottom: 0.16rem;
 			display: flex;
 
@@ -1301,25 +1540,23 @@
 			margin-top: 16px;
 
 			.select::v-deep .el-input__inner {
-				background-color: rgba(255, 50, 99, 0.08);
-				color: rgba(255, 50, 99, 1);
-				border-color: rgba(255, 50, 99, 1);
-				font-size: 0.16rem;
-				font-weight: 400;
-
+				text-align: right;
+				direction: rtl;
+				height: 0.48rem;
+				line-height: 0.48rem;
 			}
 
 			.select::v-deep .el-select-dropdown__item {
 				text-align: right;
 			}
 
-			.select::v-deep .el-input__inner::placeholder {
-				color: rgba(255, 50, 99, 1);
-			}
+			// .select::v-deep .el-input__inner::placeholder {
+			// 	color: rgba(255, 50, 99, 1);
+			// }
 
-			.select::v-deep .el-select .el-input .el-select__caret {
-				color: rgba(255, 50, 99, 1);
-			}
+			// .select::v-deep .el-select .el-input .el-select__caret {
+			// 	color: rgba(255, 50, 99, 1);
+			// }
 
 			.select::v-deep .el-select {
 				width: 209px;
@@ -1355,7 +1592,7 @@
 			}
 
 			.select-time {
-				padding: 0.24rem 1.72rem 0.24rem 1.16rem;
+				padding: 0.24rem 1.16rem;
 				text-align: right;
 
 				.select-menu {
@@ -1390,14 +1627,14 @@
 			.select {
 				border-top: 1px solid rgba(218, 218, 218, 1);
 				border-bottom: 1px solid rgba(218, 218, 218, 1);
-				padding: 0.24rem 1.72rem 0.24rem 1.16rem;
+				// padding: 0.24rem 1.16rem;
 				text-align: right;
 
 				p {
-					margin-top: 8px;
 					font-size: 0.12rem;
 					font-weight: 400;
 					text-align: right;
+					padding: 0.08rem 1.16rem 0.24rem 1.16rem;
 					color: rgba(26, 26, 26, 0.6);
 				}
 			}
