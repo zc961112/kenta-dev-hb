@@ -24,7 +24,7 @@
 								<el-autocomplete @keyup.enter.native="search" suffix-icon="el-icon-search"
 									class="pac-input" v-model="searchQuery.destinationName"
 									:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''"
-									placeholder="Caesar’s Palace Hotel & Casino" @select="handleSelect">
+									:placeholder="other.name" @select="handleSelect">
 									<template slot-scope="{ item }">
 										<div>{{ item.city }}</div>
 									</template>
@@ -37,7 +37,7 @@
 			<div class="warps">
 				<div class="navs">
 					<span class="span-li">
-						<span>Caesar’s Palace Hotel & Casino</span><i class="el-icon-arrow-left"></i>
+						<span>{{other.name}}</span><i class="el-icon-arrow-left"></i>
 					</span>
 
 					<span class="span-li">
@@ -70,7 +70,7 @@
 									</p>
 									<div class="xx-info">
 										<span class="line m-line-no"></span>
-										<span class="p rtl">0.0 ק״מ ממרכז העיר</span>
+										<span class="p rtl">{{other.distance_client}} ק״מ ממרכז העיר</span>
 										<span class="line"></span>
 										<div class="rate">
 											<el-rate void-color="#FFB800" :value="other.star_rating" />
@@ -110,7 +110,7 @@
 						<div class="price-info flex">
 							<div class="bgs"></div>
 							<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
-							<button>לצפיה בדילים</button>
+							<button @click="tocheckout(hotelslist[0])">לצפיה בדילים</button>
 							<div class="num">₪ {{hotelslist.length>0? hotelslist[0].children[0].daily_prices:0}} -מ
 							</div>
 							<div class="flex"></div>
@@ -318,7 +318,7 @@
 									<div class="item-li-info" v-for="(item2,index2) in item.children" :key="index2">
 										<div class="info item-l">
 											<div class="btn">
-												<p>המחיר הכי טוב</p>
+												<p v-if="index2==0">המחיר הכי טוב</p>
 												<div class="button" @click="tocheckout(item)">
 													הזמינו עכשיו
 												</div>
@@ -508,7 +508,7 @@
 					book_hash: e.book_hash,
 					// taxprice: this.futax(e),
 					// unit: this.fuunit(e),
-					taxes:JSON.stringify(e.payment_options.payment_types[0].tax_data.taxes),
+					taxes: JSON.stringify(e.payment_options.payment_types[0].tax_data.taxes),
 					hid: this.$route.query.id,
 					checkin: this.modifyData.checkin,
 					checkout: this.modifyData.checkout,
@@ -666,10 +666,10 @@
 						this.priceOffset = this.$refs.priceElement.offsetTop;
 					})
 					window.addEventListener('scroll', this.handleScroll);
-					
+
 					this.checkIfMobile()
 					window.addEventListener("resize", this.checkIfMobile);
-					
+
 				}).catch(err => {
 					this.loading = false
 				})
@@ -1282,6 +1282,7 @@
 								font-size: 0.14rem;
 								font-weight: 400;
 								color: rgba(0, 188, 147, 1);
+								margin-left: 0.16rem;
 							}
 						}
 					}
@@ -1654,6 +1655,7 @@
 						font-size: 0.14rem;
 						font-weight: 400;
 						color: rgba(26, 26, 26, 0.6);
+						direction: rtl;
 					}
 
 					.m-line {

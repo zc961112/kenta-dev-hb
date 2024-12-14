@@ -49,7 +49,7 @@
 							<el-rate void-color="#FFB800" :value="casino.star_rating" />
 							<div class="disabled"></div>
 						</div>
-						<div class="text">0.0 ק״מ ממרכז העיר</div>
+						<div class="text"><span>{{casino.distance_client}}</span> ק״מ ממרכז העיר</div>
 					</div>
 				</div>
 				<div class="price">
@@ -93,7 +93,7 @@
 			isActive: Boolean,
 			dayTime: String,
 			adults: String,
-			children:Array
+			children: Array
 		},
 		data() {
 			return {
@@ -148,6 +148,14 @@
 
 			.c-casino-box .ccb-left {
 				width: 100%;
+			}
+
+			.c-casino-box .ccb-left img {
+				width: 100%;
+			}
+
+			.ccb-left img {
+				height: 100%;
 			}
 
 			.isMobile {
@@ -233,6 +241,7 @@
 			width: 2.15rem;
 			height: 1.62rem;
 			position: relative;
+			overflow: hidden;
 		}
 
 		.ccb-img-eye {
@@ -305,6 +314,7 @@
 						font-size: 0.12rem;
 						font-weight: 400;
 						color: rgba(26, 26, 26, 0.6);
+						direction: rtl;
 					}
 				}
 
@@ -315,6 +325,8 @@
 						margin-top: 4px;
 						font-size: 0.12rem;
 						font-weight: 400;
+						direction: rtl;
+						text-align: left;
 					}
 
 					.top {

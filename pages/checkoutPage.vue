@@ -125,26 +125,27 @@
 								<!-- PC端 -->
 								<div class="l nomobile">
 									<p class="day">צ'ק אין - 16:00</p>
-									<p class="time">{{checkout}}</p>
-									<p class="house">צ'ק אאוט - 11:00</p>
 									<p class="time">{{checkin}}</p>
+									<p class="house">צ'ק אאוט - 11:00</p>
+									<p class="time">{{checkout}}</p>
 								</div>
+								<div class="flex"></div>
 								<!-- 移动端 -->
 								<div class="ismobile">
 									<div class="m-time">
 										<div class="m-time-li">
 											<p class="t">צ'ק אאוט - 11:00</p>
-											<p>{{checkout}}</p>
+											<p>{{checkin}}</p>
 										</div>
 										<div class="m-time-li">
 											<p class="t">צ'ק אין - 16:00</p>
-											<p>{{checkin}}</p>
+											<p>{{checkout}}</p>
 										</div>
 									</div>
 								</div>
 								<div class="r">
 									<div class="score">
-										<p>0.0 ק״מ ממרכז העיר</p>
+										<p>{{other.distance_client}} ק״מ ממרכז העיר</p>
 										<div class="line"></div>
 										<div class="rate">
 											<el-rate void-color="#FFB800" :value="other.star_rating" />
@@ -220,7 +221,7 @@
 							</el-image>
 						</div>
 					</div>
-					<div class="more" v-if="!hasToken" @click="showLogin">
+					<!-- <div class="more" v-if="!hasToken" @click="showLogin">
 						הזמן מהר יותר - התחבר לקנטה<i :class="[!hide?'xz':'']" class="el-icon-arrow-down"></i>
 					</div>
 					<div class="user" v-if="!hasToken&&hide">
@@ -264,7 +265,7 @@
 								{{showPassword?'המשך' : 'המשך'}}
 							</button>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="user">
 						<div class="top">
@@ -480,8 +481,8 @@
 				surname: '',
 				username: '',
 				timeList: [{
-						label: 'Unknown',
-						value: 'Unknown'
+						label: 'לא ידוע',
+						value: 'לא ידוע'
 					},
 					{
 						label: '16:00',
@@ -516,52 +517,52 @@
 						value: '23:00'
 					},
 					{
-						label: '00:00, היום השני',
-						value: '00:00, היום השני'
+						label: '00:00, למחרת',
+						value: '00:00, למחרת'
 					},
 					{
-						label: '01:00, היום השני',
-						value: '01:00, היום השני'
+						label: '01:00, למחרת',
+						value: '01:00, למחרת'
 					},
 					{
-						label: '02:00, היום השני',
-						value: '02:00, היום השני'
+						label: '02:00, למחרת',
+						value: '02:00, למחרת'
 					},
 					{
-						label: '03:00, היום השני',
-						value: '03:00, היום השני'
+						label: '03:00, למחרת',
+						value: '03:00, למחרת'
 					},
 					{
-						label: '04:00, היום השני',
-						value: '04:00, היום השני'
+						label: '04:00, למחרת',
+						value: '04:00, למחרת'
 					},
 					{
-						label: '05:00, היום השני',
-						value: '05:00, היום השני'
+						label: '05:00, למחרת',
+						value: '05:00, למחרת'
 					},
 					{
-						label: '06:00, היום השני',
-						value: '06:00, היום השני'
+						label: '06:00, למחרת',
+						value: '06:00, למחרת'
 					},
 					{
-						label: '07:00, היום השני',
-						value: '07:00, היום השני'
+						label: '07:00, למחרת',
+						value: '07:00, למחרת'
 					},
 					{
-						label: '08:00, היום השני',
-						value: '08:00, היום השני'
+						label: '08:00, למחרת',
+						value: '08:00, למחרת'
 					},
 					{
-						label: '09:00, היום השני',
-						value: '09:00, היום השני'
+						label: '09:00, למחרת',
+						value: '09:00, למחרת'
 					},
 					{
-						label: '10:00, היום השני',
-						value: '10:00, היום השני'
+						label: '10:00, למחרת',
+						value: '10:00, למחרת'
 					},
 					{
-						label: '11:00, היום השני',
-						value: '11:00, היום השני'
+						label: '11:00, למחרת',
+						value: '11:00, למחרת'
 					}
 				],
 				loginForm: {
@@ -1797,12 +1798,14 @@
 									color: rgba(26, 26, 26, 0.6);
 									font-size: 0.14rem;
 									font-weight: 400;
+									direction: rtl;
 								}
 							}
 						}
 
 						.l {
-							flex: 1;
+							// flex: 1;
+							text-align: right;
 
 							.day {
 								font-size: 0.12rem;
@@ -1823,7 +1826,7 @@
 								font-size: 0.14rem;
 								font-weight: 400;
 								direction: rtl;
-								text-align: left;
+								text-align: right;
 							}
 						}
 

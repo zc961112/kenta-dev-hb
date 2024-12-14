@@ -73,7 +73,7 @@
 					{
 						label: 'ילדים',
 						tips: 'גילאים 18-',
-						value: 1
+						value: 0
 					},
 					// {
 					// 	label: 'Infants',
@@ -113,10 +113,16 @@
 					// 	this.$set(this.guestList[0], 'min', 0);
 					// }
 					if (gutstNum == 1) {
-						gustText += gutstNum + ' guest'
+						gustText += gutstNum + ' אורחים'
 					} else if (gutstNum > 0) {
-						gustText += gutstNum + ' guests'
+						gustText += gutstNum + ' אורחים'
 					}
+					
+					// if (gutstNum == 1) {
+					// 	gustText += gutstNum + ' guest'
+					// } else if (gutstNum > 0) {
+					// 	gustText += gutstNum + ' guests'
+					// }
 					// if (infantNum == 1) {
 					// 	infantText += ' ,' + infantNum + ' infant'
 					// } else if (infantNum > 1) {
@@ -192,6 +198,7 @@
 	.filter-member-point::v-deep .el-input__inner {
 		text-align: right;
 		padding: 0 32px;
+		direction: rtl;
 	}
 
 	.draweryd {

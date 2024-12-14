@@ -67,6 +67,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.logo{
+		text-align: right;
+	}
 	@media (max-width: 820px) {
 		.footer {
 			display: flex;

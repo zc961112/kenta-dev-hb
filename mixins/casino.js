@@ -77,7 +77,7 @@ export default {
 				region_id: "",
 				ids: "",
 				adults: 1,
-				children: [12]
+				children: []
 			},
 			displayMap: '',
 			displayRight: '',
@@ -544,7 +544,7 @@ export default {
 					children.push(data)
 				}
 			}
-			this.modifyData.children = children.length > 0 ? children : [12],
+			this.modifyData.children = children.length > 0 ? children : [],
 				this.replacePrice()
 				
 			this.adults = JSON.stringify(data)

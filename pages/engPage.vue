@@ -1,14 +1,14 @@
 <template>
 	<div class="page theme-xs2event">
 		<new-header />
-		<div class="banner">
+		<div class="banner" v-loading="loading">
 			<div class="info">
 				<div class="navigation">
 					<span>בית</span>
 					<i class="el-icon-arrow-right"></i>
 					<span>אירועים</span>
 					<i class="el-icon-arrow-right"></i>
-					<span>Dutch Grand Prix</span>
+					<span>{{$route.query.event_name}}</span>
 				</div>
 				<h1 class="name">
 					{{$route.query.event_name}}
@@ -92,6 +92,7 @@
 				InfoData: null,
 				date_stop: '',
 				date_start: '',
+				loading: true,
 			}
 		},
 		async created() {
@@ -151,6 +152,9 @@
 					this.list = res.tickets
 					this.InfoData = res
 					this.getmap(res)
+					this.loading = false
+				}).catch(err => {
+					this.loading = false
 				})
 			},
 			async getmap(res) {
