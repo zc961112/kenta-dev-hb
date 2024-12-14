@@ -601,7 +601,7 @@
 				// 销毁并重新加载 Swiper
 				this.showSwiper = false;
 				this.$nextTick(() => {
-					location.reload()
+					// location.reload()
 					this.showSwiper = true;
 				})
 			},
