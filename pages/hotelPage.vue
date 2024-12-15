@@ -683,7 +683,8 @@
 							allotment: element.allotment,
 							meal: element.meal,
 							meal_data: element.meal_data,
-							daily_prices: this.getprice(element.daily_prices),
+							// daily_prices: this.getprice(element.daily_prices),
+							daily_prices:element.daily_prices[0],
 							bedding_type: element.room_data_trans.bedding_type,
 							amenities_data: element.amenities_data.some(s => s == 'non-smoking'),
 							amenities_datacx: element.amenities_data.some(s => s ==
