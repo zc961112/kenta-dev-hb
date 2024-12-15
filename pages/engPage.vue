@@ -51,9 +51,10 @@
 								<p>שישי - ראשון</p>
 							</div>
 						</div>
-						<div class="icon-img">
-							<img src="~assets/images/icon/icon6.png" />
-							<img src="~assets/images/icon/icon5.png" />
+						<div class="icon-img icon-img1">
+							<img v-if="item.options.numbered_seat" src="~assets/images/icon/icon6.png" />
+							<img v-if="item.options.covered_seat" src="~assets/images/icon/icon5.png" />
+							<img v-if="item.options.videowall" src="~assets/images/icon/room-feature.png" />
 						</div>
 					</div>
 					<div @click="totripPage(item)" tag="button" class="button" style="cursor: pointer;direction: ltr;">
@@ -349,12 +350,16 @@
 					display: flex;
 					align-items: center;
 				}
+				.icon-img1{
+					img {
+						margin-left: 0.08rem;
+					}
+				}
 
 				img {
 					width: 0.24rem;
 					height: 0.24rem;
 					object-fit: contain;
-					// margin-right: 0.15rem;
 				}
 
 			}

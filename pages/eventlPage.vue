@@ -52,7 +52,7 @@
 										<span v-if="item.number_of_tickets==0||item.number_of_tickets==null"
 											class="no-stock">אזל המלאי</span>
 										<span v-else
-											class="num">€{{item.min_ticket_price_eur?(item.min_ticket_price_eur/100).toFixed(2):'0.00'}}</span>
+											class="num">€{{item.min_ticket_price_eur?item.min_ticket_price_eur:'0.00'}}</span>
 									</div>
 									<div class="text">
 										<p>{{item.season}} {{item.tournament_name}}</p>

@@ -160,7 +160,7 @@
 									</div>
 									<div class="tickets">{{item.ticket_title}}</div>
 									<div class="price">
-										<p style="text-align: left;" :style="{color:selectActive==index?'rgb(255, 50, 99)!important':'rgb(0, 188, 147)!important'}"> <span >€{{(item.net_rate/100) - (defaultData.net_rate/100)}}</span> +</p>
+										<p style="text-align: left;" :style="{color:selectActive==index?'rgb(255, 50, 99)!important':'rgb(0, 188, 147)!important'}"> <span >€{{((item.net_rate/100) - (defaultData.net_rate/100)).toFixed(2)}}</span> +</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
@@ -243,7 +243,7 @@
 								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
-								€{{(setData.net_rate/100)*peopleNum}}
+								€{{((setData.net_rate/100)*peopleNum).toFixed(2)}}
 							</div>
 						</div>
 						<div class="order">
@@ -329,7 +329,7 @@
 										<p>ללא עלויות נוספות</p>
 									</div>
 									<div class="num">
-										€{{(setData.net_rate/100)*peopleNum}}
+										€{{((setData.net_rate/100)*peopleNum).toFixed(2)}}
 									</div>
 								</div>
 								<div class="order">
@@ -440,7 +440,7 @@
 		<div class="suspension">
 			<div class="suspension-warp">
 				<div class="l">
-					<h3>€{{(setData.net_rate/100)*peopleNum}}</h3>
+					<h3>€{{((setData.net_rate/100)*peopleNum).toFixed(2)}}</h3>
 					<p>Total for {{peopleNum}} adults</p>
 				</div>
 				<div class="r" @click="pricedirection=true">

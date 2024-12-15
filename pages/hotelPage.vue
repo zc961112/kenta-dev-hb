@@ -110,7 +110,7 @@
 						<div class="price-info flex">
 							<div class="bgs"></div>
 							<div @click="scrollToTop" class="fh"><i class="el-icon-download"></i> חזרה למעלה</div>
-							<button @click="tocheckout(hotelslist[0])">לצפיה בדילים</button>
+							<button style="cursor: pointer;" @click="tocheckout(hotelslist[0])">לצפיה בדילים</button>
 							<div class="num">₪ {{hotelslist.length>0? hotelslist[0].children[0].daily_prices:0}} -מ
 							</div>
 							<div class="flex"></div>
@@ -331,11 +331,11 @@
 											<div class="item-price flex">
 												<div>₪ {{item2.daily_prices}}</div>
 												<p>{{futax(item)}} מיסים ואגרות {{fuunit(item)}}</p>
-												<p>עבור 3 לילות עבור 2 אורחים</p>
+												<p>עבור {{other.date}} לילות עבור {{other.total_guests}} אורחים</p>
 											</div>
 										</div>
 										<div class="info wallet">
-											<div class="p">
+											<div class="p" style="color: rgb(0, 188, 147);">
 												<img class="l" src="~assets/images/icon/info-feature.png" />
 												ניתן לבטל בחינם עד ל-27 באוגוסט*
 												<img class="r" src="~assets/images/icon/icon.png" />
@@ -349,19 +349,33 @@
 										<div class="info wallet no-boder">
 											<div class="p">
 												<img class="l" src="~assets/images/icon/info-feature.png" />
-												מיטה כפולה
+												{{item2.bedding_type}}
 												<img class="r" src="~assets/images/icon/icon27.png" />
 											</div>
-											<div class="p">
+											<!-- 无早餐 -->
+											<div v-if="item2.meal=='nomeal'" class="p">
 												<img class="l" src="~assets/images/icon/info-feature.png" />
 												לא כולל ארוחות
 												<img class="r" src="~assets/images/icon/icon26.png" />
 											</div>
-											<div class="p" style="color: rgba(255, 50, 99, 1);">
+											<!-- 含早餐 -->
+											<div v-if="item2.meal=='breakfast'" class="p"
+												:style="{color:item2.meal_data.has_breakfast?'rgba(255, 50, 99, 1)':'#1A1A1A'}">
+												<img class="l" src="~assets/images/icon/info-feature.png" />
+												{{item2.meal_data.has_breakfast?'ארוחת בוקר כלולה':'לא כולל ארוחות'}}
+												<img v-if="item2.meal_data.has_breakfast" class="r"
+													src="~assets/images/icon/icon26s.png" />
+												<img v-if="!item2.meal_data.has_breakfast" class="r"
+													src="~assets/images/icon/icon26.png" />
+											</div>
+
+											<div v-if="item2.amenities_datacx" class="p"
+												style="color: rgba(255, 50, 99, 1);">
 												סוג המיטה לא מובטח
 												<img class="r" src="~assets/images/icon/icon25.png" />
 											</div>
-											<div class="p">
+
+											<div class="p" v-if="item2.amenities_data">
 												חדר ללא עישון
 												<img class="r" src="~assets/images/icon/icon24.png" />
 											</div>
@@ -463,7 +477,7 @@
 					hid: "",
 					other: {},
 					adults: 1,
-					children: [12]
+					children: []
 				},
 				swiperOptionM: {
 					autoplay: {
@@ -585,7 +599,7 @@
 						children.push(data)
 					}
 				}
-				this.modifyData.children = children.length > 0 ? children : [12],
+				this.modifyData.children = children.length > 0 ? children : [],
 					this.getDateils()
 			},
 			// 筛选时间
@@ -630,6 +644,16 @@
 					this.getDateils()
 				}
 			},
+			// 价格相加
+			getprice(list) {
+				let num = 0
+				if (list.length > 0) {
+					list.forEach(item => {
+						num = num + Number(item)
+					})
+				}
+				return num
+			},
 			getDateils() {
 				getHotelInfo(this.modifyData).then(res => {
 					let arr = res.data.hotels[0].rates
@@ -650,14 +674,20 @@
 								payment_options: element.payment_options,
 								room_data_trans: element.room_data_trans,
 								images: element.images,
-								book_hash: element.book_hash
+								book_hash: element.book_hash,
 							})
 							index = this.hotelslist.length - 1
 						}
 
 						this.hotelslist[index].children.push({
 							allotment: element.allotment,
-							daily_prices: element.daily_prices[0]
+							meal: element.meal,
+							meal_data: element.meal_data,
+							daily_prices: this.getprice(element.daily_prices),
+							bedding_type: element.room_data_trans.bedding_type,
+							amenities_data: element.amenities_data.some(s => s == 'non-smoking'),
+							amenities_datacx: element.amenities_data.some(s => s ==
+								'not-guaranteed')
 						})
 					})
 					this.loading = false
@@ -1463,6 +1493,7 @@
 						font-size: .14rem;
 						font-weight: 400;
 						color: rgba(26, 26, 26, 0.6);
+						direction: rtl;
 					}
 				}
 
@@ -1683,6 +1714,8 @@
 				font-size: 0.14rem;
 				font-weight: 400;
 				color: rgba(26, 26, 26, 0.6);
+				direction: rtl;
+				text-align: left;
 			}
 
 			.yuan {

@@ -157,49 +157,50 @@
 						</div>
 					</el-form>
 
-					<div class="ready" v-if="payForm.other_data.length>0">
-						נוסע {{payForm.other_data.length}}
-					</div>
-					<div class="other_data">
-						<div v-if="payForm.other_data.length>0" class="form" v-for="(item,index) in payForm.other_data"
-							:key="index">
-							<div class="form-info">
-								<div class="form-li" style="margin-top:0px;">
-									<div class="form-li-f">
-										<p>שם פרטי</p>
-										<el-input v-model="item.first_name" placeholder=""></el-input>
-									</div>
-									<div class="w"></div>
-									<div class="form-li-f">
-										<p>שם משפחה</p>
-										<el-input v-model="item.last_name" placeholder=""></el-input>
-									</div>
-								</div>
-								<div class="form-li">
-									<div class="form-li-f">
-										<p>אזרחות</p>
-										<span style="left: 16px; top: 40px;" class="i">i</span>
-										<el-select v-model="item.country" placeholder="Choose your nationality">
-											<el-option v-for="item in CountryList" :key="item.alpha_3"
-												:label="item.name" :value="item.alpha_3">
-											</el-option>
-										</el-select>
-									</div>
-									<div class="w"></div>
-									<div class="form-li-f">
-										<p>תאריך לידה</p>
-										<div class="form-li-input">
-											<div class="input">
-												<el-input v-model="item.day" placeholder="שנה"></el-input>
-											</div>
-											<div class="input Month">
-												<el-input v-model="item.month" placeholder="חודש"></el-input>
-											</div>
-											<div class="input">
-												<el-input v-model="item.year" placeholder="יום"></el-input>
-											</div>
+					<div v-if="payForm.other_data.length>0" v-for="(item,index) in payForm.other_data" :key="index">
+						<div class="ready">
+							נוסע {{index+2}}
+						</div>
+						<div class="other_data">
+							<div class="form">
+								<div class="form-info">
+									<div class="form-li" style="margin-top:0px;">
+										<div class="form-li-f">
+											<p>שם פרטי</p>
+											<el-input v-model="item.first_name" placeholder=""></el-input>
 										</div>
+										<div class="w"></div>
+										<div class="form-li-f">
+											<p>שם משפחה</p>
+											<el-input v-model="item.last_name" placeholder=""></el-input>
+										</div>
+									</div>
+									<div class="form-li">
+										<div class="form-li-f">
+											<p>אזרחות</p>
+											<span style="left: 16px; top: 40px;" class="i">i</span>
+											<el-select v-model="item.country" placeholder="Choose your nationality">
+												<el-option v-for="item in CountryList" :key="item.alpha_3"
+													:label="item.name" :value="item.alpha_3">
+												</el-option>
+											</el-select>
+										</div>
+										<div class="w"></div>
+										<div class="form-li-f">
+											<p>תאריך לידה</p>
+											<div class="form-li-input">
+												<div class="input">
+													<el-input v-model="item.day" placeholder="שנה"></el-input>
+												</div>
+												<div class="input Month">
+													<el-input v-model="item.month" placeholder="חודש"></el-input>
+												</div>
+												<div class="input">
+													<el-input v-model="item.year" placeholder="יום"></el-input>
+												</div>
+											</div>
 
+										</div>
 									</div>
 								</div>
 							</div>
@@ -307,7 +308,7 @@
 								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
-								€{{(setData.net_rate/100)*setData.peopleNum}}
+								€{{((setData.net_rate/100)*setData.peopleNum).toFixed(2)}}
 							</div>
 						</div>
 						<div class="order">
@@ -393,7 +394,7 @@
 										<p>ללא עלויות נוספות</p>
 									</div>
 									<div class="num">
-										€{{(setData.net_rate/100)*setData.peopleNum}}
+										€{{((setData.net_rate/100)*setData.peopleNum).toFixed(2)}}
 									</div>
 								</div>
 								<div class="order">
@@ -503,7 +504,7 @@
 		<div class="suspension">
 			<div class="suspension-warp">
 				<div class="l">
-					<h3>€{{(setData.net_rate/100)*setData.peopleNum}}</h3>
+					<h3>€{{((setData.net_rate/100)*setData.peopleNum).toFixed(2)}}</h3>
 					<p>Total for {{setData.peopleNum}} adults</p>
 				</div>
 				<div class="r" @click="pricedirection=true">
@@ -641,7 +642,7 @@
 					this.topush()
 				}
 				if (this.setData.peopleNum > 2) {
-					for (let i = 0; i < this.setData.peopleNum; i++) {
+					for (let i = 0; i < this.setData.peopleNum - 1; i++) {
 						this.topush()
 					}
 				}
@@ -738,6 +739,19 @@
 				display: none;
 			}
 
+			.why {
+				background-color: rgba(0, 188, 147, 0.05) !important;
+			}
+
+			.why .why-li {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.why .why-li p {
+				width: 100%;
+			}
+
 			.content {
 				width: 100%;
 				padding: 0 0.2rem;
@@ -803,7 +817,9 @@
 			.form-li-f .i {
 				top: 0.48rem !important;
 			}
-			.form-info1::v-deep .el-input__inner,.Contact::v-deep .el-input__inner{
+
+			.form-info1::v-deep .el-input__inner,
+			.Contact::v-deep .el-input__inner {
 				height: 0.48rem;
 				line-height: 0.48rem;
 			}
@@ -1176,6 +1192,7 @@
 		padding: 0.25rem !important;
 		border: 1px solid rgba(0, 188, 147, 1);
 		border-radius: 8px;
+		background-color: rgba(255, 184, 0, 0.05) !important;
 
 		.name {
 			font-size: 0.2rem;
