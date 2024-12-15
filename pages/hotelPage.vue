@@ -337,7 +337,7 @@
 										<div class="info wallet">
 											<div class="p" style="color: rgb(0, 188, 147);">
 												<img class="l" src="~assets/images/icon/info-feature.png" />
-												ניתן לבטל בחינם עד ל-27 באוגוסט*
+												{{item2.free_cancellation_before}}
 												<img class="r" src="~assets/images/icon/icon.png" />
 											</div>
 											<div class="p">
@@ -686,6 +686,7 @@
 							// daily_prices: this.getprice(element.daily_prices),
 							daily_prices:element.daily_prices[0],
 							bedding_type: element.room_data_trans.bedding_type,
+              free_cancellation_before: element.free_cancellation_before,
 							amenities_data: element.amenities_data.some(s => s == 'non-smoking'),
 							amenities_datacx: element.amenities_data.some(s => s ==
 								'not-guaranteed')
