@@ -54,22 +54,43 @@
 									</div>
 									<div class="tickets">{{defaultData.ticket_title}}</div>
 									<div class="price">
-										<p style="text-align: left;"><span>€{{defaultData.net_rate/100}}</span> +</p>
+										<p style="text-align: left;">
+											<span>€0</span> +
+											<!-- <span>€{{defaultData.net_rate/100}}</span> + -->
+											</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
 								<div class="imgText">
-									<p>
-										נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון. מקסימום 50
-									</p>
-									<p style="margin-bottom: 0.2rem;">מושבים מובטחים הממוקמים יחד.</p>
-									<p style="margin-bottom: 0.2rem;">מקום: Estadi Olímpic Lluís Companys</p>
-									<p style="margin-bottom: 0.2rem;">סוג קטגוריה: יציע</p>
-									<p>סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
-									<p> משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
-									</p>
-									<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
-									</p>
+									<!-- PC -->
+									<div class="imgText-pc">
+										<p>
+											נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון. מקסימום 50
+										</p>
+										<p style="margin-bottom: 0.2rem;">מושבים מובטחים הממוקמים יחד.</p>
+										<p style="margin-bottom: 0.2rem;">מקום: Estadi Olímpic Lluís Companys</p>
+										<p style="margin-bottom: 0.2rem;">סוג קטגוריה: יציע</p>
+										<p>סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
+										<p>משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
+										</p>
+										<p>מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
+										</p>
+									</div>
+
+									<!-- 移动端 -->
+									<div class="imgText-m">
+										<p style="margin-bottom: 0.03rem;">
+											נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון.
+											מקסימום 50 מושבים מובטחים הממוקמים יחד.
+										<p style="margin: 0.3rem 0">מקום: Estadi Olímpic Lluís Companys</p>
+										<p style="margin-bottom: 0.3rem;">סוג קטגוריה: יציע</p>
+										<p style="margin-bottom: 0.03rem;">סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
+										<p>משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות</p>
+										<p>לפני האירוע</p>
+										<p>מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד</p>
+										<p>לאירוע זה.</p>
+									</div>
+
 									<!-- 移动端下拉查看更多 -->
 									<div class="see-more"
 										:style="{background:selectActive==-1?'linear-gradient(180deg, rgba(254, 238, 242, 0.7) 0%, #FEEEF2 100%)':'linear-gradient(180deg, #fff 0%, #fff 100%)'}"
@@ -98,23 +119,25 @@
 												<div class="tickets">{{defaultData.ticket_title}}</div>
 												<div class="price">
 													<p style="text-align: left;">
-														<span>€{{defaultData.net_rate/100}}</span> +</p>
+														<span>€0</span> +
+														<!-- <span>€{{defaultData.net_rate/100}}</span> + -->
+													</p>
 													<div>תוספת לאדם</div>
 												</div>
 											</div>
 											<div class="imgText">
-												<p>
-													נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון. מקסימום 50
+												<p style="margin-bottom: 0.03rem;">
+													נוף נהדר (מחיר/איכות) על המגרש בפינות האצטדיון.
 												</p>
-												<p style="margin-bottom: 0.2rem;">מושבים מובטחים הממוקמים יחד.</p>
-												<p style="margin-bottom: 0.2rem;">מקום: Estadi Olímpic Lluís Companys
+												<p>מקסימום 50 מושבים מובטחים הממוקמים יחד</p>
+												<p style="margin: 0.3rem 0">מקום: Estadi Olímpic Lluís Companys</p>
+												<p style="margin-bottom: 0.3rem;">סוג קטגוריה: יציע</p>
+												<p style="margin-bottom: 0.03rem;">סוג כרטיס: כרטיס אלקטרוני, חלק ביתי
 												</p>
-												<p style="margin-bottom: 0.2rem;">סוג קטגוריה: יציע</p>
-												<p>סוג כרטיס: כרטיס אלקטרוני, חלק ביתי</p>
-												<p> משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות לפני האירוע
-												</p>
-												<p> מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד לאירוע זה.
-												</p>
+												<p>משלוח: הכרטיסים שלכם יימסרו לפחות 24 שעות</p>
+												<p>לפני האירוע</p>
+												<p>מקומות ישיבה: מובטחים עד 10 מקומות ישיבה יחד</p>
+												<p>לאירוע זה.</p>
 											</div>
 											<!-- 移动端 座位图-->
 											<div class="pm-mobile">
@@ -130,13 +153,14 @@
 									v-if="category_id!=item.category_id&&item.net_rate>0" class="select"
 									@mouseover="mouseover(index,item.category_id)"
 									@mouseout="mouseout(item.category_id)" :class="[active==index?'active':'']"
-									v-for="(item,index) in list" :key="index">
+									v-for="(item,index) in list" :key="index"
+									:style="{background:selectActive==index?'rgba(255, 50, 99, 0.08)':'#fff'}">
 									<div class="checkbox" :class="[selectActive==index?'checkboxcurrent':'']">
 										<img v-if="selectActive==index" src="~assets/images/icon/select.png" />
 									</div>
 									<div class="tickets">{{item.ticket_title}}</div>
 									<div class="price">
-										<p style="text-align: left;"> <span>€{{item.net_rate/100}}</span> +</p>
+										<p style="text-align: left;" :style="{color:selectActive==index?'rgb(255, 50, 99)!important':'rgb(0, 188, 147)!important'}"> <span >€{{(item.net_rate/100) - (defaultData.net_rate/100)}}</span> +</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
@@ -518,7 +542,7 @@
 			// 移动端选座
 			showSeat() {
 				this.$nextTick(() => {
-					this.$refs.venueRef.int(this.InfoData, this.setData.venue_id)
+					this.$refs.venueRef.int(this.InfoData, this.venue_id)
 				})
 			},
 			// 下一页
@@ -614,13 +638,33 @@
 		border-color: rgba(255, 50, 99, 1) !important;
 	}
 
+	.imgText-m {
+		display: none;
+	}
+
 	.select-box {
 		max-height: 3rem;
 		overflow: auto;
 	}
 
+	.see-more {
+		display: none;
+	}
+
 	@media (max-width: 820px) {
 		.page {
+			.imgText-m {
+				display: inline-block;
+			}
+
+			.imgText-pc {
+				display: none;
+			}
+
+			.head .celta .text {
+				padding-right: 0;
+			}
+
 			.content .left .choose h1 {
 				font-size: 0.28rem;
 			}
@@ -685,11 +729,12 @@
 			}
 
 			.see-more {
+				display: block;
 				color: #3451FF;
 				width: 100%;
 				position: absolute;
 				left: 0;
-				bottom: 0;
+				bottom: 0.1rem;
 				direction: ltr;
 				font-size: 0.16rem;
 				padding: 0.24rem 0.2rem 0.14rem 0.2rem;
@@ -701,7 +746,7 @@
 				padding: 0.2rem;
 			}
 
-			.imgText p:nth-child(n+4) {
+			.imgText-m p:nth-child(n+3) {
 				display: none;
 			}
 

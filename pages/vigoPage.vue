@@ -1494,7 +1494,7 @@
 
 			.dec {
 				padding: 0.05rem 0.10rem;
-				margin-right: 0.15rem;
+				margin-left: 0.15rem;
 				border-radius: 200px;
 				background-color: rgba(0, 188, 147, 0.12);
 				color: rgba(0, 188, 147, 1);

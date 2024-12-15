@@ -84,6 +84,9 @@
 				display: inline-block;
 				padding: 0.16rem 0.1rem 0.16rem 0.1rem;
 			}
+			.head .celta .text{
+				padding-right: 0;
+			}
 
 			.head .celta .text p {
 				margin-right: 0;
