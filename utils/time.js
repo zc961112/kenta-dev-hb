@@ -22,7 +22,19 @@ const getday = function(daytime) {
 	return date
 }
 
+const getdayTime = function(daytime) {
+	// 自定义时间
+	var diyDate = new Date(daytime)
+	// 拼接日期 yyyy-MM-dd 注意月份要 + 1
+	var date = diyDate.getFullYear() + "-" + ((diyDate.getMonth() +
+		1) > 9 ? diyDate.getMonth() + 1 : "0" + (diyDate
+		.getMonth() + 1)) + "-" + (diyDate.getDate() > 9 ? diyDate.getDate() : "0" + diyDate.getDate());
+
+	return date
+}
+
 export default {
 	tdaytime,
-	getday
+	getday,
+	getdayTime
 }

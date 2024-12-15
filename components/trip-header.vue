@@ -68,6 +68,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.el-icon-arrow-left{
+		margin-right: 0.08rem;
+	}
+	.el-icon-check{
+		margin-left: 4px;
+	}
 	@media (max-width: 820px) {
 		.trip-header {
 			.warp {
@@ -149,7 +155,6 @@
 		i {
 			color: rgba(26, 26, 26, 0.6);
 			font-size: 0.12rem;
-			margin-left: 0.05rem;
 			font-weight: bold;
 		}
 
@@ -203,7 +208,7 @@
 				font-size: 0.16rem;
 				font-weight: 600;
 				text-align: right;
-				padding-right: 0.15rem;
+				padding-right: 0.32rem;
 
 			}
 
@@ -218,6 +223,7 @@
 				margin-top: 0.05rem;
 				align-items: center;
 				flex-direction: row;
+				padding-right: 0.2rem;
 
 				.line {
 					height: 0.15rem;
@@ -242,7 +248,7 @@
 				p {
 					font-size: 0.12rem;
 					color: rgba(26, 26, 26, 0.6);
-					margin-right: 0.15rem;
+					margin-right: 0.12rem;
 					display: inline-block;
 				}
 			}

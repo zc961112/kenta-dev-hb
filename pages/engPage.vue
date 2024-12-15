@@ -16,7 +16,7 @@
 				<div class="time">
 					<p>
 						<img style="padding-right: 0;" src="~assets/images/icon/icon1.png" />
-						<span>{{'אוג’'+date_start + '- אוג’ ' + date_stop}}</span>
+						<span>{{'אוג’'+ date_start + '- אוג’ ' + date_stop}}</span>
 					</p>
 					<p>
 						<img src="~assets/images/icon/icon2.png" />
@@ -97,13 +97,13 @@
 		},
 		async created() {
 			this.getInfo()
-			this.date_stop = tday.getday(this.$route.query.date_stop)
-			this.date_start = tday.getday(this.$route.query.date_start)
+			this.date_stop = tday.getdayTime(this.$route.query.date_stop)
+			this.date_start = tday.getdayTime(this.$route.query.date_start)
 		},
 		methods: {
 			// 下一页
 			totripPage(e) {
-				let date_time = tday.getday(this.$route.query.date_stop) + ',' + tday.getday(this.$route.query.date_start)
+				let date_time = tday.getdayTime(this.$route.query.date_stop) + ',' + tday.getdayTime(this.$route.query.date_start)
 				let city_address = this.$route.query.event_name + this.$route.query.city
 
 				e.venue_id = this.$route.query.venue_id
@@ -197,7 +197,7 @@
 		}
 	}
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 	@media (max-width: 820px) {
 		.page {
 			.content .right {
@@ -352,6 +352,8 @@
 
 				img {
 					width: 0.24rem;
+					height: 0.24rem;
+					object-fit: contain;
 					// margin-right: 0.15rem;
 				}
 
@@ -359,7 +361,7 @@
 		}
 
 		.left {
-			flex: 1;
+			width:6.80rem;
 
 			.tips {
 				width: 100%;
@@ -372,7 +374,7 @@
 
 		.right {
 			margin-right: 130px;
-			width: 566px;
+			flex: 1;
 
 			img {
 				width: 100%;

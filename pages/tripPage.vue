@@ -32,7 +32,7 @@
 						<div class="people">
 							<div class="type-name">מספר אנשים:</div>
 							<el-select v-model="peopleNum" placeholder="2 אנשים">
-								<el-option v-for="item in optionsList" :key="item.value" :label="item.value"
+								<el-option v-for="item in optionsList" :key="item.value" :label="item.label"
 									:value="item.value">
 								</el-option>
 							</el-select>
@@ -201,7 +201,7 @@
 				for (let i = 1; i <= this.setData.stock; i++) {
 					let data = {
 						value: i,
-						label: i
+						label:  i + ' אנשים'
 					}
 					list.push(data)
 				}
@@ -445,7 +445,7 @@
 		width: 308px;
 		cursor: pointer;
 		margin-left: 20px;
-		padding: 20px;
+		padding: 0.16rem;
 		border: 1px solid #DADADA;
 		border-radius: 6px;
 		position: relative;
@@ -503,8 +503,8 @@
 	}
 
 	.content .type-li .ticket {
-		margin-top: 35px;
-		margin-bottom: 10px;
+		margin-top:0.32rem;
+		margin-bottom: 0.08rem;
 		font-size: 16px;
 		font-weight: 550;
 		line-height: 16px;
