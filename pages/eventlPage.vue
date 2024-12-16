@@ -2,7 +2,7 @@
 	<div class="eventlPage">
 		<div class="page">
 			<new-header />
-			<div class="warps" v-loading="loading">
+			<div class="warps">
 				<div class="hotel">
 					<div class="left flex">
 						<div class="ismobile">
@@ -52,7 +52,7 @@
 										<span v-if="item.number_of_tickets==0||item.number_of_tickets==null"
 											class="no-stock">אזל המלאי</span>
 										<span v-else
-											class="num">€{{item.min_ticket_price_eur?item.min_ticket_price_eur:'0.00'}}</span>
+											class="num">€{{item.min_ticket_price_eur?priceFn(item.min_ticket_price_eur):'0.00'}}</span>
 									</div>
 									<div class="text">
 										<p>{{item.season}} {{item.tournament_name}}</p>
@@ -149,6 +149,7 @@
 	} from '@/api/kentaHbEvent'
 	import dayjs from 'dayjs'
 	import tday from '@/utils/time.js'
+	import priceqf from '@/utils/priceqf.js'
 	export default {
 		data: () => ({
 			dateType: 0,
@@ -174,7 +175,6 @@
 			selectedMonth: [],
 			date: '',
 			list: [],
-			loading: true,
 			total_size: 0,
 			page_size: 0,
 			maxItems: 25,
@@ -193,7 +193,12 @@
 			filtersportCounts: [],
 			filterAll: [],
 			show: true,
-			ism: false
+			ism: false,
+			form: {
+				sport_type: '',
+				date_start: '',
+				tournament_name: '',
+			}
 		}),
 		mounted() {
 			this.makMonthList();
@@ -202,10 +207,17 @@
 			window.addEventListener("resize", this.checkIfMobile);
 		},
 		methods: {
+			priceFn(e) {
+				if (e) {
+					return priceqf.addThousandsSeparator(e)
+				} else {
+					return '0.00'
+				}
+			},
 			fndate(e) {
-				if(e) {
+				if (e) {
 					return tday.getday(e)
-				}else {
+				} else {
 					return ''
 				}
 			},
@@ -322,31 +334,35 @@
 			},
 			// 获取数据
 			getEvents() {
-				this.getady()
-				events({
-					sport_type: this.$route.query.tournament_name ? 'soccer' : 'formula1',
-					date_start: 'ge:' + this.getady(),
-					tournament_name: this.$route.query.tournament_name || ''
-				}).then(res => {
-					this.list = res.events.slice(0, this.maxItems)
-					this.allList = res.events
-
-					this.total_size = res.pagination.total_size
-					this.page_size = res.pagination.page_size
-					this.cityList = res.pagination.city_counts
-					this.sportCounts = res.pagination.sport_counts
-					this.countryList = res.pagination.country_counts
-					this.loading = false
-					if (res.events.length < this.maxItems) {
-						this.hideAll = false
-						this.hidePage = false
-					} else {
-						this.hideAll = true
-						this.hidePage = true
-					}
-				}).catch(err => {
-					this.loading = false
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
 				})
+
+				this.getady()
+				this.form.sport_type = this.$route.query.tournament_name ? 'soccer' : 'formula1'
+				this.form.date_start = 'ge:' + this.getady()
+				this.form.tournament_name = this.$route.query.tournament_name || '',
+					events(this.form).then(res => {
+						this.list = res.events.slice(0, this.maxItems)
+						this.allList = res.events
+
+						this.total_size = res.pagination.total_size
+						this.page_size = res.pagination.page_size
+						this.cityList = res.pagination.city_counts
+						this.sportCounts = res.pagination.sport_counts
+						this.countryList = res.pagination.country_counts
+						if (res.events.length < this.maxItems) {
+							this.hideAll = false
+							this.hidePage = false
+						} else {
+							this.hideAll = true
+							this.hidePage = true
+						}
+						loading.close()
+					}).catch(err => {
+						loading.close()
+					})
 			},
 			toEngPage(item) {
 				this.$router.push({
@@ -364,11 +380,16 @@
 				})
 			},
 			confirmDateRange(e) {
-				this.date =
-					`${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
-				this.visible3 = false;
-				console.log(this.date);
-				console.log(this.dateType);
+				// this.date =
+				// 	`${dayjs(e[0]).format('DD')} ${this.monthEN['month' + dayjs(e[0]).format('MM') % 12].slice(0, 3)} - ${dayjs(e[1]).format('DD')} ${this.monthEN['month' + dayjs(e[1]).format('MM') % 12].slice(0, 3)}`
+				// this.visible3 = false;
+				// console.log(this.dateType);
+				if (e.length > 0) {
+					this.form.checkin = tday.getdayTime(e[0])
+					this.form.checkout = tday.getdayTime(e[1])
+					this.loading = true
+					this.getEvents()
+				}
 			},
 			handleDateRange(index) {
 				this.dayRageIndex = index;

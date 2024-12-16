@@ -300,7 +300,7 @@
 						</div>
 						<div class="Card">
 							<div>סה״כ מחיר לאדם</div>
-							<p>€{{setData.net_rate/100}}</p>
+							<p>€{{priceFn(setData.net_rate)}}</p>
 						</div>
 						<div class="Total">
 							<div class="n">
@@ -308,7 +308,7 @@
 								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
-								€{{((setData.net_rate/100)*setData.peopleNum).toFixed(2)}}
+								€{{priceFn((setData.net_rate)*setData.peopleNum)}}
 							</div>
 						</div>
 						<div class="order">
@@ -386,7 +386,7 @@
 								</div>
 								<div class="Card">
 									<div>סה״כ מחיר לאדם</div>
-									<p>€{{setData.net_rate/100}}</p>
+									<p>€{{priceFn(setData.net_rate)}}</p>
 								</div>
 								<div class="Total">
 									<div class="n">
@@ -394,7 +394,7 @@
 										<p>ללא עלויות נוספות</p>
 									</div>
 									<div class="num">
-										€{{((setData.net_rate/100)*setData.peopleNum).toFixed(2)}}
+										€{{priceFn((setData.net_rate)*setData.peopleNum)}}
 									</div>
 								</div>
 								<div class="order">
@@ -504,7 +504,7 @@
 		<div class="suspension">
 			<div class="suspension-warp">
 				<div class="l">
-					<h3>€{{((setData.net_rate/100)*setData.peopleNum).toFixed(2)}}</h3>
+					<h3>€{{priceFn((setData.net_rate)*setData.peopleNum)}}</h3>
 					<p>Total for {{setData.peopleNum}} adults</p>
 				</div>
 				<div class="r" @click="pricedirection=true">
@@ -527,6 +527,7 @@
 		getUserInfo,
 		findPwdSendMail,
 	} from '@/api/login'
+	import priceqf from '@/utils/priceqf.js'
 	export default {
 		name: 'tripPage',
 		data() {
@@ -636,6 +637,13 @@
 			this.getCountryList()
 		},
 		methods: {
+			priceFn(e) {
+				if (e) {
+					return priceqf.addThousandsSeparator(e)
+				} else {
+					return '0.00'
+				}
+			},
 			// 获取乘客
 			getpeople() {
 				if (this.setData.peopleNum == 2) {
@@ -702,8 +710,15 @@
 			},
 			// 获取国家
 			async getCountryList() {
-				const res = await getCountry()
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
+				const res = await getCountry().catch(err => {
+					loading.close()
+				})
 				this.CountryList = res.data
+				loading.close()
 			},
 		}
 	}
@@ -920,7 +935,7 @@
 		left: 0;
 		border-top-right-radius: 8px;
 		border-top-left-radius: 8px;
-		z-index: 1;
+		z-index: 10;
 		border-top: 1px solid #DADADA;
 		background-color: #fff;
 		padding: 0.2rem 0.2rem 0.24rem 0.2rem;

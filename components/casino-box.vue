@@ -125,6 +125,31 @@
 				width: 100%;
 			}
 
+			.c-casino-box {
+				display: flex;
+				cursor: pointer;
+				transition: none;
+				padding: 0.16rem;
+				box-sizing: border-box;
+				border: 1px solid #fff;
+				border-top-color: rgba(218, 218, 218, 1) !important;
+
+				&.active,
+				&:hover {
+					border: none !important;
+					background: none !important;
+					transition: none!important;
+
+					.ccb-title {
+						color: #FF3263;
+					}
+
+					.ccb-img-eye {
+						display: block;
+					}
+				}
+			}
+
 			.page-area .pac-item {
 				margin-bottom: 0;
 			}
@@ -187,6 +212,7 @@
 	.c-casino-box {
 		display: flex;
 		cursor: pointer;
+		transition: ease .3s;
 		padding: 0.16rem 0;
 		box-sizing: border-box;
 		border: 1px solid #fff;
@@ -194,6 +220,8 @@
 
 		&.active,
 		&:hover {
+			transition: ease .3s;
+			padding-right: 0.16rem;
 			border: 1px solid #FF3263 !important;
 			background: linear-gradient(0deg, rgba(255, 50, 99, 0.04) 0%, rgba(255, 50, 99, 0.04) 100%), #FEFEFE;
 

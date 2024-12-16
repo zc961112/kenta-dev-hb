@@ -57,7 +57,7 @@
 										<p style="text-align: left;">
 											<span>€0</span> +
 											<!-- <span>€{{defaultData.net_rate/100}}</span> + -->
-											</p>
+										</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
@@ -97,7 +97,7 @@
 										@click.stop="showdirection">מידע נוסף<i class="el-icon-arrow-down"></i></div>
 								</div>
 								<!-- 移动端 座位图-->
-								<div class="pm-mobile" v-if="ism&&!direction">
+								<div class="pm-mobile" v-if="!direction">
 									<venue-map-m :iscolse="false" ref="venueRef" />
 								</div>
 								<!-- 查看更多 移动端 -->
@@ -150,7 +150,7 @@
 
 							<div class="select-box">
 								<div @click="selectItem(index,item)"
-									v-if="category_id!=item.category_id&&item.net_rate>0" class="select"
+									v-if="category_id!=item.category_id&&item.net_rate!='0'" class="select"
 									@mouseover="mouseover(index,item.category_id)"
 									@mouseout="mouseout(item.category_id)" :class="[active==index?'active':'']"
 									v-for="(item,index) in list" :key="index"
@@ -160,7 +160,11 @@
 									</div>
 									<div class="tickets">{{item.ticket_title}}</div>
 									<div class="price">
-										<p style="text-align: left;" :style="{color:selectActive==index?'rgb(255, 50, 99)!important':'rgb(0, 188, 147)!important'}"> <span >€{{((item.net_rate/100) - (defaultData.net_rate/100)).toFixed(2)}}</span> +</p>
+										<p style="text-align: left;direction: ltr;"
+											:style="{color:selectActive==index?'rgb(255, 50, 99)!important':'rgb(0, 188, 147)!important'}">
+											<span>+€</span>
+											<span>{{priceFn(item.net_rate - defaultData.net_rate)}}</span>
+											</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
@@ -235,7 +239,7 @@
 						</div>
 						<div class="Card">
 							<div>סה״כ מחיר לאדם</div>
-							<p>€{{setData.net_rate/100}}</p>
+							<p>€{{priceFn(setData.net_rate)}}</p>
 						</div>
 						<div class="Total">
 							<div class="n">
@@ -243,7 +247,7 @@
 								<p>ללא עלויות נוספות</p>
 							</div>
 							<div class="num">
-								€{{((setData.net_rate/100)*peopleNum).toFixed(2)}}
+								€{{priceFn((setData.net_rate)*peopleNum)}}
 							</div>
 						</div>
 						<div class="order">
@@ -321,7 +325,7 @@
 								</div>
 								<div class="Card">
 									<div>סה״כ מחיר לאדם</div>
-									<p>€{{setData.net_rate/100}}</p>
+									<p>€{{priceFn(setData.net_rate)}}</p>
 								</div>
 								<div class="Total">
 									<div class="n">
@@ -329,7 +333,7 @@
 										<p>ללא עלויות נוספות</p>
 									</div>
 									<div class="num">
-										€{{((setData.net_rate/100)*peopleNum).toFixed(2)}}
+										€{{priceFn((setData.net_rate)*peopleNum)}}
 									</div>
 								</div>
 								<div class="order">
@@ -440,7 +444,7 @@
 		<div class="suspension">
 			<div class="suspension-warp">
 				<div class="l">
-					<h3>€{{((setData.net_rate/100)*peopleNum).toFixed(2)}}</h3>
+					<h3>€{{priceFn((setData.net_rate)*peopleNum)}}</h3>
 					<p>Total for {{peopleNum}} adults</p>
 				</div>
 				<div class="r" @click="pricedirection=true">
@@ -456,6 +460,7 @@
 		tickets
 	} from '@/api/kentaHb'
 	import * as d3 from "d3";
+	import priceqf from '@/utils/priceqf.js'
 	export default {
 		name: 'tripPage',
 		data() {
@@ -492,7 +497,6 @@
 				event_name: '',
 				date_time: '',
 				city_address: '',
-				ism: false
 
 			}
 
@@ -513,9 +517,16 @@
 			this.defaultData = this.setData
 
 			this.getInfo()
-			window.addEventListener("resize", this.checkIfMobile);
+			this.showSeat()
 		},
 		methods: {
+			priceFn(e) {
+				if (e) {
+					return priceqf.addThousandsSeparator(e)
+				} else {
+					return '0.00'
+				}
+			},
 			// 关闭
 			closedirection() {
 				this.direction = false
@@ -527,17 +538,6 @@
 				this.$nextTick(() => {
 					this.$refs.venuePMRef.int(this.InfoData, this.setData.venue_id)
 				})
-			},
-			// 页面是否是移动端
-			checkIfMobile() {
-				if (820 < window.innerWidth) {
-					this.ism = false
-				} else {
-					this.ism = true
-					if (!this.direction) {
-						this.showSeat()
-					}
-				}
 			},
 			// 移动端选座
 			showSeat() {
@@ -583,6 +583,10 @@
 				})
 			},
 			async getInfo() {
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				tickets({
 					event_id: this.event_id
 				}).then(res => {
@@ -590,6 +594,9 @@
 					this.InfoData = res
 					this.getmap(res)
 					this.checkIfMobile()
+					loading.close()
+				}).catch(err => {
+					loading.close()
 				})
 			},
 			async getmap(res) {
@@ -763,6 +770,8 @@
 			.priceSummary .Summary {
 				display: inline-block !important;
 				border: none;
+				width: 100%;
+				padding: 0.25rem 0.2rem;
 			}
 
 			.priceSummary .filter-w {

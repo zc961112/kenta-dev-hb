@@ -2,7 +2,7 @@
 	<div class="page-box">
 		<div class="page-area">
 			<new-header />
-			<div class="page-area-content" v-loading="loading">
+			<div class="page-area-content">
 				<div class="pac-left" :style="{display:windowWidth<820?displayMap:'block'}">
 					<div class="pac-right-top map-menu" :style="{display:windowWidth<820?displayMap:'none'}">
 						<div class="pac-search">
@@ -182,7 +182,6 @@
 			.pac-filters {
 				direction: rtl;
 			}
-
 			.page-area .pac-item {
 				margin-bottom: 0;
 			}
@@ -191,6 +190,7 @@
 			.page-area .pac-list {
 				overflow-y: inherit;
 				height: auto;
+				padding: 0;
 			}
 
 			.page-area .pac-left {

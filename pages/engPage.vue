@@ -1,7 +1,7 @@
 <template>
 	<div class="page theme-xs2event">
 		<new-header />
-		<div class="banner" v-loading="loading">
+		<div class="banner">
 			<div class="info">
 				<div class="navigation">
 					<span>בית</span>
@@ -41,14 +41,14 @@
 					<p>לבחירתכם והבטיחו את ביקורכם ב-Autodromo Nazionale Monza. </p>
 				</div>
 				<div @mouseover="mouseover(index,item.category_id)" @mouseout="mouseout(item.category_id)"
-					:class="[active==index?'active':'']" v-if="item.net_rate>0" class="item-li"
+					:class="[active==index?'active':'']" v-if="item.net_rate!='0'" class="item-li"
 					v-for="(item,index) in list" :key="index">
 					<div class="text">
 						<div class="text-info">
 							<img src="~assets/images/icon/icon7.png" />
 							<div class="info">
 								<h3>{{item.ticket_title}}</h3>
-								<p>שישי - ראשון</p>
+								<p>{{item.ticket_validity}}</p>
 							</div>
 						</div>
 						<div class="icon-img icon-img1">
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div @click="totripPage(item)" tag="button" class="button" style="cursor: pointer;direction: ltr;">
-						€{{item.net_rate/100}} -הזמינו</div>
+						€{{priceFn(item.net_rate)}} -הזמינו</div>
 				</div>
 			</div>
 			<div class="right">
@@ -81,6 +81,7 @@
 	} from '@/api/kentaHb'
 	import * as d3 from "d3";
 	import tday from '@/utils/time.js'
+	import priceqf from '@/utils/priceqf.js'
 	export default {
 		name: 'engPage',
 		data() {
@@ -93,7 +94,6 @@
 				InfoData: null,
 				date_stop: '',
 				date_start: '',
-				loading: true,
 			}
 		},
 		async created() {
@@ -102,9 +102,17 @@
 			this.date_start = tday.getdayTime(this.$route.query.date_start)
 		},
 		methods: {
+			priceFn(e) {
+				if (e) {
+					return priceqf.addThousandsSeparator(e)
+				} else {
+					return '0.00'
+				}
+			},
 			// 下一页
 			totripPage(e) {
-				let date_time = tday.getdayTime(this.$route.query.date_stop) + ',' + tday.getdayTime(this.$route.query.date_start)
+				let date_time = tday.getdayTime(this.$route.query.date_stop) + ',' + tday.getdayTime(this.$route.query
+					.date_start)
 				let city_address = this.$route.query.event_name + this.$route.query.city
 
 				e.venue_id = this.$route.query.venue_id
@@ -147,21 +155,26 @@
 				})
 			},
 			async getInfo() {
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				tickets({
 					event_id: this.$route.query.event_id
 				}).then(res => {
 					this.list = res.tickets
 					this.InfoData = res
 					this.getmap(res)
-					this.loading = false
+					loading.close()
 				}).catch(err => {
-					this.loading = false
+					loading.close()
 				})
 			},
 			async getmap(res) {
 				let that = this
 				// svg 加载
 				let url = 'https://cdn.xs2event.com/venues/' + this.$route.query.venue_id + '.svg'
+				console.log(url)
 				let svg = (await d3.xml(url)).documentElement;
 				document.getElementById("venue-map").append(svg);
 				// 页面一加载满足查找票是否在svg 存在 
@@ -350,7 +363,8 @@
 					display: flex;
 					align-items: center;
 				}
-				.icon-img1{
+
+				.icon-img1 {
 					img {
 						margin-left: 0.08rem;
 					}
@@ -366,7 +380,7 @@
 		}
 
 		.left {
-			width:6.80rem;
+			width: 6.80rem;
 
 			.tips {
 				width: 100%;

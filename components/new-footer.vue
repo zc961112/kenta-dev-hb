@@ -159,7 +159,7 @@
 					img {
 						width: 0.5rem;
 						height: auto;
-						margin-right: 0.10rem;
+						margin-left: 0.10rem;
 						margin-bottom: 0.10rem;
 					}
 				}

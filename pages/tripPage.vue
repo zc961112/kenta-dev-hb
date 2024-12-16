@@ -197,6 +197,10 @@
 			},
 			// 获取人数
 			getoptions() {
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				let list = []
 				for (let i = 1; i <= this.setData.stock; i++) {
 					let data = {
@@ -206,6 +210,7 @@
 					list.push(data)
 				}
 				this.optionsList = list
+				loading.close()
 			},
 			select(index) {
 				this.active = index

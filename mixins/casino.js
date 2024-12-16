@@ -83,7 +83,7 @@ export default {
 			displayRight: '',
 			windowWidth: '',
 			defaultList: [],
-			loading: true
+			loading:null
 		}
 	},
 	mounted() {
@@ -109,7 +109,11 @@ export default {
 		},
 		// 筛选价格
 		getprice(dayTime) {
-			this.loading = true
+			this.loading = this.$loading({
+				lock: true,
+				text: 'Loading'
+			})
+			
 			this.modifyData.region_id = this.id
 			this.modifyData.ids = this.ids
 
@@ -151,9 +155,9 @@ export default {
 					})
 				})
 				this.initMapMarkers();
-				this.loading = false
+				this.loading.close()
 			}).catch(err => {
-				this.loading = false
+				this.loading.close()
 			})
 		},
 		// 搜索
@@ -241,6 +245,10 @@ export default {
 			}
 			this.markerList = []
 			this.ids = []
+			this.loading = this.$loading({
+				lock: true,
+				text: 'Loading'
+			})
 			getHotelsByRegion(data).then(res => {
 				this.cityList = res
 
@@ -250,9 +258,9 @@ export default {
 						this.ids.push(item.id)
 					})
 				}
-				this.loading = false
+				this.loading.close()
 			}).catch(err => {
-				this.loading = false
+				this.loading.close()
 			})
 			// this.markerList = []
 			// try {
@@ -516,7 +524,10 @@ export default {
 			this.dayRageIndex = value
 		},
 		changeGuests(data) {
-			this.loading = true
+			this.loading = this.$loading({
+				lock: true,
+				text: 'Loading'
+			})
 			// 默认时间
 			if (!this.modifyData.checkin && !this.modifyData.checkout) {
 				let dayTime = tday.tdaytime(0) + '/' + tday.tdaytime(1)

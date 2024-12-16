@@ -77,7 +77,8 @@
 	@media (max-width: 820px) {
 		.trip-header {
 			.warp {
-				padding: 0 0.2rem;
+				padding-right: 0.2rem;
+				padding-left: 0;
 			}
 			
 			.mobile-trip{

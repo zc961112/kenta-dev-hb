@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
 		<new-header />
-		<div v-loading="loading">
+		<div>
 			<!-- :class="{ searchsticky: issearchSticky }" -->
 			<div class="search-border" ref="searchElement">
 				<div class="warps">
@@ -347,7 +347,7 @@
 											</div>
 										</div>
 										<div class="info wallet no-boder">
-											<div class="p">
+											<div class="p" v-if="item2.bedding_type">
 												<img class="l" src="~assets/images/icon/info-feature.png" />
 												{{item2.bedding_type}}
 												<img class="r" src="~assets/images/icon/icon27.png" />
@@ -467,7 +467,6 @@
 				dayTime: '',
 				defaultTime: '',
 				list: [],
-				loading: true,
 				mimgNum: 0,
 				ism: false,
 
@@ -497,13 +496,13 @@
 		},
 		mounted() {
 			this.dayTime = this.$route.query.time
-			this.defaultTime = this.$route.query.time
 			this.searchOffset = this.$refs.searchElement.offsetTop;
 			document.querySelector("body").setAttribute("style", "background-color:rgba(245, 245, 245, 1)");
 
 			if (this.$route.query.adults) {
 				this.list = JSON.parse(this.$route.query.adults)
 			}
+			this.getmrTime()
 
 			this.getHotel()
 		},
@@ -511,6 +510,17 @@
 			window.removeEventListener('scroll', this.handleScroll);
 		},
 		methods: {
+			// 获取默认时间
+			getmrTime() {
+				let t = this.$route.query.time
+				let t1 = t.split("/")[0]
+				let t2 = t.split("/")[1]
+				let year = t1.split("-")[2].slice(2,4)
+				
+				let tc1 =  t1.split("-")[0] + '/' + t1.split("-")[1] + '/' + year
+				let tc2 =  t2.split("-")[0] + '/' + t2.split("-")[1] + '/' + year
+				this.defaultTime = tc2 +'-' + tc1
+			},
 			// 跳去下一个页面
 			tocheckout(e) {
 				let peopleNum = 2
@@ -574,7 +584,9 @@
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
 								item.tax_data.taxes.forEach(j => {
-									price = price + Number(j.amount)
+									if(j.included_by_supplier) {
+										price = price + Number(j.amount)
+									}
 								})
 
 							})
@@ -588,7 +600,10 @@
 				}
 			},
 			changeGuests(data) {
-				this.loading = true
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				this.modifyData.adults = data[0].value
 				this.list = data
 				// 获取未成年人
@@ -599,12 +614,15 @@
 						children.push(data)
 					}
 				}
-				this.modifyData.children = children.length > 0 ? children : [],
-					this.getDateils()
+				this.modifyData.children = children.length > 0 ? children : []
+				this.getDateils()
 			},
 			// 筛选时间
 			RangeTime(e) {
-				this.loading = true
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				this.dayTime = e
 				this.getHotel()
 			},
@@ -643,6 +661,18 @@
 					this.modifyData.checkout = checkoutTime
 					this.getDateils()
 				}
+				if (this.list.length > 0) {
+					this.modifyData.adults = this.list[0].value
+					// 获取未成年人
+					let children = []
+					if (this.list[1].value > 0) {
+						for (let i = 0; i < this.list[1].value; i++) {
+							let data = 12
+							children.push(data)
+						}
+					}
+					this.modifyData.children = children.length > 0 ? children : []
+				}
 			},
 			// 价格相加
 			getprice(list) {
@@ -655,6 +685,10 @@
 				return num
 			},
 			getDateils() {
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				getHotelInfo(this.modifyData).then(res => {
 					let arr = res.data.hotels[0].rates
 					this.hotelslist = []
@@ -684,15 +718,15 @@
 							meal: element.meal,
 							meal_data: element.meal_data,
 							// daily_prices: this.getprice(element.daily_prices),
-							daily_prices:element.daily_prices[0],
+							daily_prices: element.daily_prices[0],
 							bedding_type: element.room_data_trans.bedding_type,
-              free_cancellation_before: element.free_cancellation_before,
+							free_cancellation_before: element.free_cancellation_before,
 							amenities_data: element.amenities_data.some(s => s == 'non-smoking'),
 							amenities_datacx: element.amenities_data.some(s => s ==
 								'not-guaranteed')
 						})
 					})
-					this.loading = false
+					loading.close()
 					this.$nextTick(() => {
 						this.stickyOffset = this.$refs.stickyElement.offsetTop;
 						this.priceOffset = this.$refs.priceElement.offsetTop;
@@ -703,7 +737,7 @@
 					window.addEventListener("resize", this.checkIfMobile);
 
 				}).catch(err => {
-					this.loading = false
+					loading.close()
 				})
 			}
 		}

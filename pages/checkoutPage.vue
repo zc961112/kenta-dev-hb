@@ -50,7 +50,7 @@
 						</div>
 						<div class="b">
 							<p><span>לתשומת ליבך</span> כל המיסים ואגרות</p>
-							<p>יחוייבו במטבע מקומי (USD).</p>
+							<p v-for="(item,index) in taxesbot" :key="index">יחוייבו במטבע מקומי ({{item.unit}}).</p>
 						</div>
 					</div>
 					<div class="send">
@@ -320,7 +320,7 @@
 								</el-form-item>
 							</el-form>
 						</div>
-						<div class="select">
+						<div class="select" v-if="payForm.other_data.length>0">
 							<div class="select-from" v-if="hideFrom" v-for="(item,index) in payForm.other_data"
 								:key="index">
 								<div class="select-from-li">
@@ -908,8 +908,14 @@
 			},
 			// 获取人数
 			async getPeople() {
+				const loading = this.$loading({
+					lock: true,
+					text: 'Loading'
+				})
 				const res = await getFrom({
 					book_hash: this.$route.query.book_hash
+				}).catch(err => {
+					loading.close()
 				})
 				this.setData = res.data
 				res.data.payment_types.forEach(item => {
@@ -917,6 +923,7 @@
 						this.price = item.amount
 					}
 				})
+				loading.close()
 			},
 			// 倒计时
 			startCountdown() {
@@ -925,6 +932,7 @@
 						this.count -= 1;
 					} else {
 						this.clearCountdown();
+						this.$router.back();
 					}
 				}, 1000);
 			},
@@ -1758,6 +1766,7 @@
 								margin: 8px 0;
 								font-size: 0.20rem;
 								font-weight: 600;
+								text-align: right;
 
 							}
 
