@@ -503,7 +503,7 @@
 					{
 						src: require("assets/images/Group2.png"),
 						title: "כרטיסים ללה ליגה 24/25 זמינים כעת",
-						tournament_name: 'La Liga'
+						tournament_name: 'Primeira Liga'
 					},
 					{
 						src: require("assets/images/Group3.png"),
