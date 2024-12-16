@@ -824,11 +824,11 @@
 						this.payForm.order_id = this.setData.order_id
 						this.payForm.partner_order_id = this.setData.partner_order_id
 
-						if (sessionStorage.getItem("user_provider")) {
-							this.payForm.provider = sessionStorage.getItem("user_provider")
+						if (localStorage.getItem("user_provider")) {
+							this.payForm.provider = localStorage.getItem("user_provider")
 						}
-						if (sessionStorage.getItem("user_id")) {
-							this.payForm.user_id = sessionStorage.getItem("user_id")
+						if (localStorage.getItem("user_id")) {
+							this.payForm.user_id = localStorage.getItem("user_id")
 						}
 						Topaymentpage(this.payForm).then((data) => {
 							window.open(data)
@@ -863,7 +863,7 @@
 				let that = this
 				findPwdSendMail(this.loginForm).then((res) => {
 					setToken(res.auth_token)
-					sessionStorage.setItem("token", res.auth_token)
+					localStorage.setItem("token", res.auth_token)
 					this.$store.commit('SET_TOKEN', res.auth_token)
 					this.$notify({
 						title: '',
@@ -871,10 +871,10 @@
 						type: 'success'
 					})
 					let username = (res.user_info.first_name || '') + (res.user_info.last_name || '')
-					sessionStorage.setItem("user_name", username)
-					sessionStorage.setItem("user_email", res.user_info.email)
-					sessionStorage.setItem("user_provider", res.user_info.provider)
-					sessionStorage.setItem("user_id", res.user_info.user_id)
+					localStorage.setItem("user_name", username)
+					localStorage.setItem("user_email", res.user_info.email)
+					localStorage.setItem("user_provider", res.user_info.provider)
+					localStorage.setItem("user_id", res.user_info.user_id)
 					setUserName(username)
 					this.$store.commit('SET_NAME', username)
 				}).catch((err) => {
@@ -949,15 +949,15 @@
 					getUserInfo(this.form).then(res => {
 						if (res.status == 'success') {
 							setToken(this.$route.query.token)
-							sessionStorage.setItem("token", this.$route.query.token)
+							localStorage.setItem("token", this.$route.query.token)
 							this.$store.commit('SET_TOKEN', this.$route.query.token)
 
-							sessionStorage.setItem("user_email", this.$route.query.email)
-							sessionStorage.setItem("user_provider", this.$route.query.provider)
-							sessionStorage.setItem("user_id", this.$route.query.user_id)
+							localStorage.setItem("user_email", this.$route.query.email)
+							localStorage.setItem("user_provider", this.$route.query.provider)
+							localStorage.setItem("user_id", this.$route.query.user_id)
 
 							let username = (res.data.first_name || '') + (res.data.last_name || '')
-							sessionStorage.setItem("user_name", username)
+							localStorage.setItem("user_name", username)
 							setUserName(username)
 							this.$store.commit('SET_NAME', username)
 

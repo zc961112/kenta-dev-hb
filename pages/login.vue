@@ -111,15 +111,15 @@
 					getUserInfo(this.form).then(res => {
 						if (res.status == 'success') {
 							setToken(this.$route.query.token)
-							sessionStorage.setItem("token", this.$route.query.token)
+							localStorage.setItem("token", this.$route.query.token)
 							this.$store.commit('SET_TOKEN', this.$route.query.token)
 
-							sessionStorage.setItem("user_email", this.$route.query.email)
-							sessionStorage.setItem("user_provider", this.$route.query.provider)
-							sessionStorage.setItem("user_id", this.$route.query.user_id)
+							localStorage.setItem("user_email", this.$route.query.email)
+							localStorage.setItem("user_provider", this.$route.query.provider)
+							localStorage.setItem("user_id", this.$route.query.user_id)
 
 							let username = (res.data.first_name || '') + (res.data.last_name || '')
-							sessionStorage.setItem("user_name", username)
+							localStorage.setItem("user_name", username)
 							setUserName(username)
 							this.$store.commit('SET_NAME', username)
 

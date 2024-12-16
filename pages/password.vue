@@ -91,7 +91,7 @@
 				let that = this
 				findPwdSendMail(this.form).then((res) => {
 					setToken(res.auth_token)
-					sessionStorage.setItem("token", res.auth_token)
+					localStorage.setItem("token", res.auth_token)
 					this.$store.commit('SET_TOKEN', res.auth_token)
 					this.$notify({
 						title: '',
@@ -99,10 +99,10 @@
 						type: 'success'
 					})
 					let username = (res.user_info.first_name || '') + (res.user_info.last_name || '')
-					sessionStorage.setItem("user_name", username)
-					sessionStorage.setItem("user_email", res.user_info.email)
-					sessionStorage.setItem("user_provider", res.user_info.provider)
-					sessionStorage.setItem("user_id", res.user_info.user_id)
+					localStorage.setItem("user_name", username)
+					localStorage.setItem("user_email", res.user_info.email)
+					localStorage.setItem("user_provider", res.user_info.provider)
+					localStorage.setItem("user_id", res.user_info.user_id)
 					setUserName(username)
 					this.$store.commit('SET_NAME', username)
 					this.$router.push({

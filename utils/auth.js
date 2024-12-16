@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 const TokenKey = 'Admin-Token'
 
 export function getToken() {
-  return sessionStorage.getItem("token")//Cookies.get(TokenKey)
+  return localStorage.getItem("token")//Cookies.get(TokenKey)
 }
 
 export function setToken(token) {
@@ -11,18 +11,18 @@ export function setToken(token) {
 }
 
 export function removeToken() {
-  return sessionStorage.removeItem("token")
+  return localStorage.removeItem("token")
   //return Cookies.remove(TokenKey)
 }
 export function getRedirect() {
-  //return sessionStorage.getItem('redirect')
+  //return localStorage.getItem('redirect')
 }
 
 export function setRedirect(redirect) {
   //return Cookies.set('redirect', redirect)
 }
 export function getUserId() {
-  return sessionStorage.getItem('user_id')
+  return localStorage.getItem('user_id')
 }
 
 export function setUserId(id) {
@@ -30,12 +30,12 @@ export function setUserId(id) {
 }
 
 export function removeUserId() {
-  return sessionStorage.removeItem('user_id')
+  return localStorage.removeItem('user_id')
 }
 
 
 export function getUserName() {
-  return sessionStorage.getItem('user_name')
+  return localStorage.getItem('user_name')
 }
 
 export function setUserName(name) {
@@ -43,17 +43,17 @@ export function setUserName(name) {
 }
 
 export function removeUserName() {
-  return sessionStorage.removeItem('user_name')
+  return localStorage.removeItem('user_name')
 }
 
 export function getMemberId() {
-  return sessionStorage.getItem('user_id')
+  return localStorage.getItem('user_id')
 }
 
 export function setMemberId(memberId) {
-  return sessionStorage.setItem('user_id', user_id)
+  return localStorage.setItem('user_id', user_id)
 }
 
 export function removeMemberId() {
-  return sessionStorage.removeItem('user_id')
+  return localStorage.removeItem('user_id')
 }
