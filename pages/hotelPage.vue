@@ -299,9 +299,9 @@
 										<p>{{item.room_data_trans.bedding_type}}</p>
 										<div class="laber-slide">
 											<div class="laber">
-												<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
-												<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
-												<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon23.png" /></div>
+												<div>33 מ"ר<img src="~assets/images/icon/icon28.png" /></div>
+												<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon29.png" /></div>
+												<div>קפה <img src="~assets/images/icon/icon30.png" /></div>
 											</div>
 										</div>
 									</div>
@@ -516,7 +516,7 @@
 				let t1 = t.split("/")[0]
 				let t2 = t.split("/")[1]
 				let year = t1.split("-")[2].slice(2,4)
-				
+
 				let tc1 =  t1.split("-")[0] + '/' + t1.split("-")[1] + '/' + year
 				let tc2 =  t2.split("-")[0] + '/' + t2.split("-")[1] + '/' + year
 				this.defaultTime = tc2 +'-' + tc1
