@@ -116,6 +116,11 @@
 </script>
 
 <style lang="scss" scoped>
+	.c-casino-box::v-deep .el-rate__item:nth-last-child(1) .el-rate__icon{
+		font-size: 0.14rem;
+		margin-top: 0.01rem;
+	}
+
 	@media (max-width: 820px) {
 		.casino {
 			.c-casino-box .ccb-right .title .name {
@@ -138,7 +143,7 @@
 				&:hover {
 					border: none !important;
 					background: none !important;
-					transition: none!important;
+					transition: none !important;
 
 					.ccb-title {
 						color: #FF3263;
@@ -194,8 +199,10 @@
 			.c-casino-box .ccb-right .title .index {
 				position: absolute;
 				top: 0.17rem;
-				left: 0.16rem;
+				left: 0.32rem;
 				z-index: 1;
+
+				width: auto;
 			}
 		}
 
@@ -208,6 +215,8 @@
 	.casino {
 		position: relative;
 	}
+
+
 
 	.c-casino-box {
 		display: flex;
@@ -260,9 +269,10 @@
 			}
 		}
 
+
 		:deep(.el-rate__icon) {
 			margin-right: 0;
-			font-size: 0.18rem;
+			font-size: 0.16rem;
 		}
 
 		.ccb-left {
@@ -271,6 +281,7 @@
 			position: relative;
 			overflow: hidden;
 		}
+
 
 		.ccb-img-eye {
 			display: none;
@@ -389,7 +400,8 @@
 				align-items: center;
 
 				.index {
-					width: 0.28rem;
+					min-width: 0.28rem;
+					padding: 0 0.03rem;
 					height: 0.34rem;
 					background: url("~assets/images/icon/Vector.png");
 					background-size: 100% 100%;

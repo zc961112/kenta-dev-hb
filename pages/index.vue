@@ -49,9 +49,10 @@
 									<img :src="item.src" />
 									<div class="info">
 										<h4>{{ item.title }}</h4>
-										<router-link
+										<button @click="toeventlPage(item)">לצפייה בכרטיסים</button>
+										<!-- <router-link
 											:to="{ name: 'eventlPage', query: { tournament_name: item.tournament_name } }"
-											tag="button">לצפייה בכרטיסים</router-link>
+											tag="button">לצפייה בכרטיסים</router-link> -->
 									</div>
 								</div>
 							</swiper-slide>
@@ -554,29 +555,32 @@
 					centeredSlides: false,
 					spaceBetween: 16,
 					grabCursor: true,
-					loop: true
-
+					loop: true,
+					autoplay:false,
 				},
 				visibleOption: {
 					slidesPerView: 3,
 					centeredSlides: false,
 					spaceBetween: 16,
 					grabCursor: true,
-					loop: true
+					loop: true,
+					autoplay:false,
 				},
 				slideImgOption: {
 					slidesPerView: 5,
 					centeredSlides: false,
 					spaceBetween: 16,
 					grabCursor: true,
-					loop: true
+					loop: true,
+					autoplay:false,
 				},
 				swiperOptionM: {
 					slidesPerView: 1.5,
 					centeredSlides: false,
 					spaceBetween: 16,
 					grabCursor: true,
-					loop: true
+					loop: true,
+					autoplay:false,
 				},
 				cityval: '',
 				defaultList: [],
@@ -594,6 +598,11 @@
 			window.removeEventListener('resize', this.handleResize);
 		},
 		methods: {
+			toeventlPage(item) {
+				this.$router.push({
+					path: ("/eventlPage?tournament_name=" + item.tournament_name)
+				})
+			},
 			handleResize() {
 				this.reloadSwiper();
 			},

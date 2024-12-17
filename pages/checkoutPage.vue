@@ -44,13 +44,13 @@
 						<div class="bg">
 							<div class="name">תשלום בעת ההגעה</div>
 							<div class="info" v-for="(item,index) in taxesbot" :key="index">
-								<p class="flex">{{item.unit}} {{item.amount}}</p>
+								<p class="flex">{{item.currency_code}} {{item.amount}}</p>
 								<div>{{item.name}}</div>
 							</div>
 						</div>
 						<div class="b">
 							<p><span>לתשומת ליבך</span> כל המיסים ואגרות</p>
-							<p v-for="(item,index) in taxesbot" :key="index">יחוייבו במטבע מקומי ({{item.unit}}).</p>
+							<p v-for="(item,index) in taxesbot" :key="index">יחוייבו במטבע מקומי ({{item.currency_code}}).</p>
 						</div>
 					</div>
 					<div class="send">
@@ -91,16 +91,16 @@
 							</div>
 						</div>
 						<div class="price-c">
-							<div class="bg"> 
+							<div class="bg">
 								<div class="name">תשלום בעת ההגעה</div>
 								<div class="info" v-for="(item,index) in taxesbot" :key="index">
-									<p class="flex">{{item.unit}} {{item.amount}}</p>
+									<p class="flex">{{item.currency_code}} {{item.amount}}</p>
 									<div>{{item.name}}</div>
 								</div>
 							</div>
 							<div class="b">
 								<p><span>לתשומת ליבך</span> כל המיסים ואגרות</p>
-								<p>יחוייבו במטבע מקומי (USD).</p>
+								<p v-for="(item,index) in taxesbot" :key="index">יחוייבו במטבע מקומי ({{item.currency_code}}).</p>
 							</div>
 						</div>
 						<div class="send">
@@ -704,7 +704,6 @@
 				let list = JSON.parse(this.$route.query.taxes)
 				if (list.length > 0) {
 					list.forEach(item => {
-						console.log(item)
 						if (item.included_by_supplier) {
 							this.taxestop.push(item)
 						} else {

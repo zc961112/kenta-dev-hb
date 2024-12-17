@@ -201,6 +201,8 @@
 			}
 		}),
 		mounted() {
+			this.getady()
+			this.form.date_start = 'ge:' + this.getady()
 			this.makMonthList();
 			this.getEvents()
 			this.checkIfMobile()
@@ -339,9 +341,7 @@
 					text: 'Loading'
 				})
 
-				this.getady()
 				this.form.sport_type = this.$route.query.tournament_name ? 'soccer' : 'formula1'
-				this.form.date_start = 'ge:' + this.getady()
 				this.form.tournament_name = this.$route.query.tournament_name || '',
 					events(this.form).then(res => {
 						this.list = res.events.slice(0, this.maxItems)
@@ -385,8 +385,8 @@
 				// this.visible3 = false;
 				// console.log(this.dateType);
 				if (e.length > 0) {
-					this.form.checkin = tday.getdayTime(e[0])
-					this.form.checkout = tday.getdayTime(e[1])
+					this.form.date_start = tday.getdayTime(e[0])
+					this.form.date_stop = tday.getdayTime(e[1])
 					this.loading = true
 					this.getEvents()
 				}

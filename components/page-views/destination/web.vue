@@ -11,7 +11,7 @@
 								<el-autocomplete @keyup.enter.native="citysearch" suffix-icon="el-icon-search"
 									class="pac-input" v-model="searchQuery.destinationName"
 									:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''"
-									placeholder="לאס וגאס, ארה״ב" @select="handleSelect">
+									:placeholder="$route.params.id" @select="handleSelect">
 									<template slot-scope="{ item }">
 										<div>{{ item.city }}</div>
 									</template>
@@ -50,7 +50,7 @@
 								<el-autocomplete @keyup.enter.native="citysearch" suffix-icon="el-icon-search"
 									class="pac-input" v-model="searchQuery.destinationName"
 									:fetch-suggestions="querySearch" @focus="searchQuery.destinationName=''"
-									placeholder="לאס וגאס, ארה״ב" @select="handleSelect">
+									:placeholder="$route.params.id" @select="handleSelect">
 									<template slot-scope="{ item }">
 										<div>{{ item.city }}</div>
 									</template>

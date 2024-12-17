@@ -935,7 +935,7 @@
 		left: 0;
 		border-top-right-radius: 8px;
 		border-top-left-radius: 8px;
-		z-index: 10;
+		z-index: 9999;
 		border-top: 1px solid #DADADA;
 		background-color: #fff;
 		padding: 0.2rem 0.2rem 0.24rem 0.2rem;
@@ -1207,12 +1207,12 @@
 		padding: 0.25rem !important;
 		border: 1px solid rgba(0, 188, 147, 1);
 		border-radius: 8px;
-		background-color: rgba(255, 184, 0, 0.05) !important;
+		background-color: rgba(254, 250, 241, 1) !important;
 
 		.name {
 			font-size: 0.2rem;
 			font-weight: 700;
-			color: rgba(0, 188, 147, 1);
+			color: rgba(26, 26, 26, 1);
 
 			span {
 				font-family: Oleo Script;

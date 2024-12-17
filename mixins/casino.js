@@ -83,7 +83,7 @@ export default {
 			displayRight: '',
 			windowWidth: '',
 			defaultList: [],
-			loading:null
+			loading: null
 		}
 	},
 	mounted() {
@@ -113,7 +113,7 @@ export default {
 				lock: true,
 				text: 'Loading'
 			})
-			
+
 			this.modifyData.region_id = this.id
 			this.modifyData.ids = this.ids
 
@@ -150,6 +150,8 @@ export default {
 								this.priceArr.push(item.daily_price != null ? item.daily_price
 									.toFixed(2) : 'לא זמין')
 								i.daily_prices = this.priceArr
+								i.people = item.people
+								i.date = item.date
 							}
 						}
 					})
@@ -555,9 +557,9 @@ export default {
 					children.push(data)
 				}
 			}
-			this.modifyData.children = children.length > 0 ? children : [],
-				this.replacePrice()
-				
+			this.modifyData.children = children.length > 0 ? children : []
+			this.replacePrice()
+
 			this.adults = JSON.stringify(data)
 		}
 	},
