@@ -556,7 +556,7 @@
 					spaceBetween: 16,
 					grabCursor: true,
 					loop: true,
-					autoplay:false,
+					autoplay: false,
 				},
 				visibleOption: {
 					slidesPerView: 3,
@@ -564,7 +564,7 @@
 					spaceBetween: 16,
 					grabCursor: true,
 					loop: true,
-					autoplay:false,
+					autoplay: false,
 				},
 				slideImgOption: {
 					slidesPerView: 5,
@@ -572,7 +572,7 @@
 					spaceBetween: 16,
 					grabCursor: true,
 					loop: true,
-					autoplay:false,
+					autoplay: false,
 				},
 				swiperOptionM: {
 					slidesPerView: 1.5,
@@ -580,7 +580,7 @@
 					spaceBetween: 16,
 					grabCursor: true,
 					loop: true,
-					autoplay:false,
+					autoplay: false,
 				},
 				cityval: '',
 				defaultList: [],
@@ -726,6 +726,15 @@
 <style lang="scss" scoped>
 	.nomobile {
 		display: block;
+	}
+
+	@media (min-width: 820px) and (max-width: 1440px) {
+		.page {
+			.warps,.experience .experience-info{
+				width: 100%;
+				padding: 0 0.2rem;
+			}
+		}
 	}
 
 	@media (max-width: 820px) {

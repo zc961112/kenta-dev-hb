@@ -95,7 +95,7 @@ h6 {
 .el-scrollbar__bar {
     opacity: 1 !important;
 }
-.el-input .el-input__suffix { display: contents; }
+// .el-input .el-input__suffix { display: contents; }
 .line-1 {
     font-family: Rubik;
     overflow: hidden;
@@ -842,11 +842,7 @@ text-align: center;
         scrollbar-width: 0;
     }
 }
-@media screen and (max-width: 1500px) {
-   .carousel-box .left{
-	  left: 0.2rem!important;
-   }
-}
+
 
 // #venue-map svg {
 // 		width: 100%
@@ -948,7 +944,7 @@ text-align: center;
 // 	    fill: hsl(0 0% 82.7% / 1)!important;
 // 	    stroke: none!important
 // 	}
-
+	
 // 	#venue-map .soccerfield {
 // 	    fill: hsl(161.39999999999998 93.5% 30.4% / 1)!important;
 // 	    stroke: hsl(var(--twc-soccerfield) / var(--twc-soccerfield-opacity, 1))!important

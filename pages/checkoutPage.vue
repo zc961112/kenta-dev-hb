@@ -91,7 +91,7 @@
 							</div>
 						</div>
 						<div class="price-c">
-							<div class="bg">
+							<div class="bg"> 
 								<div class="name">תשלום בעת ההגעה</div>
 								<div class="info" v-for="(item,index) in taxesbot" :key="index">
 									<p class="flex">{{item.currency_code}} {{item.amount}}</p>

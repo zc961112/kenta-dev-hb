@@ -385,8 +385,8 @@
 				// this.visible3 = false;
 				// console.log(this.dateType);
 				if (e.length > 0) {
-					this.form.date_start = tday.getdayTime(e[0])
-					this.form.date_stop = tday.getdayTime(e[1])
+					this.form.date_start = 'ge:' + tday.getdayTime(e[0])
+					this.form.date_stop = 'ge:' + tday.getdayTime(e[1])
 					this.loading = true
 					this.getEvents()
 				}

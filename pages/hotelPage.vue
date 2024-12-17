@@ -299,9 +299,11 @@
 										<p>{{item.room_data_trans.bedding_type}}</p>
 										<div class="laber-slide">
 											<div class="laber">
-												<div>33 מ"ר<img src="~assets/images/icon/icon28.png" /></div>
-												<div>חדר מקלחת פרטי <img src="~assets/images/icon/icon29.png" /></div>
-												<div>קפה <img src="~assets/images/icon/icon30.png" /></div>
+												<div v-for="(iteml,indexl) in item.room_amenities" :key="indexl">
+													{{iteml.name}}
+													<img :src="fnimg(iteml.image)"/>
+													<!-- <img :src="`~/assets/images/icon/${iteml.image}`" /> -->
+												</div>
 											</div>
 										</div>
 									</div>
@@ -510,16 +512,19 @@
 			window.removeEventListener('scroll', this.handleScroll);
 		},
 		methods: {
+			fnimg(image) {
+				return require(`~/assets/images/icon/${image}`)
+			},
 			// 获取默认时间
 			getmrTime() {
 				let t = this.$route.query.time
 				let t1 = t.split("/")[0]
 				let t2 = t.split("/")[1]
-				let year = t1.split("-")[2].slice(2,4)
+				let year = t1.split("-")[2].slice(2, 4)
 
-				let tc1 =  t1.split("-")[0] + '/' + t1.split("-")[1] + '/' + year
-				let tc2 =  t2.split("-")[0] + '/' + t2.split("-")[1] + '/' + year
-				this.defaultTime = tc2 +'-' + tc1
+				let tc1 = t1.split("-")[0] + '/' + t1.split("-")[1] + '/' + year
+				let tc2 = t2.split("-")[0] + '/' + t2.split("-")[1] + '/' + year
+				this.defaultTime = tc2 + '-' + tc1
 			},
 			// 跳去下一个页面
 			tocheckout(e) {
@@ -584,7 +589,7 @@
 						if (val.payment_options.payment_types.length > 0) {
 							val.payment_options.payment_types.forEach(item => {
 								item.tax_data.taxes.forEach(j => {
-									if(j.included_by_supplier) {
+									if (j.included_by_supplier) {
 										price = price + Number(j.amount)
 									}
 								})
@@ -709,6 +714,7 @@
 								room_data_trans: element.room_data_trans,
 								images: element.images,
 								book_hash: element.book_hash,
+								room_amenities: element.room_data_trans.room_amenities,
 							})
 							index = this.hotelslist.length - 1
 						}
@@ -745,6 +751,11 @@
 </script>
 
 <style lang="scss" scoped>
+	.rate::v-deep .el-rate__item:nth-last-child(1) .el-rate__icon {
+		font-size: 0.16rem;
+		margin-top: 0.01rem;
+	}
+
 	.m-ban::v-deep .swiper-pagination-bullet {
 		background: rgba(218, 218, 218, 1);
 	}

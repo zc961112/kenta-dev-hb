@@ -283,7 +283,7 @@
 				let t1 = t.split("/")[0]
 				let t2 = t.split("/")[1]
 				let year = t1.split("-")[2].slice(2,4)
-
+				
 				let tc1 =  t1.split("-")[0] + '/' + t1.split("-")[1] + '/' + year
 				let tc2 =  t2.split("-")[0] + '/' + t2.split("-")[1] + '/' + year
 				this.formDate1 = tc2 +'-' + tc1
