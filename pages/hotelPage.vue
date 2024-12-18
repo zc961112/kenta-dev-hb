@@ -296,12 +296,12 @@
 								<div class="room">
 									<div class="left flex">
 										<h2>{{item.room_name}}</h2>
-										<p>{{item.room_data_trans.bedding_type}}</p>
+										<p style="height: 0.2rem;">{{item.room_data_trans.bedding_type}}</p>
 										<div class="laber-slide">
 											<div class="laber">
 												<div v-for="(iteml,indexl) in item.room_amenities" :key="indexl">
 													{{iteml.name}}
-													<img :src="fnimg(iteml.image)"/>
+													<img :src="fnimg(iteml.image)" />
 													<!-- <img :src="`~/assets/images/icon/${iteml.image}`" /> -->
 												</div>
 											</div>
@@ -764,9 +764,19 @@
 		background: #fff;
 	}
 
+	
+
 	@media (max-width: 820px) {
 		.page {
 			.content .nav .right .xx .rtl {
+				direction: rtl;
+			}
+			.laber-slide {
+				display: flex;
+				width: 100%;
+				overflow-x: auto;
+				white-space: nowrap;
+				padding-bottom: 0.16rem;
 				direction: rtl;
 			}
 
@@ -896,14 +906,7 @@
 				}
 			}
 
-			.laber-slide {
-				display: flex;
-				width: 100%;
-				overflow-x: auto;
-				white-space: nowrap;
-				padding-bottom: 0.16rem;
-				direction: rtl;
-			}
+
 
 
 			.Palace .Palace-right .Hotel-li {
@@ -1378,7 +1381,7 @@
 						padding: 0.16rem 0.16rem 0 0;
 
 						.laber {
-							margin-top: 0.40rem;
+							margin-top: 0.35rem;
 							display: flex;
 							align-items: center;
 							justify-content: flex-end;
