@@ -302,7 +302,6 @@
 												<div v-for="(iteml,indexl) in item.room_amenities" :key="indexl">
 													{{iteml.name}}
 													<img :src="fnimg(iteml.image)" />
-													<!-- <img :src="`~/assets/images/icon/${iteml.image}`" /> -->
 												</div>
 											</div>
 										</div>
@@ -764,19 +763,32 @@
 		background: #fff;
 	}
 
-	
+	.laber-slide {
+		display: flex;
+		max-width: 100%;
+		overflow-x: auto;
+		white-space: nowrap;
+		padding-bottom: 0.16rem;
+		direction: rtl;
+	}
+
+
 
 	@media (max-width: 820px) {
 		.page {
 			.content .nav .right .xx .rtl {
 				direction: rtl;
 			}
-			.laber-slide {
-				display: flex;
+
+			.Palace-right {
 				width: 100%;
-				overflow-x: auto;
-				white-space: nowrap;
-				padding-bottom: 0.16rem;
+			}
+
+			.Palace .Palace-right .Hotel-li .room .left {
+				width: 100%;
+			}
+
+			.Palace .Palace-right .Hotel-li .room .left .laber {
 				direction: rtl;
 			}
 
@@ -1251,7 +1263,8 @@
 		display: flex;
 
 		.Palace-right {
-			flex: 1;
+			// flex: 1;
+			width: calc(100% - 3.32rem);
 			padding-left: 0.16rem;
 
 			.Hotel-li {
@@ -1379,12 +1392,14 @@
 					.left {
 						text-align: right;
 						padding: 0.16rem 0.16rem 0 0;
+						width: calc(100% - 1.99rem);
 
 						.laber {
 							margin-top: 0.35rem;
 							display: flex;
 							align-items: center;
 							justify-content: flex-end;
+							direction: ltr;
 
 							div {
 								background-color: rgba(245, 245, 245, 1);
@@ -1469,6 +1484,7 @@
 			}
 
 			.top {
+				width: 3.32rem;
 				position: relative;
 				background-color: #fff;
 				border-radius: 8px;
