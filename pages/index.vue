@@ -607,12 +607,13 @@
 				this.reloadSwiper();
 			},
 			reloadSwiper() {
+				let that = this
 				// 销毁并重新加载 Swiper
 				this.showSwiper = false;
-				this.$nextTick(() => {
+				setTimeout(function() {
 					// location.reload()
-					this.showSwiper = true;
-				})
+					that.showSwiper = true;
+				}, 100)
 			},
 			getImages() {
 				this.slideImg = this.imagesList.slice(0, 5); // 初始化显示前三张图片
@@ -730,7 +731,9 @@
 
 	@media (min-width: 820px) and (max-width: 1440px) {
 		.page {
-			.warps,.experience .experience-info{
+
+			.warps,
+			.experience .experience-info {
 				width: 100%;
 				padding: 0 0.2rem;
 			}

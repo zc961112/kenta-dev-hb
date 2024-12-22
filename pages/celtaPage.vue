@@ -162,9 +162,9 @@
 									<div class="price">
 										<p style="text-align: left;direction: ltr;"
 											:style="{color:selectActive==index?'rgb(255, 50, 99)!important':'rgb(0, 188, 147)!important'}">
-											<span>+€</span>
-											<span>{{priceFn(item.net_rate - defaultData.net_rate)}}</span>
-											</p>
+											<span>{{item.positive?'-':'+'}}€</span>
+											<span>{{Math.abs(priceFn(item.net_rate - defaultData.net_rate))}}</span>
+										</p>
 										<div>תוספת לאדם</div>
 									</div>
 								</div>
@@ -472,17 +472,6 @@
 				direction: false,
 				pricedirection: false,
 				value: '',
-				list: [{
-						name: 'כרטיס/ים',
-						p: 'בחר/י את מקומות הישיבה',
-						t: 'שלך בשלב 2.'
-					},
-					{
-						name: 'כרטיס/ים + מלון',
-						p: 'בחר/י את מקומות הישיבה',
-						t: 'והמלון שלך בשלב 2 ו- 3.'
-					}
-				],
 				active: -1,
 				setData: {},
 				list: [],
@@ -500,6 +489,18 @@
 
 			}
 
+		},
+		watch: {
+			list(arr) {
+				arr.forEach(item => {
+					let str = item.net_rate - this.defaultData.net_rate
+					let num = parseFloat(str); // 将字符串转换为数字
+					if (!isNaN(num) && num < 0) { // 检查是否是负数
+						return item.positive = true; // 返回去掉负号的字符串
+					}
+					return item.positive = false; // 如果不是负数，返回原字符串
+				})
+			}
 		},
 		async created() {
 			if (sessionStorage.getItem('TotripData')) {
