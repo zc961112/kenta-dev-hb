@@ -3,19 +3,19 @@
 		<el-popover placement="bottom-start" trigger="click" :visible-arrow="false" popper-class="select-date-wrap"
 			v-model="show">
 			<div class="select-date-con">
-				<div class="tabs">
+				<!-- <div class="tabs">
 					<div class="tab" :class="dateType == 0 ? 'active' : ''" @click="handleDateType(0)">
 						Select your dates
 					</div>
 					<div class="tab" :class="dateType == 1 ? 'active' : ''" @click="handleDateType(1)">
 						<span>New:&nbsp;</span> I’m flexible
 					</div>
-				</div>
+				</div> -->
 				<div class="tab-con" v-if="dateType == 0">
 					<date-picker ref="myDatePicker" v-model="dates" type="daterange" @pick="confirmDateRange"
 						popperClass="date-content" value-format="yyyy-MM-dd" range-separator="至" start-placeholder=""
 						end-placeholder="" />
-					<div class="exact-dates">
+					<!-- <div class="exact-dates">
 						<div class="item" :class="dayRageIndex==0?'active':''" @click="handleDateRange(0)">Exact dates
 						</div>
 						<div class="item" :class="dayRageIndex==1?'active':''" @click="handleDateRange(1)">± 1 day</div>
@@ -25,7 +25,7 @@
 						</div>
 						<div class="item" :class="dayRageIndex==7?'active':''" @click="handleDateRange(7)">± 7 days
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="tab-con" v-if="dateType == 1">
 					<div class="travel-type">

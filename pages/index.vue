@@ -24,15 +24,22 @@
 				:חיפושים פופולריים
 			</div>
 			<div class="searches-list">
-				<div class="li">
-					דילים ללונדון
-				</div>
-				<div class="li">
-					מלונות עם קזינו
-				</div>
-				<div class="li">
-					חבילות למיקונוס
-				</div>
+				<a href="https://kenta-dev-hb.vercel.app/destination/%D7%93%D7%95%D7%91%D7%90%D7%99,%20%D7%90%D7%99%D7%97%D7%95%D7%93%20%D7%94%D7%90%D7%9E%D7%99%D7%A8%D7%95%D7%99%D7%95%D7%AA%20%D7%94%D7%A2%D7%A8%D7%91%D7%99%D7%95%D7%AA"
+					class="li">
+					סופ״ש בדואבי
+				</a>
+				<a href="https://kenta-dev-hb.vercel.app/destination/%D7%9E%D7%93%D7%A8%D7%99%D7%93,%20%D7%A1%D7%A4%D7%A8%D7%93"
+					class="li">
+					סופ״ש במדריד
+				</a>
+				<a href="https://kenta-dev-hb.vercel.app/destination/%D7%A4%D7%95%D7%A7%D7%98,%20%D7%AA%D7%90%D7%99%D7%9C%D7%A0%D7%93"
+					class="li">
+					מלונות בפוקט
+				</a>
+				<a href="https://kenta-dev-hb.vercel.app/destination/%D7%A7%D7%95%20%D7%A1%D7%9E%D7%95%D7%99,%D7%AA%D7%90%D7%99%D7%9C%D7%A0%D7%93"
+					class="li">
+					מלונות בקוסמוי
+				</a>
 			</div>
 		</div>
 		<div class="warps">
@@ -45,7 +52,7 @@
 					<div class="carousel">
 						<swiper ref="mySwiper" :options="visibleOption">
 							<swiper-slide v-for="(item, index) in images" :key="index">
-								<div class="carousel-li">
+								<div class="carousel-li hover-li">
 									<img :src="item.src" />
 									<div class="info">
 										<h4>{{ item.title }}</h4>
@@ -144,36 +151,46 @@
 					<div class="experience-list">
 						<swiper ref="mySwiper" :options="swiperOption" v-if="showSwiper">
 							<swiper-slide>
-								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li">
-									<img src="~assets/images/Rectangle 715.png" />
+								<div :to="{ name: 'eventlPage', query: { id: 1 } }" class="experience-li hover-li">
+									<div class="img">
+										<img src="~assets/images/Rectangle 715.png" />
+									</div>
 									<h3>סופ״ש ספונטני</h3>
 									<p>חבילות לרגע האחרון</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
-								<div class="experience-li">
-									<img src="~assets/images/Rectangle 716.png" />
+								<div class="experience-li hover-li">
+									<div class="img">
+										<img src="~assets/images/Rectangle 716.png" />
+									</div>
 									<h3>אירועי ספורט</h3>
 									<p>חבילות ספורט בעולם</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
-								<div class="experience-li">
-									<img src="~assets/images/Rectangle 717.png" />
+								<div class="experience-li hover-li">
+									<div class="img">
+										<img src="~assets/images/Rectangle 717.png" />
+									</div>
 									<h3>טיולי שופינג</h3>
 									<p>חבילות ליעדי קניות</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
-								<div class="experience-li">
-									<img src="~assets/images/Rectangle 719.png" />
+								<div class="experience-li hover-li">
+									<div class="img">
+										<img src="~assets/images/Rectangle 719.png" />
+									</div>
 									<h3>חופשות קזינו</h3>
 									<p>חבילות קזינו</p>
 								</div>
 							</swiper-slide>
 							<swiper-slide>
-								<div class="experience-li">
-									<img src="~assets/images/Rectangle 718.png" />
+								<div class="experience-li hover-li">
+									<div class="img">
+										<img src="~assets/images/Rectangle 718.png" />
+									</div>
 									<h3>נופש על המים</h3>
 									<p>חבילות בטן-גב</p>
 								</div>
@@ -242,7 +259,7 @@
 							<img src="~assets/images/icon/language1.png" />
 							<div>ליגה אנגלית</div>
 						</div>
-						<div class="language-li">
+						<div class="language-li" @click="toPath('Champions League')">
 							<img src="~assets/images/icon/language2.png" />
 							<div>ליגת האלופות</div>
 						</div>
@@ -324,8 +341,10 @@
 					<div class="vacation-list">
 						<swiper ref="mySwiper" :options="slideImgOption" v-if="showSwiper">
 							<swiper-slide v-for="(item,index) in imagesList" :key="index">
-								<div class="vacation-li">
-									<img :src="item.src" />
+								<div class="vacation-li hover-li">
+									<div class="img">
+										<img :src="item.src" />
+									</div>
 									<h3>{{item.title}}</h3>
 								</div>
 							</swiper-slide>
@@ -349,12 +368,13 @@
 		</div>
 		<div class="warps">
 			<div class="Recommended">
-				<div class="dow" @click="over=!over">
+				<!-- <div class="dow" @click="over=!over">
 					<i class="el-icon-arrow-down"></i>
 					<h3>יעדים מומלצים</h3>
-				</div>
-				<div class="up" @click="over=!over">
-					<i class="el-icon-arrow-up"></i>
+				</div> -->
+				<!-- @click="over=!over" -->
+				<div class="up" >
+					<!-- <i class="el-icon-arrow-up"></i> -->
 					<h3>כל היעדים</h3>
 				</div>
 				<!-- PC -->
@@ -598,6 +618,11 @@
 			window.removeEventListener('resize', this.handleResize);
 		},
 		methods: {
+			toPath(name) {
+				this.$router.push({
+					path: ("/eventlPage?tournament_name=" + name)
+				})
+			},
 			toeventlPage(item) {
 				this.$router.push({
 					path: ("/eventlPage?tournament_name=" + item.tournament_name)
@@ -729,6 +754,16 @@
 		display: block;
 	}
 
+	.hover-li:hover img {
+		transition: ease .5s;
+		transform: scale(1.3);
+	}
+
+	.language .left .language-list .language-li:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+		transition: ease .5s;
+	}
+
 	@media (min-width: 820px) and (max-width: 1440px) {
 		.page {
 
@@ -742,6 +777,9 @@
 
 	@media (max-width: 820px) {
 		.page {
+			.searches-list {
+				flex-wrap: wrap;
+			}
 
 			.carousel-box,
 			.carousel-wrapper,
@@ -980,10 +1018,11 @@
 			}
 
 			.banner .searches-list .li {
-				margin: 0 0.04rem;
+				margin: 0 0.04rem 0.08rem 0.04rem;
 				padding: 0 0.08rem;
 				height: 0.32rem;
 				line-height: 0.32rem;
+				width: 40%;
 			}
 
 			.banner {
@@ -1040,7 +1079,8 @@
 		}
 
 		.up {
-			color: rgba(52, 81, 255, 1);
+			border-top: 1px solid rgba(218, 218, 218, 1);
+			// color: rgba(52, 81, 255, 1);
 			display: flex;
 			cursor: pointer;
 			align-items: center;
@@ -1101,11 +1141,18 @@
 					text-align: right;
 					direction: rtl;
 				}
+				.img {
+					width: 100%;
+					border-radius: 8px;
+					height: 3.20rem;
+					overflow: hidden;
+				}
 
 				img {
 					width: 100%;
 					border-radius: 8px;
 					height: 3.20rem;
+					transition: ease .5s;
 				}
 			}
 		}
@@ -1304,6 +1351,7 @@
 				}
 
 				.language-li {
+					cursor: pointer;
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
@@ -1420,10 +1468,18 @@
 						color: rgba(26, 26, 26, 0.6);
 					}
 
+					.img {
+						width: 100%;
+						height: 2.40rem;
+						border-radius: 8px;
+						overflow: hidden;
+					}
+
 					img {
 						width: 100%;
 						height: 2.40rem;
 						border-radius: 8px;
+						transition: ease .5s;
 					}
 				}
 			}
@@ -1439,6 +1495,7 @@
 					font-weight: 500;
 					letter-spacing: -0.04em;
 					color: rgba(26, 26, 26, 1);
+					text-align: right;
 				}
 			}
 
@@ -1523,8 +1580,11 @@
 			cursor: pointer;
 			height: 2.40rem;
 			position: relative;
+			border-radius: 8px;
+			overflow: hidden;
 
 			.info {
+				transition: ease .5s;
 				width: 100%;
 				height: 2.40rem;
 				position: absolute;
@@ -1564,7 +1624,7 @@
 			img {
 				width: 100%;
 				height: 100%;
-				border-radius: 8px;
+				transition: ease .5s;
 			}
 		}
 	}
@@ -1599,6 +1659,11 @@
 			align-items: center;
 			justify-content: center;
 			text-align: center;
+
+			a {
+				color: #fff;
+				text-decoration: none;
+			}
 
 			.li {
 				padding: 0.07rem 0.2rem;

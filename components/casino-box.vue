@@ -24,6 +24,7 @@
 			<div class="ccb-right">
 				<div class="title">
 					<div class="index"><span>{{casino.rating}}</span></div>
+					<div class="flex"></div>
 					<div class="name">
 						<h3>{{casino.name}}</h3>
 						<p>{{casino.address}}</p>
@@ -411,11 +412,14 @@
 					line-height: 0.3rem;
 					color: rgba(254, 254, 254, 1);
 				}
+				.flex{
+					flex:1
+				}
 
 				.name {
-					flex: 1;
 					text-align: right;
 					padding-left: 0.16rem;
+					max-width: 350px;
 
 					h3 {
 						//width: 261px;

@@ -38,7 +38,8 @@
 		coerceTruthyValueToArray
 	} from 'element-ui/src/utils/util';
 
-	const WEEKS = ['ש', 'ו', 'ה', 'ד', 'ג', 'ב', 'א'];
+	// const WEEKS = ['ש', 'ו', 'ה', 'ד', 'ג', 'ב', 'א'];
+	const WEEKS = ['א','ב', 'ג','ד','ה','ו','ש'];
 	const getDateTimestamp = function(time) {
 		if (typeof time === 'number' || typeof time === 'string') {
 			return _clearTime(new Date(time)).getTime();
