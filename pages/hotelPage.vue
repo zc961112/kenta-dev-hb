@@ -237,7 +237,7 @@
 											:key="'fraction-' + j"></span>
 										<!-- 显示当前的分数 -->
 										<span v-for="i in Math.min(5, Math.floor((other.rating || 0) / 2))"
-											:key="'current-' + i" class="current"></span>
+					w						:key="'current-' + i" class="current"></span>
 									</div>
 									<p>0 חוות דעת</p>
 								</div>
