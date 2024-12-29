@@ -381,118 +381,117 @@
 				<div class="menus-warp menus-nomobile">
 					<div class="menus" v-if="over">
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/קיוטו, יפן'">קיוטו, יפן</p>
-							<p onclick="window.location.href='destination/אדינבורו, הממלכה המאוחדת'">אדינבורו, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/דיסלדורף, גרמניה'">דיסלדורף, גרמניה</p>
-							<p onclick="window.location.href='destination/רודוס, יוון'">רודוס, יוון</p>
-							<p onclick="window.location.href='destination/ירוואן, ארמניה'">ירוואן, ארמניה</p>
-							<p onclick="window.location.href='destination/פירנצה, איטליה'">פירנצה, איטליה</p>
-							<p onclick="window.location.href='destination/המבורג, גרמניה'">המבורג, גרמניה</p>
-							<p onclick="window.location.href='destination/הלסינקי, פינלנד'">הלסינקי, פינלנד</p>
-							<p onclick="window.location.href='destination/הרקליון, יוון'">הרקליון, יוון</p>
-							<p onclick="window.location.href='destination/פוקט, תאילנד'">פוקט, תאילנד</p>
-							<p onclick="window.location.href='destination/מיקונוס, יוון'">מיקונוס, יוון</p>
-							<p onclick="window.location.href='destination/סקיאתוס, יוון'">סקיאתוס, יוון</p>
-							<p onclick="window.location.href='destination/הונג קונג, סין'">הונג קונג, סין</p>
-							<p onclick="window.location.href='destination/מרסיי, צרפת'">מרסיי, צרפת</p>
-							<p onclick="window.location.href='destination/קוס, יוון'">קוס, יוון</p>
-							<p onclick="window.location.href='destination/טולום, מקסיקו'">טולום, מקסיקו</p>
-							<p onclick="window.location.href='destination/קרקוב, פולין'">קרקוב, פולין</p>
-							<p onclick="window.location.href='destination/לאס וגאס, ארצות הברית'">לאס וגאס, ארצות הברית</p>
-							<p onclick="window.location.href='destination/סנט פטרסבורג, רוסיה'">סנט פטרסבורג, רוסיה</p>
-							<p onclick="window.location.href='destination/ליסבון, פורטוגל'">ליסבון, פורטוגל</p>
+							<p onclick="window.location.href='destination/קיוטו, יפן'">קיוטו</p>
+							<p onclick="window.location.href='destination/אדינבורו, הממלכה המאוחדת'">אדינבורו</p>
+							<p onclick="window.location.href='destination/דיסלדורף, גרמניה'">דיסלדורף</p>
+							<p onclick="window.location.href='destination/רודוס, יוון'">רודוס</p>
+							<p onclick="window.location.href='destination/ירוואן, ארמניה'">ירוואן</p>
+							<p onclick="window.location.href='destination/פירנצה, איטליה'">פירנצה</p>
+							<p onclick="window.location.href='destination/המבורג, גרמניה'">המבורג</p>
+							<p onclick="window.location.href='destination/הלסינקי, פינלנד'">הלסינקי</p>
+							<p onclick="window.location.href='destination/הרקליון, יוון'">הרקליון</p>
+							<p onclick="window.location.href='destination/פוקט, תאילנד'">פוקט</p>
+							<p onclick="window.location.href='destination/מיקונוס, יוון'">מיקונוס</p>
+							<p onclick="window.location.href='destination/סקיאתוס, יוון'">סקיאתוס</p>
+							<p onclick="window.location.href='destination/הונג קונג, סין'">הונג קונג</p>
+							<p onclick="window.location.href='destination/מרסיי, צרפת'">מרסיי</p>
+							<p onclick="window.location.href='destination/קוס, יוון'">קוס</p>
+							<p onclick="window.location.href='destination/טולום, מקסיקו'">טולום</p>
+							<p onclick="window.location.href='destination/קרקוב, פולין'">קרקוב</p>
+							<p onclick="window.location.href='destination/לאס וגאס, ארצות הברית'">לאס וגאס</p>
+							<p onclick="window.location.href='destination/סנט פטרסבורג, רוסיה'">סנט פטרסבורג</p>
+							<p onclick="window.location.href='destination/ליסבון, פורטוגל'">ליסבון</p>
 
 						</div>
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/לונדון, הממלכה המאוחדת'">לונדון, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/ליברפול, הממלכה המאוחדת'">ליברפול, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/ליון, צרפת'">ליון, צרפת</p>
-							<p onclick="window.location.href='destination/מדריד, ספרד'">מדריד, ספרד</p>
-							<p onclick="window.location.href='destination/מנצ'סטר, הממלכה המאוחדת'">מנצ'סטר, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/מלבורן, אוסטרליה'">מלבורן, אוסטרליה</p>
-							<p onclick="window.location.href='destination/מקסיקו סיטי, מקסיקו'">מקסיקו סיטי, מקסיקו</p>
-							<p onclick="window.location.href='destination/מיאמי, ארצות הברית'">מיאמי, ארצות הברית</p>
-							<p onclick="window.location.href='destination/מילאנו, איטליה'">מילאנו, איטליה</p>
-							<p onclick="window.location.href='destination/מנילה, הפיליפינים'">מנילה, הפיליפינים</p>
-							<p onclick="window.location.href='destination/מינכן, גרמניה'">מינכן, גרמניה</p>
-							<p onclick="window.location.href='destination/נאפולי, איטליה'">נאפולי, איטליה</p>
-							<p onclick="window.location.href='destination/נסאו, איי בהאמה'">נסאו, איי בהאמה</p>
-							<p onclick="window.location.href='destination/ניו יורק, ארצות הברית'">ניו יורק, ארצות הברית</p>
-							<p onclick="window.location.href='destination/פורטו, פורטוגל'">פורטו, פורטוגל</p>
-							<p onclick="window.location.href='destination/אוסקה, יפן'">אוסקה, יפן</p>
-							<p onclick="window.location.href='destination/אוסלו, נורווגיה'">אוסלו, נורווגיה</p>
-							<p onclick="window.location.href='destination/פריז, צרפת'">פריז, צרפת</p>
-							<p onclick="window.location.href='destination/פרת', אוסטרליה'">פרת', אוסטרליה</p>
-							<p onclick="window.location.href='destination/פאפוס, קפריסין'">פאפוס, קפריסין</p>
+							<p onclick="window.location.href='destination/לונדון, הממלכה המאוחדת'">לונדון</p>
+							<p onclick="window.location.href='destination/ליברפול, הממלכה המאוחדת'">ליברפול</p>
+							<p onclick="window.location.href='destination/ליון, צרפת'">ליון</p>
+							<p onclick="window.location.href='destination/מדריד, ספרד'">מדריד</p>
+							<p onclick="window.location.href='destination/מנצ'סטר, הממלכה המאוחדת'">מנצ'סטר</p>
+							<p onclick="window.location.href='destination/מלבורן, אוסטרליה'">מלבורן</p>
+							<p onclick="window.location.href='destination/מקסיקו סיטי, מקסיקו'">מקסיקו סיטי</p>
+							<p onclick="window.location.href='destination/מיאמי, ארצות הברית'">מיאמי</p>
+							<p onclick="window.location.href='destination/מילאנו, איטליה'">מילאנו</p>
+							<p onclick="window.location.href='destination/מנילה, הפיליפינים'">מנילה</p>
+							<p onclick="window.location.href='destination/מינכן, גרמניה'">מינכן</p>
+							<p onclick="window.location.href='destination/נאפולי, איטליה'">נאפולי</p>
+							<p onclick="window.location.href='destination/נסאו, איי בהאמה'">נסאו</p>
+							<p onclick="window.location.href='destination/ניו יורק, ארצות הברית'">ניו יורק</p>
+							<p onclick="window.location.href='destination/פורטו, פורטוגל'">פורטו</p>
+							<p onclick="window.location.href='destination/אוסקה, יפן'">אוסקה</p>
+							<p onclick="window.location.href='destination/אוסלו, נורווגיה'">אוסלו</p>
+							<p onclick="window.location.href='destination/פריז, צרפת'">פריז</p>
+							<p onclick="window.location.href='destination/פרת', אוסטרליה'">פרת'</p>
+							<p onclick="window.location.href='destination/פאפוס, קפריסין'">פאפוס</p>
 
 						</div>
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/פראג, צ'כיה'">פראג, צ'כיה</p>
-							<p onclick="window.location.href='destination/פנמה סיטי, פנמה'">פנמה סיטי, פנמה</p>
-							<p onclick="window.location.href='destination/מרקש, מרוקו'">מרקש, מרוקו</p>
-							<p onclick="window.location.href='destination/ריו דה ז'ניירו, ברזיל'">ריו דה ז'ניירו, ברזיל</p>
-							<p onclick="window.location.href='destination/רומא, איטליה'">רומא, איטליה</p>
-							<p onclick="window.location.href='destination/סאו פאולו, ברזיל'">סאו פאולו, ברזיל</p>
-							<p onclick="window.location.href='destination/סיאול, דרום קוריאה'">סיאול, דרום קוריאה</p>
-							<p onclick="window.location.href='destination/סינגפור, סינגפור'">סינגפור, סינגפור</p>
-							<p onclick="window.location.href='destination/סלוניקי, יוון'">סלוניקי, יוון</p>
-							<p onclick="window.location.href='destination/סטוקהולם, שוודיה'">סטוקהולם, שוודיה</p>
-							<p onclick="window.location.href='destination/שטוטגרט, גרמניה'">שטוטגרט, גרמניה</p>
-							<p onclick="window.location.href='destination/סביליה, ספרד'">סביליה, ספרד</p>
-							<p onclick="window.location.href='destination/סידני, אוסטרליה'">סידני, אוסטרליה</p>
-							<p onclick="window.location.href='destination/טביליסי, גאורגיה'">טביליסי, גאורגיה</p>
-							<p onclick="window.location.href='destination/טאיפיי, טייוואן'">טאיפיי, טייוואן</p>
-							<p onclick="window.location.href='destination/טוקיו, יפן'">טוקיו, יפן</p>
-							<p onclick="window.location.href='destination/ונציה, איטליה'">ונציה, איטליה</p>
-							<p onclick="window.location.href='destination/וינה, אוסטריה'">וינה, אוסטריה</p>
-							<p onclick="window.location.href='destination/ולנסיה, ספרד'">ולנסיה, ספרד</p>
-							<p onclick="window.location.href='destination/אמסטרדם, הולנד'">אמסטרדם, הולנד</p>
+							<p onclick="window.location.href='destination/פראג, צ'כיה'">פראג</p>
+							<p onclick="window.location.href='destination/פנמה סיטי, פנמה'">פנמה סיטי</p>
+							<p onclick="window.location.href='destination/מרקש, מרוקו'">מרקש</p>
+							<p onclick="window.location.href='destination/ריו דה ז'ניירו, ברזיל'">ריו דה ז'ניירו</p>
+							<p onclick="window.location.href='destination/רומא, איטליה'">רומא</p>
+							<p onclick="window.location.href='destination/סאו פאולו, ברזיל'">סאו פאולו</p>
+							<p onclick="window.location.href='destination/סיאול, דרום קוריאה'">סיאול</p>
+							<p onclick="window.location.href='destination/סינגפור, סינגפור'">סינגפור</p>
+							<p onclick="window.location.href='destination/סלוניקי, יוון'">סלוניקי</p>
+							<p onclick="window.location.href='destination/סטוקהולם, שוודיה'">סטוקהולם</p>
+							<p onclick="window.location.href='destination/שטוטגרט, גרמניה'">שטוטגרט</p>
+							<p onclick="window.location.href='destination/סביליה, ספרד'">סביליה</p>
+							<p onclick="window.location.href='destination/סידני, אוסטרליה'">סידני</p>
+							<p onclick="window.location.href='destination/טביליסי, גאורגיה'">טביליסי</p>
+							<p onclick="window.location.href='destination/טאיפיי, טייוואן'">טאיפיי</p>
+							<p onclick="window.location.href='destination/טוקיו, יפן'">טוקיו</p>
+							<p onclick="window.location.href='destination/ונציה, איטליה'">ונציה</p>
+							<p onclick="window.location.href='destination/וינה, אוסטריה'">וינה</p>
+							<p onclick="window.location.href='destination/ולנסיה, ספרד'">ולנסיה</p>
+							<p onclick="window.location.href='destination/אמסטרדם, הולנד'">אמסטרדם</p>
+						</div>
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/מונטריאול, קנדה'">מונטריאול</p>
+							<p onclick="window.location.href='destination/אוטווה, קנדה'">אוטווה</p>
+							<p onclick="window.location.href='destination/טורונטו, קנדה'">טורונטו</p>
+							<p onclick="window.location.href='destination/ונקובר, קנדה'">ונקובר</p>
+							<p onclick="window.location.href='destination/ציריך, שווייץ'">ציריך</p>
+							<p onclick="window.location.href='destination/אתונה, יוון'">אתונה</p>
+							<p onclick="window.location.href='destination/לוזאן, שווייץ'">לוזאן</p>
+							<p onclick="window.location.href='destination/אבו דאבי, איחוד האמירויות הערביות'">אבו דאבי</p>
+							<p onclick="window.location.href='destination/באקו, אזרבייג'ן'">באקו</p>
+							<p onclick="window.location.href='destination/ברצלונה, ספרד'">ברצלונה</p>
+							<p onclick="window.location.href='destination/לימסול, קפריסין'">לימסול</p>
+							<p onclick="window.location.href='destination/ברלין, גרמניה'">ברלין</p>
+							<p onclick="window.location.href='destination/בייג'ינג, סין'">בייג'ינג</p>
+							<p onclick="window.location.href='destination/זקינתוס, יוון'">זקינתוס</p>
+							<p onclick="window.location.href='destination/חאניה, יוון'">חאניה</p>
+							<p onclick="window.location.href='destination/פלאיה דל כרמן, מקסיקו'">פלאיה דל כרמן</p>
+							<p onclick="window.location.href='destination/אנטיגואה, גואטמלה'">אנטיגואה</p>
+							<p onclick="window.location.href='destination/קו סמוי, תאילנד'">קו סמוי</p>
+							<p onclick="window.location.href='destination/בנגקוק, תאילנד'">בנגקוק</p>
+							<p onclick="window.location.href='destination/לרנקה, קפריסין'">לרנקה</p>
 
 						</div>
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/מונטריאול, קנדה'">מונטריאול, קנדה</p>
-							<p onclick="window.location.href='destination/אוטווה, קנדה'">אוטווה, קנדה</p>
-							<p onclick="window.location.href='destination/טורונטו, קנדה'">טורונטו, קנדה</p>
-							<p onclick="window.location.href='destination/ונקובר, קנדה'">ונקובר, קנדה</p>
-							<p onclick="window.location.href='destination/ציריך, שווייץ'">ציריך, שווייץ</p>
-							<p onclick="window.location.href='destination/אתונה, יוון'">אתונה, יוון</p>
-							<p onclick="window.location.href='destination/לוזאן, שווייץ'">לוזאן, שווייץ</p>
-							<p onclick="window.location.href='destination/אבו דאבי, איחוד האמירויות הערביות'">אבו דאבי, איחוד האמירויות הערביות</p>
-							<p onclick="window.location.href='destination/באקו, אזרבייג'ן'">באקו, אזרבייג'ן</p>
-							<p onclick="window.location.href='destination/ברצלונה, ספרד'">ברצלונה, ספרד</p>
-							<p onclick="window.location.href='destination/לימסול, קפריסין'">לימסול, קפריסין</p>
-							<p onclick="window.location.href='destination/ברלין, גרמניה'">ברלין, גרמניה</p>
-							<p onclick="window.location.href='destination/בייג'ינג, סין'">בייג'ינג, סין</p>
-							<p onclick="window.location.href='destination/זקינתוס, יוון'">זקינתוס, יוון</p>
-							<p onclick="window.location.href='destination/חאניה, יוון'">חאניה, יוון</p>
-							<p onclick="window.location.href='destination/פלאיה דל כרמן, מקסיקו'">פלאיה דל כרמן, מקסיקו</p>
-							<p onclick="window.location.href='destination/אנטיגואה, גואטמלה'">אנטיגואה, גואטמלה</p>
-							<p onclick="window.location.href='destination/קו סמוי, תאילנד'">קו סמוי, תאילנד</p>
-							<p onclick="window.location.href='destination/בנגקוק, תאילנד'">בנגקוק, תאילנד</p>
-							<p onclick="window.location.href='destination/לרנקה, קפריסין'">לרנקה, קפריסין</p>
-
-						</div>
-						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/סופיה, בולגריה'">סופיה, בולגריה</p>
-							<p onclick="window.location.href='destination/בריסטול, הממלכה המאוחדת'">בריסטול, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/מונקו, מונקו'">מונקו, מונקו</p>
-							<p onclick="window.location.href='destination/דובאי, איחוד האמירויות הערביות'">דובאי, איחוד האמירויות הערביות</p>
-							<p onclick="window.location.href='destination/האנוי, וייטנאם'">האנוי, וייטנאם</p>
-							<p onclick="window.location.href='destination/בוקרשט, רומניה'">בוקרשט, רומניה</p>
-							<p onclick="window.location.href='destination/קפלוניה, יוון'">קפלוניה, יוון</p>
-							<p onclick="window.location.href='destination/בלגרד, סרביה'">בלגרד, סרביה</p>
-							<p onclick="window.location.href='destination/בורדו, צרפת'">בורדו, צרפת</p>
-							<p onclick="window.location.href='destination/בודפשט, הונגריה'">בודפשט, הונגריה</p>
-							<p onclick="window.location.href='destination/בואנוס איירס, ארגנטינה'">בואנוס איירס, ארגנטינה</p>
-							<p onclick="window.location.href='destination/קאן, צרפת'">קאן, צרפת</p>
-							<p onclick="window.location.href='destination/קורפו, יוון'">קורפו, יוון</p>
-							<p onclick="window.location.href='destination/קלן, גרמניה'">קלן, גרמניה</p>
-							<p onclick="window.location.href='destination/מקאו, סין'">מקאו, סין</p>
-							<p onclick="window.location.href='destination/קופנהגן, דנמרק'">קופנהגן, דנמרק</p>
-							<p onclick="window.location.href='destination/קייפטאון, דרום אפריקה'">קייפטאון, דרום אפריקה</p>
-							<p onclick="window.location.href='destination/קנקון, מקסיקו'">קנקון, מקסיקו</p>
-							<p onclick="window.location.href='destination/קאפרי, איטליה'">קאפרי, איטליה</p>
-							<p onclick="window.location.href='destination/גלזגו, סקוטלנד'">גלזגו, סקוטלנד</p>
+							<p onclick="window.location.href='destination/סופיה, בולגריה'">סופיה</p>
+							<p onclick="window.location.href='destination/בריסטול, הממלכה המאוחדת'">בריסטול</p>
+							<p onclick="window.location.href='destination/מונקו, מונקו'">מונקו</p>
+							<p onclick="window.location.href='destination/דובאי, איחוד האמירויות הערביות'">דובאי</p>
+							<p onclick="window.location.href='destination/האנוי, וייטנאם'">האנוי</p>
+							<p onclick="window.location.href='destination/בוקרשט, רומניה'">בוקרשט</p>
+							<p onclick="window.location.href='destination/קפלוניה, יוון'">קפלוניה</p>
+							<p onclick="window.location.href='destination/בלגרד, סרביה'">בלגרד</p>
+							<p onclick="window.location.href='destination/בורדו, צרפת'">בורדו</p>
+							<p onclick="window.location.href='destination/בודפשט, הונגריה'">בודפשט</p>
+							<p onclick="window.location.href='destination/בואנוס איירס, ארגנטינה'">בואנוס איירס</p>
+							<p onclick="window.location.href='destination/קאן, צרפת'">קאן</p>
+							<p onclick="window.location.href='destination/קורפו, יוון'">קורפו</p>
+							<p onclick="window.location.href='destination/קלן, גרמניה'">קלן</p>
+							<p onclick="window.location.href='destination/מקאו, סין'">מקאו</p>
+							<p onclick="window.location.href='destination/קופנהגן, דנמרק'">קופנהגן</p>
+							<p onclick="window.location.href='destination/קייפטאון, דרום אפריקה'">קייפטאון</p>
+							<p onclick="window.location.href='destination/קנקון, מקסיקו'">קנקון</p>
+							<p onclick="window.location.href='destination/קאפרי, איטליה'">קאפרי</p>
+							<p onclick="window.location.href='destination/גלזגו, סקוטלנד'">גלזגו</p>
 						</div>
 					</div>
 				</div>
@@ -501,118 +500,117 @@
 				<div class="menus-warp menus-ismobile">
 					<div class="menus" v-if="over">
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/קיוטו, יפן'">קיוטו, יפן</p>
-							<p onclick="window.location.href='destination/אדינבורו, הממלכה המאוחדת'">אדינבורו, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/דיסלדורף, גרמניה'">דיסלדורף, גרמניה</p>
-							<p onclick="window.location.href='destination/רודוס, יוון'">רודוס, יוון</p>
-							<p onclick="window.location.href='destination/ירוואן, ארמניה'">ירוואן, ארמניה</p>
-							<p onclick="window.location.href='destination/פירנצה, איטליה'">פירנצה, איטליה</p>
-							<p onclick="window.location.href='destination/המבורג, גרמניה'">המבורג, גרמניה</p>
-							<p onclick="window.location.href='destination/הלסינקי, פינלנד'">הלסינקי, פינלנד</p>
-							<p onclick="window.location.href='destination/הרקליון, יוון'">הרקליון, יוון</p>
-							<p onclick="window.location.href='destination/פוקט, תאילנד'">פוקט, תאילנד</p>
-							<p onclick="window.location.href='destination/מיקונוס, יוון'">מיקונוס, יוון</p>
-							<p onclick="window.location.href='destination/סקיאתוס, יוון'">סקיאתוס, יוון</p>
-							<p onclick="window.location.href='destination/הונג קונג, סין'">הונג קונג, סין</p>
-							<p onclick="window.location.href='destination/מרסיי, צרפת'">מרסיי, צרפת</p>
-							<p onclick="window.location.href='destination/קוס, יוון'">קוס, יוון</p>
-							<p onclick="window.location.href='destination/טולום, מקסיקו'">טולום, מקסיקו</p>
-							<p onclick="window.location.href='destination/קרקוב, פולין'">קרקוב, פולין</p>
-							<p onclick="window.location.href='destination/לאס וגאס, ארצות הברית'">לאס וגאס, ארצות הברית</p>
-							<p onclick="window.location.href='destination/סנט פטרסבורג, רוסיה'">סנט פטרסבורג, רוסיה</p>
-							<p onclick="window.location.href='destination/ליסבון, פורטוגל'">ליסבון, פורטוגל</p>
+							<p onclick="window.location.href='destination/קיוטו, יפן'">קיוטו</p>
+							<p onclick="window.location.href='destination/אדינבורו, הממלכה המאוחדת'">אדינבורו</p>
+							<p onclick="window.location.href='destination/דיסלדורף, גרמניה'">דיסלדורף</p>
+							<p onclick="window.location.href='destination/רודוס, יוון'">רודוס</p>
+							<p onclick="window.location.href='destination/ירוואן, ארמניה'">ירוואן</p>
+							<p onclick="window.location.href='destination/פירנצה, איטליה'">פירנצה</p>
+							<p onclick="window.location.href='destination/המבורג, גרמניה'">המבורג</p>
+							<p onclick="window.location.href='destination/הלסינקי, פינלנד'">הלסינקי</p>
+							<p onclick="window.location.href='destination/הרקליון, יוון'">הרקליון</p>
+							<p onclick="window.location.href='destination/פוקט, תאילנד'">פוקט</p>
+							<p onclick="window.location.href='destination/מיקונוס, יוון'">מיקונוס</p>
+							<p onclick="window.location.href='destination/סקיאתוס, יוון'">סקיאתוס</p>
+							<p onclick="window.location.href='destination/הונג קונג, סין'">הונג קונג</p>
+							<p onclick="window.location.href='destination/מרסיי, צרפת'">מרסיי</p>
+							<p onclick="window.location.href='destination/קוס, יוון'">קוס</p>
+							<p onclick="window.location.href='destination/טולום, מקסיקו'">טולום</p>
+							<p onclick="window.location.href='destination/קרקוב, פולין'">קרקוב</p>
+							<p onclick="window.location.href='destination/לאס וגאס, ארצות הברית'">לאס וגאס</p>
+							<p onclick="window.location.href='destination/סנט פטרסבורג, רוסיה'">סנט פטרסבורג</p>
+							<p onclick="window.location.href='destination/ליסבון, פורטוגל'">ליסבון</p>
 
 						</div>
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/לונדון, הממלכה המאוחדת'">לונדון, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/ליברפול, הממלכה המאוחדת'">ליברפול, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/ליון, צרפת'">ליון, צרפת</p>
-							<p onclick="window.location.href='destination/מדריד, ספרד'">מדריד, ספרד</p>
-							<p onclick="window.location.href='destination/מנצ'סטר, הממלכה המאוחדת'">מנצ'סטר, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/מלבורן, אוסטרליה'">מלבורן, אוסטרליה</p>
-							<p onclick="window.location.href='destination/מקסיקו סיטי, מקסיקו'">מקסיקו סיטי, מקסיקו</p>
-							<p onclick="window.location.href='destination/מיאמי, ארצות הברית'">מיאמי, ארצות הברית</p>
-							<p onclick="window.location.href='destination/מילאנו, איטליה'">מילאנו, איטליה</p>
-							<p onclick="window.location.href='destination/מנילה, הפיליפינים'">מנילה, הפיליפינים</p>
-							<p onclick="window.location.href='destination/מינכן, גרמניה'">מינכן, גרמניה</p>
-							<p onclick="window.location.href='destination/נאפולי, איטליה'">נאפולי, איטליה</p>
-							<p onclick="window.location.href='destination/נסאו, איי בהאמה'">נסאו, איי בהאמה</p>
-							<p onclick="window.location.href='destination/ניו יורק, ארצות הברית'">ניו יורק, ארצות הברית</p>
-							<p onclick="window.location.href='destination/פורטו, פורטוגל'">פורטו, פורטוגל</p>
-							<p onclick="window.location.href='destination/אוסקה, יפן'">אוסקה, יפן</p>
-							<p onclick="window.location.href='destination/אוסלו, נורווגיה'">אוסלו, נורווגיה</p>
-							<p onclick="window.location.href='destination/פריז, צרפת'">פריז, צרפת</p>
-							<p onclick="window.location.href='destination/פרת', אוסטרליה'">פרת', אוסטרליה</p>
-							<p onclick="window.location.href='destination/פאפוס, קפריסין'">פאפוס, קפריסין</p>
+							<p onclick="window.location.href='destination/לונדון, הממלכה המאוחדת'">לונדון</p>
+							<p onclick="window.location.href='destination/ליברפול, הממלכה המאוחדת'">ליברפול</p>
+							<p onclick="window.location.href='destination/ליון, צרפת'">ליון</p>
+							<p onclick="window.location.href='destination/מדריד, ספרד'">מדריד</p>
+							<p onclick="window.location.href='destination/מנצ'סטר, הממלכה המאוחדת'">מנצ'סטר</p>
+							<p onclick="window.location.href='destination/מלבורן, אוסטרליה'">מלבורן</p>
+							<p onclick="window.location.href='destination/מקסיקו סיטי, מקסיקו'">מקסיקו סיטי</p>
+							<p onclick="window.location.href='destination/מיאמי, ארצות הברית'">מיאמי</p>
+							<p onclick="window.location.href='destination/מילאנו, איטליה'">מילאנו</p>
+							<p onclick="window.location.href='destination/מנילה, הפיליפינים'">מנילה</p>
+							<p onclick="window.location.href='destination/מינכן, גרמניה'">מינכן</p>
+							<p onclick="window.location.href='destination/נאפולי, איטליה'">נאפולי</p>
+							<p onclick="window.location.href='destination/נסאו, איי בהאמה'">נסאו</p>
+							<p onclick="window.location.href='destination/ניו יורק, ארצות הברית'">ניו יורק</p>
+							<p onclick="window.location.href='destination/פורטו, פורטוגל'">פורטו</p>
+							<p onclick="window.location.href='destination/אוסקה, יפן'">אוסקה</p>
+							<p onclick="window.location.href='destination/אוסלו, נורווגיה'">אוסלו</p>
+							<p onclick="window.location.href='destination/פריז, צרפת'">פריז</p>
+							<p onclick="window.location.href='destination/פרת', אוסטרליה'">פרת'</p>
+							<p onclick="window.location.href='destination/פאפוס, קפריסין'">פאפוס</p>
 
 						</div>
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/פראג, צ'כיה'">פראג, צ'כיה</p>
-							<p onclick="window.location.href='destination/פנמה סיטי, פנמה'">פנמה סיטי, פנמה</p>
-							<p onclick="window.location.href='destination/מרקש, מרוקו'">מרקש, מרוקו</p>
-							<p onclick="window.location.href='destination/ריו דה ז'ניירו, ברזיל'">ריו דה ז'ניירו, ברזיל</p>
-							<p onclick="window.location.href='destination/רומא, איטליה'">רומא, איטליה</p>
-							<p onclick="window.location.href='destination/סאו פאולו, ברזיל'">סאו פאולו, ברזיל</p>
-							<p onclick="window.location.href='destination/סיאול, דרום קוריאה'">סיאול, דרום קוריאה</p>
-							<p onclick="window.location.href='destination/סינגפור, סינגפור'">סינגפור, סינגפור</p>
-							<p onclick="window.location.href='destination/סלוניקי, יוון'">סלוניקי, יוון</p>
-							<p onclick="window.location.href='destination/סטוקהולם, שוודיה'">סטוקהולם, שוודיה</p>
-							<p onclick="window.location.href='destination/שטוטגרט, גרמניה'">שטוטגרט, גרמניה</p>
-							<p onclick="window.location.href='destination/סביליה, ספרד'">סביליה, ספרד</p>
-							<p onclick="window.location.href='destination/סידני, אוסטרליה'">סידני, אוסטרליה</p>
-							<p onclick="window.location.href='destination/טביליסי, גאורגיה'">טביליסי, גאורגיה</p>
-							<p onclick="window.location.href='destination/טאיפיי, טייוואן'">טאיפיי, טייוואן</p>
-							<p onclick="window.location.href='destination/טוקיו, יפן'">טוקיו, יפן</p>
-							<p onclick="window.location.href='destination/ונציה, איטליה'">ונציה, איטליה</p>
-							<p onclick="window.location.href='destination/וינה, אוסטריה'">וינה, אוסטריה</p>
-							<p onclick="window.location.href='destination/ולנסיה, ספרד'">ולנסיה, ספרד</p>
-							<p onclick="window.location.href='destination/אמסטרדם, הולנד'">אמסטרדם, הולנד</p>
+							<p onclick="window.location.href='destination/פראג, צ'כיה'">פראג</p>
+							<p onclick="window.location.href='destination/פנמה סיטי, פנמה'">פנמה סיטי</p>
+							<p onclick="window.location.href='destination/מרקש, מרוקו'">מרקש</p>
+							<p onclick="window.location.href='destination/ריו דה ז'ניירו, ברזיל'">ריו דה ז'ניירו</p>
+							<p onclick="window.location.href='destination/רומא, איטליה'">רומא</p>
+							<p onclick="window.location.href='destination/סאו פאולו, ברזיל'">סאו פאולו</p>
+							<p onclick="window.location.href='destination/סיאול, דרום קוריאה'">סיאול</p>
+							<p onclick="window.location.href='destination/סינגפור, סינגפור'">סינגפור</p>
+							<p onclick="window.location.href='destination/סלוניקי, יוון'">סלוניקי</p>
+							<p onclick="window.location.href='destination/סטוקהולם, שוודיה'">סטוקהולם</p>
+							<p onclick="window.location.href='destination/שטוטגרט, גרמניה'">שטוטגרט</p>
+							<p onclick="window.location.href='destination/סביליה, ספרד'">סביליה</p>
+							<p onclick="window.location.href='destination/סידני, אוסטרליה'">סידני</p>
+							<p onclick="window.location.href='destination/טביליסי, גאורגיה'">טביליסי</p>
+							<p onclick="window.location.href='destination/טאיפיי, טייוואן'">טאיפיי</p>
+							<p onclick="window.location.href='destination/טוקיו, יפן'">טוקיו</p>
+							<p onclick="window.location.href='destination/ונציה, איטליה'">ונציה</p>
+							<p onclick="window.location.href='destination/וינה, אוסטריה'">וינה</p>
+							<p onclick="window.location.href='destination/ולנסיה, ספרד'">ולנסיה</p>
+							<p onclick="window.location.href='destination/אמסטרדם, הולנד'">אמסטרדם</p>
+						</div>
+						<div class="menus-li flex">
+							<p onclick="window.location.href='destination/מונטריאול, קנדה'">מונטריאול</p>
+							<p onclick="window.location.href='destination/אוטווה, קנדה'">אוטווה</p>
+							<p onclick="window.location.href='destination/טורונטו, קנדה'">טורונטו</p>
+							<p onclick="window.location.href='destination/ונקובר, קנדה'">ונקובר</p>
+							<p onclick="window.location.href='destination/ציריך, שווייץ'">ציריך</p>
+							<p onclick="window.location.href='destination/אתונה, יוון'">אתונה</p>
+							<p onclick="window.location.href='destination/לוזאן, שווייץ'">לוזאן</p>
+							<p onclick="window.location.href='destination/אבו דאבי, איחוד האמירויות הערביות'">אבו דאבי</p>
+							<p onclick="window.location.href='destination/באקו, אזרבייג'ן'">באקו</p>
+							<p onclick="window.location.href='destination/ברצלונה, ספרד'">ברצלונה</p>
+							<p onclick="window.location.href='destination/לימסול, קפריסין'">לימסול</p>
+							<p onclick="window.location.href='destination/ברלין, גרמניה'">ברלין</p>
+							<p onclick="window.location.href='destination/בייג'ינג, סין'">בייג'ינג</p>
+							<p onclick="window.location.href='destination/זקינתוס, יוון'">זקינתוס</p>
+							<p onclick="window.location.href='destination/חאניה, יוון'">חאניה</p>
+							<p onclick="window.location.href='destination/פלאיה דל כרמן, מקסיקו'">פלאיה דל כרמן</p>
+							<p onclick="window.location.href='destination/אנטיגואה, גואטמלה'">אנטיגואה</p>
+							<p onclick="window.location.href='destination/קו סמוי, תאילנד'">קו סמוי</p>
+							<p onclick="window.location.href='destination/בנגקוק, תאילנד'">בנגקוק</p>
+							<p onclick="window.location.href='destination/לרנקה, קפריסין'">לרנקה</p>
 
 						</div>
 						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/מונטריאול, קנדה'">מונטריאול, קנדה</p>
-							<p onclick="window.location.href='destination/אוטווה, קנדה'">אוטווה, קנדה</p>
-							<p onclick="window.location.href='destination/טורונטו, קנדה'">טורונטו, קנדה</p>
-							<p onclick="window.location.href='destination/ונקובר, קנדה'">ונקובר, קנדה</p>
-							<p onclick="window.location.href='destination/ציריך, שווייץ'">ציריך, שווייץ</p>
-							<p onclick="window.location.href='destination/אתונה, יוון'">אתונה, יוון</p>
-							<p onclick="window.location.href='destination/לוזאן, שווייץ'">לוזאן, שווייץ</p>
-							<p onclick="window.location.href='destination/אבו דאבי, איחוד האמירויות הערביות'">אבו דאבי, איחוד האמירויות הערביות</p>
-							<p onclick="window.location.href='destination/באקו, אזרבייג'ן'">באקו, אזרבייג'ן</p>
-							<p onclick="window.location.href='destination/ברצלונה, ספרד'">ברצלונה, ספרד</p>
-							<p onclick="window.location.href='destination/לימסול, קפריסין'">לימסול, קפריסין</p>
-							<p onclick="window.location.href='destination/ברלין, גרמניה'">ברלין, גרמניה</p>
-							<p onclick="window.location.href='destination/בייג'ינג, סין'">בייג'ינג, סין</p>
-							<p onclick="window.location.href='destination/זקינתוס, יוון'">זקינתוס, יוון</p>
-							<p onclick="window.location.href='destination/חאניה, יוון'">חאניה, יוון</p>
-							<p onclick="window.location.href='destination/פלאיה דל כרמן, מקסיקו'">פלאיה דל כרמן, מקסיקו</p>
-							<p onclick="window.location.href='destination/אנטיגואה, גואטמלה'">אנטיגואה, גואטמלה</p>
-							<p onclick="window.location.href='destination/קו סמוי, תאילנד'">קו סמוי, תאילנד</p>
-							<p onclick="window.location.href='destination/בנגקוק, תאילנד'">בנגקוק, תאילנד</p>
-							<p onclick="window.location.href='destination/לרנקה, קפריסין'">לרנקה, קפריסין</p>
-
-						</div>
-						<div class="menus-li flex">
-							<p onclick="window.location.href='destination/סופיה, בולגריה'">סופיה, בולגריה</p>
-							<p onclick="window.location.href='destination/בריסטול, הממלכה המאוחדת'">בריסטול, הממלכה המאוחדת</p>
-							<p onclick="window.location.href='destination/מונקו, מונקו'">מונקו, מונקו</p>
-							<p onclick="window.location.href='destination/דובאי, איחוד האמירויות הערביות'">דובאי, איחוד האמירויות הערביות</p>
-							<p onclick="window.location.href='destination/האנוי, וייטנאם'">האנוי, וייטנאם</p>
-							<p onclick="window.location.href='destination/בוקרשט, רומניה'">בוקרשט, רומניה</p>
-							<p onclick="window.location.href='destination/קפלוניה, יוון'">קפלוניה, יוון</p>
-							<p onclick="window.location.href='destination/בלגרד, סרביה'">בלגרד, סרביה</p>
-							<p onclick="window.location.href='destination/בורדו, צרפת'">בורדו, צרפת</p>
-							<p onclick="window.location.href='destination/בודפשט, הונגריה'">בודפשט, הונגריה</p>
-							<p onclick="window.location.href='destination/בואנוס איירס, ארגנטינה'">בואנוס איירס, ארגנטינה</p>
-							<p onclick="window.location.href='destination/קאן, צרפת'">קאן, צרפת</p>
-							<p onclick="window.location.href='destination/קורפו, יוון'">קורפו, יוון</p>
-							<p onclick="window.location.href='destination/קלן, גרמניה'">קלן, גרמניה</p>
-							<p onclick="window.location.href='destination/מקאו, סין'">מקאו, סין</p>
-							<p onclick="window.location.href='destination/קופנהגן, דנמרק'">קופנהגן, דנמרק</p>
-							<p onclick="window.location.href='destination/קייפטאון, דרום אפריקה'">קייפטאון, דרום אפריקה</p>
-							<p onclick="window.location.href='destination/קנקון, מקסיקו'">קנקון, מקסיקו</p>
-							<p onclick="window.location.href='destination/קאפרי, איטליה'">קאפרי, איטליה</p>
-							<p onclick="window.location.href='destination/גלזגו, סקוטלנד'">גלזגו, סקוטלנד</p>
+							<p onclick="window.location.href='destination/סופיה, בולגריה'">סופיה</p>
+							<p onclick="window.location.href='destination/בריסטול, הממלכה המאוחדת'">בריסטול</p>
+							<p onclick="window.location.href='destination/מונקו, מונקו'">מונקו</p>
+							<p onclick="window.location.href='destination/דובאי, איחוד האמירויות הערביות'">דובאי</p>
+							<p onclick="window.location.href='destination/האנוי, וייטנאם'">האנוי</p>
+							<p onclick="window.location.href='destination/בוקרשט, רומניה'">בוקרשט</p>
+							<p onclick="window.location.href='destination/קפלוניה, יוון'">קפלוניה</p>
+							<p onclick="window.location.href='destination/בלגרד, סרביה'">בלגרד</p>
+							<p onclick="window.location.href='destination/בורדו, צרפת'">בורדו</p>
+							<p onclick="window.location.href='destination/בודפשט, הונגריה'">בודפשט</p>
+							<p onclick="window.location.href='destination/בואנוס איירס, ארגנטינה'">בואנוס איירס</p>
+							<p onclick="window.location.href='destination/קאן, צרפת'">קאן</p>
+							<p onclick="window.location.href='destination/קורפו, יוון'">קורפו</p>
+							<p onclick="window.location.href='destination/קלן, גרמניה'">קלן</p>
+							<p onclick="window.location.href='destination/מקאו, סין'">מקאו</p>
+							<p onclick="window.location.href='destination/קופנהגן, דנמרק'">קופנהגן</p>
+							<p onclick="window.location.href='destination/קייפטאון, דרום אפריקה'">קייפטאון</p>
+							<p onclick="window.location.href='destination/קנקון, מקסיקו'">קנקון</p>
+							<p onclick="window.location.href='destination/קאפרי, איטליה'">קאפרי</p>
+							<p onclick="window.location.href='destination/גלזגו, סקוטלנד'">גלזגו</p>
 						</div>
 					</div>
 				</div>
